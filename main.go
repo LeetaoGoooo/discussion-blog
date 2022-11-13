@@ -78,7 +78,7 @@ func RemovePost(number int) {
 func main() {
 	var action string
 	var number int
-	flag.StringVar(&action, "action", "modify", "操作类型")
+	flag.StringVar(&action, "action", "locked", "操作类型")
 	flag.IntVar(&number, "number", -1, "对应的 discussion 的 number 值")
 	flag.Parse()
 

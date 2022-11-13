@@ -19,7 +19,7 @@ jobs:
     - name: when diuccsion locked or unlocked
       run: go mod tidy && go run main.go --action=$ACTION --number=$NUMBER
       env:
-        ACTION: ${{github.envent.action}}
+        ACTION: ${{github.event.action}}
         NUMBER: ${{github.event.discussion.number}}
         ACCSS_TOKEN: ${{secrets.ACCESS_TOKEN}}
         USER_NAME: ${{secrets.USER_NAME}}
