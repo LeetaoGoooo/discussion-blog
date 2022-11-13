@@ -85,7 +85,7 @@ func main() {
 	fmt.Printf("接受 action 为 %s, number 为 :%d\n", action, number)
 
 	switch action {
-	case "modify":
+	case "locked":
 		FetchPost(number)
 	case "unlocked":
 		RemovePost(number)
