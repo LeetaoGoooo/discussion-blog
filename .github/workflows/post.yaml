@@ -1,28 +1,37 @@
 name: Disucssion to Post
 on:
   discussion:
-    types: [locked, unlocked, edited]
+    types: [locked, unlocked]
 
 jobs:
-  prepare_go_env:
-    name: Setup go env
+  post_to_hexo:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-go@v3
+
+    - name: checkout
+      uses: actions/checkout@v3
+    
+    - name: setup go
+      uses: actions/setup-go@v3
       with:
         go-version-file: 'go.mod'
-      
-  discussion_locked_or_edited:
-    name: diuccsion locked or edited
-    if: ${{ github.event.discussion.locked}} | ${{ github.event.discussion.edited }}
-    - run: go main.go --action=modify --number=$Number
-      env:
-        Number: ${{github.event.discussion.number}
 
-  discussion_unlocked:
-    name: dicussion unlocked
-    if: ${{ github.event.discussion.unlocked}}
-    - run:  go main.go --action=unlocked --number=$Number
+    - name: when diuccsion locked
+      if: ${{ github.event.discussion.locked}}
+      run: go mod tidy && go run main.go --action=modify --number=$Number
       env:
         Number: ${{github.event.discussion.number}
+        ACCSS_TOKEN: ${{secrets.ACCESS_TOKEN}}
+        USER_NAME: ${{secrets.USER_NAME}}
+        SOURCE_REPO: ${{secrets.SOURCE_REPO}}
+        TARGET_REPO: ${{secrets.TARGET_REPO}}
+    
+    - name: dicussion unlocked
+      if: ${{ github.event.discussion.unlocked}}
+      run: go mod tidy && go run main.go --action=unlocked --number=$Number
+      env:
+        Number: ${{github.event.discussion.number}
+        ACCSS_TOKEN: ${{secrets.ACCESS_TOKEN}}
+        USER_NAME: ${{secrets.USER_NAME}}
+        SOURCE_REPO: ${{secrets.SOURCE_REPO}}
+        TARGET_REPO: ${{secrets.TARGET_REPO}}
