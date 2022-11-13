@@ -20,7 +20,7 @@ jobs:
       if: ${{ github.event.discussion.locked}}
       run: go mod tidy && go run main.go --action=modify --number=$Number
       env:
-        Number: ${{github.event.discussion.number}
+        Number: ${{github.event.discussion.number}}
         ACCSS_TOKEN: ${{secrets.ACCESS_TOKEN}}
         USER_NAME: ${{secrets.USER_NAME}}
         SOURCE_REPO: ${{secrets.SOURCE_REPO}}
@@ -30,7 +30,7 @@ jobs:
       if: ${{ github.event.discussion.unlocked}}
       run: go mod tidy && go run main.go --action=unlocked --number=$Number
       env:
-        Number: ${{github.event.discussion.number}
+        Number: ${{github.event.discussion.number}}
         ACCSS_TOKEN: ${{secrets.ACCESS_TOKEN}}
         USER_NAME: ${{secrets.USER_NAME}}
         SOURCE_REPO: ${{secrets.SOURCE_REPO}}
