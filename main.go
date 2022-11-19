@@ -84,6 +84,8 @@ func main() {
 
 	fmt.Printf("接受 action 为 %s, number 为 :%d\n", action, number)
 
+	fmt.Printf("相关环境变量为 user_name=%s,source_repo=%s,access_token=%s",os.Getenv("USER_NAME"), os.Getenv("SOURCE_REPO"), os.Getenv("ACCESS_TOKEN"))
+
 	switch action {
 	case "locked":
 		FetchPost(number)
