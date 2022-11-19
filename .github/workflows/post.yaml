@@ -21,7 +21,7 @@ jobs:
       env:
         ACTION: ${{github.event.action}}
         NUMBER: ${{github.event.discussion.number}}
-        ACCSS_TOKEN: ${{secrets.ACCESS_TOKEN}}
+        ACCESS_TOKEN: ${{secrets.ACCESS_TOKEN}}
         USER_NAME: ${{secrets.USER_NAME}}
         SOURCE_REPO: ${{secrets.SOURCE_REPO}}
         TARGET_REPO: ${{secrets.TARGET_REPO}}
