@@ -1,4 +1,4 @@
-from BingImageCreator import ImageGen
+from bing_image_creator import ImageGen
 from pathlib import Path
 import requests
 import telebot
@@ -9,12 +9,14 @@ import pytz
 
 bot = telebot.TeleBot(os.getenv("TG_TOKEN"))
 
-def genertor_image_by_bing_creator(cookie:str, prompt:str,  image_dir:str="tmp"):
+def genertor_image_by_bing_creator(prompt:str,  image_dir:str="tmp"):
     image_dir_path = Path(image_dir)
     if not image_dir_path.exists():
         image_dir_path.mkdir()
     try:
-        image_gen = ImageGen(cookie)
+        cookie = os.getenv("BING_TOKEN")
+        cookie_user = os.getenv("BING_USER")
+        image_gen = ImageGen(cookie, cookie_user)
         images = image_gen.get_images(prompt)
         image_gen.save_images(images, image_dir)
         image_index = randint(0, len(images)-1)
@@ -46,8 +48,7 @@ def send_message_to_channel():
     wake_up_time = f"今日起床时间:{datetime.datetime.now(time_zone).strftime('%Y-%m-%d %H:%M:%S')}"
     poem = get_poem()
     weather = get_weather()
-    cookie = os.getenv("BING_TOKEN")
-    image =  genertor_image_by_bing_creator(cookie, poem)
+    image =  genertor_image_by_bing_creator(poem)
     bot.send_photo(chat_id="-1001976160806", photo=image, caption=f'{wake_up_time}\n\n{weather}\n\n今日诗词:{poem}')
 
 
