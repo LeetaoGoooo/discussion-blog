@@ -18,7 +18,8 @@ def genertor_image_by_bing_creator(cookie:str, prompt:str,  image_dir:str="tmp")
         images = image_gen.get_images(prompt)
         image_gen.save_images(images, image_dir)
         image_index = randint(0, len(images)-1)
-    except:
+    except Exception as e:
+        print("**********error:*************", e)
         image_index = "default"
     return open(image_dir_path.joinpath(f'{image_index}.jpeg'), "rb")
 
