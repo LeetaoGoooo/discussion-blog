@@ -35,7 +35,7 @@ def get_weather():
     url = f'https://api.seniverse.com/v3/weather/now.json?key={api_key}&location=shanghai&language=zh-Hans&unit=c'
     resp = requests.get(url)
     if resp.status_code == 200:
-        resp_json = resp.json()
+        resp_json = resp.json()["results"][0]["now"]
         return f'今天天气:{resp_json["text"]},温度:{resp_json["temperature"]}度'
     else:
         return "今天天气:晴"
@@ -51,4 +51,4 @@ def send_message_to_channel():
 
 
 if __name__ == '__main__':
-    send_message_to_channel()
+    get_weather()
