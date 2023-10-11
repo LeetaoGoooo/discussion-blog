@@ -16,13 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Install dependencies
-        uses: VaultVulp/action-pipenv@v2.0.1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
-          command: install -d 
-
+          python-version: '3.10' 
+          cache: 'pip'
+      - run: pip install -r requirements.txt
       - name: WakeUp
-        uses: VaultVulp/action-pipenv@v2.0.1
-        with:
-          command: run wake-up.py
+      - run: python wakeup.py
