@@ -47,7 +47,7 @@ def send_message_to_channel():
     weather = get_weather()
     cookie = os.getenv("BING_TOKEN")
     image =  genertor_image_by_bing_creator(cookie, poem)
-    bot.send_photo(chat_id=os.getenv("CHAT_ID"), photo=image, caption=f'{wake_up_time}\n\n{weather}\n\n今日诗词:{poem}')
+    bot.send_photo(chat_id="-1001976160806", photo=image, caption=f'{wake_up_time}\n\n{weather}\n\n今日诗词:{poem}')
 
 
 if __name__ == '__main__':
