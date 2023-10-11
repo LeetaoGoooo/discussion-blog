@@ -51,4 +51,4 @@ def send_message_to_channel():
 
 
 if __name__ == '__main__':
-    get_weather()
+    send_message_to_channel()
