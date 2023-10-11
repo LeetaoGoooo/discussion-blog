@@ -1,0 +1,28 @@
+name: WakeUp
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+env:
+  TG_TOKEN: ${{ secrets.TG_TOKEN }}
+  TIME_ZONE: Asia/Shanghai
+  WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+  BING_TOKEN: ${{ secrets.BING_TOKEN }}
+
+jobs:
+  wake-up:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        uses: VaultVulp/action-pipenv@v2.0.1
+        with:
+          command: install -d 
+
+      - name: WakeUp
+        uses: VaultVulp/action-pipenv@v2.0.1
+        with:
+          command: run wake-up.py
