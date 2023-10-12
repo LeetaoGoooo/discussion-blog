@@ -6,8 +6,25 @@ import os
 from random import randint
 import datetime
 import pytz
+from dashscope import ImageSynthesis
 
 bot = telebot.TeleBot(os.getenv("TG_TOKEN"))
+
+
+def genertor_image_by_tongyi_wanxiang(prompt:str, image_dir:str="tmp"):
+    image_dir_path = Path(image_dir)
+    if not image_dir_path.exists():
+        image_dir_path.mkdir()
+    resp = ImageSynthesis.call(model=ImageSynthesis.Models.wanx_v1,
+                            prompt=prompt,
+                            n=1,
+                            size='1024*1024')
+    if resp.status_code != 200:
+        return open(image_dir_path.joinpath(f'default.jpeg'), "rb")
+    else:
+        result = resp.output.results[0]
+        return requests.get(result.url).content
+    
 
 def genertor_image_by_bing_creator(prompt:str,  image_dir:str="tmp"):
     image_dir_path = Path(image_dir)
@@ -48,8 +65,10 @@ def send_message_to_channel():
     wake_up_time = f"今日起床时间:{datetime.datetime.now(time_zone).strftime('%Y-%m-%d %H:%M:%S')}"
     poem = get_poem()
     weather = get_weather()
-    image =  genertor_image_by_bing_creator(poem)
-    bot.send_photo(chat_id="-1001976160806", photo=image, caption=f'{wake_up_time}\n\n{weather}\n\n今日诗词:{poem}')
+    # image =  genertor_image_by_bing_creator(poem)
+    # 通义万象
+    image = genertor_image_by_tongyi_wanxiang(poem)
+    bot.send_photo(chat_id=os.getenv("CHAT_ID"), photo=image, caption=f'{wake_up_time}\n\n{weather}\n\n今日诗词:{poem}')
 
 
 if __name__ == '__main__':
