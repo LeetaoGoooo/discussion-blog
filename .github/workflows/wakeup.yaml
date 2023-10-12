@@ -10,6 +10,8 @@ env:
   TIME_ZONE: Asia/Shanghai
   WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
   BING_TOKEN: ${{ secrets.BING_TOKEN }}
+  BING_USER: ${{ secrets.BING_USER }}
+  CHAT_ID: ${{ secrets.CHAT_ID }}
 
 jobs:
   wake-up:
