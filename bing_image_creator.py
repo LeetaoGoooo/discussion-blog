@@ -10,6 +10,9 @@ from functools import partial
 from typing import Dict
 from typing import List
 from typing import Union
+from http.cookies import SimpleCookie
+from requests.utils import cookiejar_from_dict
+
 
 import httpx
 import pkg_resources
@@ -71,22 +74,29 @@ class ImageGen:
     def __init__(
         self,
         auth_cookie: str,
-        auth_cookie_SRCHHPGUSR: str,
         debug_file: Union[str, None] = None,
         quiet: bool = False,
-        all_cookies: List[Dict] = None,
     ) -> None:
         self.session: requests.Session = requests.Session()
         self.session.headers = HEADERS
-        self.session.cookies.set("_U", auth_cookie)
-        self.session.cookies.set("SRCHHPGUSR", auth_cookie_SRCHHPGUSR)
-        if all_cookies:
-            for cookie in all_cookies:
-                self.session.cookies.set(cookie["name"], cookie["value"])
+        self.session.cookies = self.parse_cookie_string(auth_cookie)
         self.quiet = quiet
         self.debug_file = debug_file
         if self.debug_file:
             self.debug = partial(debug, self.debug_file)
+
+    @staticmethod
+    def parse_cookie_string(cookie_string):
+        cookie = SimpleCookie()
+        cookie.load(cookie_string)
+        cookies_dict = {}
+        cookiejar = None
+        for key, morsel in cookie.items():
+            cookies_dict[key] = morsel.value
+            cookiejar = cookiejar_from_dict(
+                cookies_dict, cookiejar=None, overwrite=True
+            )
+        return cookiejar
 
     def get_images(self, prompt: str) -> list:
         """

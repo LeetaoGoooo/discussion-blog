@@ -32,14 +32,12 @@ def genertor_image_by_bing_creator(prompt:str,  image_dir:str="tmp"):
         image_dir_path.mkdir()
     try:
         cookie = os.getenv("BING_TOKEN")
-        cookie_user = os.getenv("BING_USER")
-        image_gen = ImageGen(cookie, cookie_user)
+        image_gen = ImageGen(cookie)
         images = image_gen.get_images(prompt)
         image_gen.save_images(images, image_dir)
         image_index = randint(0, len(images)-1)
     except Exception as e:
-        print("**********error:*************", e)
-        image_index = "default"
+        raise e
     return open(image_dir_path.joinpath(f'{image_index}.jpeg'), "rb")
 
 
@@ -65,9 +63,11 @@ def send_message_to_channel():
     wake_up_time = f"今日起床时间:{datetime.datetime.now(time_zone).strftime('%Y-%m-%d %H:%M:%S')}"
     poem = get_poem()
     weather = get_weather()
-    # image =  genertor_image_by_bing_creator(poem)
-    # 通义万象
-    image = genertor_image_by_tongyi_wanxiang(poem)
+    try:
+        image =  genertor_image_by_bing_creator(poem)
+    except:
+        # 通义万象
+        image = genertor_image_by_tongyi_wanxiang(poem)
     bot.send_photo(chat_id=os.getenv("CHAT_ID"), photo=image, caption=f'{wake_up_time}\n\n{weather}\n\n今日诗词:{poem}')
 
 
