@@ -3,10 +3,10 @@ from pathlib import Path
 import requests
 import telebot
 import os
-from random import randint
 import datetime
 import pytz
 from dashscope import ImageSynthesis
+from telebot.types import InputMediaPhoto
 
 bot = telebot.TeleBot(os.getenv("TG_TOKEN"))
 
@@ -34,10 +34,12 @@ def genertor_image_by_bing_creator(prompt:str,  image_dir:str="tmp"):
         cookie = os.getenv("BING_TOKEN")
         image_gen = ImageGen(cookie)
         images = image_gen.get_images(prompt)
-        image_gen.save_images(images, image_dir)
-        image_index = randint(0, len(images)-1)
+        images = image_gen.get_images(prompt)
+        images = [InputMediaPhoto(image) for image in images]
+        return images
     except Exception as e:
-        raise e
+        print("error", e)
+        image_index = "default"
     return open(image_dir_path.joinpath(f'{image_index}.jpeg'), "rb")
 
 
@@ -64,11 +66,16 @@ def send_message_to_channel():
     poem = get_poem()
     weather = get_weather()
     try:
-        image =  genertor_image_by_bing_creator(poem)
+        image_or_images =  genertor_image_by_bing_creator(poem)
     except:
         # 通义万象
-        image = genertor_image_by_tongyi_wanxiang(poem)
-    bot.send_photo(chat_id=os.getenv("CHAT_ID"), photo=image, caption=f'{wake_up_time}\n\n{weather}\n\n今日诗词:{poem}')
+        image_or_images = genertor_image_by_tongyi_wanxiang(poem)
+    
+    if isinstance(image_or_images, list):
+        image_or_images[0].caption = f'{wake_up_time}\n\n{weather}\n\n今日诗词:{poem}'
+        bot.send_media_group(chat_id=os.getenv("CHAT_ID"), media=image_or_images)
+    else:
+        bot.send_photo(chat_id=os.getenv("CHAT_ID"), photo=image_or_images, caption=f'{wake_up_time}\n\n{weather}\n\n今日诗词:{poem}')
 
 
 if __name__ == '__main__':
