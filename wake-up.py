@@ -30,17 +30,13 @@ def genertor_image_by_bing_creator(prompt:str,  image_dir:str="tmp"):
     image_dir_path = Path(image_dir)
     if not image_dir_path.exists():
         image_dir_path.mkdir()
-    try:
-        cookie = os.getenv("BING_TOKEN")
-        image_gen = ImageGen(cookie)
-        images = image_gen.get_images(prompt)
-        images = image_gen.get_images(prompt)
-        images = [InputMediaPhoto(image) for image in images]
-        return images
-    except Exception as e:
-        print("error", e)
-        image_index = "default"
-    return open(image_dir_path.joinpath(f'{image_index}.jpeg'), "rb")
+    
+    cookie = os.getenv("BING_TOKEN")
+    image_gen = ImageGen(cookie)
+    images = image_gen.get_images(prompt)
+    images = image_gen.get_images(prompt)
+    images = [InputMediaPhoto(image) for image in images]
+    return images
 
 
 def get_poem():
