@@ -30,16 +30,12 @@ def genertor_image_by_bing_creator(prompt:str,  image_dir:str="tmp"):
     image_dir_path = Path(image_dir)
     if not image_dir_path.exists():
         image_dir_path.mkdir()
-    try:
-        cookie = os.getenv("BING_TOKEN")
-        image_gen = ImageGen(cookie)
-        images = image_gen.get_images(prompt)
-        images = [InputMediaPhoto(image) for image in images]
-        return images
-    except Exception as e:
-        print("error", e)
-        image_index = "default"
-    return open(image_dir_path.joinpath(f'{image_index}.jpeg'), "rb")
+    
+    cookie = os.getenv("BING_TOKEN")
+    image_gen = ImageGen(cookie)
+    images = image_gen.get_images(prompt)
+    images = [InputMediaPhoto(image) for image in images]
+    return images
 
 
 def get_poem():
@@ -76,11 +72,6 @@ def send_message_to_channel():
     else:
         bot.send_photo(chat_id=os.getenv("CHAT_ID"), photo=image_or_images, caption=f'{wake_up_time}\n\n{weather}\n\n今日诗词:{poem}')
 
-
-def send_message_to_feishu():
-    url = os.getenv("FEISHU","https://open.feishu.cn/open-apis/bot/v2/hook/689e8245-7e80-45b6-bfb0-b204723dd8d7")
-    
-    pass
 
 if __name__ == '__main__':
     send_message_to_channel()
