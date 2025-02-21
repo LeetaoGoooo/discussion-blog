@@ -1,5 +1,3 @@
-BingImageCreator-fork
-pytelegrambotapi==4.14.0
-pytz==2023.3.post1
-requests==2.31.0
-dashscope==1.11.0
+pytelegrambotapi
+edge-tts
+pytz

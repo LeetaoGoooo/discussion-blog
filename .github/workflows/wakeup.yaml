@@ -1,4 +1,4 @@
-name: WakeUp
+name: WhatIReadYesterday
 
 on:
   workflow_dispatch:
@@ -8,11 +8,7 @@ on:
 env:
   TG_TOKEN: ${{ secrets.TG_TOKEN }}
   TIME_ZONE: Asia/Shanghai
-  WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-  BING_TOKEN: ${{ secrets.BING_TOKEN }}
-  BING_USER: ${{ secrets.BING_USER }}
   CHAT_ID: ${{ secrets.CHAT_ID }}
-  DASHSCOPE_API_KEY : ${{ secrets.DASHSCOPE_API_KEY }}
 
 jobs:
   wake-up:
@@ -33,7 +29,7 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
       
-      - name: WakeUp
+      - name: WhatISawYesterday
         run: |
           source venv/bin/activate
-          python wake-up.py
+          python what-i-read-yesterday.py "${{ github.event.inputs.news }}"
