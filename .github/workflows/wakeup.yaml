@@ -2,6 +2,12 @@ name: WhatIReadYesterday
 
 on:
   workflow_dispatch:
+    inputs:
+      news:
+        description: 'Yesterday News Summary'
+        required: true
+        type: string
+
   push:
     branches:
       - main
@@ -32,4 +38,4 @@ jobs:
       - name: WhatISawYesterday
         run: |
           source venv/bin/activate
-          python what-i-read-yesterday.py "${{ github.event.inputs.news }}"
+          python what-i-read-yesterday.py "${{ inputs.news }}"
