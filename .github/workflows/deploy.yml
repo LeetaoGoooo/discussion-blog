@@ -17,19 +17,13 @@ jobs:
         with:
           go-version: 1.21
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
 
       - name: Install dependencies
         run: |
-          npm install
           go mod tidy
 
       - name: Build
         run: |
-          npm run build
           go run main.go generate
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
