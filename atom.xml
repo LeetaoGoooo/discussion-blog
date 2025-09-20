@@ -4,7 +4,7 @@
 	<subtitle>写有趣的代码，做有趣的事</subtitle>
 	<link href="https://www.leetao.me"/>
 	<link href="https://www.leetao.me/atom.xml" rel="self"/>
-	<updated>2025-09-20T12:34:29Z</updated>
+	<updated>2025-08-31T09:12:01Z</updated>
 	<id>https://www.leetao.me</id>
 	<author>
 		<name>Leetao</name>
@@ -12,14 +12,26 @@
 	</author>
 	
 	<entry>
-		<title>Test</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/271"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/271" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/271</id>
-		<published>2025-09-20T12:34:29Z</published>
-		<updated>2025-09-20T12:34:29Z</updated>
-		<summary type="html">Test
-</summary>
+		<title>关于</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/10</id>
+		<published>2022-12-04T10:20:50Z</published>
+		<updated>2022-12-04T10:20:50Z</updated>
+		<summary type="html">
+Enjoys writing interesting code, and doing fun things
+写有趣的代码，做有趣的事
+
+
+Program Language
+
+Python、Golang、Rust、Dart、Swift
+
+
+Hobbies
+
+Running、Swimming and Reading
+...</summary>
 	</entry>
 	
 	<entry>
@@ -45,33 +57,6 @@ TextEditor(text: $userInput)
 
 
 默认的样式�...</summary>
-	</entry>
-	
-	<entry>
-		<title>关于</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/10</id>
-		<published>2022-12-04T10:20:50Z</published>
-		<updated>2022-12-04T10:20:50Z</updated>
-		<summary type="html">
-Enjoys writing interesting code, and doing fun things
-
-
-Program Language
-
-Python、Golang、Rust、Dart、Swift
-
-
-Hobbies
-
-Running、Swimming and Reading
-
-
-Newsletter
-
-
-Leetao&amp;rsquo;s Space...</summary>
 	</entry>
 	
 	<entry>
