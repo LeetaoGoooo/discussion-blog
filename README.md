@@ -1,4 +1,4 @@
-# Pure Static Blog Generator
+# Discussion Blog
 
 A static site generator that uses GitHub Discussions as a CMS, built with Go.
 
@@ -44,20 +44,18 @@ A static site generator that uses GitHub Discussions as a CMS, built with Go.
 ### Prerequisites
 
 - Go 1.19 or higher
-- Node.js and npm (for Tailwind CSS)
 
 ### Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/pure-static-blog.git
-   cd pure-static-blog
+   git clone https://github.com/LeetaoGoooo/discussion-blog.git
+   cd discussion-blog
    ```
 
 2. Install dependencies:
    ```bash
    go mod tidy
-   npm install
    ```
 
 3. Configure the application by editing `config.yaml`:
@@ -84,9 +82,6 @@ This will generate the static site in the `content/` directory.
 ### Local Development
 
 ```bash
-# Generate CSS
-npm run build
-
 # Serve the site locally
 go run main.go serve
 ```
@@ -145,11 +140,6 @@ HTML templates are located in the `templates/` directory:
 - `search.html`: Search results template
 - `rss.xml`: RSS feed template
 
-### Styles
-
-CSS is generated using Tailwind CSS:
-1. Edit `constants/templates/css/input.css` to add custom styles
-2. Run `npm run build` to generate the final CSS
 
 ### JavaScript
 
