@@ -1,0 +1,19 @@
+github:
+  owner: "leetaogoooo"
+  repo: "discussion-blog"
+  token: ""
+
+site:
+  title: "Leetao"
+  description: "写有趣的代码，做有趣的事"
+  url: "https://www.leetao.me"
+  author: "Leetao"
+  email: "leetao@duck.com"
+  about_id: 10
+  giscus:
+    repo_id: "R_kgDOIOm9Yg"
+  favicon: "/favicon.svg"
+
+build:
+  outputDir: "content"
+  postsPerPage: 10
