@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导出有道词典单词本 - Leetao</title>
+    <meta name="description" content="## 更新 2023-10-26
+
+经由 @XYZ-99 提示才发现网页默认单词列表的只是【**我的单词本**】（猜测应该是默认的单词本，手机端...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>导出有道词典单词本</h1>
+            <p class="meta">
+                By LeetaoGoooo on August 6, 2023
+            </p>
+            
+            <div class="content">
+                <h2>更新 2023-10-26</h2>
+
+<p>经由 @XYZ-99 提示才发现网页默认单词列表的只是【<strong>我的单词本</strong>】（猜测应该是默认的单词本，手机端可以设置），对于多单词本的情况下脚本无法一次性导出，所以对网页有道词典再次研究，发现了获取单词本的接口，以及对现有的接口的推测，对原有导出脚本再次升级了，现导出脚本支持<strong>导出所有的单词本的所有单词</strong>，项目地址 <a href="https://github.com/LeetaoGoooo/export-youdao">export-youdao</a></p>
+
+<h1>前言</h1>
+
+<p>有道词典功能太多了，奈何我只想要一个查单词、背单词然后没有广告的软件，所以最后决定投入欧陆词典的怀抱，迁移到过程中突然发现竟然 Macos 和 IOS 的有道词典没有导出单词本的功能，只好自己动手了。</p>
+
+<h1>导出脚本</h1>
+
+<pre><code class="language-python">import browser_cookie3
+import requests
+import time
+import random
+from typing import TypedDict, List
+
+class Book(TypedDict):
+    bookName: str
+    bookId: str
+
+
+cj = browser_cookie3.chrome()
+
+
+def get_books() -&gt; List[Book]:
+    &quot;&quot;&quot;
+    获取所有的单词本列表
+    &quot;&quot;&quot;
+    url = &quot;https://dict.youdao.com/wordbook/webapi/v2/opts&quot;
+    resp = requests.get(url=url, cookies=cj)
+    if resp.status_code != 200:
+        print(&quot;请求有道单词本失败,请确保已经登录有道单词本: https://www.youdao.com/webwordbook/wordlist&quot;)
+        return []
+    response = resp.json()
+    print(&quot;获取单词本列表成功,累计获取{}个单词本&quot;.format(len(response[&quot;data&quot;][&quot;book&quot;])))
+    return response[&quot;data&quot;][&quot;book&quot;]
+
+
+def get_words_by_book(limit, offset,sort, book:Book):
+    url = &quot;https://dict.youdao.com/wordbook/webapi/v2/word/list&quot;
+    resp = requests.get(url=url,params={
+        &quot;limit&quot;: limit,
+        &quot;offset&quot;: offset,
+        &quot;sort&quot;: sort,
+        &quot;lanTo&quot;: None,
+        &quot;lanFrom&quot;: None,
+        &quot;bookId&quot;: book[&quot;bookId&quot;],
+    }, cookies=cj)
+    if resp.status_code != 200:
+        print(&quot;请求有道单词本失败,请确保已经登录有道单词本: https://www.youdao.com/webwordbook/wordlist&quot;)
+        return [], 0
+    
+    response = resp.json()
+    total = response[&quot;data&quot;][&quot;total&quot;]
+    words = response[&quot;data&quot;][&quot;itemList&quot;]
+    return [word[&quot;word&quot;] for word in words], total
+
+
+def export_book_words(book:Book, limit=48, offset=0, sort=&quot;time&quot;):
+    words, total = get_words_by_book(limit, offset, sort, book)
+
+    with open(&quot;words.txt&quot;, &quot;a+&quot;) as f:
+        f.write(&quot;\n&quot;.join(words))
+        f.write(&quot;\n&quot;)
+    
+    offset += limit
+    
+    print(&quot;当前导出单词本【{}】 进度: {}/{}&quot;.format(book[&quot;bookName&quot;], total if offset &gt; total else offset, total))
+
+    if offset  &gt; total:
+        print(f&quot;导出单词本【{book['bookName']}】完成&quot;)
+        return
+    
+    sleep_time = random.randint(1, 3)
+    print(&quot;休息{}秒&quot;.format(sleep_time))
+    time.sleep(sleep_time)
+
+    return export_book_words(book, limit, offset, sort)    
+
+def export_words_to_txt():
+    books = get_books()
+    if not books:
+        return
+    for book in books:
+        print(&quot;单词本: {}&quot;.format(book[&quot;bookName&quot;]))
+        export_book_words(book)
+        
+    
+
+if __name__ == &quot;__main__&quot;:
+    export_words_to_txt()
+</code></pre>
+
+<h1>运行截图</h1>
+
+<p><img width="337" alt="image" src="https://github.com/LeetaoGoooo/discussion-blog/assets/10162120/e05cc8a4-e4c9-47e9-abcb-cdbad0207aa5"></p>
+
+<p>最终导出一个 txt 文件，然后在欧路词典的网页端 <a href="https://my.eudic.net/studylist/import/">https://my.eudic.net/studylist/import/</a>  进行导入</p>
+
+<p><img width="1000" alt="image" src="https://github.com/LeetaoGoooo/discussion-blog/assets/10162120/419957e8-d136-4b3f-96f6-659f9660632f"></p>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">python</span>
+                
+                <span class="tag">有道词典</span>
+                
+                <span class="tag">爬虫</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="223"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

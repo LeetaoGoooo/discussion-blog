@@ -1,0 +1,2024 @@
+&lt;?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title>Leetao</title>
+	<subtitle>写有趣的代码，做有趣的事</subtitle>
+	<link href="https://www.leetao.me"/>
+	<link href="https://www.leetao.me/atom.xml" rel="self"/>
+	<updated>2025-09-20T12:23:46Z</updated>
+	<id>https://www.leetao.me</id>
+	<author>
+		<name>Leetao</name>
+		<email>leetao@duck.com</email>
+	</author>
+	
+	<entry>
+		<title>Test</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/270"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/270" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/270</id>
+		<published>2025-09-20T12:23:46Z</published>
+		<updated>2025-09-20T12:23:46Z</updated>
+		<summary type="html">Test
+</summary>
+	</entry>
+	
+	<entry>
+		<title>如何调整输入光标到 TextEditor 边框的距离</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/267"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/267" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/267</id>
+		<published>2025-08-31T09:12:01Z</published>
+		<updated>2025-08-31T09:12:01Z</updated>
+		<summary type="html">导言
+
+
+对于一个默认的 TextEditor：
+
+swift
+@State private var userInput: String = &amp;quot;&amp;quot;
+...
+TextEditor(text: $userInput)
+
+
+它的输入光标如下图
+
+
+
+默认的样式�...</summary>
+	</entry>
+	
+	<entry>
+		<title>关于</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/10</id>
+		<published>2022-12-04T10:20:50Z</published>
+		<updated>2022-12-04T10:20:50Z</updated>
+		<summary type="html">
+Enjoys writing interesting code, and doing fun things
+
+
+Program Language
+
+Python、Golang、Rust、Dart、Swift
+
+
+Hobbies
+
+Running、Swimming and Reading
+
+
+Newsletter
+
+
+Leetao&amp;rsquo;s Space...</summary>
+	</entry>
+	
+	<entry>
+		<title>野草—写在七月的尾巴</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/266"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/266" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/266</id>
+		<published>2025-07-31T02:25:45Z</published>
+		<updated>2025-07-31T02:25:45Z</updated>
+		<summary type="html">
+
+
+今天算是沾了台风的光又家居家办公了一天，居家办公效率有的时候是个谜，幸运地是，今天的效率还算蛮高的，截止到下班前把之前遗留的一些�...</summary>
+	</entry>
+	
+	<entry>
+		<title>SwiftUI popver 变成类似 sheet 效果</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/265"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/265" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/265</id>
+		<published>2025-07-21T02:15:22Z</published>
+		<updated>2025-07-21T02:15:22Z</updated>
+		<summary type="html">| 修改前效果 | 修改后效果 |
+|&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;&amp;ndash;|
+|  |  |
+
+
+
+
+结论
+
+popover 变成类似 sheet 的效果，是 SwiftUI 的预期行为，不是 Bug。
+
+
+�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Flutter WidgetsBindingObserver 详解</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/264"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/264" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/264</id>
+		<published>2025-05-21T12:22:58Z</published>
+		<updated>2025-05-21T12:22:58Z</updated>
+		<summary type="html">
+
+前言
+
+
+WidgetsBindingObserver 是 Flutter 中一个非常重要的接口，它允许你的 Flutter 应用监听和响应底层平台（操作系统）和 Flutter 引擎的各种生命周期事�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Full-Screen Issue With .Sheet</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/263"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/263" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/263</id>
+		<published>2025-04-20T08:06:01Z</published>
+		<updated>2025-04-20T08:06:01Z</updated>
+		<summary type="html">前言
+
+
+之前的 PromptHub 有个 Setting 页面，用来展示自定义配置的，预期是点击配置按钮，然后希望 Setting 页面可以完整展示
+
+
+
+但是实际的展示效果�...</summary>
+	</entry>
+	
+	<entry>
+		<title>libreoffice-convert may not work as expected in Docker</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/262"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/262" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/262</id>
+		<published>2025-04-15T03:22:43Z</published>
+		<updated>2025-04-15T03:22:43Z</updated>
+		<summary type="html">Recently, we tried converting Office documents to PDF using libreoffice-convert. It worked well on the local machine, but when run inside Docker, everything broke — the PDFs were filled with white b...</summary>
+	</entry>
+	
+	<entry>
+		<title>Download a Google Drive file using the `drive.file` scope</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/261"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/261" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/261</id>
+		<published>2025-04-07T10:00:24Z</published>
+		<updated>2025-04-07T10:00:24Z</updated>
+		<summary type="html">drive.readonly 方便，但是被拒绝了
+
+
+ 最近的项目有个需求就是将用户的 Google Drive 的文件导出到我们自己的应用。从 Google Drive 的文档看下载的逻辑并不�...</summary>
+	</entry>
+	
+	<entry>
+		<title>NSEvent.addGlobalMonitorForEvents vs CGEventTapCreate</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/260"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/260" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/260</id>
+		<published>2025-04-06T12:52:30Z</published>
+		<updated>2025-04-06T12:52:30Z</updated>
+		<summary type="html">
+
+
+最近想做个 Apple Note 的强化工具，市面上虽然有了，但是还是想着自己去实践一下，毕竟有的是软件而不是知识。纸上得来终觉浅。想要实现的功�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Swift 中 CGEvent 的使用</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/259"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/259" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/259</id>
+		<published>2025-04-06T10:16:42Z</published>
+		<updated>2025-04-06T10:16:42Z</updated>
+		<summary type="html">CGEvent 
+
+
+CGEvent 的定义如下：
+
+&amp;gt; Defines an opaque type that represents a low-level hardware event.
+
+通常用来表示低级别用户输入事件的核心数据类型，我们可以�...</summary>
+	</entry>
+	
+	<entry>
+		<title>三月野草</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/258"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/258" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/258</id>
+		<published>2025-04-03T12:00:55Z</published>
+		<updated>2025-04-03T12:00:55Z</updated>
+		<summary type="html">
+
+转眼又是一个月底，之前也一直想写点什么的。三月并不是这里的重心，这只是一个简单的随笔，如果需要一个主题的话，我想应该是，框架的构建�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Issue with UTF-8 characters in filename  in multer</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/257"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/257" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/257</id>
+		<published>2025-03-10T02:22:10Z</published>
+		<updated>2025-03-10T02:22:10Z</updated>
+		<summary type="html">
+
+Solution
+
+
+ts
+file.originalname = Buffer.from(file.originalname, &#39;latin1&#39;).toString(&#39;utf8&#39;)
+
+
+
+References
+
+
+1. ssue with UTF-8 characters in filename
+
+2. Wrong encoding in originalname co...</summary>
+	</entry>
+	
+	<entry>
+		<title>飞书多维表格 &#43; Github Action = 播客？</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/256"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/256" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/256</id>
+		<published>2025-02-22T08:30:40Z</published>
+		<updated>2025-02-22T08:30:40Z</updated>
+		<summary type="html">通过飞书多维表格的自动化将收藏的文章再加工一次，将昨天收藏的文章借由 AI 去总结成一个简短的 5 分钟左右的文章，然后同时将总结的文章转成语�...</summary>
+	</entry>
+	
+	<entry>
+		<title>快捷指令 &#43; Dify &#43;飞书多维表格 = 稍后阅读</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/255"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/255" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/255</id>
+		<published>2025-02-16T07:36:18Z</published>
+		<updated>2025-02-16T07:36:18Z</updated>
+		<summary type="html">前言
+
+
+之前折腾好多个稍后阅读软件：Pocket、Notion、instapaper、Matter 以及 Omnivore，后来 Omnivore 停服，又一度迁移回到了 Pocket。最近恰好赶上 Deepseek 热�...</summary>
+	</entry>
+	
+	<entry>
+		<title>React 文件上传后无法再次上传</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/254"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/254" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/254</id>
+		<published>2025-02-11T12:20:25Z</published>
+		<updated>2025-02-11T12:20:25Z</updated>
+		<summary type="html">前几天碰到一个 Bug，就是文件上传之后，不能再次上传了，除非刷新页面。最初的代码是类似这样子的
+
+tsx     
+ &amp;lt;input
+      type=&amp;quot;file&amp;quot;
+      onC...</summary>
+	</entry>
+	
+	<entry>
+		<title>你无法说服用户喜欢上自己其实也很少使用的软件</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/253"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/253" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/253</id>
+		<published>2025-01-04T14:03:58Z</published>
+		<updated>2025-01-04T14:03:58Z</updated>
+		<summary type="html">
+
+
+又是周六惯例，在咖啡店一杯咖啡工作一下午的节奏。目前正在着手写 TextTerra 的 1.1.0 版本，上个版本是 1.0.3 版本，从发布到现在已经更新了三个�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Unable to drag and drop the image as similar to the div component</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/252"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/252" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/252</id>
+		<published>2024-12-27T07:39:45Z</published>
+		<updated>2024-12-27T07:39:45Z</updated>
+		<summary type="html">TL;DR
+
+
+jsx
+ &amp;lt;img draggable={false}  /&amp;gt;
+
+
+
+Intro
+
+
+Lately, I’ve been working on implementing a drag-and-drop feature using @atlaskit/pragmatic-drag-and-drop. The draggable items I’ve...</summary>
+	</entry>
+	
+	<entry>
+		<title>2024年-年终总结</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/251"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/251" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/251</id>
+		<published>2024-12-21T14:08:19Z</published>
+		<updated>2024-12-21T14:08:19Z</updated>
+		<summary type="html">小的时候怕黑，所以喜欢冬至，因为冬至之后再无长夜，所以就趁着这个特殊的节日，把今年的年终总结写了。
+
+
+
+
+
+
+
+
+
+
+
+
+五张图片基本上概括...</summary>
+	</entry>
+	
+	<entry>
+		<title>How to know if text reaches the line limit in SwiftUI?</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/249"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/249" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/249</id>
+		<published>2024-11-12T13:45:17Z</published>
+		<updated>2024-11-12T13:45:17Z</updated>
+		<summary type="html">
+swift
+// to see if text reaches the limit
+@State private var isTruncated = false
+
+Text(&amp;quot;text content&amp;quot;)
+        .font(.body)
+        .lineLimit（3) // your own limit
+        .backgr...</summary>
+	</entry>
+	
+	<entry>
+		<title>Functional vs. Direct Update In React</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/248"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/248" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/248</id>
+		<published>2024-10-29T12:57:33Z</published>
+		<updated>2024-10-29T12:57:33Z</updated>
+		<summary type="html">TL;DR
+
+
+It&amp;rsquo;s recommended to use Functional State Update in React.
+
+
+Intro
+
+
+Lately, i&amp;rsquo;ve been working on React stuff. And once i made pr, what contains code like the one below
+
+tsx...</summary>
+	</entry>
+	
+	<entry>
+		<title>读书与偏见</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/247"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/247" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/247</id>
+		<published>2024-10-27T13:38:22Z</published>
+		<updated>2024-10-27T13:38:22Z</updated>
+		<summary type="html">读书本来的目的是为了拓宽视野的，但是有的时候也会让自己产生偏见。对一个领域的新人来说，或者是某个作者的狂热粉丝来说，偏见更是容易产生�...</summary>
+	</entry>
+	
+	<entry>
+		<title>A Discord bot sent an image with Chinese characters, which caused garbled text issues</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/246"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/246" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/246</id>
+		<published>2024-10-02T13:42:38Z</published>
+		<updated>2024-10-02T13:42:38Z</updated>
+		<summary type="html">TL;DR
+
+
+How to make Chinese characters display properly on Chromium. All of these issues due to font weren&amp;rsquo;t installed. 
+
+
+
+Intro
+
+
+
+
+These two days i&amp;rsquo;ve been working on a discord...</summary>
+	</entry>
+	
+	<entry>
+		<title>流水帐之武功山反穿</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/245"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/245" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/245</id>
+		<published>2024-09-13T10:56:28Z</published>
+		<updated>2024-09-13T10:56:28Z</updated>
+		<summary type="html">总算在上周也就是九月的第一个周末完成了武功山的反穿，历时两天，徒步距离累计 26 km，第一天爬升 1.6 km，第二天 1.8 km。Todo 列表中又有一项被成功�...</summary>
+	</entry>
+	
+	<entry>
+		<title>RSSAid 3.0.0 发布</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/244"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/244" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/244</id>
+		<published>2024-07-21T01:03:51Z</published>
+		<updated>2024-07-21T01:03:51Z</updated>
+		<summary type="html">时隔2年多再次对之前的开源的软件进行了更新, RSSAid 从两年前的 v1.6.5 版本来到了 v3.0.0.
+
+
+
+不难看出两年前的最后的一个版本使用的人数最多，也是�...</summary>
+	</entry>
+	
+	<entry>
+		<title>How to determine if side panel is open or not?</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/243"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/243" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/243</id>
+		<published>2024-07-01T12:39:18Z</published>
+		<updated>2024-07-01T12:39:18Z</updated>
+		<summary type="html">TL;DR, side panel is a new feature in chrome 114+ and MV3. However there is no official API to   detect if side panel is open or not, but we can implement it by using chrome.runtime.connect
+
+
+
+
+AP...</summary>
+	</entry>
+	
+	<entry>
+		<title>How to release Android Apk without sign using github action</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/242"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/242" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/242</id>
+		<published>2024-06-09T13:10:03Z</published>
+		<updated>2024-06-09T13:10:03Z</updated>
+		<summary type="html">Recently, i upgraded the dependencies of my Flutter project and migrated project to Material Design 3. Everything went well util i tried to release a new version. Some dependencies require Gradle 7+, ...</summary>
+	</entry>
+	
+	<entry>
+		<title>SocketException: Connection failed (OS Error: Operation not permitted, errno = 1)</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/241"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/241" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/241</id>
+		<published>2024-06-05T02:57:02Z</published>
+		<updated>2024-06-05T02:57:02Z</updated>
+		<summary type="html">Recently,  i used flutter to build a macOS app. For some reasons, the data required by application  need to fetch from internet. Thus, i chose the Dio package for this purpose. However, something stra...</summary>
+	</entry>
+	
+	<entry>
+		<title>Python 的 __pycache__</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/240"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/240" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/240</id>
+		<published>2024-06-02T12:16:49Z</published>
+		<updated>2024-06-02T12:16:49Z</updated>
+		<summary type="html"># 前言
+
+
+
+ 在实际运行 Python 项目过程中时长可以看见一个名为 __pycache__ 的文件夹，那么就有这几个问题了：
+	
+ 1. __pycache__ 缓存了什么东西？
+ 2. __p...</summary>
+	</entry>
+	
+	<entry>
+		<title>三十而立，三十而已</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/239"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/239" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/239</id>
+		<published>2024-05-27T13:24:04Z</published>
+		<updated>2024-05-27T13:24:04Z</updated>
+		<summary type="html">
+
+三十而立，我想是每个中国人都能够耳熟能详的一句话，以至于三十岁这年被大家赋予了很多不一样的期许。作为普通人的一员我也免不了俗，三十�...</summary>
+	</entry>
+	
+	<entry>
+		<title>读后感-爱的五种语言</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/237"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/237" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/237</id>
+		<published>2024-05-19T10:55:55Z</published>
+		<updated>2024-05-19T10:55:55Z</updated>
+		<summary type="html">
+💡 要表达爱；永远不嫌迟。    
+    
+ 每年都会挑几本有关亲密关系的的书看一下，今年选择了爱的五种语言，通读下来，我可以毫不客气地说这是今�...</summary>
+	</entry>
+	
+	<entry>
+		<title>五一随笔 - 老家的朋友</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/236"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/236" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/236</id>
+		<published>2024-05-17T11:11:51Z</published>
+		<updated>2024-05-17T11:11:51Z</updated>
+		<summary type="html">
+
+&amp;gt; 这是一篇迟到很多天的随笔
+
+人生就是很奇妙，小的时候被爸爸妈妈管着不让乱跑，却天天都可以和朋友见面，后来长大了开始工作了，老爸老�...</summary>
+	</entry>
+	
+	<entry>
+		<title>chrome.tabs.onUpdated was called twice</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/235"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/235" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/235</id>
+		<published>2024-04-10T13:51:34Z</published>
+		<updated>2024-04-10T13:51:34Z</updated>
+		<summary type="html">Intro
+
+
+Lately, I&amp;rsquo;ve been working on a browser extension. While developing, I ran into an issue where chrome.tabs.onUpdated.addListener was triggered twice upon tab refresh. It seems odd.
+
+
+...</summary>
+	</entry>
+	
+	<entry>
+		<title>Swift fileprivate vs private</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/234"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/234" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/234</id>
+		<published>2024-02-22T01:53:47Z</published>
+		<updated>2024-02-22T01:53:47Z</updated>
+		<summary type="html">fileprivate 和 private 主要区别在于作用域，对于 fileprivate 修饰的变量，只要在变量声明的所在的文件这个变量都可以被访问到；而 private 则只可以在它声�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Go 测试中如何实现 setUp 和 tearDown 功能</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/233"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/233" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/233</id>
+		<published>2024-01-22T09:41:08Z</published>
+		<updated>2024-01-22T09:41:08Z</updated>
+		<summary type="html">前言
+
+在实际写 Go 的单元测试过程中，我们有时候需要在执行测试之前调用 setUp 函数（加载配置完成初始化操作）和测试执行之后执行 tearDown 函数（�...</summary>
+	</entry>
+	
+	<entry>
+		<title>清醒地活: 超越自我的生命之旅</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/232"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/232" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/232</id>
+		<published>2024-01-16T01:01:07Z</published>
+		<updated>2024-01-16T01:01:07Z</updated>
+		<summary type="html">一个人的大部分烦恼都来自于自己。我们会因为很多事情产生不同的情绪，这点是无法避免的，但是如果随意的被情绪左右的话，烦恼自然也就随之而�...</summary>
+	</entry>
+	
+	<entry>
+		<title>2023年终总结</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/231"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/231" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/231</id>
+		<published>2023-12-23T11:44:38Z</published>
+		<updated>2023-12-23T11:44:38Z</updated>
+		<summary type="html">
+
+
+
+三张截图图片基本概括了我这一年除工作之外的大部分事情，微信读书截止到 2023.12.23 累计读书 68 本（如果要推荐三本书的话，我应该会推荐：1....</summary>
+	</entry>
+	
+	<entry>
+		<title>自动同步豆瓣图书封面到 Notion 的读书笔记</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/14"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/14" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/14</id>
+		<published>2023-02-12T08:22:14Z</published>
+		<updated>2023-02-12T08:22:14Z</updated>
+		<summary type="html">TL;DR
+
+可以通过以下脚本实现同步封面到 Notion 读书笔记
+
+python
+from typing import List, TypedDict
+import requests
+import os
+
+database_id = os.getenv(&amp;quot;database_id&amp;quot;)...</summary>
+	</entry>
+	
+	<entry>
+		<title>open extension popup when click on context menu</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/230"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/230" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/230</id>
+		<published>2023-11-28T13:36:59Z</published>
+		<updated>2023-11-28T13:36:59Z</updated>
+		<summary type="html">
+Recently, I&amp;rsquo;ve been working on a browser extension and hoping to implement a feature where a popup can be displayed when the user clicks the context menu. After researching this, i&amp;rsquo;m do ...</summary>
+	</entry>
+	
+	<entry>
+		<title>VoiceBox Feedback</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/224"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/224" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/224</id>
+		<published>2023-09-06T08:50:59Z</published>
+		<updated>2023-09-06T08:50:59Z</updated>
+		<summary type="html">VoiceBox Feedback
+</summary>
+	</entry>
+	
+	<entry>
+		<title>导出有道词典单词本</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/223"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/223" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/223</id>
+		<published>2023-08-06T08:46:34Z</published>
+		<updated>2023-08-06T08:46:34Z</updated>
+		<summary type="html">更新 2023-10-26
+
+
+经由 @XYZ-99 提示才发现网页默认单词列表的只是【我的单词本】（猜测应该是默认的单词本，手机端可以设置），对于多单词本的情况�...</summary>
+	</entry>
+	
+	<entry>
+		<title>FetchRequest 数据排序</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/228"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/228" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/228</id>
+		<published>2023-10-20T07:22:20Z</published>
+		<updated>2023-10-20T07:22:20Z</updated>
+		<summary type="html">在 SwiftUI 中我们可以通过 @FetchRequest 的方式从 Core Data 获取保存的数据，但是默认的数据并不保证会被排序
+
+swift
+   @FetchRequest(sortDescriptors: []) private var...</summary>
+	</entry>
+	
+	<entry>
+		<title>2023年博客折腾记</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/226"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/226" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/226</id>
+		<published>2023-09-24T09:38:05Z</published>
+		<updated>2023-09-24T09:38:05Z</updated>
+		<summary type="html">
+
+每年总有一段时间想折腾一下博客，今年的博客历时三天总算折腾结束了。之前的博客是自己基于 Github Discussion 开发的，使用的语言是 Go，今年也不...</summary>
+	</entry>
+	
+	<entry>
+		<title>Record voice in the background SwiftUI</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/225"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/225" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/225</id>
+		<published>2023-09-18T05:39:16Z</published>
+		<updated>2023-09-18T05:39:16Z</updated>
+		<summary type="html">Currently, I am working on VoiceBox, which is an application based on Whisper that can transcribe audio offline. To enable this, I needed to build an app that can record audio in the background. After...</summary>
+	</entry>
+	
+	<entry>
+		<title>滴滴行程分享 Api</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/28"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/28" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/28</id>
+		<published>2023-07-16T08:31:35Z</published>
+		<updated>2023-07-16T08:31:35Z</updated>
+		<summary type="html">分享一个很久之前写的一个关于滴滴行程的脚本，脚本的主要功能是根据滴滴行程分享的 url 获取订单情况，通过定时轮询还可以获取乘客到目的地的距...</summary>
+	</entry>
+	
+	<entry>
+		<title>说说 Django orm 的 bulk_update</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/222"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/222" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/222</id>
+		<published>2023-07-16T08:33:52Z</published>
+		<updated>2023-07-16T08:33:52Z</updated>
+		<summary type="html">
+以下例子以 mysql 为准
+
+
+前言
+
+django orm 中关于更新，有两种操作分别是：
+  1. update
+  2. bulk_update
+
+对于 create 和 bulk_create 这俩类，毫无疑问存在大量数据�...</summary>
+	</entry>
+	
+	<entry>
+		<title>设计模式 -【Python篇】</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/221"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/221" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/221</id>
+		<published>2023-07-16T08:33:51Z</published>
+		<updated>2023-07-16T08:33:51Z</updated>
+		<summary type="html">专题目标
+
+借由 Python 梳理 23 个常用的设计模式
+
+支持我
+
+
+关注我的公众号 【桃子的学习笔记】
+将文章分享给别人
+
+
+正文内容
+
+
+设计模式-导言【Python篇�...</summary>
+	</entry>
+	
+	<entry>
+		<title>让Flask-admin支持markdown编辑器</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/220"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/220" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/220</id>
+		<published>2023-07-16T08:33:50Z</published>
+		<updated>2023-07-16T08:33:50Z</updated>
+		<summary type="html">前言
+
+flask-admin 算是一个很不错的 flask 后台管理了,用它来做博客系统的管理后端再合适不过了,节约时间成本,避免重复造轮子,但是作为一个程序员,写文...</summary>
+	</entry>
+	
+	<entry>
+		<title>计算1-866278171中奇数列中3出现的个数</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/219"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/219" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/219</id>
+		<published>2023-07-16T08:33:49Z</published>
+		<updated>2023-07-16T08:33:49Z</updated>
+		<summary type="html">关于 计算1至N中X出现的个数
+&amp;gt; 编程之美上给出的规律：
+1.如果第i位（自右至左，从1开始标号）上的数字为0，则第i位可能出现1的次数由更高位决定�...</summary>
+	</entry>
+	
+	<entry>
+		<title>解决 openpyxl 垂直分页符和水平分页符同时添加的问题</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/218"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/218" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/218</id>
+		<published>2023-07-16T08:33:48Z</published>
+		<updated>2023-07-16T08:33:48Z</updated>
+		<summary type="html">前言
+
+十天前知乎上有人提问 python:openpyxl模块怎么给表格添加分页符？实现分页打印功能？,看到问题之后,我很快的给他了一个如何添加垂直分页符或水...</summary>
+	</entry>
+	
+	<entry>
+		<title>装饰模式</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/217"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/217" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/217</id>
+		<published>2023-07-16T08:33:47Z</published>
+		<updated>2023-07-16T08:33:47Z</updated>
+		<summary type="html">之前写Python的时候，用到了装饰器，然后不由自主想到了设计模式中的装饰模式，正好最近一直在看设计模式，就记录下自己的一些理解。如有错误，�...</summary>
+	</entry>
+	
+	<entry>
+		<title>编写可维护的JavaScript-第二章(注释)笔记</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/216"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/216" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/216</id>
+		<published>2023-07-16T08:33:45Z</published>
+		<updated>2023-07-16T08:33:45Z</updated>
+		<summary type="html">单行注释
+
+单行注释以两个斜线开始,以行尾结束.单行注释有三种使用方法:
+
+
+独占一行的注释,用来解释下一行代码。这行注释之前总有一个空行,且缩进�...</summary>
+	</entry>
+	
+	<entry>
+		<title>编写可维护的JavaScript-第一章(基本的格式化)笔记</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/215"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/215" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/215</id>
+		<published>2023-07-16T08:33:44Z</published>
+		<updated>2023-07-16T08:33:44Z</updated>
+		<summary type="html">缩进层级
+
+保持一定的缩进,使用制表符进行缩进或者使用空格进行缩进.
+
+语句结尾
+
+每行代码结尾使用分号.
+
+//合法代码
+var name = &amp;quot;Nicholas&amp;quot;;
+function ...</summary>
+	</entry>
+	
+	<entry>
+		<title>给你的Flask应用加上HTTPS的特效</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/214"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/214" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/214</id>
+		<published>2023-07-16T08:33:43Z</published>
+		<updated>2023-07-16T08:33:43Z</updated>
+		<summary type="html">由于微信小程序请求api接口协议是https的,为了我的小程序,我只好把网站协议由http改成https.在介绍这一过程之前，让我们先看一下什么是https.
+
+HTTPS
+
+先看...</summary>
+	</entry>
+	
+	<entry>
+		<title>简单工厂模式</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/213"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/213" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/213</id>
+		<published>2023-07-16T08:33:42Z</published>
+		<updated>2023-07-16T08:33:42Z</updated>
+		<summary type="html">简单工厂模式定义
+
+
+简单工厂模式是属于创建型模式，又叫做静态工厂方法（Static Factory Method）模式，但不属于23种GOF设计模式之一。简单工厂模式是由...</summary>
+	</entry>
+	
+	<entry>
+		<title>移除元素</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/212"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/212" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/212</id>
+		<published>2023-07-16T08:33:41Z</published>
+		<updated>2023-07-16T08:33:41Z</updated>
+		<summary type="html">给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
+
+不要使用额外的数组空间，你必须在原地修改...</summary>
+	</entry>
+	
+	<entry>
+		<title>&#39;碎碎念&#39;</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/211"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/211" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/211</id>
+		<published>2023-07-16T08:33:40Z</published>
+		<updated>2023-07-16T08:33:40Z</updated>
+		<summary type="html">换博客
+
+我竟然又想折腾博客了，我发现每过一段时间我都会想重新折腾一下博客，尽管我知道博客最重要的是内容，但是还是控制不住自己折腾的心。...</summary>
+	</entry>
+	
+	<entry>
+		<title>由foreach中使用引用导致的问题</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/210"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/210" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/210</id>
+		<published>2023-07-16T08:33:39Z</published>
+		<updated>2023-07-16T08:33:39Z</updated>
+		<summary type="html">问题
+
+看下面一段代码,如果你能够很清楚的知道结果是什么,就不需要阅读本篇文章了.
+
+&amp;lt;?php
+$array = [
+    &#39;name&#39; =&amp;gt; &#39;php&#39;,
+    &#39;age&#39; =&amp;gt; 123,
+];
+ 
+foreach ($array...</summary>
+	</entry>
+	
+	<entry>
+		<title>用 python 抓取知乎指定回答下的视频</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/209"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/209" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/209</id>
+		<published>2023-07-16T08:33:38Z</published>
+		<updated>2023-07-16T08:33:38Z</updated>
+		<summary type="html">前言
+
+现在知乎允许上传视频，奈何不能下载视频，好气哦，无奈之下研究一下了，然后撸了代码，方便下载视频保存。
+
+接下来以 猫为什么一点也不怕...</summary>
+	</entry>
+	
+	<entry>
+		<title>生成器(generator)</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/208"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/208" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/208</id>
+		<published>2023-07-16T08:33:37Z</published>
+		<updated>2023-07-16T08:33:37Z</updated>
+		<summary type="html">What is yield
+
+yield 关键字返回生成器( generator )的数据。
+
+
+The heart of a generator function is the yield keyword. In its simplest form, a yield statement looks much like a return statem...</summary>
+	</entry>
+	
+	<entry>
+		<title>求众数</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/207"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/207" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/207</id>
+		<published>2023-07-16T08:33:36Z</published>
+		<updated>2023-07-16T08:33:36Z</updated>
+		<summary type="html">给定一个大小为 n 的数组，找到其中的众数。众数是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
+
+你可以假设数组是非空的，并且给定的数组总是存在...</summary>
+	</entry>
+	
+	<entry>
+		<title>朋友圈</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/206"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/206" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/206</id>
+		<published>2023-07-16T08:33:36Z</published>
+		<updated>2023-07-16T08:33:36Z</updated>
+		<summary type="html">班上有 N 名学生。其中有些人是朋友，有些则不是。他们的友谊具有是传递性。如果已知 A 是 B 的朋友，B 是 C 的朋友，那么我们可以认为 A 也是 C �...</summary>
+	</entry>
+	
+	<entry>
+		<title>最长连续序列</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/205"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/205" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/205</id>
+		<published>2023-07-16T08:33:35Z</published>
+		<updated>2023-07-16T08:33:35Z</updated>
+		<summary type="html">给定一个未排序的整数数组，找出最长连续序列的长度。要求算法的时间复杂度为 O(n)。
+
+示例:
+
+输入: [100, 4, 200, 1, 3, 2]
+输出: 4
+解释: 最长连续序列是 [...</summary>
+	</entry>
+	
+	<entry>
+		<title>最长回文子串</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/204"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/204" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/204</id>
+		<published>2023-07-16T08:33:34Z</published>
+		<updated>2023-07-16T08:33:34Z</updated>
+		<summary type="html">给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
+
+示例 1：
+
+输入: &amp;quot;babad&amp;quot;
+输出: &amp;quot;bab&amp;quot;
+注意: &amp;quot;aba&amp;quot; ...</summary>
+	</entry>
+	
+	<entry>
+		<title>普通类方法和classmethod和staticmethod区别</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/203"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/203" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/203</id>
+		<published>2023-07-16T08:33:33Z</published>
+		<updated>2023-07-16T08:33:33Z</updated>
+		<summary type="html">最近写Python的时候,写类方法的时候,编译器老是建议我把一些方法改成静态方法,所以静态方法和普通方法有什么区别呢？当然提到了静态方法,也顺带提�...</summary>
+	</entry>
+	
+	<entry>
+		<title>无重复字符的最长子串</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/202"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/202" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/202</id>
+		<published>2023-07-16T08:33:32Z</published>
+		<updated>2023-07-16T08:33:32Z</updated>
+		<summary type="html">给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+
+示例 1:
+
+输入: &amp;quot;abcabcbb&amp;quot;
+输出: 3 
+解释: 因为无重复字符的最长子串是 &amp;quo...</summary>
+	</entry>
+	
+	<entry>
+		<title>接雨水</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/201"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/201" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/201</id>
+		<published>2023-07-16T08:33:31Z</published>
+		<updated>2023-07-16T08:33:31Z</updated>
+		<summary type="html">给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+
+
+
+上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度�...</summary>
+	</entry>
+	
+	<entry>
+		<title>导出 VuePress 构建的网站为 PDF</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/200"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/200" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/200</id>
+		<published>2023-07-16T08:33:30Z</published>
+		<updated>2023-07-16T08:33:30Z</updated>
+		<summary type="html">前言
+
+学 Rust 也有一段时间了,网上也有不少官方文档的中文翻译版,但是似乎只有 Rust中文网站 文档一直是最新的,奈何并没有 PDF 供直接下载,是在是不太...</summary>
+	</entry>
+	
+	<entry>
+		<title>字符串的排列</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/199"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/199" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/199</id>
+		<published>2023-07-16T08:33:29Z</published>
+		<updated>2023-07-16T08:33:29Z</updated>
+		<summary type="html">给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 的排列。换句话说，第一个字符串的排列之一是第二个字符串的子串。
+
+示例1:
+
+输入: s1...</summary>
+	</entry>
+	
+	<entry>
+		<title>字符串池化 python</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/198"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/198" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/198</id>
+		<published>2023-07-16T08:33:28Z</published>
+		<updated>2023-07-16T08:33:28Z</updated>
+		<summary type="html">前言
+
+在 Python 中经常通过内存池化技术来提高其性能,那么问题来了,在什么情况下会池化呢? 让我们通过几个例子进行一下理解一下.
+
+预备知识
+
+在查看�...</summary>
+	</entry>
+	
+	<entry>
+		<title>多线程下的list</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/197"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/197" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/197</id>
+		<published>2023-07-16T08:33:27Z</published>
+		<updated>2023-07-16T08:33:27Z</updated>
+		<summary type="html">前言
+
+list 是  Python  常用的几个基本数据类型之一.正常情况下我们会对 list 有增删改查的操作,显然易见不会有任何问题.那么如果我们试着在多线程下操...</summary>
+	</entry>
+	
+	<entry>
+		<title>基于 Ajax 请求的 Flask-Login 认证</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/196"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/196" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/196</id>
+		<published>2023-07-16T08:33:26Z</published>
+		<updated>2023-07-16T08:33:26Z</updated>
+		<summary type="html">index.html
+example.py
+
+
+## index.html
+
+```index.html
+&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;title&amp;gt; test login by Leetao&amp;lt;/title&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+   ...</summary>
+	</entry>
+	
+	<entry>
+		<title>在Ubuntu14.04上使用Gunicorn和Nginx部署Flask应用</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/195"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/195" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/195</id>
+		<published>2023-07-16T08:33:25Z</published>
+		<updated>2023-07-16T08:33:25Z</updated>
+		<summary type="html">最近闲来无事折腾了一下自己的个人公共号,通过 Flask 构建了几个简单的小功能然后部署到服务器上.网上关于部署的教程有很多,这里我就简单介绍一下�...</summary>
+	</entry>
+	
+	<entry>
+		<title>在Flask启动时启动后台任务</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/194"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/194" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/194</id>
+		<published>2023-07-16T08:33:24Z</published>
+		<updated>2023-07-16T08:33:24Z</updated>
+		<summary type="html">前言
+
+在实际过程开发中，有时候会有在启动 Web 服务的同时，希望启动一个后台任务去运行其他的任务。显然后台的任务，都是借由线程去完成的，所�...</summary>
+	</entry>
+	
+	<entry>
+		<title>国内启动 Docker 自带的 Kubernetes 方法</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/193"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/193" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/193</id>
+		<published>2023-07-16T08:33:23Z</published>
+		<updated>2023-07-16T08:33:23Z</updated>
+		<summary type="html">前言
+
+Docker for Windows/Mac 上的 Kubernetes 启动时需要下载镜像,部分镜像国内无法访问,会出现 Kubernetes 一直 starting 的情况
+
+解决办法
+
+Github 上有一个 k8s-for-do...</summary>
+	</entry>
+	
+	<entry>
+		<title>四月读书笔记-《爱情笔记》</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/192"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/192" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/192</id>
+		<published>2023-07-16T08:33:21Z</published>
+		<updated>2023-07-16T08:33:21Z</updated>
+		<summary type="html">导言
+
+这是原本计划在四月读的第一本书，最后拖延到五一假期的第四天才把它读完，这是今年的第5本书。
+
+个人感想
+
+老实说，这本书我不怎么喜欢，�...</summary>
+	</entry>
+	
+	<entry>
+		<title>合并区间</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/191"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/191" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/191</id>
+		<published>2023-07-16T08:33:20Z</published>
+		<updated>2023-07-16T08:33:20Z</updated>
+		<summary type="html">给出一个区间的集合，请合并所有重叠的区间。
+
+示例 1:
+
+输入: [[1,3],[2,6],[8,10],[15,18]]
+输出: [[1,6],[8,10],[15,18]]
+解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并�...</summary>
+	</entry>
+	
+	<entry>
+		<title>单例模式</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/190"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/190" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/190</id>
+		<published>2023-07-16T08:33:19Z</published>
+		<updated>2023-07-16T08:33:19Z</updated>
+		<summary type="html">单例模式的定义
+
+维基百科的定义
+&amp;gt;In software engineering, the singleton pattern is a design pattern that restricts the instantiation of a class to one object. This is useful when exact...</summary>
+	</entry>
+	
+	<entry>
+		<title>写作的这些年</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/189"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/189" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/189</id>
+		<published>2023-07-16T08:33:18Z</published>
+		<updated>2023-07-16T08:33:18Z</updated>
+		<summary type="html">写作平台的迁移历史
+
+我从14年就开始写博客了，也就是大二的时候，陆陆续续地也在很多平台写过文章。最初的第一个平台是博客园，起初写的是自己�...</summary>
+	</entry>
+	
+	<entry>
+		<title>再谈 Python 的写文件操作</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/188"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/188" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/188</id>
+		<published>2023-07-16T08:33:17Z</published>
+		<updated>2023-07-16T08:33:17Z</updated>
+		<summary type="html">前言
+
+关于 Python 对文件的读写操作网上有很多,基本上无外乎都是基于打开文件的 mode 的解释
+
+
+
+昨天我媳妇有这样一个需求,读入一个文件如果文件不存�...</summary>
+	</entry>
+	
+	<entry>
+		<title>关于网站的更新</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/187"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/187" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/187</id>
+		<published>2023-07-16T08:33:16Z</published>
+		<updated>2023-07-16T08:33:16Z</updated>
+		<summary type="html">这段时间在写稿子之余，为了让自己能够偶尔放松一下，决定将之前的博客更新一番。
+
+更新
+
+
+更新主页的UI
+更新了文章详情页的UI
+移除了原来的时间轴...</summary>
+	</entry>
+	
+	<entry>
+		<title>关于如何判断一个list是否为空的思考</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/186"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/186" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/186</id>
+		<published>2023-07-16T08:33:15Z</published>
+		<updated>2023-07-16T08:33:15Z</updated>
+		<summary type="html">前言
+
+今天随手翻 stackoverflow，看到问题叫 How do I check if a list is empty? 一看这个问题，不难猜到到这是一个刚学 Python 的人提问的，因为这个问题实在是�...</summary>
+	</entry>
+	
+	<entry>
+		<title>关于在Flask页面中的定时调用</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/185"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/185" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/185</id>
+		<published>2023-07-16T08:33:14Z</published>
+		<updated>2023-07-16T08:33:14Z</updated>
+		<summary type="html">|
+| code  | 必需,要推迟执行的函数名或者一段js代码 |
+| millisec     |   必须,推迟执行的毫秒数 |
+| lang | 可选,JScript/VBScript/JavaScript|
+
+Talk is cheep.show me the code~~...</summary>
+	</entry>
+	
+	<entry>
+		<title>关于博客和微信公众号的更新说明</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/184"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/184" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/184</id>
+		<published>2023-07-16T08:33:13Z</published>
+		<updated>2023-07-16T08:33:13Z</updated>
+		<summary type="html">在书稿没有完成之前，是不可能更新的。天天写稿子，感觉自己头发都快秃了。
+
+写一本书难，写一本好书更难，写一本读者喜欢的书更是难上加难。同...</summary>
+	</entry>
+	
+	<entry>
+		<title>偏函数-functools之partial</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/183"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/183" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/183</id>
+		<published>2023-07-16T08:33:12Z</published>
+		<updated>2023-07-16T08:33:12Z</updated>
+		<summary type="html">前段时间在讲述 Flask-Login 的源码中遇见了一个函数 ——partial,这个函数来自于functools模块,这个模块定义为&amp;rdquo;The functools module is for higher-order functions: f...</summary>
+	</entry>
+	
+	<entry>
+		<title>Increasing Triplet Subsequence</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/62"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/62" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/62</id>
+		<published>2023-07-16T08:32:10Z</published>
+		<updated>2023-07-16T08:32:10Z</updated>
+		<summary type="html">给定一个未排序的数组，判断这个数组中是否存在长度为 3 的递增子序列。
+
+数学表达式如下:
+&amp;gt;如果存在这样的 i, j, k,  且满足 0 ≤ i &amp;lt; j &amp;lt; k ≤ n-1�...</summary>
+	</entry>
+	
+	<entry>
+		<title>ImportError- unable to find Qt5Core.dll on PATH</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/61"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/61" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/61</id>
+		<published>2023-07-16T08:32:09Z</published>
+		<updated>2023-07-16T08:32:09Z</updated>
+		<summary type="html">前言
+
+今天在 windows 下打包 PyQt5 应用出现了 ImportError: unable to find Qt5Core.dll on PATH 错误，搜索了一下找到以下解决办法
+
+解决办法
+
+使用 &amp;ndash;path 参数
+
+由...</summary>
+	</entry>
+	
+	<entry>
+		<title>&#39;pep 544 Protocols: Structural subtyping (static duck typing)&#39;</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/60"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/60" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/60</id>
+		<published>2023-07-16T08:32:08Z</published>
+		<updated>2023-07-16T08:32:08Z</updated>
+		<summary type="html">前言
+
+在 PEP 484  中引入的 Typing hints (类型提示) 可以用来为静态类型检查器和其他第三方工具指定类型元数据。但是在，PEP 484  只指定了名义子类型的语...</summary>
+	</entry>
+	
+	<entry>
+		<title>HttpClient 默认不使用代理【Dart 】</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/59"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/59" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/59</id>
+		<published>2023-07-16T08:32:07Z</published>
+		<updated>2023-07-16T08:32:07Z</updated>
+		<summary type="html">前言
+
+最近使用 flutter 构建 App，涉及到网络请求部分，使用了 dart 自带的 HttpClient 库发现了一个有趣的问题，dart 默认情况下不使用代理，即使电脑开着...</summary>
+	</entry>
+	
+	<entry>
+		<title>How To Structure Large Flask Applications</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/58"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/58" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/58</id>
+		<published>2023-07-16T08:32:06Z</published>
+		<updated>2023-07-16T08:32:06Z</updated>
+		<summary type="html">
+整理翻译自How To Structure Large Flask Applications
+
+
+介绍
+
+其实已经有许多关于如何组织架构 Python Web 应用的方法和约定。尽管现在有些框架本身承载了一些工...</summary>
+	</entry>
+	
+	<entry>
+		<title>How To Serve Flask Applications with uWSGI and Nginx on Ubuntu 14.04</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/57"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/57" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/57</id>
+		<published>2023-07-16T08:32:04Z</published>
+		<updated>2023-07-16T08:32:04Z</updated>
+		<summary type="html">部署过程中出现错误
+
+
+[emerg] 10255#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+
+
+解决办法,使用如下命令关闭占用80端口的程序
+
+sudo fuser -k 80/tcp
+
+
+准备工...</summary>
+	</entry>
+	
+	<entry>
+		<title>HTTP 状态码 302,303,307</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/56"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/56" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/56</id>
+		<published>2023-07-16T08:32:03Z</published>
+		<updated>2023-07-16T08:32:03Z</updated>
+		<summary type="html">最近一直在看《HTTP The Definitive Guide》,对此大家可能有点陌生，但是一提它的中文名称那就是耳熟能详了,它的中文书名是《http权威指南》.在看到HTTP Mess...</summary>
+	</entry>
+	
+	<entry>
+		<title>HP EliteDesk 800 G3  SFF 台式机 使用  BiosConfigUtility 配置 Bios</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/55"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/55" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/55</id>
+		<published>2023-07-16T08:32:02Z</published>
+		<updated>2023-07-16T08:32:02Z</updated>
+		<summary type="html">在windows下装个docker真是不容易,到最后一步,没有办法开启VTx. 其实很简单,前提如果是可以进入bios的情况下. 不知道怎么会是我的台式机(HP EliteDesk 800 G3  S...</summary>
+	</entry>
+	
+	<entry>
+		<title>H-Index</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/54"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/54" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/54</id>
+		<published>2023-07-16T08:32:02Z</published>
+		<updated>2023-07-16T08:32:02Z</updated>
+		<summary type="html">Given an array of citations (each citation is a non-negative integer) of a researcher, write a function to compute the researcher&amp;rsquo;s h-index.
+
+According to the definition of h-index on Wikipedia:...</summary>
+	</entry>
+	
+	<entry>
+		<title>Github Action 自动构建 Flutter  Android Apk</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/53"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/53" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/53</id>
+		<published>2023-07-16T08:32:01Z</published>
+		<updated>2023-07-16T08:32:01Z</updated>
+		<summary type="html">前言
+
+前段时间用 Flutter 做了一个开源的项目 RSSAid,因为需要打包 apk，在此之前一直是在本地签名打包的。后来和别人交流了一下，想起来可以用 Github A...</summary>
+	</entry>
+	
+	<entry>
+		<title>&#39;Django 自定义 SearchFilter兼容空格搜索&#39;</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/52"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/52" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/52</id>
+		<published>2023-07-16T08:32:00Z</published>
+		<updated>2023-07-16T08:32:00Z</updated>
+		<summary type="html">前言
+
+Django 自带的 SearchFilter 是不支持空格搜索的，如果需要支持空格搜索并且保留之前的搜索功能则需要自定义 SearchFilter。
+
+自定义 SearchFilter
+
+继承 Se...</summary>
+	</entry>
+	
+	<entry>
+		<title>Flask的源码系列——前身</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/51"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/51" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/51</id>
+		<published>2023-07-16T08:31:59Z</published>
+		<updated>2023-07-16T08:31:59Z</updated>
+		<summary type="html">What is Flask?
+
+用了这么久的 Flask 框架,那么 Flask 究竟是什么呢？借用官方文档的一句话来说明这个问题:
+
+
+Flask is a lightweight WSGI web application framework.
+
+
+不难...</summary>
+	</entry>
+	
+	<entry>
+		<title>Flask的g对象和钩子函数</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/50"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/50" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/50</id>
+		<published>2023-07-16T08:31:58Z</published>
+		<updated>2023-07-16T08:31:58Z</updated>
+		<summary type="html">前言
+
+说到钩子函数大家可能会觉得有点陌生，但是不着急，接着看下去，大家只要用过 flask 对我接下来说的这些一定不会陌生。
+
+钩子函数
+
+钩子函数�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Flask-SQLAlchemy 多表对单模型</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/49"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/49" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/49</id>
+		<published>2023-07-16T08:31:57Z</published>
+		<updated>2023-07-16T08:31:57Z</updated>
+		<summary type="html">前言
+
+在 Flask 中 Flask-SQLAlchemy 应该是最常用的 ORM 了，通过它来构建 Model  来映射数据库中的表。通常情况下都是一个表对应一个模型，这种方案很简单�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Flask-Restful 中 fileds.DateTime 不支持 strftime 格式</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/48"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/48" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/48</id>
+		<published>2023-07-16T08:31:56Z</published>
+		<updated>2023-07-16T08:31:56Z</updated>
+		<summary type="html">前言
+
+通常情况下，我们会使用Flask来开发网站，但是也有的时候我们只是想用 Flask 来简单的创建 RestFul 的 Api，这个时候可能会使用其他的 Flask 拓展来�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Flask-Login用户会话管理</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/47"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/47" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/47</id>
+		<published>2023-07-16T08:31:55Z</published>
+		<updated>2023-07-16T08:31:55Z</updated>
+		<summary type="html">想必大家对 Flask-Login 这个 Flask 扩展肯定不会陌生,毕竟作为一个应用,用户登录之后,他们的认证状态是需要被记录下来的,浏览其他的页面也是需要使用�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Flask 中的 session 的故事</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/46"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/46" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/46</id>
+		<published>2023-07-16T08:31:54Z</published>
+		<updated>2023-07-16T08:31:54Z</updated>
+		<summary type="html">前言
+
+凡是使用过 Flask,可能对 Flask 中  session 不陌生, 我们通常用 session 保存特定的用户信息,从而达到在 request 请求之间共享数据的目的,需要注意的一�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Flask Web 开发 -- 开发博客应用 -- 第一部分 安装</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/45"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/45" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/45</id>
+		<published>2023-07-16T08:31:53Z</published>
+		<updated>2023-07-16T08:31:53Z</updated>
+		<summary type="html">写在前面
+
+该项目在 Ubuntu16.04 平台下开发,基于 Flask 版本 1.0.2, 项目基本完成,现已开源,源码地址 : peach-blog, 网站实际运行效果: Leetao&amp;rsquo;s Blog
+
+环境的搭...</summary>
+	</entry>
+	
+	<entry>
+		<title>Find the Difference</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/44"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/44" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/44</id>
+		<published>2023-07-16T08:31:52Z</published>
+		<updated>2023-07-16T08:31:52Z</updated>
+		<summary type="html">Given two strings s and t which consist of only lowercase letters.
+
+String t is generated by random shuffling string s and then add one more letter at a random position.
+
+Find the letter that was adde...</summary>
+	</entry>
+	
+	<entry>
+		<title>Find All Anagrams in a String</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/43"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/43" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/43</id>
+		<published>2023-07-16T08:31:51Z</published>
+		<updated>2023-07-16T08:31:51Z</updated>
+		<summary type="html">Given a string s and a non-empty string p, find all the start indices of p&amp;rsquo;s anagrams in s.
+
+Strings consists of lowercase English letters only and the length of both strings s and p will not be...</summary>
+	</entry>
+	
+	<entry>
+		<title>Easyui的常用控件使用方法</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/42"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/42" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/42</id>
+		<published>2023-07-16T08:31:50Z</published>
+		<updated>2023-07-16T08:31:50Z</updated>
+		<summary type="html">获取combobox选中的值,文本
+
+$(&#39;#com&#39;).combobox(&#39;getValue&#39;) //获取当前选中的值
+$(&#39;#com&#39;).combobox(&#39;getText&#39;) //获取当前选中的文字
+
+
+combotree设置默认值
+
+$(&#39;#combotree&#39;).com...</summary>
+	</entry>
+	
+	<entry>
+		<title>Easyui的datebox始终显示当天时间问题</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/41"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/41" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/41</id>
+		<published>2023-07-16T08:31:49Z</published>
+		<updated>2023-07-16T08:31:49Z</updated>
+		<summary type="html">之前项目中用上了easyui中的datebox,但是由于datebox 默认的时间格式 m/d/y，并不符合我的要求,于是参考手册将其时间格式修改为y-m-d.格式化的代码如下:
+
+$.f...</summary>
+	</entry>
+	
+	<entry>
+		<title>ES6 arrow function and function declaration expressions</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/40"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/40" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/40</id>
+		<published>2023-07-16T08:31:47Z</published>
+		<updated>2023-07-16T08:31:47Z</updated>
+		<summary type="html">What is Arrow function
+
+关于什么是箭头函数,让我们看一下 MDN 给出的定义
+
+
+An arrow function expression has a shorter syntax than a function expression and does not have its own this...</summary>
+	</entry>
+	
+	<entry>
+		<title>&#39;Docker 搭建 Elasticsearch &#43; Kibana &#43; IK 中文分词&#39;</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/39"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/39" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/39</id>
+		<published>2023-07-16T08:31:46Z</published>
+		<updated>2023-07-16T08:31:46Z</updated>
+		<summary type="html">安装启动 Elasticsearch
+
+docker network create elastic
+docker pull docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+docker run -d --name es01-test --net elastic -p 9200:9200 -p 9300:9300 -e &amp;qu...</summary>
+	</entry>
+	
+	<entry>
+		<title>Django 3.2 Boolean Field 在 MySQL 中导致索引失效的问题</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/38"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/38" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/38</id>
+		<published>2023-07-16T08:31:45Z</published>
+		<updated>2023-07-16T08:31:45Z</updated>
+		<summary type="html">前言
+
+公司有个项目使用 Django 开发的，前段时间我们把 Django 的版本升级到最新版本了,然后就出现问题了，我们发现生产环境出现了一个慢 SQL：
+
+select ...</summary>
+	</entry>
+	
+	<entry>
+		<title>Distribute Candies</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/37"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/37" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/37</id>
+		<published>2023-07-16T08:31:44Z</published>
+		<updated>2023-07-16T08:31:44Z</updated>
+		<summary type="html">Given an integer array with even length, where different numbers in this array represent different kinds of candies. Each number means one candy of the corresponding kind. You need to distribute these...</summary>
+	</entry>
+	
+	<entry>
+		<title>Dict 键值和 Number 的故事</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/36"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/36" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/36</id>
+		<published>2023-07-16T08:31:43Z</published>
+		<updated>2023-07-16T08:31:43Z</updated>
+		<summary type="html">前言
+
+字典(Dict)，在大家写 Python 程序中，肯定会经常用到它，但是它在官方的文档有一段话，不知道大家有没有注意到，官方原文是这样的
+
+
+A dictionary�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Coursera如何上免费课程</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/35"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/35" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/35</id>
+		<published>2023-07-16T08:31:42Z</published>
+		<updated>2023-07-16T08:31:42Z</updated>
+		<summary type="html">最近准备入机器学习的坑,啃书之余还想顺便看看相关学习视频,然后自然想起了 Coursera, Coursera 现在已经开始诱导收费了,老实说收费也是无可厚非的,在�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Counting Sort</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/34"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/34" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/34</id>
+		<published>2023-07-16T08:31:41Z</published>
+		<updated>2023-07-16T08:31:41Z</updated>
+		<summary type="html">前言
+
+
+In computer science, counting sort is an algorithm for sorting a collection of objects according to keys that are small integers; that is, it is an integer sorting algorithm. It operates by c...</summary>
+	</entry>
+	
+	<entry>
+		<title>Count Primes</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/33"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/33" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/33</id>
+		<published>2023-07-16T08:31:40Z</published>
+		<updated>2023-07-16T08:31:40Z</updated>
+		<summary type="html">Description:
+
+Count the number of prime numbers less than a non-negative number, n.
+
+Solution
+
+统计在[0, n) 区间内中质数的个数,按照常规方法去计算是否为素数可能会超时(没...</summary>
+	</entry>
+	
+	<entry>
+		<title>Contains Duplicate II</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/32"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/32" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/32</id>
+		<published>2023-07-16T08:31:39Z</published>
+		<updated>2023-07-16T08:31:39Z</updated>
+		<summary type="html">Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array such that nums[i] = nums[j] and the absolute difference between i and j is at most k.
+...</summary>
+	</entry>
+	
+	<entry>
+		<title>CentOS7安装python-pip</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/31"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/31" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/31</id>
+		<published>2023-07-16T08:31:38Z</published>
+		<updated>2023-07-16T08:31:38Z</updated>
+		<summary type="html">
+Package epel-release.noarch 0:7-9 will be installed
+&amp;ndash;&amp;gt; Finished Dependency Resolution
+
+
+### 安装 python-pip
+
+```shell
+[root@localhost Desktop]# yum install python-pip
+
+
+
+安装完成之后...</summary>
+	</entry>
+	
+	<entry>
+		<title>CentOS7安装Mysql</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/30"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/30" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/30</id>
+		<published>2023-07-16T08:31:37Z</published>
+		<updated>2023-07-16T08:31:37Z</updated>
+		<summary type="html">查看 CentOS 7的 yum 是否有 mysql-server 文件
+
+打开控制台,输入如下命令行:
+
+yum list | grep mysql
+
+
+注意:确保能上网, YUM 源配置到了 Internet 上,如果 Linux 无法上网...</summary>
+	</entry>
+	
+	<entry>
+		<title>Anaconda Navigator启动失败</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/29"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/29" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/29</id>
+		<published>2023-07-16T08:31:36Z</published>
+		<updated>2023-07-16T08:31:36Z</updated>
+		<summary type="html">我的最终启动失败的原因是:No Module named &amp;lsquo;pywintypes&amp;rsquo; 缺失引起的 Anaconda Navigator 启动失败,但是解决问题的方法是通用的.
+
+定位问题
+
+找到应用，点...</summary>
+	</entry>
+	
+	<entry>
+		<title>&#39;类的自定注册以及应用场景&#39;</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/27"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/27" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/27</id>
+		<published>2023-07-16T08:31:34Z</published>
+		<updated>2023-07-16T08:31:34Z</updated>
+		<summary type="html">
+在 3.6 之前可以通过 meta class 去实现，3.6 之后可以通过 __init_subclass__ 实现
+
+
+meta class
+
+通过 meta class 的 __new__ 方法可以实现自动注册 class 的功能，原理�...</summary>
+	</entry>
+	
+	<entry>
+		<title>2020年全年读书笔记汇总-(持续更新)</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/26"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/26" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/26</id>
+		<published>2023-07-16T08:31:33Z</published>
+		<updated>2023-07-16T08:31:33Z</updated>
+		<summary type="html">一月
+
+一月-人生十二法则
+
+一月-你当像鸟飞往你的山
+
+二月
+
+[二月-血疫]
+
+[二月-时间的秩序]
+
+三月
+
+四月
+
+四月-爱情笔记
+
+四月-闪闪发光的人生
+
+五月
+
+让...</summary>
+	</entry>
+	
+	<entry>
+		<title>&#39;Elasticsearch 支持 PDF 等文件搜索&#39;</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/25"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/25" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/25</id>
+		<published>2023-07-16T08:31:33Z</published>
+		<updated>2023-07-16T08:31:33Z</updated>
+		<summary type="html">前言
+
+默认情况下 es 是不支持 pdf、doc 等文档的搜索的，但是可以通过安装 Ingest attachment plugin 插件来使得 es 提取通用格式的文件，从而可以实现搜索的...</summary>
+	</entry>
+	
+	<entry>
+		<title>-is- 和 -==- 的故事</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/24"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/24" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/24</id>
+		<published>2023-07-16T08:31:32Z</published>
+		<updated>2023-07-16T08:31:32Z</updated>
+		<summary type="html">前言
+
+相比写过 Python 的小伙伴对 &amp;ldquo;is&amp;rdquo; 和 &amp;ldquo;==&amp;rdquo; 这两个运算符肯定不会陌生,但是你真的能清楚两者的区别吗? 别着急,听我慢慢道来.
+
+is 和...</summary>
+	</entry>
+	
+	<entry>
+		<title>配合Github Actions 做一个自动推送的 Rss 订阅机器人</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/23"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/23" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/23</id>
+		<published>2023-07-16T08:31:31Z</published>
+		<updated>2023-07-16T08:31:31Z</updated>
+		<summary type="html">前言
+
+一直都有订阅 Rss 的习惯，前段时间配合钉钉的自定义机器人，建了一个在钉钉定时推送消息的群，当时是服务是跑在自己的小水管上的，并且是�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Using Keyboard Shortcuts in Flutter Desktop</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/20"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/20" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/20</id>
+		<published>2023-07-15T11:35:24Z</published>
+		<updated>2023-07-15T11:35:24Z</updated>
+		<summary type="html">Intro
+
+
+Using keyboard shortcuts in desktop is a common case, it can boost our productivity when used correctly. In flutter, there&amp;rsquo;re two ways for us to build keyboard shortcuts in desktop app...</summary>
+	</entry>
+	
+	<entry>
+		<title>sealed class in dart</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/19"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/19" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/19</id>
+		<published>2023-06-18T09:25:54Z</published>
+		<updated>2023-06-18T09:25:54Z</updated>
+		<summary type="html">
+Recently i looked through  the document for flutter_bloc. Document is well-organized, with some good examples. One feature that caught my attention was the use of the sealed keyword in the  for ...</summary>
+	</entry>
+	
+	<entry>
+		<title>Type Hint a generator</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/18"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/18" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/18</id>
+		<published>2023-03-30T07:51:30Z</published>
+		<updated>2023-03-30T07:51:30Z</updated>
+		<summary type="html">Python 中的 type hint (类型提示) 是指在声明变量的时候显式声明变量的数据类型的功能，在 Python3.5及后续版本中可用。类型提示是对 Python 这种弱类型语�...</summary>
+	</entry>
+	
+	<entry>
+		<title>openpyxl Value must be either numerical or a string containing a wildcard</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/16"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/16" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/16</id>
+		<published>2023-03-06T06:17:09Z</published>
+		<updated>2023-03-06T06:17:09Z</updated>
+		<summary type="html">
+
+前言
+
+openpyxl 在 3.1.0 之后版本引入了一个新的 bug，具体问题可以参考 issue-1959。一旦你使用的 Excel 文件中的通配符(wildcard) 不存在数字的话，就会如�...</summary>
+	</entry>
+	
+	<entry>
+		<title>某网站防 Selenium 爬取的方案和解决方案</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/17"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/17" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/17</id>
+		<published>2023-03-15T03:32:53Z</published>
+		<updated>2023-03-15T03:32:53Z</updated>
+		<summary type="html"># 前言
+
+最近在爬取某网站的使用 selenium 模拟登录，发现手动登录一切正常，但是一旦使用 selenium，最后提交事件无法被触发，导致无法登录，显然 sel...</summary>
+	</entry>
+	
+	<entry>
+		<title>支付宝开放平台 Python SDK 下的一些坑</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/15"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/15" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/15</id>
+		<published>2023-02-19T14:03:56Z</published>
+		<updated>2023-02-19T14:03:56Z</updated>
+		<summary type="html">前言
+
+
+最近因为业务原因，需要使用支付宝开放平台的一些 Api 写一些脚本，所以选择了 Python，然后就遇到坑了，不是一个坑，而是好几个
+
+
+
+问题 a...</summary>
+	</entry>
+	
+	<entry>
+		<title>Golang 字符串和 rune</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/9"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/9" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/9</id>
+		<published>2022-11-28T12:27:57Z</published>
+		<updated>2022-11-28T12:27:57Z</updated>
+		<summary type="html">
+
+
+
+在 Go 中字符串是一个使用频率很高的数据类型，通常的操作有拼接和切片操作，拼接操作不是这篇文章的重点，这里就不做深入讨论，这里聊聊�...</summary>
+	</entry>
+	
+	<entry>
+		<title>Django OneToOneField RelatedObjectDoesNotExist</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/13"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/13" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/13</id>
+		<published>2023-01-31T03:44:30Z</published>
+		<updated>2023-01-31T03:44:30Z</updated>
+		<summary type="html">
+A one-to-one relationship. Conceptually, this is similar to a ForeignKey with unique=True, but the “reverse” side of the relation will directly return a single object.
+
+This is most useful as t...</summary>
+	</entry>
+	
+	<entry>
+		<title>git workspace 使用指南</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/12"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/12" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/12</id>
+		<published>2022-12-15T11:51:20Z</published>
+		<updated>2022-12-15T11:51:20Z</updated>
+		<summary type="html">
+
+在 Git 进行代码管理的时候，时常出现这样的场景：当我在 feature 分支开发的时候，突然临时有个紧急的问题需要进行修复或者别的在测试的 feature �...</summary>
+	</entry>
+	
+	<entry>
+		<title>Slice 取交集和差集的通用方法</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/11"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/11" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/11</id>
+		<published>2022-12-13T12:21:04Z</published>
+		<updated>2022-12-13T12:21:04Z</updated>
+		<summary type="html">
+
+交集
+
+
+golang
+// GetIntersection intersection = a &amp;amp; b
+func GetIntersection[T comparable](a []T, b []T) []T {
+	set := make([]T, 0)
+	hash := make(map[T]any)
+
+	for _, v := range a {
+		h...</summary>
+	</entry>
+	
+	<entry>
+		<title>Django 3.2 Boolean Field 在 MySQL 中导致索引失效的问题</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/8"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/8" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/8</id>
+		<published>2022-11-17T12:19:03Z</published>
+		<updated>2022-11-17T12:19:03Z</updated>
+		<summary type="html">前言
+
+
+公司有个项目使用 Django 开发的，前段时间我们把 Django 的版本升级到最新版本了,然后就出现问题了，我们发现生产环境出现了一个慢 SQL：
+
+sq...</summary>
+	</entry>
+	
+	<entry>
+		<title>Python 中调用 Go 代码</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/6"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/6" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/6</id>
+		<published>2022-10-28T03:16:13Z</published>
+		<updated>2022-10-28T03:16:13Z</updated>
+		<summary type="html">前言
+
+
+Python 可以通过 ctypes 模块调用 C 语言实现的函数，调用的方式很简单：
+
+1. 创建一个 c 文件，然后编写对应的函数
+2. 使用 c 编译器创建一个动...</summary>
+	</entry>
+	
+	<entry>
+		<title>Pure 开源了~</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/5"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/5" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/5</id>
+		<published>2022-10-27T13:02:19Z</published>
+		<updated>2022-10-27T13:02:19Z</updated>
+		<summary type="html">前言
+
+
+在过去一年，我一直使用 github action + hexo 的方式去自动化部署我的博客到 github pages，这种方式的好处就是，你只需要配置好一次将代码仓库，�...</summary>
+	</entry>
+	
+	<entry>
+		<title>paging problem in one to many query of mybatis</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/4"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/4" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/4</id>
+		<published>2022-10-27T11:59:49Z</published>
+		<updated>2022-10-27T11:59:49Z</updated>
+		<summary type="html">前言
+
+
+mybatis 支持一对多的关系映射，如果需要在这种关系下，使用 pagehelper 的话，需要注意原本的 sql 以及 resultmap 的用法, 否则可能会导致 pagehelper �...</summary>
+	</entry>
+	
+	<entry>
+		<title>Assert may not work as expected</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/2"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/2" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/2</id>
+		<published>2022-10-16T02:52:15Z</published>
+		<updated>2022-10-16T02:52:15Z</updated>
+		<summary type="html">前言
+
+
+assert (断言) 是在编码过程中常用的手段，使用方法如下:
+
+&amp;ldquo;`python
+
+example.py
+
+assert_stmt ::=  &amp;ldquo;assert&amp;rdquo; expression [&amp;ldquo;,&amp;rdquo; expression]
+
+d...</summary>
+	</entry>
+	
+</feed>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>由foreach中使用引用导致的问题 - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+
+
+# 问题
+
+看下面一段代码,如果你能够很清楚的知道结果是什么,就不需要阅读本篇文章了.
+
+```php
+&lt;?php
+$array = [
+    &#39;name&#39; =...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>由foreach中使用引用导致的问题</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>问题</h1>
+
+<p>看下面一段代码,如果你能够很清楚的知道结果是什么,就不需要阅读本篇文章了.</p>
+
+<pre><code class="language-php">&lt;?php
+$array = [
+    'name' =&gt; 'php',
+    'age' =&gt; 123,
+];
+ 
+foreach ($array as $key =&gt; &amp;$value) {
+    echo &quot;key=$key, value=$value&quot; . &quot;&lt;/br&gt;&quot;;
+}
+
+echo &quot;&lt;br&gt;&quot;
+
+foreach ($array as $key =&gt; $value) {
+    echo &quot;key=$key, value=$value&quot; . &quot;&lt;/br&gt;&quot;;
+}
+?&gt;
+</code></pre>
+
+<p>正确输出如下:</p>
+
+<pre><code class="language-shell">key=name, value=php
+key=age, value=123
+
+key=name, value=php
+key=age, value=php
+</code></pre>
+
+<h1>解答</h1>
+
+<p>在解释产生上述结果原因之前我们先看下面一段代码</p>
+
+<pre><code class="language-php">&lt;?php
+$array = [
+    'name' =&gt; 'php',
+    'age' =&gt; 123,
+];
+ 
+foreach ($array as $key =&gt; $value) {
+    echo &quot;key=$key, value=$value&quot; . &quot;&lt;/br&gt;&quot;;
+}
+
+echo &quot;&lt;br&gt;&quot;
+
+foreach ($array as $key =&gt; $value) {
+    echo &quot;key=$key, value=$value&quot; . &quot;&lt;/br&gt;&quot;;
+}
+
+?&gt;
+</code></pre>
+
+<p>输出结果就不用说了，下面通过一个图简单了解一下执行的过程</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fou2x6n3f7j30i90763yn.jpg" alt="" /></p>
+
+<p>那么最开始的那段代码执行情况是什么样子的呢?</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fou2zcq0f5j30lm0krweq.jpg" alt="" /></p>
+
+<h1>参考链接</h1>
+
+<p><a href="https://stackoverflow.com/questions/18669499/php-issue-with-looping-over-an-array-twice-using-foreach-and-passing-value-by-re">php issue with looping over an array twice using foreach and passing value by reference</a></p>
+
+<p><a href="https://stackoverflow.com/questions/3307409/php-pass-by-reference-in-foreach">php issue with looping over an array twice using foreach and passing value by reference</a></p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="210"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

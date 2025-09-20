@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合并区间 - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+
+给出一个区间的集合，请合并所有重叠的区间。
+
+**示例 1:**
+
+```
+输入: [[1,3],[2,6],[8,10],[15,18]]
+输出: [[1,6],[8,10],[15,18]]
+�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>合并区间</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <p>给出一个区间的集合，请合并所有重叠的区间。</p>
+
+<p><strong>示例 1:</strong></p>
+
+<pre><code>输入: [[1,3],[2,6],[8,10],[15,18]]
+输出: [[1,6],[8,10],[15,18]]
+解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
+</code></pre>
+
+<p><strong>示例 2:</strong></p>
+
+<pre><code>输入: [[1,4],[4,5]]
+输出: [[1,5]]
+解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。
+</code></pre>
+
+<p><strong>思路</strong></p>
+
+<p>先排序然后遍历，排序按照 start 值大小排序，排序完后，遍历排序后的列表 sorted_list，假设当前元素位置 i, 判断 sorted_list[i-1].end &gt;= sorted_list[i]，说明两个区间有重合，将  sorted_list[i].start = sorted_list[i-1].end，<strong>注意判断 sorted_list[i-i].end 是否大于 sorted_list[i].end，如果大于，则 sorted_list[i].end = sorted_list[i-1].end</strong></p>
+
+<p><strong>解法</strong></p>
+
+<pre><code class="language-python"># Definition for an interval.
+# class Interval:
+#     def __init__(self, s=0, e=0):
+#         self.start = s
+#         self.end = e
+
+class Solution:
+    def merge(self, intervals: List[Interval]) -&gt; List[Interval]:
+        sorted_start_list = sorted(intervals,key=lambda x:x.start)
+        list_len = len(sorted_start_list)
+        res_list = []
+        count = 0
+        i = 1
+        while i &lt; list_len - count:
+            if sorted_start_list[i-1].end &gt;= sorted_start_list[i].start:
+                if sorted_start_list[i-1].end &gt; sorted_start_list[i].end:
+                    sorted_start_list[i].end = sorted_start_list[i-1].end
+                sorted_start_list[i].start = sorted_start_list[i-1].start
+                sorted_start_list.remove(sorted_start_list[i-1])
+                count += 1
+                i -= 1
+            i += 1
+        return sorted_start_list
+</code></pre>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="191"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

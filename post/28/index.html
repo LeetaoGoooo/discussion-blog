@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滴滴行程分享 Api - Leetao</title>
+    <meta name="description" content="分享一个很久之前写的一个关于滴滴行程的脚本，脚本的主要功能是根据滴滴行程分享的 url 获取订单情况，通过定时轮�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>滴滴行程分享 Api</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <p>分享一个很久之前写的一个关于滴滴行程的脚本，脚本的主要功能是根据滴滴行程分享的 url 获取订单情况，通过定时轮询还可以获取乘客到目的地的距离和时间</p>
+
+<pre><code class="language-python">#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+&quot;&quot;&quot;
+@File    :   didi.py    
+@Description：滴滴行程分享 Api
+@Modify Time      @Author    @Version    @Description
+------------      -------    --------    -----------
+2021/5/29 8:47 上午   leetao      1.0         None
+&quot;&quot;&quot;
+import requests
+import urllib.parse as urlparse
+from urllib.parse import parse_qs
+from dataclasses import dataclass, asdict
+
+_header = {
+    'Accept': 'application/json, text/plain, */*',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36',
+    'Accept-Language': 'zh-CN,zh;q=0.9'
+}
+
+
+@dataclass
+class DidiOrderParams:
+    uid: str
+    oid: str
+    sign: str
+    productType: str
+    carProductid: str
+
+
+def is_didi(url: str) -&gt; bool:
+    return url.startswith(&quot;https://z.didi.cn&quot;)
+
+
+def get_order_params(url: str) -&gt; DidiOrderParams:
+    resp = requests.get(url, allow_redirects=False, headers=_header)
+    if resp.status_code == 302:
+        redirect_url = resp.headers['location']
+        parsed = urlparse.urlparse(redirect_url)
+        params = parse_qs(parsed.query)
+        return DidiOrderParams(uid=params['uid'], oid=params['oid'], sign=params['sign'],
+                               productType=params['productType'], carProductid=params['carProductid'])
+    return None
+
+
+def get_order_info(order_param: DidiOrderParams) -&gt; str:
+    resp = requests.get('https://common.diditaxi.com.cn/webapp/sharetrips/page/getOrderStatus',
+                        params=asdict(order_param), headers=_header)
+    assert resp.status_code == 200
+    resp_json = resp.json()
+    assert resp_json['errno'] == 0
+    return f'本次行程 \n 起点：{resp_json[&quot;fromAddress&quot;]} \n 终点: {resp_json[&quot;toAddress&quot;]} \n 您的行程管家将定时为您播报行程情况'
+
+
+def get_driver_loc(order_param: DidiOrderParams):
+    resp = requests.get('https://common.diditaxi.com.cn/webapp/sharetrips/page/getDriverLoc',params=asdict(order_param),
+                        headers=_header)
+    assert resp.status_code == 200
+    resp_json = resp.json()
+    assert resp_json['errno'] == 0
+    if 'etaDistance' not in resp_json:
+        return f'本次行程已经结束'
+    return f'距离目的地还有：{resp_json[&quot;etaDistance&quot;]} 公里，预计还有：{resp_json[&quot;etaTime&quot;]} 分钟'
+
+</code></pre>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="28"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

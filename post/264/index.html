@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutter WidgetsBindingObserver 详解 - Leetao</title>
+    <meta name="description" content="
+## 前言
+
+`WidgetsBindingObserver` 是 Flutter 中一个非常重要的接口，它允许你的 Flutter 应用监听和响应底层平台（操作系统）...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>Flutter WidgetsBindingObserver 详解</h1>
+            <p class="meta">
+                By LeetaoGoooo on May 21, 2025
+            </p>
+            
+            <div class="content">
+                <h2>前言</h2>
+
+<p><code>WidgetsBindingObserver</code> 是 Flutter 中一个非常重要的接口，它允许你的 Flutter 应用监听和响应底层平台（操作系统）和 Flutter 引擎的各种生命周期事件和系统变化。</p>
+
+<h2>作用</h2>
+
+<p><code>WidgetsBindingObserver</code> 的核心作用是作为连接 Flutter 应用逻辑和底层系统事件的桥梁。通过实现这个接口，你可以：</p>
+
+<ul>
+<li><strong>监听应用生命周期状态变化：</strong> 这是最常用、最重要的功能。你可以知道你的应用何时进入前台、后台，何时被暂停或终止。</li>
+<li><strong>监听系统配置变化：</strong> 例如，屏幕尺寸变化、文字缩放因子变化、系统亮度模式（深色/浅色模式）变化、地区设置（语言）变化等。</li>
+<li><strong>响应内存压力警告：</strong> 当系统内存不足时，可以通知你的应用采取措施释放资源。</li>
+<li><strong>在 Hot Reload 时执行特定操作：</strong> 允许你在开发过程中热重载后执行一些初始化或清理工作。</li>
+</ul>
+
+<p>总的来说，它的作用是让你的应用能够<strong>感知并适应外部环境的变化</strong>，从而实现更健壮、更智能的用户体验和资源管理。</p>
+
+<h2>使用场景</h2>
+
+<h4>应用生命周期管理 (<code>didChangeAppLifecycleState</code>)</h4>
+
+<p>这是最主要、最频繁使用的场景。你需要根据 <code>AppLifecycleState</code> 的不同值来执行相应操作：</p>
+
+<ul>
+<li><p><strong><code>AppLifecycleState.resumed</code> (活跃/前台):</strong></p>
+
+<ul>
+<li><strong>恢复媒体播放：</strong> 当用户从后台切回应用时，恢复音乐、视频播放。</li>
+<li><strong>重新连接网络：</strong> 重新建立 WebSocket 连接或刷新实时数据。</li>
+<li><strong>刷新数据：</strong> 例如，刷新聊天列表、社交媒体动态，检查是否有新消息。</li>
+<li><strong>启动动画或相机预览：</strong> 只有在前台时才进行耗时操作。</li>
+<li><strong>重新认证：</strong> 如果应用长时间处于后台，切回时可能需要重新验证用户身份。</li>
+</ul></li>
+
+<li><p><strong><code>AppLifecycleState.inactive</code> (不活跃/暂停 - 仅 iOS 和 Android 部分情况):</strong></p>
+
+<ul>
+<li>在 iOS 上，当有电话呼入、短信弹出、应用切换器激活时，应用会进入 <code>inactive</code> 状态。通常在此状态下应<strong>暂停不必要的动画或耗时操作</strong>，但UI通常仍然可见。</li>
+<li>在 Android 上，<code>inactive</code> 状态不常用，通常直接从 <code>resumed</code> 跳到 <code>paused</code>。</li>
+</ul></li>
+
+<li><p><strong><code>AppLifecycleState.paused</code> (暂停/后台):</strong></p>
+
+<ul>
+<li><strong>暂停媒体播放：</strong> 当用户切换到其他应用时，停止音乐、视频播放。</li>
+<li><strong>断开网络连接：</strong> 断开实时连接（如游戏、聊天），减少耗电。</li>
+<li><strong>保存用户数据：</strong> 在应用进入后台前保存草稿、进度、用户设置等，防止数据丢失。</li>
+<li><strong>停止相机预览：</strong> 关闭相机硬件，释放资源。</li>
+<li><strong>清理敏感数据：</strong> 将密码、银行卡号等敏感信息从内存中清除。</li>
+</ul></li>
+
+<li><p><strong><code>AppLifecycleState.detached</code> (分离/终止 - 仅 Android):</strong></p>
+
+<ul>
+<li>仅在 Android 上出现，表示应用进程可能仍在运行，但 Flutter 引擎的视图已被移除。通常在 Flutter Activity 被销毁但进程未被杀死时发生。</li>
+<li>可以进行最后的资源清理工作，但通常在 <code>paused</code> 状态下完成大部分清理。</li>
+</ul></li>
+</ul>
+
+<h4>系统配置变化 (<code>didChange...</code>)</h4>
+
+<ul>
+<li><p><strong><code>didChangePlatformBrightness</code> (深色/浅色模式切换):</strong></p>
+
+<ul>
+<li><strong>更新主题或UI：</strong> 如果你的应用有自定义的 UI 元素，而不仅仅依赖 <code>ThemeData</code>，你可能需要手动更新它们的颜色或样式以适应新的亮度模式。</li>
+<li><strong>切换图片资源：</strong> 根据亮暗模式加载不同的图片或图标。</li>
+</ul></li>
+
+<li><p><strong><code>didChangeLocales</code> (系统语言/地区设置变化):</strong></p>
+
+<ul>
+<li><strong>重新加载本地化资源：</strong> 如果你的应用使用了自定义的国际化方案，或者需要根据语言加载不同的动态内容，可以在这里触发重新加载。</li>
+<li><strong>更新日期/时间格式：</strong> 根据新的地区设置调整显示格式。</li>
+</ul></li>
+
+<li><p><strong><code>didChangeTextScaleFactor</code> (文字缩放因子变化):</strong></p>
+
+<ul>
+<li><strong>调整自定义文本布局：</strong> 如果你的应用中有非常复杂的文本布局，可能需要根据用户设置的文字大小偏好进行微调。通常 Flutter 默认的 <code>MediaQuery</code> 会处理大部分情况。</li>
+</ul></li>
+
+<li><p><strong><code>didChangeMetrics</code> (屏幕尺寸/像素比变化):</strong></p>
+
+<ul>
+<li><strong>响应屏幕旋转或分屏模式：</strong> 某些情况下，你可能需要根据新的屏幕尺寸重新绘制或调整布局，尤其是在使用自定义渲染或 Canvas 绘图时。</li>
+</ul></li>
+</ul>
+
+<h4>内存管理 (<code>didHaveMemoryPressure</code>)</h4>
+
+<ul>
+<li><strong>清理缓存：</strong> 当系统发出内存压力警告时，主动清除图片缓存、网络请求缓存或其他不必要的内存占用，以防止应用被系统强制关闭。</li>
+<li><strong>释放非关键资源：</strong> 释放一些可以随时重新加载的、但当前不急需的大型对象。</li>
+</ul>
+
+<h2>用法</h2>
+
+<p>使用 <code>WidgetsBindingObserver</code> 的典型做法就是将其混入到一个 <code>StatefulWidget</code> 的 <code>State</code> 类中：</p>
+
+<ol>
+<li><p><strong>混入 <code>WidgetsBindingObserver</code>：</strong>
+在 <code>State</code> 类定义上使用 <code>with WidgetsBindingObserver</code>。</p></li>
+
+<li><p><strong>注册观察者：</strong>
+在 <code>initState()</code> 方法中，调用 <code>WidgetsBinding.instance.addObserver(this)</code> 将当前 <code>State</code> 对象注册为观察者。</p></li>
+
+<li><p><strong>实现回调方法：</strong>
+覆盖对应的回调方法（如 <code>didChangeAppLifecycleState</code>）。</p></li>
+
+<li><p><strong>移除观察者：</strong>
+在 <code>dispose()</code> 方法中，务必调用 <code>WidgetsBinding.instance.removeObserver(this)</code> 来移除观察者，防止内存泄漏。</p></li>
+</ol>
+
+<p><strong>示例代码：</strong></p>
+
+<pre><code class="language-dart">import 'package:flutter/material.dart';
+
+class LifecycleAwareWidget extends StatefulWidget {
+  @override
+  _LifecycleAwareWidgetState createState() =&gt; _LifecycleAwareWidgetState();
+}
+
+class _LifecycleAwareWidgetState extends State&lt;LifecycleAwareWidget&gt;
+    with WidgetsBindingObserver { // 1. 混入 WidgetsBindingObserver
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this); // 2. 注册观察者
+    print('Widget initState - Observer added');
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this); // 4. 移除观察者，防止内存泄漏
+    print('Widget dispose - Observer removed');
+    super.dispose();
+  }
+
+  // 3. 实现回调方法
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('AppLifecycleState changed: $state');
+    switch (state) {
+      case AppLifecycleState.resumed:
+        // 应用回到前台
+        print('App is back in foreground!');
+        // 示例：重新加载数据，恢复动画，重新连接Socket等
+        break;
+      case AppLifecycleState.inactive:
+        // 应用处于不活跃状态（如iOS来电、多任务切换器）
+        print('App is inactive.');
+        // 示例：暂停非关键的动画
+        break;
+      case AppLifecycleState.paused:
+        // 应用进入后台
+        print('App is in background.');
+        // 示例：保存数据，暂停媒体播放，断开Socket，停止相机等
+        break;
+      case AppLifecycleState.detached:
+        // 应用被分离（Android，Flutter引擎视图被移除）
+        print('App is detached.');
+        // 示例：执行最后的清理
+        break;
+      case AppLifecycleState.hidden:
+        // 应用被隐藏 (Web 或特定场景，不常用)
+        print('App is hidden.');
+        break;
+    }
+  }
+
+  @override
+  void didChangeMetrics() {
+    print('Metrics changed (e.g., screen size, orientation)');
+    // 示例：响应屏幕旋转
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    print('Platform brightness changed (dark/light mode)');
+    // 示例：更新自定义UI的主题
+  }
+
+  @override
+  void didChangeLocales() {
+    print('Locales changed (language settings)');
+    // 示例：重新加载国际化资源
+  }
+
+  @override
+  void didHaveMemoryPressure() {
+    print('Received memory pressure warning!');
+    // 示例：清理缓存
+  }
+
+  // 其他回调方法...
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('WidgetsBindingObserver Demo'),
+      ),
+      body: Center(
+        child: Text('Check console for lifecycle and system events!'),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: LifecycleAwareWidget(),
+  ));
+}
+</code></pre>
+
+<h3>注意事项：</h3>
+
+<ul>
+<li><strong>不阻塞UI：</strong> 在回调方法中不要执行耗时的操作，否则的话，会阻塞主线程，影响用户体验。耗时操作应当其放到后台线程中去执行。</li>
+<li><strong>处理平台差异：</strong> <code>AppLifecycleState</code> 的某些状态在不同平台上的行为可能略有不同（例如 <code>inactive</code> 主要用于 iOS）。在编写逻辑时需要考虑这些差异。</li>
+</ul>
+
+<h1>V.S.  AppLifecycleListener</h1>
+
+<p>如果仅需要检测生命周期的变化的话，建议选择 <code>AppLifecycleListener</code>,因为相较于 <code>WidgetsBindingObserver</code>,后者提供了更细粒度的、独立的生命周期回调方法。</p>
+
+<p>AppLifecycleListener 是 Flutter 3.10 引入的<strong>新 API</strong>，专门用于<strong>更清晰、更现代地管理应用生命周期</strong>。专门用来解决 didChangeAppLifecycleState 中某些状态的歧义，并提供更符合现代操作系统（尤其是桌面和 Web）行为的生命周期管理。</p>
+
+<p><img src="https://github.com/user-attachments/assets/2f104c94-c309-4041-b63f-092badf81bfe" alt="Diagram of the application lifecycle defined by the AppLifecycleState enum" /></p>
+
+<h3>示例</h3>
+
+<pre><code class="language-dart">import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+
+void main() {
+  runApp(const AppLifecycleListenerExample());
+}
+
+class AppLifecycleListenerExample extends StatelessWidget {
+  const AppLifecycleListenerExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(home: Scaffold(body: AppLifecycleDisplay()));
+  }
+}
+
+class AppLifecycleDisplay extends StatefulWidget {
+  const AppLifecycleDisplay({super.key});
+
+  @override
+  State&lt;AppLifecycleDisplay&gt; createState() =&gt; _AppLifecycleDisplayState();
+}
+
+class _AppLifecycleDisplayState extends State&lt;AppLifecycleDisplay&gt; {
+  late final AppLifecycleListener _listener;
+  final ScrollController _scrollController = ScrollController();
+  final List&lt;String&gt; _states = &lt;String&gt;[];
+  late AppLifecycleState? _state;
+
+  @override
+  void initState() {
+    super.initState();
+    _state = SchedulerBinding.instance.lifecycleState;
+    _listener = AppLifecycleListener(
+      onShow: () =&gt; _handleTransition('show'),
+      onResume: () =&gt; _handleTransition('resume'),
+      onHide: () =&gt; _handleTransition('hide'),
+      onInactive: () =&gt; _handleTransition('inactive'),
+      onPause: () =&gt; _handleTransition('pause'),
+      onDetach: () =&gt; _handleTransition('detach'),
+      onRestart: () =&gt; _handleTransition('restart'),
+      onStateChange: _handleStateChange,
+    );
+    if (_state != null) {
+      _states.add(_state!.name);
+    }
+  }
+
+  @override
+  void dispose() {
+    _listener.dispose();
+    super.dispose();
+  }
+
+  void _handleTransition(String name) {
+    setState(() {
+      _states.add(name);
+    });
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOut,
+    );
+  }
+
+  void _handleStateChange(AppLifecycleState state) {
+    setState(() {
+      _state = state;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        width: 300,
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Column(
+            children: &lt;Widget&gt;[
+              Text('Current State: ${_state ?? 'Not initialized yet'}'),
+              const SizedBox(height: 30),
+              Text('State History:\n  ${_states.join('\n  ')}'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+</code></pre>
+
+<h2>参考文档</h2>
+
+<ol>
+<li><a href="https://api.flutter.dev/flutter/widgets/AppLifecycleListener-class.html">AppLifecycleListener</a></li>
+<li><a href="https://api.flutter.dev/flutter/dart-ui/AppLifecycleState.html">AppLifecycleState</a></li>
+<li><a href="https://api.flutter.dev/flutter/widgets/WidgetsBindingObserver-class.html">WidgetsBindingObserver</a></li>
+</ol>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">flutter</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="264"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

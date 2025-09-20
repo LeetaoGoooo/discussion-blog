@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&#39;类的自定注册以及应用场景&#39; - Leetao</title>
+    <meta name="description" content="&gt; 在 3.6 之前可以通过 `meta class` 去实现，3.6 之后可以通过 `__init_subclass__` 实现
+
+
+## `meta class`
+
+通过 `meta class` 的 `__new__` 方...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>&#39;类的自定注册以及应用场景&#39;</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <blockquote>
+<p>在 3.6 之前可以通过 <code>meta class</code> 去实现，3.6 之后可以通过 <code>__init_subclass__</code> 实现</p>
+</blockquote>
+
+<h2><code>meta class</code></h2>
+
+<p>通过 <code>meta class</code> 的 <code>__new__</code> 方法可以实现自动注册 <code>class</code> 的功能，原理很简单，就是通过元类去控制类的创建，在调用 <code>__new__</code>  方法的时候自动将 <code>class</code> 注册</p>
+
+<pre><code class="language-python">class MetaClass(type):
+    def __new__(cls, clsname, bases, attrs):
+        newclass = super(MetaClass, cls).__new__(cls, clsname, bases, attrs)
+        register(newclass)  # 注册函数
+        return newclass
+
+class MyClass(metaclass=MetaClass):
+    pass
+</code></pre>
+
+<h2><code>__init_subclass__</code></h2>
+
+<p><code>__init_subclass__</code> 是 3.6 后引入的一个新的特性，一个 hook，可以让所有的子类在创建之后执行一些初始化的操作，通过这个特性我们就可以更简单地实现上述通过元类实现的功能。</p>
+
+<pre><code class="language-python">class ParentClass:
+	def __init_subclass_(cls, **kwargs):
+		super().__init_subclass(**kwargs)
+		register(cls)
+
+
+class ChildClass(ParentClass):
+	pass
+
+</code></pre>
+
+<p>需要注意的是 <code>__init_subclass__</code>  <strong>没有非关键字参数</strong>。</p>
+
+<h1>应用</h1>
+
+<p>代码存在如下的逻辑:</p>
+
+<pre><code class="language-python">if category == 'a':
+	handle_a()
+elif cateogory == 'b':
+	handle_b()
+elif category == 'c':
+	handle_c()
+else:
+	handle_else()
+</code></pre>
+
+<p>存在很多都处理逻辑，每个逻辑可能由不同的开发人员编写，全部放到一个代码块中，可以预见随着分支的增多，这部分代码会变得越来越庞大，不利于后期维护，所以最简单的方案，存在一个 dict 保存 <code>category</code> 和 处理方法的映射关系:</p>
+
+<pre><code class="language-python">category_to_func = {
+    'a': handle_a
+	...
+}
+</code></pre>
+
+<p>然后就可以将最初的代码简化为:</p>
+
+<pre><code class="language-python">return category_to_func.get(category)()
+</code></pre>
+
+<h1>实现</h1>
+
+<h2>方法一</h2>
+
+<p>基于上面的思路，可以写出最简单的方法，让大家自行编写自己的处理方法，然后在 <code>category_to_func</code> 中统一注册自己的方法。</p>
+
+<pre><code class="language-python">category_to_func = {
+	'a': handle_a # A 撰写注册
+	'b': handle_b # B 撰写注册
+	...
+}
+</code></pre>
+
+<p>这样子没有任何问题，但是不够优雅，开发人员撰写了自己的处理方法之后，还要去指定的地方注册自己的方法，开发体验不太好。
+如果存在一种方式，开发人员只需要撰写处理方法，代码可以自定注册就更好了。</p>
+
+<h2>方法二</h2>
+
+<p>通过上面的自注册的方法，让子类继承父类，然后将其自动注册到全局当中，这样子开发人员只需要关注自己的业务实现就可以了。</p>
+
+<h2>参考链接</h2>
+
+<p><a href="https://www.python.org/dev/peps/pep-0487/">PEP 487 &ndash; Simpler customisation of class creation</a>
+<a href="https://stackoverflow.com/questions/5189232/how-to-auto-register-a-class-when-its-defined">python - How to auto register a class when it&rsquo;s defined - Stack Overflow</a></p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="27"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

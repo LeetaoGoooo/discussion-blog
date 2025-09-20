@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask-SQLAlchemy 多表对单模型 - Leetao</title>
+    <meta name="description" content="
+
+
+# 前言
+在 Flask 中 Flask-SQLAlchemy 应该是最常用的 ORM 了，通过它来构建 Model  来映射数据库中的表。通常情况下都是一个�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>Flask-SQLAlchemy 多表对单模型</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>在 Flask 中 Flask-SQLAlchemy 应该是最常用的 ORM 了，通过它来构建 Model  来映射数据库中的表。通常情况下都是一个表对应一个模型，这种方案很简单。那么如果是多个表对应一个模型的情况下，该如何处理呢？接下来结合一个具体的案例来讲解这一内容。</p>
+
+<h1>案例</h1>
+
+<p>现在我有一个数据库 <strong>test.db</strong>,它的表如下：</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1gf74p3v35jj30cc0eg0uy.jpg" alt="1590195419952-4200c916-62c2-4f6e-9c1b-d79859502926.png" /></p>
+
+<p>有很多表并且表名类似，而且表名类似的表的结构相同，以 <strong>UPS1_20190716</strong> 为例，看一下它的表结构：</p>
+
+<pre><code class="language-shell">Id
+workTime
+device
+status
+temp
+</code></pre>
+
+<p>那么如何定义Model呢？像下面这样？</p>
+
+<pre><code class="language-python">class UPS120190719:
+	__tablename__ = 'UPS1_20190716'
+	Id = db.Column(db.Integer,primary_key=True)
+	workTime = db.Column(db.Time)
+	...
+    
+class UPS220190716:
+	__tablename__ = 'UPS2_20190716'
+	...
+</code></pre>
+
+<p>显然这样子代码不够优雅，有重复的代码，需要优化。那么该怎么解决呢？</p>
+
+<h1>解决方案</h1>
+
+<p>有俩种方案都可以解决上述问题，不过俩种方案应用场景略有不同，可以根据实际情况来决定。</p>
+
+<h2>类的继承</h2>
+
+<p>第一种方法就是利用类可以继承的特性去实现了，我们定义一个表的基类,然后其它 UPS 表继承 UpsBase即可：</p>
+
+<pre><code class="language-python">class UpsBase:
+	Id = db.Column(db.Integer,primary_key=True)
+   	workTime = db.Column(db.Time)
+   	...
+
+class UPS120190716(UpsBase):
+	__tablename__ = 'UPS1_20190716'
+
+class UPS220190716(UpsBase):
+	__tablename__ = 'UPS2_20190716'
+</code></pre>
+
+<p>当表的数量固定这是一个很好的解决方案，但是一旦当数据库的表会发生变动，比如隔天增长几张表，显然我们不太可能天天定义新的<code>Model</code>，然后重新部署服务的。这个情况就需要用到第二种解决方案了。</p>
+
+<h2>动态定义表类</h2>
+
+<p>同样的这种方法也需要首先定义表的基类：</p>
+
+<pre><code class="language-python">class UpsBase:
+   Id = db.Column(db.Integer,primary_key=True)
+   workTime = db.Column(db.Time)
+   ...
+</code></pre>
+
+<p>但是这里就不需要定义其它 UPS 表的类了，这里是动态定义，那就意味着，我们只在需要的时候创建，那么如何创建呢？在 Python 中可以使用 type 函数动态创建类，需要注意的时，在创建时需要设置 **<strong>tablename</strong> **的值。</p>
+
+<pre><code class="language-python">Ups1_20190716 = type('UPS120190716', (UpsBase, db.Model), {'__tablename__':'UPS1_20190716'})
+</code></pre>
+
+<p>之后就可以创建实例了：</p>
+
+<pre><code class="language-python">Ups = Ups1_20190716()
+</code></pre>
+
+<h2>例子</h2>
+
+<p>下面补充一个例子：<strong>如果根据表名动态创建表，如果表不存在则创建</strong></p>
+
+<pre><code class="language-python3">from flask import Flask,jsonify
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import inspect
+
+
+app = Flask(__name__)
+app.config[&quot;SQLALCHEMY_DATABASE_URI&quot;] = &quot;sqlite:///test.sqlite3&quot;
+app.config[&quot;SQLALCHEMY_TRACK_MODIFICATIONS&quot;] = False
+
+db = SQLAlchemy(app=app)
+
+class UpsBase:
+    Id = db.Column(db.Integer,primary_key=True)
+    workTime = db.Column(db.Time)
+
+def table_exists(name):
+    engine = db.get_engine()
+    ret = inspect(engine).has_table(name)
+    print('Table &quot;{}&quot; exists: {}'.format(name, ret))
+    return ret
+
+
+@app.route(&quot;/&lt;table_name&gt;&quot;)
+def index(table_name):
+    if not table_exists(table_name):
+        up_test = dynamic_table(UpsBase, table_name)
+        up_test.__table__.create(db.engine)
+    return jsonify({&quot;code&quot;:200})
+    
+
+
+
+def dynamic_table(table_base, table_name: str, bind_key='db') -&gt; db.Model:
+    &quot;&quot;&quot;[summary]
+    Arguments:
+        table_base {Object} -- [表的属性类，包含表的所有列]
+        table_name {str} -- [表名]
+        bind_key {str} -- [绑定的数据库]
+    Returns:
+        [Model] -- [对应的 db Model]
+    &quot;&quot;&quot;
+    return type(table_name.capitalize(), (table_base, db.Model),
+                {'__tablename__': table_name, '__bind_key__': bind_key, '__table_args__': {'extend_existing': True}})()
+
+</code></pre>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="49"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

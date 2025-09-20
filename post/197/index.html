@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多线程下的list - Leetao</title>
+    <meta name="description" content="
+
+
+# 前言
+
+`list` 是  `Python`  常用的几个基本数据类型之一.正常情况下我们会对 `list` 有增删改查的操作,显然易见不会有任�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>多线程下的list</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p><code>list</code> 是  <code>Python</code>  常用的几个基本数据类型之一.正常情况下我们会对 <code>list</code> 有增删改查的操作,显然易见不会有任何问题.那么如果我们试着在<strong>多线程</strong>下操作<code>list</code> 会有问题吗?</p>
+
+<h1>多线程下的 list</h1>
+
+<h2>安全 or 不安全？ 不安全！</h2>
+
+<p>通常我们说的线程安全是指针对某个数据结构的所有操作都是线程安全，在这种定义下，Python 常用的数据结构 <code>list,dict,str</code> 等都是线程不安全的</p>
+
+<p>尽管多线程下的 <code>list</code> 是线程不安全的，但是在 <code>append</code> 的操作下是它又是线程安全的.</p>
+
+<h2>如何判断线程安全呢？</h2>
+
+<p>对于线程安全不安全，我们可以通过极端条件下去复现，从而得出结论。比如说判断 <code>list</code> 是否线程安全</p>
+
+<pre><code class="language-python">import threading
+import time
+
+# 随意设置 count 的值，值越大错误抛出的越快
+count = 1000
+l = []
+
+def add():
+    for i in range(count):
+        l.append(i)
+        time.sleep(0.0001)
+
+def remove():
+
+    for i in range(count):
+        l.remove(i)
+        time.sleep(0.0001)
+
+
+t1 = threading.Thread(target=add)
+t2 = threading.Thread(target=remove)
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(l)
+</code></pre>
+
+<p>有时候一次运行并不一定就会出错，多次重试之后会出现类似下面的错误</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1g6vnjzuaxfj20m6054jrw.jpg" alt="Image.png" /></p>
+
+<p>很显然这种操作方式不具有普适性，如果要是欧气太强，说不定会一直不出现异常。</p>
+
+<p>那么出了这种方式，有没有比较简单有效的方法吗？答案是有的</p>
+
+<h2>dis</h2>
+
+<p>dis 库是 Python 自带的一个库，可以用来分析字节码。这里我们需要有这样的认识，<strong>字节码的每一行都是一个原子操作，多线程切换就是以原子操作为单位的，如果一个操作需要两行字节码就说明它是线程不安全的</strong></p>
+
+<h3>remove</h3>
+
+<p>这里我们先看一下上面 <code>list</code> 的 <code>remove</code> 操作</p>
+
+<pre><code class="language-python">&gt;&gt;&gt; import dis
+&gt;&gt;&gt; def test_remove():
+...     a = [1]
+...     a.remove(0)
+... 
+&gt;&gt;&gt; dis.dis(test_remove)
+  2           0 LOAD_CONST               1 (1)
+              2 BUILD_LIST               1
+              4 STORE_FAST               0 (a)
+
+  3           6 LOAD_FAST                0 (a)
+              8 LOAD_ATTR                0 (remove)
+             10 LOAD_CONST               2 (0)
+             12 CALL_FUNCTION            1
+             14 POP_TOP
+             16 LOAD_CONST               0 (None)
+             18 RETURN_VALUE
+</code></pre>
+
+<p>从上面不难看出，整个 <code>remove</code> 操作被分成了好几条指令，这就意味着在多线程情况下会出现错乱的情况，试想一下，如果多线程下都去 <code>remove</code> 列表的话，并且不按照顺序，很容易出现问题。</p>
+
+<h3>append</h3>
+
+<p>在最上面我们说到，<code>list</code> 的 <code>append</code> 操作是线程安全的，那么究竟是为什么呢？我们同样来用 <code>dis</code> 查看一下</p>
+
+<pre><code class="language-python">8          19 LOAD_GLOBAL              0 (a)
+           22 LOAD_ATTR                2 (append)
+           25 LOAD_CONST               2 (1)
+           28 CALL_FUNCTION            1
+           31 POP_TOP    
+</code></pre>
+
+<p>这里显然，<code>append</code> 也是有几条指令，势必在多线程执行的情况下也会发生交错，但是对于多线程下我们操作 <code>append</code>， 我们肯定也不会在乎这个时候 <code>list</code> 到顺序问题了，所以我们说它的 <code>append</code> 是线程安全的</p>
+
+<h1>参考</h1>
+
+<p><a href="https://docs.python.org/3/faq/library.html#what-kinds-of-global-value-mutation-are-thread-safe">what-kinds-of-global-value-mutation-are-thread-safe</a></p>
+
+<p><a href="https://stackoverflow.com/questions/6319207/are-lists-thread-safe/19728536#19728536">are lists thread safe</a></p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="197"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

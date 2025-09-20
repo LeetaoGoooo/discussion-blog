@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算1-866278171中奇数列中3出现的个数 - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+
+关于 计算1至N中X出现的个数
+&gt; 编程之美上给出的规律：
+1.如果第i位（自右至左，从1开始标号）上的数字为0，则第i�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>计算1-866278171中奇数列中3出现的个数</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <p>关于 计算1至N中X出现的个数
+&gt; 编程之美上给出的规律：
+1.如果第i位（自右至左，从1开始标号）上的数字为0，则第i位可能出现1的次数由更高位决定（若没有高位，视高位为0），等于更高位数字X当前位数的权重10^(i-1)。
+2.如果第i位上的数字为1，则第i位上可能出现1的次数不仅受更高位影响，还受低位影响（若没有低位，视低位为0），等于更高位数字X当前位数的权重10^(i-1)+（低位数字+1）。
+3.如果第i位上的数字大于1，则第i位上可能出现1的次数仅由更高位决定（若没有高位，视高位为0），等于（更高位数字+1）X当前位数的权重10^(i-1)。</p>
+
+<p>通用结论:
+1. 从 1 至 10，在它们的个位数中，任意的 X 都出现了 1 次
+2. 从 1 至 100，在它们的十位数中，任意的 X 都出现了 10 次
+3. 从 1 至 1000，在它们的千位数中，任意的 X 都出现了 100 次
+4. 依此类推，从 1 至 10^i，在它们的左数第二位（右数第 i 位）中，任意的 X 都出现了10^(i−1) 次</p>
+
+<p>得出的算法如下:</p>
+
+<p>当计算右数第 i 位包含的 X 的个数时：</p>
+
+<ol>
+<li><p>取第 i 位左边（高位）的数字，乘以 10^(i−1)，得到基础值 a</p></li>
+
+<li><p>取第 i 位数字，计算修正值：</p>
+
+<ol>
+<li>如果大于 X，则结果为 a+10^(i−1)</li>
+<li>如果小于 X，则结果为 a</li>
+<li>如果等 X，则取第 i 位右边（低位）数字，设为 b，最后结果为 a+b+1</li>
+</ol></li>
+</ol>
+
+<pre><code class="language-python">def count_x_between_one_and_n(n,x):
+    if n &lt; 0 or x &lt; 1 or x &gt; 9:
+        return 0
+    high,low,current,tmp,i = 1,1,1,1,1
+    high = n
+    total = 0
+    while high !=0:
+        high = int(n/int(math.pow(10,i)))
+        tmp = int(n%int(math.pow(10,i)))
+        current = int(tmp/int(math.pow(10,i-1)))
+        low = int(tmp%int(math.pow(10,i-1)))
+        if current == x:
+            total += high*int(math.pow(10,i-1))+low+1
+        elif current &lt; x:
+            total += high*int(math.pow(10,i-1))
+        else:
+            total += (high+1)*int(math.pow(10, i-1))
+        i+=1
+    return total
+
+res =count_x_between_one_and_n(866278171,3)) # 796741437
+# 求为奇数的时候，当个位为3的时候，均为奇数，除去这一部分，这剩下的
+# 奇偶数各占一半
+a = 796741437 # 总个数
+b = 866278170/10 # 个位为 3 的个数
+c = (a - b)/2 + b # 再加上个位为3的个数，得出奇数列中3出现的个数 441684627
+</code></pre>
+
+<h1>结尾</h1>
+
+<p>Leetcode 也有类似的题目是求 1 出现的个数,相对比较简单一些,有兴趣可以尝试一下 <a href="https://leetcode-cn.com/problems/number-of-digit-one/">数字1的个数</a></p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="219"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

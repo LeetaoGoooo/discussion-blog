@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动同步豆瓣图书封面到 Notion 的读书笔记 - Leetao</title>
+    <meta name="description" content="**TL;DR**
+
+可以通过以下脚本实现同步封面到 Notion 读书笔记
+
+```python
+from typing import List, TypedDict
+import requests
+import os
+
+d...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>自动同步豆瓣图书封面到 Notion 的读书笔记</h1>
+            <p class="meta">
+                By LeetaoGoooo on February 12, 2023
+            </p>
+            
+            <div class="content">
+                <p><strong>TL;DR</strong></p>
+
+<p>可以通过以下脚本实现同步封面到 Notion 读书笔记</p>
+
+<pre><code class="language-python">from typing import List, TypedDict
+import requests
+import os
+
+database_id = os.getenv(&quot;database_id&quot;) # 读书笔记对应到数据库id
+notion_version = os.getenv(&quot;notion_version&quot;, &quot;2022-02-22&quot;) # 固定参数
+token = os.getenv(&quot;token&quot;) # 自己的integrations的token
+
+if not all([database_id, token]):
+    raise ValueError(&quot;neither token or database id can't be none&quot;)
+
+notion_headers = {
+    'Authorization': f'Bearer {token}',
+    'Content-Type': 'application/json',
+    'Notion-Version': notion_version
+}
+
+
+class EmptyCoverPage(TypedDict):
+    page_id: str
+    book_name: str
+
+
+def _get_image_from_douban(book_name: str) -&gt; str:
+    resp = requests.get(
+        f'https://book.douban.com/j/subject_suggest?q={book_name}', headers={&quot;User-Agent&quot;: &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)&quot;})
+    if resp.status_code != 200 or not resp.json():
+        return
+    resp_json = resp.json()
+    return resp_json[0][&quot;pic&quot;]
+
+
+def _get_pages_with_empty_cover(database_id: str) -&gt; List[EmptyCoverPage]:
+    url = f&quot;https://api.notion.com/v1/databases/{database_id}/query&quot;
+    payload = {
+        &quot;filter&quot;: {
+            &quot;property&quot;: &quot;封面图&quot;, # 封面列的名称
+            &quot;files&quot;: {
+                &quot;is_empty&quot;: True
+            }
+        }
+    }
+    resp = requests.post(url, json=payload, headers=notion_headers)
+    if resp.status_code != 200:
+        return []
+    resp_json = resp.json()
+    return [EmptyCoverPage(page_id=item[&quot;id&quot;], book_name=item[&quot;properties&quot;][&quot;书名&quot;][&quot;title&quot;][0][&quot;text&quot;][&quot;content&quot;]) for item in resp_json[&quot;results&quot;]]
+
+
+def _set_cover(cover: str, page_id: str):
+    url = f&quot;https://api.notion.com/v1/pages/{page_id}&quot;
+    payload = {
+        &quot;properties&quot;: {
+            &quot;封面图&quot;: {
+                &quot;files&quot;: [{
+                    &quot;name&quot;: cover,
+                    &quot;type&quot;: &quot;external&quot;,
+                    &quot;external&quot;: {
+                        &quot;url&quot;: cover
+                    }
+                }]
+            }
+        }
+    }
+    resp = requests.patch(url, json=payload, headers=notion_headers)
+    return resp.status_code == 200
+
+
+def sync_covers_to_book():
+    pages_with_empty_cover = _get_pages_with_empty_cover(database_id)
+    print(f'当前有{len(pages_with_empty_cover)}本书没有设置封面')
+    for page in pages_with_empty_cover:
+        book_name = page[&quot;book_name&quot;]
+        cover = _get_image_from_douban(page[&quot;book_name&quot;])
+        if cover:
+            print(f'成功获取到{book_name}的封面')
+            if _set_cover(cover, page[&quot;page_id&quot;]):
+                print(f'成功设置{book_name}封面')
+            else:
+                print(f'设置{book_name}封面失败')
+        else:
+            print(f'未获取到{book_name}的封面')
+
+
+if __name__ == '__main__':
+    sync_covers_to_book()
+
+</code></pre>
+
+<h1>前言</h1>
+
+<p>我一直有使用 notion 记录自己的<a href="https://leetao-personal.notion.site/leetao-personal/32718a67dc634ab1960b3591bc52d913">读书笔记</a>的习惯</p>
+
+<p><img width="909" alt="读书笔记" src="https://user-images.githubusercontent.com/10162120/218299556-c15f2b5b-72be-4d7e-8bef-95df3bd5ee21.png"></p>
+
+<p>在此之前，对应书籍的读书封面，都是我从豆瓣手动复制封面地址，然后在 notion 上设置的，这个流程太过重复和单调了，所以就考虑写个程序将这个流程自动化起来。</p>
+
+<h1>设置读书模版</h1>
+
+<p>如果需要直接使用上述脚本的话，可以直接将我的模版 Duplicate，否则的话，保留封面那一列也可以</p>
+
+<p><img width="1104" alt="image" src="https://user-images.githubusercontent.com/10162120/218299801-69fc5660-e257-49f0-911d-0da2ff6de210.png"></p>
+
+<p>⚠️封面那一列的属性为 <strong>File &amp; media</strong>
+<img width="282" alt="image" src="https://user-images.githubusercontent.com/10162120/218299837-e2e57126-7941-4057-a896-dde1440981ef.png"></p>
+
+<h1>创建 integrations</h1>
+
+<p>去 notion 创建自己的 <a href="https://www.notion.so/my-integrations">integrations</a>，选择对应的 workspace</p>
+
+<p><img width="926" alt="截屏2023-02-12 16 07 16" src="https://user-images.githubusercontent.com/10162120/218299946-239dfb83-6720-4f82-8b72-ece265ad4b09.png"></p>
+
+<p>其中 <strong>Capabilities</strong> 中的 <strong>Content Capabilities</strong> 三个都要勾选</p>
+
+<p><img width="631" alt="image" src="https://user-images.githubusercontent.com/10162120/218299985-c503c2a5-3576-4d24-bfab-3eb6e3950c33.png"></p>
+
+<p>创建完成后，会获得一个 <strong>token</strong>，</p>
+
+<p><img width="933" alt="image" src="https://user-images.githubusercontent.com/10162120/218300190-814a5c37-c9a5-4ffd-a425-59d8e1cddc3a.png"></p>
+
+<h1>Connect 你的 integrations</h1>
+
+<p>在你的图书馆 Connect 你刚才的 integrations</p>
+
+<p><img width="275" alt="image" src="https://user-images.githubusercontent.com/10162120/218300084-6f274f00-3dc1-48fe-aebe-f6bdb402eaec.png"></p>
+
+<p><strong>⚠️可能需要过几分钟，才能找到你创建创建的 integrations</strong></p>
+
+<h1>设置程序中对应的参数</h1>
+
+<p>程序中的 database_id 可以在你的图书馆的 url 找到,这里以我的图书馆为例子，</p>
+
+<pre><code>https://leetao-personal.notion.site/leetao-personal/32718a67dc634ab1960b3591bc52d913
+</code></pre>
+
+<p>url 最后一串 uuid 就是 dababase_id，程序中的另外一个参数 token 就是刚才获取的那个 token，notion_version 暂时固定不需要调整。</p>
+
+<h1>最后</h1>
+
+<p>最后将这个脚本放到 github action 上，定时执行一下，就可以不需要人工干预，自动同步封面了；当然程序远不止可以同步封面这些，还可以同步豆瓣的评分，把你之前的阅读记录全部同步到 notion，剩下的这些就可以自己定制化开发了。</p>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">python</span>
+                
+                <span class="tag">notion</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="14"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

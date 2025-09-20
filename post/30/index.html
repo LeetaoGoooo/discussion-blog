@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CentOS7安装Mysql - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+
+
+# 查看 CentOS 7的 yum 是否有 mysql-server 文件
+打开控制台,输入如下命令行:
+
+```shell
+yum list | grep mysql
+```
+
+注意:确保能上网...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>CentOS7安装Mysql</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>查看 CentOS 7的 yum 是否有 mysql-server 文件</h1>
+
+<p>打开控制台,输入如下命令行:</p>
+
+<pre><code class="language-shell">yum list | grep mysql
+</code></pre>
+
+<p>注意:确保能上网, YUM 源配置到了 Internet 上,如果 Linux 无法上网则无法正确使用 yum 命令.</p>
+
+<h1>下载与安装</h1>
+
+<p>CentOS 7的yum源中没有正常安装MySQL时的mysql-sever文件,需要去官网上下载,<a href="http://dev.mysql.com/downloads/repo/yum/">官网地址</a>
+然后从下列文件选择其中一个文件下载:
+<img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f8vis1jxhyj20th06z769.jpg" alt="" />
+然后在文件所在文件下,打开命令行使用如下命令(这里以 mysql57-community-release-el7-9.noarch.rpm 为例):</p>
+
+<pre><code class="language-shell">rpm -ivh mysql57-community-release-el7-9.noarch.rpm
+yum install install mysql-server
+</code></pre>
+
+<p>然后一路 yes 就 ok 了~
+安装之后重启 mysql 服务</p>
+
+<pre><code class="language-shell">service mysqld restart
+</code></pre>
+
+<p>数据库安装成功了,接下来就是配置数据库了.</p>
+
+<h1>配置数据库</h1>
+
+<h2>获取临时密码</h2>
+
+<p>为了加强安全性, MySQL 为 root 用户随机生成了密码,用于初次登录,使用如下命令获取临时密码:</p>
+
+<pre><code class="language-shell">grep &quot;password&quot; /var/log/mysqld.log
+</code></pre>
+
+<p><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f8vjrbvjt5j20kb01q3ys.jpg" alt="" />
+然后将密码复制下来~,接着进入数据库:</p>
+
+<pre><code class="language-shell">mysql -u root -p
+</code></pre>
+
+<p>然后安装命令行提示输入密码,成功进入数据库,然后尝试 <em>show databases</em>,你会发现提示你修改密码</p>
+
+<h2>修改密码</h2>
+
+<p>修改密码的命令行如下:</p>
+
+<pre><code class="language-sql">SET PASSWORD FOR 'root'@'localhost' = PASSWORD('Your new password')
+</code></pre>
+
+<p>注意:如果你的密码设置的过于简单就会出现下列错误:</p>
+
+<pre><code class="language-sql">ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
+</code></pre>
+
+<p>之所以会出现这个问题,跟 <strong>validate_password_policy</strong> 的值有关
+validate_password_policy 有以下取值:</p>
+
+<pre><code class="language-shell">Policy Tests Performed 0 or LOW Length 1 or MEDIUM Length; numeric, lowercase/uppercase, and special characters 2 or STRONG Length; numeric, lowercase/uppercase, and special characters; dictionary file
+</code></pre>
+
+<p>默认是1，即MEDIUM，所以刚开始设置的密码必须符合长度，且必须含有数字，小写或大写字母，特殊字符.老实说平时数据库密码都很简单,方便记忆,所以这里同样为了可以设置简单的密码,需要修改两个全局参数.</p>
+
+<h3>修改 validate_password_policy 值</h3>
+
+<pre><code class="language-sql">mysql&gt; set global validate_password_policy=0;
+Query OK, 0 rows affected (0.00 sec)
+</code></pre>
+
+<p>修改完这个之后,判断密码的标准就基于密码的长度了.这个由 <strong>validate_password_length</strong> 来决定.</p>
+
+<h3>修改 valitdate_password_length</h3>
+
+<p>validate_password_length 参数默认为8,它也有最小值的限制,最小值为:</p>
+
+<pre><code class="language-shell">validate_password_number_count 
++ validate_password_special_char_count 
++ (2 * validate_password_mixed_case_count)
+</code></pre>
+
+<p>其中，<strong>validate_password_number_count</strong> 指定了密码中数据的长度,<strong>alidate_password_special_char_count</strong> 指定了密码中特殊字符的长度,<strong>validate_password_mixed_case_count</strong> 指定了密码中大小字母的长度,由于这些参数默认值均为1,所以 <strong>validate_password_length</strong> 最小值为4.</p>
+
+<pre><code class="language-sql">mysql&gt; set global validate_password_length= 4;
+Query OK, 0 rows affected (0.00 sec)
+</code></pre>
+
+<p>如果将值设置为 &lt; 4 ,valiadate_password_length 将仍为4.将上述两项设置完成之后,就可以设置一个长度为4位的简单 mysql 密码了.</p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="30"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

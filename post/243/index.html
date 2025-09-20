@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to determine if side panel is open or not? - Leetao</title>
+    <meta name="description" content="TL;DR, side panel is a new feature in **chrome 114&#43;** and **MV3**. However there is no official API to   detect if side panel is open or not, but we can impleme...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>How to determine if side panel is open or not?</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 1, 2024
+            </p>
+            
+            <div class="content">
+                <p>TL;DR, side panel is a new feature in <strong>chrome 114+</strong> and <strong>MV3</strong>. However there is no official API to   detect if side panel is open or not, but we can implement it by using <strong>chrome.runtime.connect</strong></p>
+
+<p><img src="https://github.com/LeetaoGoooo/discussion-blog/assets/10162120/35a11a97-3364-4b04-9955-584e5baabbc3" alt="Chrome browser side panel UI" /></p>
+
+<h1>API for side panel</h1>
+
+<p>there are only four methods for side panel
+1.  <strong>getOptions()</strong> Returns the active panel configuration.
+2.  <strong>getPanelBehavior()</strong> Returns the extension&rsquo;s current side panel behavior
+3. <strong>open()</strong> Opens the side panel for the extension. <em>This may only be called in response to a user action.</em>
+4. <strong>setOptions()</strong> Configures the side panel.</p>
+
+<p>for more details, you can check <a href="https://developer.chrome.com/docs/extensions/reference/api/sidePanel#method">sidePanel#method</a>.</p>
+
+<p>it&rsquo;s clear that there no way to detect if the side panel is open or not. What&rsquo;s more, we have to implement the closing behavior ourselves. Though it&rsquo;s not a big deal, it&rsquo;s still a bit annoy.</p>
+
+<h1>Use cases</h1>
+
+<p>Our team is building an extension, we use short cuts to open a side panel on a web page. As you know, users sometimes create a new tab page and then enter  the url, making a side panel on a new tab page doesn&rsquo;t make sense. So we hope side panel can be closed automatically on a new tab page and  open on a web page, which means we need to know the state of side panel.</p>
+
+<h2>Key points</h2>
+
+<p>There are two key points need to be resolved:
+1. Whether the current page is a new tab or a web page
+2. The state of side panel</p>
+
+<p><img src="https://github.com/LeetaoGoooo/discussion-blog/assets/10162120/448c919d-fc93-4311-8afe-ad1a0f7cbb03" alt="create or update a new tab" /></p>
+
+<h2>current page is a new tab or a web page ?</h2>
+
+<p>it&rsquo;s easy to determine if the current page is a new tab or just a web page. However, we&rsquo;d better be cautious because there are many scenarios to consider:
+1. creating a tab
+2. activating a tab
+3. updating a tab</p>
+
+<p>All of  these scenarios tigger an event:</p>
+
+<pre><code class="language-javascript">// background
+chrome.tabs.onCreated.addListener(async (tab: chrome.tabs.Tab) =&gt; {  
+  if (tab.pendingUrl == NEW_TAB_DEFAULT_URL) {  
+	  ... 
+  }
+  ...
+});
+
+chrome.tabs.onActivated.addListener(async function (activeInfo: chrome.tabs.TabActiveInfo) {
+	const tab = await chrome.tabs.get(activeInfo.tabId);  
+	if (tab.url == NEW_TAB_DEFAULT_URL) {  
+		...
+	}
+	... 
+}
+	
+chrome.tabs.onUpdated.addListener((  
+  _tabId: number,  
+  changeInfo: chrome.tabs.TabChangeInfo,  
+  tab: chrome.tabs.Tab,  
+) {    
+	if (tab.url == NEW_TAB_DEFAULT_URL) {  
+		...
+	}
+	...
+}
+</code></pre>
+
+<h2>the state of side panel</h2>
+
+<p>Initially, the  side panel is closed, and we&rsquo;ll refer to this state as <code>sidePanelOpened</code> in the rest of the article. This state can be changed by user action. When a shortcut is used, we set <code>sidePanelOpened</code> to <code>true</code>; otherwise, we close sidePanel and <code>sendMessage</code> to side panel. Meanwhile, we use <code>chrome.runtime.onConnect</code> to listen <strong>close event</strong> from side panel.All of this indicates that <code>sidePanelOpened</code> is crucial.</p>
+
+<pre><code class="language-javascript">// background
+let sidePanelOpened = false;
+
+chrome.runtime.onConnect.addListener(function (port) {  
+  if (port.name === SIDE_PANEL_PORT) {  
+    port.onDisconnect.addListener(() =&gt; { 
+      sidePanelOpened = false;  
+    });  
+  }  
+});
+
+  
+chrome.commands.onCommand.addListener(async command =&gt; {  
+  chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {  
+    const tab = tabs[0];  
+    const tabId = tab.id;  
+    if (!sidePanelOpened) {  
+      chrome.sidePanel.open({ tabId });  
+      sidePanelOpened = true;  
+    } else {  
+      chrome.runtime.sendMessage({ message: CLOSE_SIDE_PANEL });  
+    }  
+  });  
+});
+
+// side panel
+chrome.runtime.onMessage.addListener((request: { message: string }) =&gt; {  
+  if (request.message === CLOSE_SIDE_PANEL) window.close();  
+});  
+  
+chrome.runtime.connect({ name: SIDE_PANEL_PORT });
+</code></pre>
+
+<h2>Combining tab events with sidePanelOpened</h2>
+
+<p>Now the last thing we need to do is that when the url of tab  becomes <code>chrome://newtab</code>, we should attempt to close side panel if it is open.</p>
+
+<p>So how can we determine if the side panel exists or not?  luckily, we can use <code>chrome.runtime.getContexts</code></p>
+
+<pre><code class="language-javascript">export async function isSidePanelExists() {  
+  const sidePanelContexts = await chrome.runtime.getContexts({  
+    contextTypes: [chrome.runtime.ContextType.SIDE_PANEL],  
+  });  
+  return sidePanelContexts.length &gt; 0;  
+}
+</code></pre>
+
+<p>more details about this api, it can be found <a href="https://developer.chrome.com/docs/extensions/reference/api/runtime#method-getContexts">here</a>. Let&rsquo;s refactor our code:</p>
+
+<pre><code class="language-javascript">if (tab.url == NEW_TAB_DEFAULT_URL) {  
+	if (await isSidePanelExists()) {  
+	  await chrome.runtime.sendMessage({ message: CLOSE_SIDE_PANEL });  
+	}
+}
+</code></pre>
+
+<h1>References</h1>
+
+<ol>
+<li><a href="https://developer.chrome.com/docs/extensions/reference/api/runtime#method-getContexts">runtime#method-getContexts</a></li>
+<li><a href="https://developer.chrome.com/docs/extensions/reference/api/sidePanel#method">sidePanel#method</a>.</li>
+<li><a href="https://developer.chrome.com/docs/extensions/reference/api/runtime#method-connect">runtime#method-connect</a></li>
+<li><a href="https://stackoverflow.com/questions/77063723/is-there-a-way-to-detect-if-the-chrome-sidepanel-is-open">Is there a way to detect if the chrome SidePanel is open</a></li>
+</ol>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">english</span>
+                
+                <span class="tag">browser-extension</span>
+                
+                <span class="tag">typescript</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="243"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

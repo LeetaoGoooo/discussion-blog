@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>-is- 和 -==- 的故事 - Leetao</title>
+    <meta name="description" content="
+
+# 前言
+
+相比写过 Python 的小伙伴对 &#34;is&#34; 和 &#34;==&#34; 这两个运算符肯定不会陌生,但是你真的能清楚两者的区别吗? 别着急,听我�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>-is- 和 -==- 的故事</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>相比写过 Python 的小伙伴对 &ldquo;is&rdquo; 和 &ldquo;==&rdquo; 这两个运算符肯定不会陌生,但是你真的能清楚两者的区别吗? 别着急,听我慢慢道来.</p>
+
+<h1>is 和 ==</h1>
+
+<p>&ldquo;is&rdquo; 和 &ldquo;==&rdquo; 都是用来比较两个对象的,区别在于 &ldquo;is&rdquo; 是用来判断,两个对象是否为相同,即它们实际的内存地址是否相等,也就是说 <strong>id()</strong> 值是否一样, 而 &ldquo;==&rdquo; 就很简单了,它只是比较两个对象的值是不是相同.</p>
+
+<p>是不是很简单,让我们结合之前的知识点进行简单的测试.</p>
+
+<h1>例子</h1>
+
+<p>1.</p>
+
+<pre><code class="language-python">&gt;&gt;&gt; a = &quot;leetao&quot;
+&gt;&gt;&gt; b = &quot;leetao&quot;
+&gt;&gt;&gt; a == b # 
+&gt;&gt;&gt;&gt; a is b # 
+</code></pre>
+
+<p>第一组输出分别是什么呢?让我们揭晓答案:</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyukc0x53ij30b00560sl.jpg" alt="" /></p>
+
+<p>这个例子如果错了,需要看一下我之前写的关于字符串池化的那篇文章了,这里字符串 &ldquo;leetao&rdquo; 被池化了,所以 a,b 两者实际指向同一块内存.</p>
+
+<p>2.</p>
+
+<pre><code class="language-python">&gt;&gt;&gt; a = b = [&quot;l&quot;,&quot;e&quot;,&quot;e&quot;,&quot;t&quot;,&quot;a&quot;,&quot;o&quot;]
+&gt;&gt;&gt; c = [&quot;l&quot;,&quot;e&quot;,&quot;e&quot;,&quot;t&quot;,&quot;a&quot;,&quot;o&quot;]
+&gt;&gt;&gt; a is b # 
+&gt;&gt;&gt; a == b # 
+&gt;&gt;&gt; a is c # 
+&gt;&gt;&gt; a == c # 
+</code></pre>
+
+<p>第二组的正确答案:</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyukdqu3qjj30gf08njrd.jpg" alt="" /></p>
+
+<p>这个例子也不能理解,之前关于字符串池化的时候,也提过类似的例子,a,b 在同一行赋值, python 解释器进行了优化,将两者指向同一个对象,所以导致 a 和 b 值相等, id 也相等, 至于 a 和 c 很好理解,它们值相等,但是很明显,id值不一样.</p>
+
+<p>3</p>
+
+<pre><code class="language-python">&gt;&gt;&gt; a = 256
+&gt;&gt;&gt; b = 256
+&gt;&gt;&gt; a is b # 
+&gt;&gt;&gt; a == b #
+
+&gt;&gt;&gt; c = 257
+&gt;&gt;&gt; d = 257
+&gt;&gt;&gt; c is d #
+&gt;&gt;&gt; c == d #
+</code></pre>
+
+<p>第三组就更有意思了,答案:</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyukezmmo8j307n0a4q2w.jpg" alt="" /></p>
+
+<p>这个例子,牵扯到另外一个知识点,关于 Integer 对象的一个小的知识点,让我们看一下官方原文:</p>
+
+<blockquote>
+<p>The current implementation keeps an array of integer objects for all integers between -5 and 256, when you create an int in that range you actually just get back a reference to the existing object. So it should be possible to change the value of 1. I suspect the behaviour of Python in this case is undefined. :-)</p>
+</blockquote>
+
+<p>翻译过来的意思大致就是: 当前实现为-5到256之间的所有整数保留一个整数对象数组，当您在该范围内创建一个int时，实际上只返回对现有对象的引用。 因此应该可以更改值1.我怀疑在这种情况下Python的行为是未定义的。:-)</p>
+
+<p>有了这个知识作为前提,就不难理解,上面的例子的答案了.</p>
+
+<h1>参考链接</h1>
+
+<p><a href="https://docs.python.org/3/c-api/long.html#c.PyLong_FromLong">Integer Objects</a></p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="24"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

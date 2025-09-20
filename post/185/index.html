@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于在Flask页面中的定时调用 - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+| 
+| code  | 必需,要推迟执行的函数名或者一段js代码 |  
+| millisec     |   必须,推迟执行的毫秒数 |
+| lang | 可选,JScript/VBScri...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>关于在Flask页面中的定时调用</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <p>|
+| code  | 必需,要推迟执行的函数名或者一段js代码 |<br />
+| millisec     |   必须,推迟执行的毫秒数 |
+| lang | 可选,JScript/VBScript/JavaScript|</p>
+
+<p>Talk is cheep.show me the code~~看下面一段代码</p>
+
+<pre><code class="language-javascript">function func() {
+    // code1
+    setTimeout(function(){
+    // code3    
+    },1000);
+    // code2
+}
+</code></pre>
+
+<p>在讲述这段代码之前，我们首先还得明确一件事情:
+js任务分为同步任务和异步任务，只有当主线程空闲，才会去读取“任务队列”，不幸的是，异步任务就是进入到“任务队列”的任务，只有当“任务列队”通知主线程，某个异步任务可以执行了并且同步任务执行完毕，该任务才会进入主线程执行。额外补充这些知识，之后再往下看。</p>
+
+<p>假设该函数被执行了,首先执行到 code1 的内容,然后运行到 setTimeout 部分,setTimeout 这个时候告诉浏览器，我这里有段代码将会在 1000 ms之后插入到你的任务队列当中去,然后浏览器主线程接着执行了 code2,等到了 1000ms,会出现什么情况呢，这个时候定时器将 code3 插入到了任务队列,这并不意味着code3就会被立即执行,如果 code2 的执行时间超过了 1000ms,那么这个时候很显然 code3不会被执行,需要等待 code2 执行完毕，当然如果 code2 的执行时间不超过 1000ms,那么到了1000ms,code3就会被执行了,这个时候定时器就正常发挥作用了。</p>
+
+<p>把上面的代码改一下:</p>
+
+<pre><code class="language-javascript">function func() {
+    // code1
+    setInterval(function(){
+    // code3    
+    },1000);
+    // code2
+}
+</code></pre>
+
+<p>对于这段代码可能会出现三种情况:
+1. 正常执行
+2. 时间间隔可能会跳过
+3. 时间间隔可能小于定时调用的代码的执行时间</p>
+
+<p>正常的情况就不多说了，说说第二种可能会被跳过的原因，整个函数执行下来要1500ms,假设 code1 在200ms执行完成,以此作为时间点,setInterval将在1200ms时将code3插入到任务队列当中,然后func()函数顺利执行，不幸的是,code3代码执行的时间比较长,到下个 时间点2200ms时又插入了一份code3,你觉得接下来的时间点中,还会再插入新的code3吗~~实际上并不会，所以3200ms这个时间点会被跳过
+为了避免这种情况,可以使用如下的代码:</p>
+
+<pre><code class="language-javascript">setTimeout(function(){ 
+//processing 
+setTimeout(arguments.callee, interval); 
+}, interval); 
+</code></pre>
+
+<p>arguments.callee表示引用当前正在执行的函数，或者说是调用arguments.callee的函数对象的引用，它给匿名函数提供了一种自我引用的方式。</p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="185"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

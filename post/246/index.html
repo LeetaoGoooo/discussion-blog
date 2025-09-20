@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Discord bot sent an image with Chinese characters, which caused garbled text issues - Leetao</title>
+    <meta name="description" content="# TL;DR
+
+**How to make Chinese characters display properly on Chromium. All of these issues due to font weren&#39;t installed.** 
+
+
+# Intro
+
+![garbled text i...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>A Discord bot sent an image with Chinese characters, which caused garbled text issues</h1>
+            <p class="meta">
+                By LeetaoGoooo on October 2, 2024
+            </p>
+            
+            <div class="content">
+                <h1>TL;DR</h1>
+
+<p><strong>How to make Chinese characters display properly on Chromium. All of these issues due to font weren&rsquo;t installed.</strong></p>
+
+<h1>Intro</h1>
+
+<p><img src="https://github.com/user-attachments/assets/6772be56-76c6-44a2-aa93-54c2b9bdd56f" alt="garbled text issues" /></p>
+
+<p>These two days i&rsquo;ve been working on a <a href="https://github.com/LeetaoGoooo/discord-robots">discord-robots</a> project and implemented a new feature - generating excerpt card.</p>
+
+<p><img width="628" alt="image" src="https://github.com/user-attachments/assets/3cb9fa18-8aea-4606-847e-bb94f26501c2"></p>
+
+<p>You just need to input instructions according to the requirements and then the robot will generate beautiful card for you.</p>
+
+<p><img src="https://github.com/user-attachments/assets/048956b9-b876-43e6-afbd-a25f5c16a379" alt="generate card" /></p>
+
+<p>Everything works fine until I try to generate a card with Chinese characters. The result shows up at the beginning of the post.</p>
+
+<h1>Debugging</h1>
+
+<p><img src="https://github.com/user-attachments/assets/999d409e-e0fb-4863-87f2-f06be4fd7303" alt="process of excerpt card" /></p>
+
+<p>The whole process just likes image above. I started debugging the issue and suspected that Jinja was rendering the HTML with an encoding error firstly. So I dumped the rendered string to a file. After reviewing the HTML string, it seems that the characters aren&rsquo;t garbled.</p>
+
+<p>So there must be  something wrong with html-to-image service or sending image to discord.</p>
+
+<pre><code class="language-python">def html2img_with_selector(html_str:str, id_selector:str) -&gt; Path:
+    chrome_options = webdriver.FirefoxOptions()
+    ...
+    driver = webdriver.Firefox(service=service, options=chrome_options)
+    screen_shoot_path = work_dir.joinpath(f'{file_name}.png')
+    try:
+        ...
+        driver.get(f&quot;file://{file_path}&quot;)
+        ...
+        element = driver.find_element(By.ID, id_selector)
+        element.screenshot(screen_shoot_path.name)
+        ...
+    except Exception as e:
+        print(f&quot;Screenshot failed: {e}&quot;)
+        return
+    finally:
+        driver.quit()
+</code></pre>
+
+<p>I tested this function with the same HTML file in Docker and on my local machine. The image in the former raised a garbled text issue, but the latter worked fine. So I concluded that there must be a variable between the two that I hadn’t noticed.</p>
+
+<p>So what&rsquo;s the differences ? English characters and Chineses characters ? A sudden flash of inspiration, <strong>How to make Chinese characters display properly on Chromium</strong>. All of these issues due to font weren&rsquo;t installed. After i installed the specified fonts, everything works well again.</p>
+
+<h1>Conclusion</h1>
+
+<p>Even though the final result showed no issues with the code, it was still an interesting experience for me. To ensure your program works as excepted, you need to check not only your code but also the surrounding environments. Anything is possible.</p>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">python</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="246"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

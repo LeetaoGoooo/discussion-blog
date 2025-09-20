@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask的g对象和钩子函数 - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+
+
+# 前言
+
+说到钩子函数大家可能会觉得有点陌生，但是不着急，接着看下去，大家只要用过 &lt;code&gt;flask&lt;/code&gt; 对我接下来...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>Flask的g对象和钩子函数</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>说到钩子函数大家可能会觉得有点陌生，但是不着急，接着看下去，大家只要用过 <code>flask</code> 对我接下来说的这些一定不会陌生。</p>
+
+<h1>钩子函数</h1>
+
+<p>钩子函数可以分为两层说明，第一层是 <code>app</code> 层，第二层则是 <code>blueprint</code> 层</p>
+
+<h2>app 层</h2>
+
+<p><code>app</code> 层的钩子函数有 <code>before_request</code>,<code>before_first_request</code>,<code>after_request</code>,<code>teardown_request</code>,下面我们一一分析。</p>
+
+<h3>before_request</h3>
+
+<blockquote>
+<p>Registers a function to run before each request.</p>
+</blockquote>
+
+<p>在每次请求都会执行的函数，比如：用于连接数据库连接，或者从会话中加载登录用户</p>
+
+<p><strong>注意</strong>:该函数不需要任何参数，如果其返回了一个非空的值，则其将会作为当前视图的返回值,看下面的例子。</p>
+
+<p><strong>例子</strong></p>
+
+<pre><code class="language-python">from flask import Flask,
+ 
+app = Flask(__name__)
+ 
+@app.before_request
+def before_request():
+    print('before request started')
+    return &quot;example01&quot; 
+ 
+@app.route('/')
+def index():
+    return 'Hello world'' 
+ 
+if __name__ == '__main__':
+    app.run(debug=True)
+</code></pre>
+
+<p>这个例子下当访问 <code>localhost:5000/</code>的时候，前端渲染的值为 “example01” 而不是 “Hello world”</p>
+
+<h3>before_first_request</h3>
+
+<blockquote>
+<p>Registers a function to be run before the first request to this instance of the application.</p>
+</blockquote>
+
+<p>仅在第一次请求的时候去调用这个函数，比如初始化加载一次性的数据。</p>
+
+<p><strong>注意</strong>:和 <code>before_request</code> 不同的是, 它的非空返回值会被忽略。</p>
+
+<p><strong>问题来了：before_first_request 和 before_request 加载顺序是什么样子呢？</strong></p>
+
+<p>让我们通过下面的代码看一下:</p>
+
+<p><strong>例子</strong>:</p>
+
+<pre><code class="language-python">from flask import Flask, g, request
+ 
+app = Flask(__name__)
+ 
+@app.before_request
+def before_request():
+    print('before request started')
+ 
+@app.before_first_request
+def before_request():
+    print('before first request started')
+
+@app.route('/')
+def index():
+    return 'Hello'
+ 
+if __name__ == '__main__':
+    app.run(debug=True)
+</code></pre>
+
+<p>结果如下图:</p>
+
+<p>这次 first_request 胜出了</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwr87mt5p0j30kf02m749.jpg" alt="" /></p>
+
+<h3>after_request</h3>
+
+<blockquote>
+<p>Register a function to be run after each request</p>
+</blockquote>
+
+<p>在每次请求结束后运行</p>
+
+<p>除了运行的时间和上面不同之外，after_request 这个函数带有一个参数，用来接收<a href="http://flask.pocoo.org/docs/1.0/api/#flask.Flask.response_class">response_class</a>，一个响应对象，<strong>一般用来统一修改响应的内容，比如修改响应头。</strong></p>
+
+<h3>teardown_request</h3>
+
+<blockquote>
+<p>Register a function to be run at the end of each request, regardless of whether there was an exception or not.</p>
+</blockquote>
+
+<p>在每次请求结束调用，<strong>不管是否出现异常</strong>，同样 teardown_request 也需要一个参数，这个参数用来接收异常，当然没有异常的情况下这个参数的值为 <code>None</code>,<strong>一般它用来释放程序所占用的资源，比如释放数据库连接</strong></p>
+
+<p><strong>after_request 和 teardown_request 的区别</strong></p>
+
+<p>两者最大的区别是在于，从Flask 0.7开始，如果出现未处理的异常，<code>after_request</code> 将不会被执行,而后者将正常运行并接收异常，其次还有两者的执行顺序，让我们通过代码去了解一下.</p>
+
+<p><strong>例子</strong></p>
+
+<pre><code class="language-python">from flask import Flask, g, request
+ 
+app = Flask(__name__)
+ 
+@app.before_request
+def before_request():
+    print('before request started, %s' % request.url)
+ 
+@app.before_first_request
+def before_request():
+    print('before first request started, %s' % request.url)
+
+@app.after_request
+def after_request(reponse):
+    print(&quot;after request started, %s&quot; % request.url)
+    return reponse
+
+@app.teardown_request
+def teardown_request(exception):
+    print(&quot;teardown request,%s,%s&quot; % (exception,request.url))
+
+@app.route('/')
+def index():
+    return 'Hello'
+ 
+if __name__ == '__main__':
+    app.run(debug=True)
+</code></pre>
+
+<p>结果如下:</p>
+
+<p>结果很清晰，<code>after_request</code> 先执行（注意这个图和代码）</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwrgdsak0yj30l50440sy.jpg" alt="" /></p>
+
+<p>说完了，<code>app</code> 层的关于 <code>request</code> 的钩子函数，接下来说一说 <code>blueprint</code> 层的</p>
+
+<h2>blueprint 层</h2>
+
+<p>blueprint 层关于request 的钩子函数其实和app层基本一致，有两点区别:</p>
+
+<ol>
+<li><p>与 app 层相比，bluepint 层少了一个 <code>before_first_request</code> 的钩子函数</p></li>
+
+<li><p>多了一些，可以在蓝图调用 app 层的钩子函数：before_app_first_request,before_app_request,after_app_request,after_app_request,teardown_app_request</p></li>
+</ol>
+
+<h2>请求上下文(request context)</h2>
+
+<p>为什么这里会突然出现这个标题呢？我们在哪里用到了这个吗？还记得上个图吗，我们在所有的请求中都访问了<code>request</code>对象，并且成功了输出了 <code>url</code>,</p>
+
+<p>但是我们并没有传入它，它是一个全局对象吗？让我们测试一下:</p>
+
+<pre><code class="language-python">from flask import Flask, g, request
+ 
+app = Flask(__name__)
+ 
+def test_request():
+    print(&quot;test request,%s&quot; % request.url)
+
+test_request()
+
+@app.route('/')
+def index():
+    return 'Hello'
+ 
+if __name__ == '__main__':
+    app.run(debug=True)
+</code></pre>
+
+<p>看一下截图:</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwrgkphzglj30m401y0sn.jpg" alt="" /></p>
+
+<p>由此可见 <code>request</code> 对象仅可以在请求上下文的生命周期可以访问，由此不难得出,我们上面说到几个钩子函数也是挂载到请求上下文的生命周期的不同阶段从而发挥作用的。</p>
+
+<h1>g 对象</h1>
+
+<p>flask 中有两种上下文，一是：请求上下文(request context),上面刚刚说到的，另外一种则是应用上下文(application context),</p>
+
+<p>g 对象则是在后者期间存储数据的命名空间对象。在<strong>一个请求</strong>之间用它来存储数据是再好不过了。</p>
+
+<p>注意我加粗的地方：一个请求，为什么说是在一个请求之间呢，上面说了 g 是在应用上下文中发挥作用的，这就意味着一旦它所处的应用上下文结束了，它也随之失效了，那么一个应用上下文的生命周期是多久呢？</p>
+
+<p>让我们看一下官网给的说明:</p>
+
+<blockquote>
+<p>The application context is created and destroyed as necessary. When a Flask application begins handling a request, it pushes an application context and a request context. When the request ends it pops the request context then the application context. Typically, an application context will have the same lifetime as a request.</p>
+</blockquote>
+
+<p>看不懂上面英文没有关系，我来总结一些，上面一段官网文字说道，一个应用上下文的生命周期和一个请求相同，这意味什么？也就以为着当一个请求结束了，当前的 g 也就失效了。</p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="50"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

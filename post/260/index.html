@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSEvent.addGlobalMonitorForEvents vs CGEventTapCreate - Leetao</title>
+    <meta name="description" content="
+![Heading 2](https://github.com/user-attachments/assets/b49d7f92-79fd-407a-9343-c4f161e2741b)
+
+最近想做个 Apple Note 的强化工具，市面上虽然�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>NSEvent.addGlobalMonitorForEvents vs CGEventTapCreate</h1>
+            <p class="meta">
+                By LeetaoGoooo on April 6, 2025
+            </p>
+            
+            <div class="content">
+                <p><img src="https://github.com/user-attachments/assets/b49d7f92-79fd-407a-9343-c4f161e2741b" alt="Heading 2" /></p>
+
+<p>最近想做个 Apple Note 的强化工具，市面上虽然有了，但是还是想着自己去实践一下，毕竟有的是软件而不是知识。纸上得来终觉浅。想要实现的功能第一版其实也很简单，就是支持 “/” 唤起一个上面的菜单栏，和 Notion 有点类似。</p>
+
+<p>其实原理很简单，就是监听键盘输入，获取当前输入的光标位置，然后显示一个浮动的菜单，所以分三步：</p>
+
+<ol>
+<li>监听键盘输入</li>
+<li>获取当前输入的光标位置</li>
+<li>显示浮动菜单</li>
+</ol>
+
+<p>其中最后两个步骤不在本次讨论范围内，所以重点在于如何去监听键盘事件。</p>
+
+<p># NSEvent.addGlobalMonitorForEvents</p>
+
+<p>定义如下：</p>
+
+<blockquote>
+<p>Installs an event monitor that receives copies of events the system posts to other applications.</p>
+</blockquote>
+
+<p>函数定义：</p>
+
+<pre><code class="language-swift">class func addGlobalMonitorForEvents(
+ matching mask: [NSEvent](https://developer.apple.com/documentation/appkit/nsevent).[EventTypeMask](https://developer.apple.com/documentation/appkit/nsevent/eventtypemask),
+ handler block: @escaping ([NSEvent](https://developer.apple.com/documentation/appkit/nsevent)) -&gt; [Void](https://developer.apple.com/documentation/Swift/Void)
+) -&gt; Any?
+</code></pre>
+
+<p>所以就有如下的代码</p>
+
+<p>￼
+<img src="https://github.com/user-attachments/assets/cc68f02d-98b7-477c-aa65-42f0025a7d3e" alt="carbon-2" /></p>
+
+<p>但是使用  NSEvent.addGlobalMonitorForEvents 有个问题 — 它不能阻止原本的键盘事件向上冒泡。这带来直接影响就是，当菜单出现之后，上下移动光标的时候，光标在菜单移动的同时也会改变原本在 Apple Note 里光标的位置。这也是官方文档提到的：</p>
+
+<blockquote>
+<p>Events are delivered asynchronously to your app and you can only observe the event; you cannot modify or otherwise prevent the event from being delivered to its original target application.
+Key-related events may only be monitored if accessibility is enabled or if your application is trusted for accessibility access (see <a href="https://developer.apple.com/documentation/applicationservices/1460720-axisprocesstrusted">AXIsProcessTrusted()</a>).
+Note that your handler will not be called for events that are sent to your own application.</p>
+</blockquote>
+
+<p>所以  NSEvent.addGlobalMonitorForEvents 不适合当前的场景，所以就找到了 CGEventTapCreate</p>
+
+<h1>CGEventTapCreate</h1>
+
+<p><img width="964" alt="tapCreate(tapplaceoptionseventsOfInterest" src="https://github.com/user-attachments/assets/e84c6b26-b30d-447c-b38b-878f42b2debf" /></p>
+
+<p>￼
+它可以可以真正的实现系统级别拦截，在它们被发布到应用程序的事件队列之前，监听（甚至修改或丢弃）事件。所以就有如下的代码</p>
+
+<p>￼
+<img src="https://github.com/user-attachments/assets/41a34371-da4b-4484-921a-18b4bc01f6ea" alt="carbon" /></p>
+
+<p>需要注意的是，CGEventTapCreate 需要特殊的用户权限，对应的应用程序必须被用户添加到“系统偏好设置” -&gt; “安全性与隐私” -&gt; “隐私” -&gt; “辅助功能”列表中。否则 CGEventTapCreate 会失败。</p>
+
+<h1>参考链接</h1>
+
+<p><a href="https://developer.apple.com/documentation/coregraphics/cgevent/tapcreate(tap:place:options:eventsofinterest:callback:userinfo:">tapCreate(tap:place:options:eventsOfInterest:callback:userInfo:) | Apple Developer Documentation</a>)
+<a href="https://developer.apple.com/documentation/appkit/nsevent/addglobalmonitorforevents(matching:handler:">addGlobalMonitorForEvents(matching:handler:) | Apple Developer Documentation</a>)</p>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">SwiftUI 学习笔记</span>
+                
+                <span class="tag">swift</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="260"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

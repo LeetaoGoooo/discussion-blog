@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift 中 CGEvent 的使用 - Leetao</title>
+    <meta name="description" content="# CGEvent 
+
+CGEvent 的定义如下：
+
+&gt; Defines an opaque type that represents a low-level hardware event.
+
+通常用来表示低级别用户输入事�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>Swift 中 CGEvent 的使用</h1>
+            <p class="meta">
+                By LeetaoGoooo on April 6, 2025
+            </p>
+            
+            <div class="content">
+                <h1>CGEvent</h1>
+
+<p>CGEvent 的定义如下：</p>
+
+<blockquote>
+<p>Defines an opaque type that represents a low-level hardware event.</p>
+</blockquote>
+
+<p>通常用来表示低级别用户输入事件的核心数据类型，我们可以用它来：</p>
+
+<ul>
+<li><strong>接收和检查</strong> 系统范围内的低级别输入事件（通过 Event Taps）。</li>
+<li><strong>创建和发送</strong> 合成的输入事件来模拟用户操作（通过 Event Posting）。</li>
+</ul>
+
+<p>其中一个 Api 如下</p>
+
+<pre><code class="language-swift">@available(macOS 10.4, *)
+public /*not inherited*/ init?(keyboardEventSource source: CGEventSource?, virtualKey: CGKeyCode, keyDown: Bool)
+</code></pre>
+
+<h2>CGKeyCode</h2>
+
+<p>其中 CGKeyCode 的定义如下：</p>
+
+<blockquote>
+<p>Represents the virtual key codes used in keyboard events</p>
+</blockquote>
+
+<p>对于 macOS 的完整的 CGKeyCode 如下：
+￼
+<img src="https://github.com/user-attachments/assets/920b7db5-6ea4-44ea-a3c9-c8ccd3b91ef9" alt="2I2w4" /></p>
+
+<h2>Example 模拟点击 Shift + Command +T 事件</h2>
+
+<p>在了解到上述的代码之后，如果需要模拟点击 Shift + Command +T （Apple Note 中添加 Title 的快捷键） 的事件，很容易可以写出下面的代码</p>
+
+<pre><code class="language-swift">public func sendKeyCode() {
+   
+    const keyCodes = [57, 55, 17] // 分别代表 shift、command 和 t 
+    for code in keyCodes {
+        if let down = CGEvent(keyboardEventSource: source, virtualKey: code, keyDown: true) {
+            down.post(tap: .cghidEventTap)
+        }
+    }
+ 
+    // Release all keys
+    for code in keyCodes {
+        if let up = CGEvent(keyboardEventSource: source, virtualKey: code, keyDown: false) {
+            up.post(tap: .cghidEventTap)
+        }
+    }
+}
+</code></pre>
+
+<p>这段代码一不留心就看似很正确了（正是我写的。。。），但是其实有严重问题。正常逻辑下使用快捷键 Shift + Command + T 的时候，当 T 按下当时候，应当保证 Shift  和 Command 同时处于按下当状态，上面的代码正确工作的前提是，当 T 被按下当时候，另外两个按键还没有被释放掉，这显然是不可靠的。</p>
+
+<p>如何去修复这个代码呢？这涉及到 CGEvent  的另外一个属性 —   <code>var flags: [CGEventFlags]{ get set }</code></p>
+
+<h2>CGEventFlags</h2>
+
+<p>定义如下：</p>
+
+<blockquote>
+<p>Constants that indicate the modifier key state at the time an event is created, as well as other event-related states.</p>
+</blockquote>
+
+<p>这里提到一个新的关键词 modifier key.</p>
+
+<h2>Modifier Keys</h2>
+
+<p>上面提到的 Api 中有个参数叫做 virtual key, virutal key 里还有一部分被称为 modifier keys，它们在操作系统中代表<strong>那些本身不执行操作，但与其他键组合使用时可以改变其它键功能的按键</strong>。</p>
+
+<p>|键名|常见用途|
+|&ndash;|&ndash;|
+|Shift|输入大写字母、输入符号（如 Shift + 2 输入 @）|
+|Ctrl|控制类快捷键（如 Ctrl + C 复制，Ctrl + V 粘贴）|
+|Alt|组合键（如 Alt + Tab 切换窗口）|
+|Command (⌘)（macOS）|Mac 中类似 Ctrl 的作用（如 ⌘ + C 复制）|
+|Option (⌥)（macOS）|多功能键（输入特殊字符、组合快捷键）|
+|Fn|访问功能键（如 F1 ~ F12）或笔记本的额外功能|</p>
+
+<p>这部分的参数应当在 flags 中使用。</p>
+
+<h1>正确的代码</h1>
+
+<pre><code class="language-swift">import CoreGraphics
+
+public func sendKeyCode() {
+
+    let keyCodeT: UInt16 = 17 // T 键的 Virtual Key Code
+    let flags: CGEventFlags = [.maskShift, .maskCommand] // 指定 Shift 和 Command 修饰键
+
+    // 1. 创建 T 键按下的事件，并设置修饰键 flags
+    let keyDownEvent = CGEvent(keyboardEventSource: source, virtualKey: keyCodeT, keyDown: true)
+    keyDownEvent?.flags = flags // &lt;--- 关键在这里！
+
+    // 2. 创建 T 键弹起的事件，同样设置修饰键 flags （通常也需要）
+    let keyUpEvent = CGEvent(keyboardEventSource: source, virtualKey: keyCodeT, keyDown: false)
+    keyUpEvent?.flags = flags // &lt;--- 关键在这里！
+
+    // 3. 发送事件
+    keyDownEvent?.post(tap: .cghidEventTap)
+    // 可以加一个微小的延迟，模拟按键时长，但对于快捷键通常不是必须的
+    // usleep(10000) // e.g., 10ms delay
+    keyUpEvent?.post(tap: .cghidEventTap)
+}
+</code></pre>
+
+<h1>参考</h1>
+
+<ol>
+<li><a href="https://developer.apple.com/documentation/coregraphics/cgevent">CGEvent | Apple Developer Documentation</a></li>
+<li><a href="https://developer.apple.com/documentation/coregraphics/cgkeycode">CGKeyCode | Apple Developer Documentation</a></li>
+<li><a href="https://developer.apple.com/documentation/coregraphics/cgevent/flags">flags | Apple Developer Documentation</a></li>
+</ol>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">SwiftUI 学习笔记</span>
+                
+                <span class="tag">swift</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="259"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

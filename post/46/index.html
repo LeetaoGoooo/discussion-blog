@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask 中的 session 的故事 - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+
+# 前言
+
+凡是使用过 Flask,可能对 Flask 中  session 不陌生, 我们通常用 session 保存特定的用户信息,从而达到在 request 请求...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>Flask 中的 session 的故事</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>凡是使用过 Flask,可能对 Flask 中  session 不陌生, 我们通常用 session 保存特定的用户信息,从而达到在 request 请求之间共享数据的目的,需要注意的一点 flask 中的 session 是基于 cookies 实现的,也就意味着着受制于 cookies,一旦出于某种原因 cookies 失效了,也就意味着 session 也会随之失效.</p>
+
+<h1>使用</h1>
+
+<p>关于 session 的使用方法也很简单, <strong>session[key] = value</strong>, 但是也存在需要注意的地方,接下来看一个例子</p>
+
+<h2>例子</h2>
+
+<pre><code class="language-python">from flask import Flask, session
+app = Flask(__name__)
+app.secret_key = &quot;123&quot;  # 使用 session 之前,必须要设置 secret_key
+
+@app.route('/')
+def create(): #1
+    session['xxx'] = ['1','2','3']
+    print(&quot;,&quot;.join(session['xxx']))
+    return &quot;,&quot;.join(session['xxx'])
+
+@app.route('/rm/&lt;id&gt;')
+ def rm(id): #2
+    session['xxx'].remove(id)
+    print(&quot;,&quot;.join(session['xxx']))
+    return &quot;,&quot;.join(session['xxx'])
+
+@app.route('/add/&lt;id&gt;')
+def add(id): #3
+    session['xxx'].append(id)
+    print(&quot;,&quot;.join(session['xxx']))
+    return &quot;,&quot;.join(session['xxx'])
+
+@app.route('/test')
+def out_print(): #4
+     print(session['xxx'])
+     print(&quot;,&quot;.join(session['xxx']))
+     return &quot;,&quot;.join(session['xxx'])
+     
+if __name__ == '__main__':
+    app.run()
+</code></pre>
+
+<p>有趣的事情来了,我们按照 #1, #2(请求参数为2),#4, #3(请求参数为4), #4 的方式来请求 url,那么返回结果依次应该是什么呢?</p>
+
+<h2>结果</h2>
+
+<pre><code>1,2,3
+1,3
+1,2,3
+1,2,3,4
+1,2,3
+</code></pre>
+
+<p>看一下截图:</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g104yjiipoj30p2085gly.jpg" alt="" /></p>
+
+<h2>原因</h2>
+
+<p>是不是觉得很奇怪,为什么我对 session 的修改没有生效? 这是因为 session 中有一个属性叫做 <strong>modified</strong>, 如果 session 发现其值有修改，如果修改的对象是可变的对象，则改修不会自动生效，除非<strong>手动设置 modified = True</strong>，也就是说我们需要上述的例子中 session 及时的被修改，需要在修改值后加入如下代码：</p>
+
+<pre><code class="language-python"> session.modified = True
+</code></pre>
+
+<h1>彩蛋</h1>
+
+<p>对于上述例子，在执行第二步之前，大家可以打开 Google 浏览器调试模式，找到 Application tab 页下的 Cookies，会发现里面有个 session-id 的 cookies，大家可以试着把它修改或者清空后再执行步骤 2，会有意想不到的彩蛋哟</p>
+
+<h1>参考</h1>
+
+<p><a href="http://flask.pocoo.org/docs/1.0/api/#flask.session">Flask.session</a></p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="46"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

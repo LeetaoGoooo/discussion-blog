@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure 开源了~ - Leetao</title>
+    <meta name="description" content="# 前言
+
+在过去一年，我一直使用 github action &#43; hexo 的方式去自动化部署我的博客到 github pages，这种方式的好处就是，你�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>Pure 开源了~</h1>
+            <p class="meta">
+                By LeetaoGoooo on October 27, 2022
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>在过去一年，我一直使用 github action + hexo 的方式去自动化部署我的博客到 github pages，这种方式的好处就是，你只需要配置好一次将代码仓库，然后你就只需要一个浏览器然后写 hexo 格式的 markdown 文件就够了。</p>
+
+<p>下面是我的构建历史记录</p>
+
+<p><img width="1299" alt="构建历史记录" src="https://user-images.githubusercontent.com/10162120/198286370-4333398a-c452-4358-b678-679a43b073c8.png"></p>
+
+<p>到目前位置累计构建了 93 次，当然并不是意味着我写了 93 篇，更新也会导致文章重新构建。这一切似乎看着还不错，但是有几点一直让我觉得很痛苦：</p>
+
+<ol>
+<li>hexo markdown 文章开头的格式</li>
+<li>上传图片</li>
+<li>文章的更新</li>
+</ol>
+
+<p>hexo 有很多固定的格式，有时候每次写文章，我都不得不去找之前的文章把格式复制过来，然后在重新修改一下。除此之外，就是上传图片这件事情了，尝试过各种图床的方案，有的图床也很好用，但是基本上都需要打开他们的网站，或者借助三方的软件然后将图片上传，这种中断，让我觉得很难受，所以我想有没有更好的方式去写博客。</p>
+
+<h1>调研</h1>
+
+<p>作为一个程序员，github 是我最喜欢逛的网站了，所以我在想有没有可以基于 github 的仓库构建的网站，然后 github issue 和 github discussion 就成了我的备选项了，所以我检索了这两个关键词</p>
+
+<p><img width="400" alt="github issue blog" src="https://user-images.githubusercontent.com/10162120/198289445-ec7717f6-1cab-4ab2-b5c4-cc3f22337a16.png"><img width="400" alt="github discussion blog" src="https://user-images.githubusercontent.com/10162120/198289620-7622338b-896e-45a5-943d-35d2ee4ba96d.png"></p>
+
+<p>最后让我发现了 <a href="https://github.com/lencx/z">浮之静</a></p>
+
+<p><img width="1679" alt="浮之静" src="https://user-images.githubusercontent.com/10162120/198290666-1380f9a5-2919-49af-9854-75b733bac6cd.png"></p>
+
+<p>网站挺好看的，但是但是没有部署文档，遂放弃了。</p>
+
+<h1>折腾</h1>
+
+<p>没办法了，没有枪没有炮，敌人给我们造，没有合适的项目，只好自己动手撸了。牺牲了我两个工作日晚上的休息时间，总算把 <a href="https://github.com/LeetaoGoooo/pure">Pure</a> 初版构建出来了。</p>
+
+<p><img width="1207" alt="Pure" src="https://user-images.githubusercontent.com/10162120/198291338-e7c090b1-0aaa-4530-956e-66c916dbc0df.png"></p>
+
+<p>部署也很简单，golang 项目通用部署步骤，只需要部署前配置一下四个环境变量（一个非必须的），然后启动项目，配置一下 nginx 就大功告成了。</p>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">开源</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="5"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

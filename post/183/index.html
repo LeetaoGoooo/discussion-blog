@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>偏函数-functools之partial - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+
+
+
+前段时间在讲述 Flask-Login 的源码中遇见了一个函数 ——&lt;code&gt;partial&lt;/code&gt;,这个函数来自于&lt;code&gt;functools&lt;/code&gt;模块,这个�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>偏函数-functools之partial</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <p>前段时间在讲述 Flask-Login 的源码中遇见了一个函数 ——<code>partial</code>,这个函数来自于<code>functools</code>模块,这个模块定义为&rdquo;The functools module is for higher-order functions: functions that act on or return other functions. In general, any callable object can be treated as a function for the purposes of this module&rdquo;,翻译成中文的大概意思就是&rdquo;functools 用于高阶函数：指那些作用于函数或者返回其他函数的函数。总的来说，这个模块的目标就是将任何可调用的对象都可以被视为函数。&rdquo;</p>
+
+<h1>functools.partial</h1>
+
+<p>返回一个新的部分对象,当被调用的时候,相当于原有的对象携带了默认的参数.如果在调用过程中传递了更多的参数,将会被追加到args.如果提供了其他的关键字参数,则会覆盖或者扩展关键字:</p>
+
+<pre><code class="language-python">def partial(func, *args, **keywords):
+    def newfunc(*fargs, **fkeywords):
+        newkeywords = keywords.copy()
+        newkeywords.update(fkeywords)
+        return func(*(args + fargs), **newkeywords)
+    newfunc.func = func
+    newfunc.args = args
+    newfunc.keywords = keywords
+    return newfunc
+</code></pre>
+
+<p>当函数的参数个数太多，需要简化时，使用functools.partial可以创建一个新的函数，这个新函数可以固定住原函数的部分参数，从而在调用时更简单.</p>
+
+<p>eg:</p>
+
+<p><code>int()</code>函数,可以将字符串转为整数,简单看一下它的函数使用说明:</p>
+
+<pre><code class="language-python"> class int(object)
+ |  int(x=0) -&gt; integer
+ |  int(x, base=10) -&gt; integer
+ |
+ |  Convert a number or string to an integer, or return 0 if no arguments
+ |  are given.  If x is a number, return x.__int__().  For floating point
+ |  numbers, this truncates towards zero.
+ |
+ |  If x is not a number or if base is given, then x must be a string,
+ |  bytes, or bytearray instance representing an integer literal in the
+ |  given base.  The literal can be preceded by '+' or '-' and be surrounded
+ |  by whitespace.  The base defaults to 10.  Valid bases are 0 and 2-36.
+ |  Base 0 means to interpret the base from the string as an integer literal.
+ |  &gt;&gt;&gt; int('0b100', base=0)
+ |  4
+</code></pre>
+
+<p>从上述说明中我们可以看见,int还有一个额外的参数<code>base</code>,base 默认值为10,也就意味着默认情况下将字符串转化为十进制的数.如果我们需要转化成二进制怎么办?在不使用其他模块的情况下,只需要<code>int(x,base=2)</code>,那么如果是借助<code>partial</code>,该如何使用呢?</p>
+
+<pre><code class="language-python">&gt;&gt;&gt;from functools import partial
+&gt;&gt;&gt;int2 = partial(int,base=2) # 这里是传递了关键字参数,即keywords
+&gt;&gt;&gt;int2('1000')
+&gt;&gt;&gt;8
+&gt;&gt;&gt;str_3_int = partial(int,'3') # 传递了参数args
+&gt;&gt;&gt;str_3_int()
+&gt;&gt;&gt;3 # 不够清楚的话可以接着看下面的例子
+&gt;&gt;&gt;max_with_10 = partial(max,10)
+&gt;&gt;&gt;max_with_10(2,3,4)
+&gt;&gt;&gt;10
+</code></pre>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="183"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

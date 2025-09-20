@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask-Restful 中 fileds.DateTime 不支持 strftime 格式 - Leetao</title>
+    <meta name="description" content="
+
+
+# 前言
+通常情况下，我们会使用Flask来开发网站，但是也有的时候我们只是想用 Flask 来简单的创建 RestFul 的 Api，这个时...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>Flask-Restful 中 fileds.DateTime 不支持 strftime 格式</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>通常情况下，我们会使用Flask来开发网站，但是也有的时候我们只是想用 Flask 来简单的创建 RestFul 的 Api，这个时候可能会使用其他的 Flask 拓展来帮助完成这一切，我前段时间就使用 <a href="https://github.com/flask-restful/flask-restful">Flask-Restful</a> 这个库去实现简单的接口了。既然是接口必然是提供给别人的使用的，这个时候就涉及到序列化的问题，Flask-Restful 这个库提供了一个 <a href="https://flask-restful.readthedocs.io/en/latest/api.html#module-fields">fields</a> 模块帮助完成结果的格式化，比如常用的 fields.String,fields.Float,fields.Integer 等等，使用起来也很方便，直到我开始使用 <strong>fileds.DateTime</strong>。</p>
+
+<h1>fields.DateTime</h1>
+
+<p>首先看一下 Flask-Restful 中对 fields.DateTime 的说明：
+&gt; <em>class </em><code>fields.</code><code>DateTime</code>(_dt<em>format=&lsquo;rfc822&rsquo;</em>, <em>**kwargs</em>)
+&gt; Return a formatted datetime string in UTC. Supported formats are RFC 822 and ISO 8601.
+&gt; See <a href="https://docs.python.org/3/library/email.utils.html#email.utils.formatdate"><code>email.utils.formatdate()</code></a> for more info on the RFC 822 format.
+&gt; See <a href="https://docs.python.org/3/library/datetime.html#datetime.datetime.isoformat"><code>datetime.datetime.isoformat()</code></a> for more info on the ISO 8601 format.</p>
+
+<p>通过文档可以得知使用 fields.DateTime 返回的字符串是 UTC 即时间标准时间，很明显和我们不是一个时区的。并且支持的格式只有 <a href="https://baike.baidu.com/item/RFC%20822/1468155?fr=aladdin"><strong>RFC 822</strong></a>** **和 <strong><a href="https://baike.baidu.com/item/ISO%208601/3910715?fr=aladdin">ISO 8601</a></strong>，还很贴心的给了说明链接。那么这俩个格式时间是什么样子呢？看一下例子：</p>
+
+<pre><code># RFC 2822,
+Fri, 09 Nov 2001 01:08:47 -0000
+# ISO 8601
+2019-05-18T15:17:08.132263
+</code></pre>
+
+<p>很明显这个 fields.DateTime 不是我们要的时间格式化的 fields，一是时区不对，二是格式也不是我们正常想要的那样。那么怎么解决这个问题？这个时候就需要自定义fileds了。</p>
+
+<h1>自定义 fields</h1>
+
+<h2>fileds.Raw </h2>
+
+<p>官方给的自定义格式是使用 <strong>fields.Raw</strong>，继承 fields.Raw 然后实现 <strong>format</strong> 函数，看下官方的例子：</p>
+
+<pre><code class="language-python">class UrgentItem(fields.Raw):
+    def format(self, value):
+        return &quot;Urgent&quot; if value &amp; 0x01 else &quot;Normal&quot;
+
+class UnreadItem(fields.Raw):
+    def format(self, value):
+        return &quot;Unread&quot; if value &amp; 0x02 else &quot;Read&quot;
+
+fields = {
+    'name': fields.String,
+    'priority': UrgentItem(attribute='flags'),
+    'status': UnreadItem(attribute='flags'),
+}
+</code></pre>
+
+<p>显然没有必要，我们已经有了一个现成的 fields.DateTime，那就在它的基础上去完善它。</p>
+
+<h2>CustomDate</h2>
+
+<p>代码很简单，新增一个参数 format，当在 dt_format 为 strftime 下使用，默认格式为 <strong>%Y-%m-%d %H:%M:%S</strong>，完整代码如下：</p>
+
+<pre><code class="language-python">from flask_restful import fields
+
+
+def _custom_format(dt, fmt):
+    if isinstance(dt, str):
+        return dt
+    return dt.strftime(fmt)
+
+
+class CustomDate(fields.DateTime):
+    '''
+    自定义CustomDate,原有的fileds.DateTime序列化后
+    只支持 rfc822,ios8601 格式，新增 strftime 格式
+    strftime格式下支持 format 参数，默认为 '%Y-%m-%d %H:%M:%S'
+    '''
+
+    def __init__(self, dt_format='rfc822', format=None, **kwargs):
+        super(fields.DateTime, self).__init__(**kwargs)
+        self.dt_format = dt_format
+        self.fmt = format if format else '%Y-%m-%d %H:%M:%S'
+
+    def format(self, value):
+        if self.dt_format in ('rfc822', 'iso8601'):
+            return super(fields.DateTime.format(value))
+        elif self.dt_format == 'strftime':
+            return _custom_format(value, self.fmt)
+        else:
+            raise Exception('Unsupported date format %s' % self.dt_format)
+</code></pre>
+
+<p>使用方法很简单和上面使用 fields.Raw 自定义的fields 一样：</p>
+
+<pre><code class="language-python">fields = {
+    'name': CustomDate(dt_format='strftime')
+}
+</code></pre>
+
+<h1>后记</h1>
+
+<p>本来准备给 Flask-Restful 提个 PR，把 DateTime 新增 strftime 方法的，后来发现老早之前就有人提了<a href="https://github.com/flask-restful/flask-restful/pull/624">add a way for Fields.DateTime to custom datetime like strftime</a>，不过一直没有合并，这个项目也不是很活跃了，并且不支持 swagger，小伙伴在想使用 flask 创建 api 的话可以考虑使用<a href="https://github.com/python-restx/flask-restx">Flask-RESTX</a>支持swagger功能。</p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="48"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解决 openpyxl 垂直分页符和水平分页符同时添加的问题 - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+
+# 前言
+
+十天前知乎上有人提问 [python:openpyxl模块怎么给表格添加分页符？实现分页打印功能？](https://www.zhihu.com/questio...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>解决 openpyxl 垂直分页符和水平分页符同时添加的问题</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>十天前知乎上有人提问 <a href="https://www.zhihu.com/question/305289263/answer/549313223">python:openpyxl模块怎么给表格添加分页符？实现分页打印功能？</a>,看到问题之后,我很快的给他了一个如何添加垂直分页符或水平分页符的示例,你以为问题就结束了?我是这么以为的,但是事实证明,我太天真了,就在我给出示例的几分钟后,他在我的回答下评论了,说是<strong>同时添加垂直分页符和水平分页符失败了</strong>.
+我当时的第一反应:
+<img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyegeyuiomj30j60j63z8.jpg" alt="" />
+心里想着,肯定是他的写法有问题,毫不犹豫的回复到,&rdquo; 没有试过同时添加两种分页符的操作,默认是水平分页符,如果你先添加了垂直分页符的话,应该后面需要重新声明:openpyxl.worksheet.pagebreak.PageBreak.tagname = &ldquo;rowBreaks&rdquo;,听着自己飞快击打键盘的声音,自己不经有点飘飘然.就在沉浸在自己的YY当中,又过去了几分钟,他用正确的代码错误的结果狠狠的摔在了我的脸上:</p>
+
+<pre><code class="language-python">col_break = openpyxl.worksheet.pagebreak.Break(5) #创建分页符，参数5：在第5/6中间分页
+sheet1.page_breaks.tagname = 'rowBreaks' #分页符属性设置为行分页符
+sheet1.page_breaks.append(col_break) #把分页符对象添加到sheet对象里
+
+row_break = openpyxl.worksheet.pagebreak.Break(3) #创建分页符
+sheet1.page_breaks.tagname = 'colBreaks' #分页符属性设置为列分页符
+sheet1.page_breaks.append(row_break) #把分页符对象添加到sheet对象里
+</code></pre>
+
+<p>&ldquo;结果是在第3和5列添加了两个垂直分页符，是哪里有问题？大师&rdquo;,他问道.  我看了一眼代码好像没有错,我的心有点慌了,双手开始微微颤抖起来,一遍又一遍地仔细地巡视着代码,视图找出错误反驳他,但是并没有,抱着最后的希望,我把他的代码复制到自己的文件中,然后敲下回车符, excel 文件静静的生成在目录下,这可能是我最后的希望了.拿鼠标的手不自觉的颤抖起来,那么小的屏幕,那么大的文件,鼠标怎么半天都没办法移动上去,我深吸一口气,控制住自己手,终于把鼠标一上去了,双击excel,闭上眼睛,再睁开,我知道,我错了.但是就这么放弃了吗?绝不!我要把这个问题打到!</p>
+
+<h1>亮剑</h1>
+
+<blockquote>
+<p>&ldquo;是时候展示真正的技术了&rdquo;</p>
+</blockquote>
+
+<p>俗话说&rdquo;解铃还须系铃人&rdquo;,我们还得自己看一下问题代码:</p>
+
+<pre><code class="language-python"># example.py
+
+from openpyxl import Workbook
+from openpyxl.compat import range
+from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.pagebreak import Break, PageBreak
+
+wb = Workbook()
+ws = wb.active
+
+for row in range(1, 20):
+    for col in range(1,30):
+        _ = ws.cell(column=col, row=row, value=&quot;{0}&quot;.format(get_column_letter(col)))
+
+col_break = Break(5) #创建分页符，参数5：在第5/6中间分页
+ws.page_breaks.tagname = 'rowBreaks' #分页符属性设置为行分页符
+ws.page_breaks.append(col_break) #把分页符对象添加到sheet对象里
+
+row_break = Break(3) #创建分页符
+ws.page_breaks.tagname = 'colBreaks' #分页符属性设置为列分页符
+ws.page_breaks.append(row_break) #把分页符对象添加到sheet对象里
+
+wb.save(filename = dest_filename) 
+</code></pre>
+
+<p>从代码上应该是后面的 page_breaks 把前面的覆盖了, 那让我们看看 page_breaks 究竟是什么东西.</p>
+
+<pre><code class="language-python">class Worksheet(_WorkbookChild):
+   # 省略部分代码
+      def _setup(self):
+        self.page_breaks = PageBreak() # 再看 PageBreak
+
+class PageBreak(Serialisable):
+    tagname = &quot;rowBreaks&quot;
+    # 省略部分代码
+    def append(self, brk=None):
+        &quot;&quot;&quot;
+        Add a page break
+        &quot;&quot;&quot;
+        vals = list(self.brk)
+        if not isinstance(brk, Break):
+            brk = Break(id=self.count+1)
+        vals.append(brk)
+        self.brk = vals
+</code></pre>
+
+<p>从 example 中我们不难发现,我们是通过修改 page_breaks 的 tag_name 去决定插入的分页符是垂直分页符还是水平分页符的.但是 page_breaks 现在只有一个 PageBreak 这就难怪后声明的会把前面的覆盖了,那么如果我们把 page_breaks 变成 PageBreak 的列表呢?</p>
+
+<h1>First Blood &ndash; page_breaks</h1>
+
+<p>说改咱就改啊,首先尝试修改 WorkSheet 类</p>
+
+<pre><code class="language-python">class Worksheet(_WorkbookChild):
+   # 省略部分代码
+      def _setup(self):
+        self.page_breaks = [PageBreak()]
+</code></pre>
+
+<p>然后再修改一下 example.py</p>
+
+<pre><code class="language-python">from openpyxl import Workbook
+from openpyxl.compat import range
+from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.pagebreak import Break, PageBreak
+
+wb = Workbook()
+dest_filename = 'empty_book.xlsx'
+
+ws = wb.active
+for row in range(1, 20):
+    for col in range(1,30):
+        _ = ws.cell(column=col, row=row, value=&quot;{0}&quot;.format(get_column_letter(col)))
+
+rowPageBreak = PageBreak()
+rowPageBreak.tagname = 'rowBreaks'
+
+colPageBreak = PageBreak()
+colPageBreak.tagname = 'colBreaks'
+
+ws.page_breaks = [rowPageBreak, colPageBreak] 
+
+ws.page_breaks[0].append(Break(id=5))  
+ws.page_breaks[1].append(Break(id=3))
+wb.save(filename = dest_filename)
+</code></pre>
+
+<p>敲下回车,心里那个美滋滋,还没高兴几秒钟,就出问题了,果然做人还是得低调一点</p>
+
+<pre><code>Traceback (most recent call last):
+  File &quot;test.py&quot;, line 24, in &lt;module&gt;
+    wb.save(filename = dest_filename)
+  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\workbook\workbook.py&quot;, line 391, in save
+    save_workbook(self, filename)
+  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\writer\excel.py&quot;, line 284, in save_workbook
+    writer.save(filename)
+  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\writer\excel.py&quot;, line 266, in save
+    self.write_data()
+  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\writer\excel.py&quot;, line 83, in write_data
+    self._write_worksheets()
+  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\writer\excel.py&quot;, line 203, in _write_worksheets
+    xml = ws._write()
+  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\worksheet\worksheet.py&quot;, line 893, in _write
+    return write_worksheet(self)
+  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\writer\worksheet.py&quot;, line 151, in write_worksheet
+    xf.write(ws.page_breaks.to_tree())
+AttributeError: 'list' object has no attribute 'to_tree'
+</code></pre>
+
+<p>看了一眼错误信息,发现了从中作祟的家伙再 worksheet.py 的 151 行, 让我们悄悄地看一眼,打枪的不要.</p>
+
+<pre><code class="language-python"># worksheet.py
+# 省略部分代码
+            if ws.page_breaks:
+                    xf.write(ws.page_breaks.to_tree())
+</code></pre>
+
+<p>原来是我们修改了 page_breaks 之后, page_breaks 有时候不再是孤家寡人了,我们需要考虑它有另外的 PageBreak 的情况了.</p>
+
+<h1>Double Kill &ndash; Worksheet</h1>
+
+<pre><code class="language-python"># worksheet.py
+# 省略部分代码
+            if ws.page_breaks:
+                if isinstance(ws.page_breaks,list):
+                    for page_break_item in ws.page_breaks:
+                        xf.write(page_break_item.to_tree())
+                else:
+                    xf.write(ws.page_breaks.to_tree())
+</code></pre>
+
+<p>回车,毫无问题,人生啊就是这么寂寞如雪~~~</p>
+
+<h1>后记</h1>
+
+<p>已经在 openpyxl 提了相应的issue,目前再写测试用例,过段时间就提交 PR 了</p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="218"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

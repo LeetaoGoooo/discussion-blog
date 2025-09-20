@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type Hint a generator - Leetao</title>
+    <meta name="description" content=" Python 中的 type hint (类型提示) 是指在声明变量的时候显式声明变量的数据类型的功能，在 Python3.5及后续版本中可用。类�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>Type Hint a generator</h1>
+            <p class="meta">
+                By LeetaoGoooo on March 30, 2023
+            </p>
+            
+            <div class="content">
+                <p>Python 中的 type hint (类型提示) 是指在声明变量的时候显式声明变量的数据类型的功能，在 Python3.5及后续版本中可用。类型提示是对 Python 这种弱类型语言的补充，可以在一定程度上提高代码的可读性和可维护性，使用方法很简单就是在变量后面使用 <code>:类型</code> 对变量的类型进行注解</p>
+
+<pre><code class="language-python">  def greeting(name: str) -&gt; str:
+      return 'Hello ' + name
+</code></pre>
+
+<p>通过类型提示和一些工具可以在运行之前就可以将一些错误提前暴露出来。普通变量的类型提示都很简单，但是 Python 里有一个相对特殊的类型就是<strong>生成器</strong>。</p>
+
+<h1>generator type hint</h1>
+
+<p>通常我们可以使用 <strong><code>Generator[YieldType, SendType, ReturnType]</code></strong> 去类型提示一个生成器</p>
+
+<pre><code class="language-python">  def echo_round() -&gt; Generator[int, float, str]:
+      sent = yield 0
+      while sent &gt;= 0:
+          sent = yield round(sent)
+      return 'Done'
+</code></pre>
+
+<p>其中 <code>SendType</code> 则是预期调用 <code>send()</code> 函数的时传递的值类型，而 <code>ReturnType</code> 则是生成器结束时返回的值</p>
+
+<pre><code class="language-python">  &gt;&gt;&gt; gen = echo_round()
+  &gt;&gt;&gt; next(gen)
+  0
+  &gt;&gt;&gt; gen.send(1.5)
+  2
+  &gt;&gt;&gt; gen.send(2.5)
+  2
+  &gt;&gt;&gt; try:
+  ...     gen.send(-1)
+  ... except StopIteration as e:
+  ...     result = e.value
+  ...
+  &gt;&gt;&gt; print(result)
+  Done
+</code></pre>
+
+<p>但是有时候，我们用生成器只是生成值，<code>SendType</code> 和 <code>ReturnType</code> 基本都是 <code>None</code></p>
+
+<pre><code class="language-python">  def infinite_stream(start: int) -&gt; Generator[int, None, None]:
+      while True:
+          yield start
+          start += 1
+</code></pre>
+
+<p>这个时候使用 <code>Generator[YieldType, SendType, ReturnType]</code> 这种 type hint 似乎有点累赘，可以使用 <strong><code>Iterable[YieldType]</code></strong> 或者 <strong><code>Iterator[YieldType]</code></strong>:</p>
+
+<pre><code class="language-python">  def infinite_stream(start: int) -&gt; Iterator[int]:
+      while True:
+          yield start
+          start += 1
+</code></pre>
+
+<h1>参考资料</h1>
+
+<ol>
+<li><a href="https://peps.python.org/pep-0484/">PEP 484 – Type Hints | peps.python.org</a></li>
+<li><a href="https://stackoverflow.com/questions/42531143/how-to-type-hint-a-generator-in-python-3">How to type hint a generator in Python 3? - Stack Overflow</a></li>
+<li><a href="https://stacktuts.com/how-to-type-hint-a-generator-in-python-3">How to type hint a generator in python 3? - StackTuts</a></li>
+<li><a href="https://docs.python.org/3.6/library/typing.html#typing.Generator">26.1. typing — Support for type hints — Python 3.6.15 documentation</a></li>
+</ol>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">python</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="18"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

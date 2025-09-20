@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functional vs. Direct Update In React - Leetao</title>
+    <meta name="description" content="# TL;DR
+
+**It&#39;s recommended to use Functional State Update in React.**
+
+# Intro
+
+Lately, i&#39;ve been working on React stuff. And once i made pr, what contai...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>Functional vs. Direct Update In React</h1>
+            <p class="meta">
+                By LeetaoGoooo on October 29, 2024
+            </p>
+            
+            <div class="content">
+                <h1>TL;DR</h1>
+
+<p><strong>It&rsquo;s recommended to use Functional State Update in React.</strong></p>
+
+<h1>Intro</h1>
+
+<p>Lately, i&rsquo;ve been working on React stuff. And once i made pr, what contains code like the one below</p>
+
+<pre><code class="language-tsx">const [open, setOpen] = React.useState(false);
+
+setOpen(!open) // 2
+</code></pre>
+
+<p>My co-worker  pointed out that it&rsquo;is better to write code this way:</p>
+
+<pre><code class="language-tsx">setOpen(prev =&gt; !prev) // 1
+</code></pre>
+
+<p>I’m just curious about the difference between these two cases, so I dug into it and searched online. Some of the articles said that functional state updates have many advantages:</p>
+
+<ol>
+<li>Consistency and Reliability</li>
+<li>Performance Optimization</li>
+<li>Readability and Maintainability</li>
+</ol>
+
+<p>Emmm, it seems kind of useless. <strong>The main reason we should use Functional State Update is to avoid race conditions.</strong></p>
+
+<h1>Functional State  vs. Direct Update</h1>
+
+<p>All of us should keep in mind that <strong>setState in React is asynchronous</strong>. So if we don&rsquo;t use it correctly , it may cause unexpected problem.</p>
+
+<h2>Example</h2>
+
+<pre><code class="language-tsx">import React, { useState } from 'react';
+
+export function App(props) {
+
+	const [counter, setCounter] = useState(0);
+
+	return (
+			&lt;div className='App'&gt;
+			&lt;h1&gt;${counter}&lt;/h1&gt;
+			&lt;button
+			onClick={() =&gt; {
+				setCounter(counter + 1);
+				setCounter(counter + 1);
+				
+			}}&gt;		
+	        Add
+	        &lt;/button&gt;
+	       &lt;/div&gt;
+		);
+
+}
+</code></pre>
+
+<p>Let&rsquo;s run the example</p>
+
+<p><a href="https://github.com/user-attachments/assets/5f96d92f-e700-4eb7-a300-0b88dd61b291">https://github.com/user-attachments/assets/5f96d92f-e700-4eb7-a300-0b88dd61b291</a></p>
+
+<p>the result is not what we expected. To resolve this issue, what we need to do is use Functional State Update</p>
+
+<pre><code class="language-tsx">setCounter((prevCount) =&gt; prevCount + 1);
+setCounter((prevCount) =&gt; prevCount + 1);
+</code></pre>
+
+<p>Same here, let&rsquo;s run the code</p>
+
+<p><a href="https://github.com/user-attachments/assets/9177aa50-a8b9-4ebb-b4f2-1e52fa5c0e3b">https://github.com/user-attachments/assets/9177aa50-a8b9-4ebb-b4f2-1e52fa5c0e3b</a></p>
+
+<p>Is that it? Wait, how could you such terrible code in real life ? Even a beginner could&rsquo;t write such bad code.</p>
+
+<h2>Real Life Case</h2>
+
+<pre><code class="language-tsx">import { useState, useEffect } from 'react';
+import { AlertCircle } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+
+const AsyncCartExample = () =&gt; {
+  const [regularCart, setRegularCart] = useState({
+    quantity: 0,
+    pendingRequests: 0,
+    successfulRequests: 0
+  });
+  
+  const [functionalCart, setFunctionalCart] = useState({
+    quantity: 0,
+    pendingRequests: 0,
+    successfulRequests: 0
+  });
+
+  // Simulates an API call with random delay
+  const simulateAPICall = () =&gt; {
+    return new Promise(resolve =&gt; {
+      setTimeout(() =&gt; {
+        resolve();
+      }, Math.random() * 1000); // Random delay 0-1000ms
+    });
+  };
+
+  // ❌ Problematic approach - direct state updates
+  const addToRegularCart = async () =&gt; {
+    setRegularCart({
+      ...regularCart,
+      pendingRequests: regularCart.pendingRequests + 1
+    });
+
+    await simulateAPICall();
+
+    setRegularCart({
+      ...regularCart, // Uses stale closure value!
+      quantity: regularCart.quantity + 1,
+      pendingRequests: regularCart.pendingRequests - 1,
+      successfulRequests: regularCart.successfulRequests + 1
+    });
+  };
+
+  // ✅ Better approach - functional updates
+  const addToFunctionalCart = async () =&gt; {
+    setFunctionalCart(current =&gt; ({
+      ...current,
+      pendingRequests: current.pendingRequests + 1
+    }));
+
+    await simulateAPICall();
+
+    setFunctionalCart(current =&gt; ({
+      ...current,
+      quantity: current.quantity + 1,
+      pendingRequests: current.pendingRequests - 1,
+      successfulRequests: current.successfulRequests + 1
+    }));
+  };
+
+  // Function to add multiple items quickly
+  const addMultipleItems = (useRegular) =&gt; {
+    const addFunction = useRegular ? addToRegularCart : addToFunctionalCart;
+    // Add 5 items in rapid succession
+    for (let i = 0; i &lt; 5; i++) {
+      addFunction();
+    }
+  };
+
+  return (
+    &lt;div className=&quot;p-6 max-w-2xl mx-auto space-y-8&quot;&gt;
+      &lt;Alert&gt;
+        &lt;AlertCircle className=&quot;h-4 w-4&quot; /&gt;
+        &lt;AlertDescription&gt;
+          Click &quot;Add 5 Items&quot; quickly multiple times to see the difference between regular and functional updates
+        &lt;/AlertDescription&gt;
+      &lt;/Alert&gt;
+      
+      &lt;div className=&quot;grid grid-cols-2 gap-8&quot;&gt;
+        &lt;div className=&quot;p-4 border rounded-lg&quot;&gt;
+          &lt;h2 className=&quot;text-xl font-bold mb-4&quot;&gt;Regular Updates&lt;/h2&gt;
+          &lt;div className=&quot;space-y-2&quot;&gt;
+            &lt;div&gt;Quantity: {regularCart.quantity}&lt;/div&gt;
+            &lt;div&gt;Pending: {regularCart.pendingRequests}&lt;/div&gt;
+            &lt;div&gt;Successful: {regularCart.successfulRequests}&lt;/div&gt;
+            &lt;button
+              onClick={() =&gt; addMultipleItems(true)}
+              className=&quot;bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded&quot;
+            &gt;
+              Add 5 Items
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div className=&quot;p-4 border rounded-lg&quot;&gt;
+          &lt;h2 className=&quot;text-xl font-bold mb-4&quot;&gt;Functional Updates&lt;/h2&gt;
+          &lt;div className=&quot;space-y-2&quot;&gt;
+            &lt;div&gt;Quantity: {functionalCart.quantity}&lt;/div&gt;
+            &lt;div&gt;Pending: {functionalCart.pendingRequests}&lt;/div&gt;
+            &lt;div&gt;Successful: {functionalCart.successfulRequests}&lt;/div&gt;
+            &lt;button
+              onClick={() =&gt; addMultipleItems(false)}
+              className=&quot;bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded&quot;
+            &gt;
+              Add 5 Items
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default AsyncCartExample;
+</code></pre>
+
+<p>Go as routine</p>
+
+<p><a href="https://github.com/user-attachments/assets/5d8d83e2-fac3-4f0a-aebc-fa5efee32c69">https://github.com/user-attachments/assets/5d8d83e2-fac3-4f0a-aebc-fa5efee32c69</a></p>
+
+<p>From the example above, i think it&rsquo;s quite clear why should we use Functional State Update rather than Direct Update.</p>
+
+<h1>Reference</h1>
+
+<ol>
+<li><a href="https://medium.com/@jadencook.us/functional-state-updates-in-react-a-guide-to-when-and-how-to-use-them-64a52c5c5bcc">Functional State Updates in React: A Guide to When and How to Use Them</a></li>
+<li><a href="https://dev.to/gakii/functional-state-update-in-react-42io">Functional State Update in React</a></li>
+</ol>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">english</span>
+                
+                <span class="tag">react</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="248"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How To Structure Large Flask Applications - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+
+
+
+&gt;整理翻译自[How To Structure Large Flask Applications](https://www.digitalocean.com/community/tutorials/how-to-structure-large-flask-applications)
+...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>How To Structure Large Flask Applications</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <blockquote>
+<p>整理翻译自<a href="https://www.digitalocean.com/community/tutorials/how-to-structure-large-flask-applications">How To Structure Large Flask Applications</a></p>
+</blockquote>
+
+<h1>介绍</h1>
+
+<p>其实已经有许多关于如何组织架构 Python Web 应用的方法和约定。尽管现在有些框架本身承载了一些工具(脚手架)从而可以达到实现自动化和降低任务难度的效果,但是究根结底几乎所有的解决方案都是依赖于打包/模块化应用作为代码块从而达到分发到相关的文件和文件夹的目的。</p>
+
+<p>最小的 web 应用开发框架 Flask 有着它特有的(工具)-blueprints。</p>
+
+<p>在这篇数码海洋的文章里,我们将会了解到如何使用 Flask 的 blueprints 来创建一个应用目录和组织架构它从而使其变成可重用的组件。这些将会给你的维护和组件的开发带来巨大的好处和便捷。</p>
+
+<h2>学术表</h2>
+
+<ol>
+<li>Flask：最小的应用开发框架</li>
+<li>关于我们在这篇文章的选择</li>
+<li>准备Flask系统
+
+<ol>
+<li>准备操作系统</li>
+<li>安装Python,pip以及virtualenv</li>
+</ol></li>
+<li>组织架构应用的目录
+
+<ol>
+<li>创建应用目录</li>
+<li>创建虚拟环境</li>
+<li>创建应用文件</li>
+<li>安装 Flask</li>
+</ol></li>
+<li>使用模块和 Blueprints(组件)
+
+<ol>
+<li>模块基础</li>
+<li>模块模板</li>
+</ol></li>
+<li>创建应用(run.py,init.py 等等)
+
+<ol>
+<li>使用 nano 编辑 run.py</li>
+<li>使用 nano 编辑 config.py</li>
+</ol></li>
+<li>创建一个模块/组件
+
+<ol>
+<li>组织架构模型</li>
+<li>定义模块数据类型</li>
+<li>定义模块表单</li>
+<li>定义应用控制器(views)</li>
+<li>在 &ldquo;app/init.py&rdquo; 中建立应用</li>
+<li>创建模板</li>
+<li>实际操作中查看你的模型</li>
+</ol></li>
+</ol>
+
+<h2>Flask:最小的应用开发框架</h2>
+
+<p>Flask 迷你的框架但是丝毫不会影响重要事情的处理方式。相反, Flask 允许开发者使用他们渴望的并且熟悉的工具。出于这个目的,它由此产生了自己的扩展索引和大量已经存在并解决大多数事情的的工具从登陆到日志方方面面。</p>
+
+<p>它不是一个严格的“常规”框架，部分依赖于配置文件,这些配置文件使得其在开始使用和保持事项时变得更容易。</p>
+
+<h2>我们在文章中的选择</h2>
+
+<p>通过我们前面浏览的内容了解到,Flask 的方式就是让我们使用那些用起来最舒服的工具。在我们的文章中,我们将会使用最常见的扩展和库。这些选择包括:</p>
+
+<ol>
+<li>SQLAlchemy</li>
+<li>WTForms</li>
+</ol>
+
+<h3>Flask-SQLAlchemy</h3>
+
+<p>在 Flask 中添加 SQLAlchemy 支持很快捷。这是一个很好的扩展。</p>
+
+<pre><code class="language-shell">Author: Armin Ronacher
+PyPI Page: Flask-SQLAlchemy
+Documentation: Read docs @ packages.python.org
+On Github: [mitsuhiko/flask-sqlalchemy](https://github.com/mitsuhiko/flask-sqlalchemy)
+</code></pre>
+
+<h3>Flask-WTF</h3>
+
+<p>Flask-WTF 提供简单的 WTForms 集成。集成包括可选择的 用来提供更好安全保障的 CSRF。这也是一个很好的扩展。</p>
+
+<pre><code class="language-shell">Author: Anthony Ford (created by Dan Jacob)
+PyPI Page: Flask-WTF
+Documentation: Read docs @ packages.python.org
+On Github: [ajford/flask-wtf](https://github.com/mitsuhiko/flask-wtf)
+</code></pre>
+
+<h2>准备 Flask 系统</h2>
+
+<h3>准备操作系统</h3>
+
+<p>使用如下命令安装必要的开发工具</p>
+
+<pre><code>aptitude update
+aptitude -y upgrade
+aptitude install -y build-essential python-dev python2.7-dev
+</code></pre>
+
+<h3>安装python,pip以及virtualenv</h3>
+
+<p>参考 <a href="https://zhuanlan.zhihu.com/p/26663186">Flask入门——从无到有构建一个网站 （二）环境搭建</a></p>
+
+<h2>组织应用的目录</h2>
+
+<p>我们将使用典型的大型应用名称作为我们的应用的文件夹。在文件夹里，我们将会有一个虚拟环境与此同时还有应用的包以及一些其他的文件夹包括 用来运行 测试(开发)环境的 &ldquo;run.py&rdquo; 和 Flask 的配置文件 &ldquo;config.py&rdquo;</p>
+
+<p>下面给出的作为样例的目录结构，该目录结构是高度可扩展的,它构建的目的是充分利用 Flask 和其他库提供的工具。不要被它吓着了，我们将会一步一步构建它直至完成。</p>
+
+<p>目标样例结构:</p>
+
+<pre><code class="language-shell">~/LargeApp
+    |-- run.py
+    |-- config.py
+    |__ /env             # Virtual Environment
+    |__ /app             # Our Application Module
+         |-- __init__.py
+         |-- /module_one
+             |-- __init__.py
+             |-- controllers.py
+             |-- models.py                
+         |__ /templates
+             |__ /module_one
+                 |-- hello.html
+         |__ /static
+         |__ ..
+         |__ .
+    |__ ..
+    |__ .
+</code></pre>
+
+<h3>创建应用文件夹</h3>
+
+<p>让我们开始创建我们需要的主要目录。
+逐条去执行下述命令:</p>
+
+<pre><code class="language-shell">mkdir ~/LargeApp
+mkdir ~/LargeApp/app
+mkdir ~/LargeApp/app/templates
+mkdir ~/LargeApp/app/static   
+</code></pre>
+
+<p>执行完成之后我们的当前目录</p>
+
+<pre><code class="language-shell">~/LargeApp
+    |__ /app             # Our Application Module
+         |__ /templates
+         |__ /static
+</code></pre>
+
+<h3>创建一个虚拟环境</h3>
+
+<p>使用一个虚拟环境能给你带来很多好处。对于你的每一个应用都强烈推荐使用一个新的虚拟环境。在你的应用中创建一个虚拟环境是一个很好的让你应用有序和干净的方法。</p>
+
+<p>使用下列命令创建一个虚拟环境</p>
+
+<pre><code class="language-shell">cd ~/LargetApp
+virtualenv env
+</code></pre>
+
+<h3>创建应用文件</h3>
+
+<p>在这步，我们将会在使用 modules 和 blueprints 之前创建我们基础应用文件。</p>
+
+<p>运行下列文件创建基本应用文件:</p>
+
+<pre><code class="language-shell">touch ~/LargeApp/run.py
+touch ~/LargeApp/config.py
+touch ~/LargeApp/app/__init__.py
+</code></pre>
+
+<p>我们当前的结构:</p>
+
+<pre><code class="language-shell">~/LargeApp
+    |-- run.py
+    |-- config.py
+    |__ /env             # Virtual Environment
+    |__ /app             # Our Application Module
+         |-- __init__.py
+         |__ /templates
+         |__ /static
+</code></pre>
+
+<h3>安装 Flask 和相关依赖库</h3>
+
+<p>目录什么都创建好之后，我们开始使用 pip 下载安装我们的Flask</p>
+
+<p>使用下述命令将 Flask 安装到虚拟环境当中:</p>
+
+<pre><code class="language-shell">cd ~/LargeApp
+env/bin/pip install flask
+env/bin/pip install flask-sqlalchemy
+env/bin/pip install flask-wtf
+</code></pre>
+
+<h2>使用 Modules 和 Blueprints（组件）</h2>
+
+<h3>基础模块</h3>
+
+<p>在走到这一步的时候，我们已经将我们的应用结构创建好了并且也将所有的依赖下载完成了。</p>
+
+<p>我们的目标是模块化可逻辑分组的所有相关模块。</p>
+
+<p>举个简单的例子比如认证系统。将所有视图，控制器，模型和帮助器置于一个位置，以允许可重用性的方式进行设置，这使得这种结构化成为维护应用程序同时提高生产力的好方法。</p>
+
+<p>目标案例模块(组件)结构(在/app里面)：</p>
+
+<pre><code class="language-shell"># Our module example here is called *mod_auth*
+# You can name them as you like as long as conventions are followed
+
+/mod_auth
+    |-- __init__.py
+    |-- controllers.py
+    |-- models.py
+    |-- ..
+    |-- .
+</code></pre>
+
+<h3>模块模板</h3>
+
+<p>为了使得达到最大的模块化，我们将遵循上述规定创建 “templates” 文件夹,同时并保护一个与模块相同或相似的相关名称的新文件夹，以包含其模板文件。</p>
+
+<p>目标样例模板目录结构(在 LargeApp 中):</p>
+
+<pre><code class="language-shell">/templates
+    |-- 404.html
+    |__ /auth
+         |-- signin.html
+         |-- signup.html
+         |-- forgot.html
+         |-- ..
+         |-- .
+</code></pre>
+
+<h2>创建应用</h2>
+
+<p>在本节中，我们将继续前面的步骤，并从我们的应用程序的实际编码开始，然后再转到创建第一个模块化组件（使用蓝图）：mod_auth，其用来处理所有与身份验证相关的过程。</p>
+
+<h3>使用 nano 编辑 &ldquo;run.py&rdquo;</h3>
+
+<pre><code class="language-shell">nano ~/LargeApp/run.py
+</code></pre>
+
+<p>输入如下内容:</p>
+
+<pre><code class="language-shell"># Run a test server.
+from app import app
+app.run(host='0.0.0.0', port=8080, debug=True)
+</code></pre>
+
+<p>保存退出。</p>
+
+<h3>使用 nano 编辑 &ldquo;config,py&rdquo;</h3>
+
+<pre><code class="language-shell">nano ~/LargeApp/config.py
+</code></pre>
+
+<p>输入如下内容:</p>
+
+<pre><code class="language-shell"># Statement for enabling the development environment
+DEBUG = True
+
+# Define the application directory
+import os
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))  
+
+# Define the database - we are working with
+# SQLite for this example
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
+DATABASE_CONNECT_OPTIONS = {}
+
+# Application threads. A common general assumption is
+# using 2 per available processor cores - to handle
+# incoming requests using one and performing background
+# operations using the other.
+THREADS_PER_PAGE = 2
+
+# Enable protection agains *Cross-site Request Forgery (CSRF)*
+CSRF_ENABLED     = True
+
+# Use a secure, unique and absolutely secret key for
+# signing the data. 
+CSRF_SESSION_KEY = &quot;secret&quot;
+
+# Secret key for signing cookies
+SECRET_KEY = &quot;secret&quot;
+</code></pre>
+
+<p>保存退出。</p>
+
+<h2>创建模块/组件</h2>
+
+<p>本节是定义本文核心的第一个主要步骤。 在这里，我们将看到如何使用Flask的蓝图来创建一个模块（即组件）。</p>
+
+<h3>第一步 结构化模块</h3>
+
+<p>正如我们已经开始做的，让我们创建我们的第一个模块（mod_auth）目录和文件来开始工作。</p>
+
+<pre><code class="language-shell"># Create the module directory inside the *app* module
+mkdir ~/LargeApp/app/mod_auth
+
+# Create where module's templates will reside
+mkdir ~/LargeApp/app/templates/auth
+
+# Create __init__.py to set the directory as a Python module
+touch ~/LargeApp/app/mod_auth/__init__.py
+
+# Create module's controllers and models etc.
+touch ~/LargeApp/app/mod_auth/controllers.py
+touch ~/LargeApp/app/mod_auth/models.py
+touch ~/LargeApp/app/mod_auth/forms.py
+
+# Create module's templates
+touch ~/LargeApp/app/templates/auth/signin.html
+
+# Create a HTTP 404 Error page
+touch ~/LargeApp/app/templates/404.html
+</code></pre>
+
+<p>在上述操作过程之后,我们的目录结构类似这样:</p>
+
+<pre><code class="language-shell">~/LargeApp
+    |-- run.py
+    |-- config.py
+    |__ /env             # Virtual Environment
+    |__ /app             # Our Application Module
+         |-- __init__.py
+         |-- /mod_auth   # Our first module, mod_auth
+             |-- __init__.py
+             |-- controllers.py
+             |-- models.py
+             |-- forms.py
+         |__ /templates
+             |-- 404.html
+             |__ /auth
+                 |-- signin.html
+         |__ /static
+</code></pre>
+
+<h3>第二步 定义模块数据模型</h3>
+
+<pre><code class="language-shell">nano ~/LargeApp/app/mod_auth/models.py
+</code></pre>
+
+<p>输入下述内容</p>
+
+<pre><code class="language-python"># Import the database object (db) from the main application module
+# We will define this inside /app/__init__.py in the next sections.
+from app import db
+
+# Define a base model for other database tables to inherit
+class Base(db.Model):
+
+    __abstract__  = True
+
+    id            = db.Column(db.Integer, primary_key=True)
+    date_created  = db.Column(db.DateTime,  default=db.func.current_timestamp())
+    date_modified = db.Column(db.DateTime,  default=db.func.current_timestamp(),
+                                           onupdate=db.func.current_timestamp())
+
+# Define a User model
+class User(Base):
+
+    __tablename__ = 'auth_user'
+
+    # User Name
+    name    = db.Column(db.String(128),  nullable=False)
+
+    # Identification Data: email &amp; password
+    email    = db.Column(db.String(128),  nullable=False,
+                                            unique=True)
+    password = db.Column(db.String(192),  nullable=False)
+
+    # Authorisation Data: role &amp; status
+    role     = db.Column(db.SmallInteger, nullable=False)
+    status   = db.Column(db.SmallInteger, nullable=False)
+
+    # New instance instantiation procedure
+    def __init__(self, name, email, password):
+
+        self.name     = name
+        self.email    = email
+        self.password = password
+
+    def __repr__(self):
+        return '&lt;User %r&gt;' % (self.name)      
+</code></pre>
+
+<p>保存并退出</p>
+
+<h3>第三步 定义模块表单</h3>
+
+<pre><code class="language-shell">nano ~/LargeApp/app/mod_auth/forms.py
+</code></pre>
+
+<p>输入下述内容:</p>
+
+<pre><code class="language-python"># Import Form and RecaptchaField (optional)
+from flask.ext.wtf import Form # , RecaptchaField
+
+# Import Form elements such as TextField and BooleanField (optional)
+from wtforms import TextField, PasswordField # BooleanField
+
+# Import Form validators
+from wtforms.validators import Required, Email, EqualTo
+
+
+# Define the login form (WTForms)
+
+class LoginForm(Form):
+    email    = TextField('Email Address', [Email(),
+                Required(message='Forgot your email address?')])
+    password = PasswordField('Password', [
+                Required(message='Must provide a password. ;-)')])
+</code></pre>
+
+<p>保存并退出</p>
+
+<h3>第四步 定义应用控制器(视图)</h3>
+
+<pre><code class="language-shell">nano ~/LargeApp/app/mod_auth/controllers.py
+</code></pre>
+
+<p>输入下述内容</p>
+
+<pre><code class="language-python"># Import flask dependencies
+from flask import Blueprint, request, render_template, \
+                  flash, g, session, redirect, url_for
+
+# Import password / encryption helper tools
+from werkzeug import check_password_hash, generate_password_hash
+
+# Import the database object from the main app module
+from app import db
+
+# Import module forms
+from app.mod_auth.forms import LoginForm
+
+# Import module models (i.e. User)
+from app.mod_auth.models import User
+
+# Define the blueprint: 'auth', set its url prefix: app.url/auth
+mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
+
+# Set the route and accepted methods
+@mod_auth.route('/signin/', methods=['GET', 'POST'])
+def signin():
+
+    # If sign in form is submitted
+    form = LoginForm(request.form)
+
+    # Verify the sign in form
+    if form.validate_on_submit():
+
+        user = User.query.filter_by(email=form.email.data).first()
+
+        if user and check_password_hash(user.password, form.password.data):
+
+            session['user_id'] = user.id
+
+            flash('Welcome %s' % user.name)
+
+            return redirect(url_for('auth.home'))
+
+        flash('Wrong email or password', 'error-message')
+
+    return render_template(&quot;auth/signin.html&quot;, form=form)
+</code></pre>
+
+<p>保存并退出</p>
+
+<h3>第五步 在应用中创建 &ldquo;app/init.py&rdquo;</h3>
+
+<pre><code class="language-shell">nano ~/LargeApp/app/__init__.py
+</code></pre>
+
+<p>输入以下内容:</p>
+
+<pre><code class="language-python"># Import flask and template operators
+from flask import Flask, render_template
+
+# Import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy
+
+# Define the WSGI application object
+app = Flask(__name__)
+
+# Configurations
+app.config.from_object('config')
+
+# Define the database object which is imported
+# by modules and controllers
+db = SQLAlchemy(app)
+
+# Sample HTTP error handling
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html'), 404
+
+# Import a module / component using its blueprint handler variable (mod_auth)
+from app.mod_auth.controllers import mod_auth as auth_module
+
+# Register blueprint(s)
+app.register_blueprint(auth_module)
+# app.register_blueprint(xyz_module)
+# ..
+
+# Build the database:
+# This will create the database file using SQLAlchemy
+db.create_all()
+</code></pre>
+
+<p>保存并退出</p>
+
+<h3>第六步 创建模板</h3>
+
+<pre><code class="language-shell">nano ~/LargeApp/app/templates/auth/signin.html
+</code></pre>
+
+<p>输入以下内容:</p>
+
+<pre><code class="language-html">{% macro render_field(field, placeholder=None) %}
+{% if field.errors %}
+&lt;div&gt;
+{% elif field.flags.error %}
+&lt;div&gt;
+{% else %}
+&lt;div&gt;
+{% endif %}
+    {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
+    {{ field(class=css_class, placeholder=placeholder, **kwargs) }}
+&lt;/div&gt;
+{% endmacro %}
+
+&lt;div&gt;
+  &lt;div&gt;
+    &lt;legend&gt;Sign in&lt;/legend&gt;
+    {% with errors = get_flashed_messages(category_filter=[&quot;error&quot;]) %}
+    {% if errors %}
+    &lt;div&gt;
+    {% for error in errors %}
+    {{ error }}&lt;br&gt;
+    {% endfor %}
+    &lt;/div&gt;
+    {% endif %}
+    {% endwith %}
+
+    {% if form.errors %}
+    &lt;div&gt;
+    {% for field, error in form.errors.items() %}
+    {% for e in error %}
+    {{ e }}&lt;br&gt;
+    {% endfor %}
+    {% endfor %}
+    &lt;/div&gt;
+    {% endif %}
+    &lt;form method=&quot;POST&quot; action=&quot;.&quot; accept-charset=&quot;UTF-8&quot; role=&quot;form&quot;&gt;
+      {{ form.csrf_token }}
+      {{ render_field(form.email, placeholder=&quot;Your Email Address&quot;,
+                                  autofocus=&quot;&quot;) }}
+      {{ render_field(form.password, placeholder=&quot;Password&quot;) }}
+      &lt;div&gt;
+      &lt;label&gt;
+        &lt;input type=&quot;checkbox&quot; name=&quot;remember&quot; value=&quot;1&quot;&gt; Remember Me
+      &lt;/label&gt;
+      &lt;a role=&quot;button&quot; href=&quot;&quot;&gt;Forgot your password?&lt;/a&gt;&lt;span class=&quot;clearfix&quot;&gt;&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;button type=&quot;submit&quot; name=&quot;submit&quot;&gt;Sign in&lt;/button&gt;
+    &lt;/form&gt;  
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>保存并退出</p>
+
+<h3>第七步 从网页浏览你定义的模块</h3>
+
+<p>模块创建成功了，接下来就是查看我们定义的模板了</p>
+
+<p>运行 <code>run.py</code> 文件启动开发环境服务器</p>
+
+<pre><code class="language-shell">cd ~/LargeApp
+env/bin/python run.py
+</code></pre>
+
+<p>上述命令将会初始化一个开发环境服务器，端口为 8080.
+通过 URL 去访问我们的模块</p>
+
+<pre><code class="language-shell">http://[your droplet's IP]/auth/signin
+</code></pre>
+
+<p>虽然您无法登录，但您可以通过输入一些示例数据或通过测试其验证器来查看它。</p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="58"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

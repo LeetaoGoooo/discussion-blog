@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&#39;Elasticsearch 支持 PDF 等文件搜索&#39; - Leetao</title>
+    <meta name="description" content="# 前言
+
+默认情况下 es 是不支持 pdf、doc 等文档的搜索的，但是可以通过安装 `Ingest attachment plugin` 插件来使得 es 提取通用�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>&#39;Elasticsearch 支持 PDF 等文件搜索&#39;</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>默认情况下 es 是不支持 pdf、doc 等文档的搜索的，但是可以通过安装 <code>Ingest attachment plugin</code> 插件来使得 es 提取通用格式的文件，从而可以实现搜索的功能。</p>
+
+<h1>安装与使用</h1>
+
+<h2>安装 Ingest attachment plugin</h2>
+
+<p>安装很简单，通过 <code>elasticsearch-plugin</code> 可以直接进行安装</p>
+
+<pre><code class="language-bash">bin/elasticsearch-plugin install ingest-attachment
+</code></pre>
+
+<blockquote>
+<p>Ingest attachment plugin 允许 Elasticsearch 通过使用 Apache 文本提取库 Tika 提取通用格式（例如：PPT，XLS 和 PDF）的文件附件。Apache Tika 工具包可从一千多种不同的文件类型中检测并提取元数据和文本。所有这些文件类型都可以通过一个界面进行解析，从而使 Tika 对搜索引擎索引，内容分析，翻译等有用。需要注意的是，源字段必须是 Base64 编码的二进制，如果不想增加在 Base64 之间来回转换的开销，则可以使用 CBOR 格式而不是 JSON，并将字段指定为字节数组而不是字符串表示形式，这样处理器将跳过 Base64 解码。</p>
+</blockquote>
+
+<h3>创建 attachment pipeline</h3>
+
+<p>通过 kibana 的开发工具进行请求</p>
+
+<pre><code class="language-bash">PUT _ingest/pipeline/pdfattachment
+{
+  &quot;description&quot;: &quot;Extract attachment information encoded in Base64 with UTF-8 charset&quot;,
+  &quot;processors&quot;: [
+    {
+      &quot;attachment&quot;: {
+        &quot;field&quot;: &quot;file&quot;
+      }
+    }
+  ]
+}
+</code></pre>
+
+<p>返回结果：</p>
+
+<pre><code class="language-json">{
+  &quot;acknowledged&quot; : true
+}
+</code></pre>
+
+<p>表示创建成功，接下来就是验证上传 pdf 以及搜索功能了。</p>
+
+<h3>转换并上传PDF文件的内容到Elasticsearch中</h3>
+
+<p>对于 Ingest attachment plugin 来说，它的数据必须是 Base64 的。这里为了快速创建，我们通过一个 bash 脚本去处理用来测试的 pdf</p>
+
+<pre><code class="language-bash">!/bin/bash
+
+encodedPdf=`cat sample.pdf | base64`
+
+json=&quot;{\&quot;file\&quot;:\&quot;${encodedPdf}\&quot;}&quot;
+
+echo &quot;$json&quot; &gt; json.file
+
+curl -X POST 'http://localhost:9200/pdf-test1/_doc?pipeline=pdfattachment&amp;pretty' -H 'Content-Type: application/json' -d @json.file
+</code></pre>
+
+<p>上传成功会返回如下的结果:</p>
+
+<pre><code class="language-bash">{
+  &quot;_index&quot; : &quot;pdf-test1&quot;,
+  &quot;_type&quot; : &quot;_doc&quot;,
+  &quot;_id&quot; : &quot;1oVSxHsB1ubIHqCXIbPU&quot;,
+  &quot;_version&quot; : 1,
+  &quot;result&quot; : &quot;created&quot;,
+  &quot;_shards&quot; : {
+    &quot;total&quot; : 2,
+    &quot;successful&quot; : 1,
+    &quot;failed&quot; : 0
+  },
+  &quot;_seq_no&quot; : 0,
+  &quot;_primary_term&quot; : 1
+}
+</code></pre>
+
+<p>如果出现提示下述提示</p>
+
+<pre><code class="language-bash">{
+	&quot;statusCode&quot;: 400,
+	&quot;error&quot;: &quot;Bad Request&quot;,
+	&quot;message&quot;: &quot;Payload content length greater than maximum allowed: 1048576&quot;
+}
+</code></pre>
+
+<p>说明上传的文件大小超过了 Kibana 默认的上限（默认 1M），修改 kibana 的配置 <code>kibana.yml</code></p>
+
+<pre><code class="language-yaml">server.maxPayloadBytes: &quot;209715200&quot;
+</code></pre>
+
+<h1>查看索引并搜索</h1>
+
+<h2>查看索引</h2>
+
+<p>通过下面的命令可以查看 pdf-test1 的索引情况:</p>
+
+<pre><code class="language-bash">GET pdf-test1/_search
+</code></pre>
+
+<p>结果如下图
+<img src="https://www.leetao94.cn/post-images/1631096996349.png" alt="" /></p>
+
+<p>其中 <code>_source</code> 里有个 <code>content</code> 字段，就是 pdf 的内容，结果如下:</p>
+
+<pre><code class="language-json">{
+  &quot;_source&quot;: {
+		 &quot;file&quot;:&quot;...&quot;,
+			&quot;attachment&quot;: {
+                        &quot;date&quot;: &quot;2021-08-18T07:29:34Z&quot;,
+                        &quot;content_type&quot;: &quot;application/pdf&quot;,
+                        &quot;author&quot;: &quot;author&quot;,
+                        &quot;language&quot;: &quot;lt&quot;,
+                        &quot;title&quot;: &quot;2021-07(copy)&quot;,
+                        &quot;content&quot;: &quot;...&quot;
+   }
+}
+</code></pre>
+
+<p>其中 <code>file</code> 就是 base64 格式的内容，<code>content</code> 则包含了 pdf 的内容，如果不想要 <code>file</code> 则可以通过 <code>remove processor</code> 去除这个字段</p>
+
+<pre><code class="language-bash">PUT _ingest/pipeline/pdfattachment
+{
+  &quot;description&quot;: &quot;Extract attachment information encoded in Base64 with UTF-8 charset&quot;,
+  &quot;processors&quot;: [
+    {
+      &quot;attachment&quot;: {
+        &quot;field&quot;: &quot;file&quot;
+      }
+    },
+    {
+      &quot;remove&quot;: {
+        &quot;field&quot;: &quot;file&quot;
+      }
+    }
+  ]
+}
+</code></pre>
+
+<h2>搜索</h2>
+
+<p>通过在 kibana 的开发工具执行下述命令，验证一下搜索：</p>
+
+<pre><code class="language-bash">GET pdf-test1/_search
+{
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;attachment.content&quot;: &quot;5G&quot;
+    }
+  }
+}
+</code></pre>
+
+<h1>参考链接</h1>
+
+<p><a href="https://www.cnblogs.com/sanduzxcvbnm/p/12624935.html">Elasticsearch：如何对PDF文件进行搜索</a></p>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="25"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

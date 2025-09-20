@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快捷指令 &#43; Dify &#43;飞书多维表格 = 稍后阅读 - Leetao</title>
+    <meta name="description" content="# 前言
+
+之前折腾好多个稍后阅读软件：Pocket、Notion、instapaper、Matter 以及 Omnivore，后来 Omnivore 停服，又一度迁移回到了 ...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>快捷指令 &#43; Dify &#43;飞书多维表格 = 稍后阅读</h1>
+            <p class="meta">
+                By LeetaoGoooo on February 16, 2025
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>之前折腾好多个稍后阅读软件：Pocket、Notion、instapaper、Matter 以及 Omnivore，后来 Omnivore 停服，又一度迁移回到了 Pocket。最近恰好赶上 Deepseek 热潮，看的不少文章介绍飞书多维表格接入 Deepseek 的新闻，蠢蠢欲动了起来，就开始折腾起来了飞书多维表格，在折腾过程中突然意识到我可以将稍后阅读功能放到飞书多维表格完成（在我不需要离线的前提下），并且借助 AI 我还可以完成<strong>自动打标签</strong>以及<strong>总结</strong>的功能。</p>
+
+<h1>稍后阅读</h1>
+
+<h2>v1 飞书多维表格</h2>
+
+<p>最初考虑的功能最简单，配合飞书表格自带的功能，实现的逻辑就是当添加一个链接的时候，会爬取文章的对应的内容，然后借助 AI 去实现大纲的总结和自动标签。</p>
+
+<p><img width="1120" alt="image" src="https://github.com/user-attachments/assets/a11cbb6f-be11-4bfa-9cd3-fdb86ba8ca29" /></p>
+
+<p>后面我需要做的就是遇到好的文章然后打开飞书添加链接就好了。</p>
+
+<h2>v2 机器人 + 飞书表格</h2>
+
+<p>但是这远远还不够，因为需要好几个步骤，我希望是可以一步完成这个步骤，所以最好有个 webhook。好消息是 webhook 它真的有，坏消息就是要付费。</p>
+
+<p><img width="458" alt="image" src="https://github.com/user-attachments/assets/1e13b295-b6b4-4e19-af21-01f84e1a4f3d" /></p>
+
+<p>付费是可能的，不过是最后的方案。随后就开始调研，有没有多维表格的 Api，发现是有的，所以就考虑使用做一个机器人去完成这些，但是我又懒得自建服务器，我又找有没有更简洁的方案，接着我发现了<strong>飞书机器人</strong>这个应用</p>
+
+<p><img width="525" alt="image" src="https://github.com/user-attachments/assets/9cd98c7d-7d99-417c-8ecf-afdfe8a33058" /></p>
+
+<p>这个机器人有 webhook，每个月有 200 次的免费额度，有新增多维表格记录的操作，看起来很不错（实际上有坑），很快我就搭建了第一个机器人。</p>
+
+<p><img width="484" alt="image" src="https://github.com/user-attachments/assets/e48188a7-f900-4a26-929f-c4fa5017fa6b" /></p>
+
+<p>但是问题来了，这里的 webhook 支持的参数类型只是 json 的基本类型，但是我之前的使用的多维表格的文章链接是多维表格自带的 URL 类型，是无法通过 webhook 新增的，并且也不存在任何字段或者公式可以将 string 类型的链接转换成 URL 类型。</p>
+
+<p>所以<strong>飞书机器人 + 多维表格 这个方案行不通</strong>。</p>
+
+<h2>v3  快捷指令 + Dify +  机器人 + 飞书表格</h2>
+
+<p>如果有个接口可以把对应的链接内容提取，然后完成总结，再回调机器人就完美了，然后我就想起来很久之前在群里看到的 Dify。我就开始了研究起来了 Dify。Dify 支持通过 Api 直接调用，也可以完成解析 url 内容，调用 LLM 完成总结和自动打标签的功能。</p>
+
+<p>最后在 Dify 搭建的工作流如下：</p>
+
+<p><img width="1321" alt="image" src="https://github.com/user-attachments/assets/1847efff-954a-483a-a237-a22d246eeb04" /></p>
+
+<p>到这里基本上整个流程就算跑通了，配合苹果的快捷指令，然后我就浏览器里将链接分享到快捷指令，然后调用 Dify 的 Api，接着 Dify 完成一些列的解析，再将结果推送到飞书机器人的 webhook，随后在飞书多维表格完成自动打标签的功能，完整闭环。后面考虑想把一些不错的文章同步推动到我的群组里，在快捷指令里加了一个是否推送的选项。最终的流程图如下</p>
+
+<p><img src="https://github.com/user-attachments/assets/408c2101-740f-467a-8040-e9868d6f54c6" alt="image" /></p>
+
+<h1>最后</h1>
+
+<p>如果飞书机器人多维表格支持 URL 类型就可以让我少走很多弯路，多维表格支持 markdown 类型就更好了，如果付费的 webhook 也不支持 URL 类型的话，只能说 emmm&hellip;</p>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">稍后阅读</span>
+                
+                <span class="tag">Dify</span>
+                
+                <span class="tag">快捷指令</span>
+                
+                <span class="tag">效率</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="255"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付宝开放平台 Python SDK 下的一些坑 - Leetao</title>
+    <meta name="description" content="# 前言
+
+最近因为业务原因，需要使用支付宝开放平台的一些 Api 写一些脚本，所以选择了 Python，然后就遇到坑了，不是�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>支付宝开放平台 Python SDK 下的一些坑</h1>
+            <p class="meta">
+                By LeetaoGoooo on February 19, 2023
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>最近因为业务原因，需要使用支付宝开放平台的一些 Api 写一些脚本，所以选择了 Python，然后就遇到坑了，不是一个坑，而是好几个</p>
+
+<h1>问题 alipay.aop.api.exception.Exception.RequestException</h1>
+
+<p>具体错误信息如下：</p>
+
+<pre><code class="language-python">alipay.aop.api.exception.Exception.RequestException:
+ [516aa23a-cdfd-11e9-a62d-441ca8249e46]
+request sign failed. int() argument must be a string, a bytes-like object or a number, not 'Sequence'
+</code></pre>
+
+<p><img src="https://user-images.githubusercontent.com/10162120/219952256-9fe97364-a26f-4436-a625-24d113ea318f.png" alt="alipay.aop.api.exception.Exception.RequestException" />
+<em>截图来自参考文章</em></p>
+
+<p>问题原因说很简单也很简单，就是签名错误，但是私钥都是直接下载的，理论上不会错误。但是因为用的是 Python 版本，直接下来的私钥其实只能仅 Java 可用，是 PKCS8，而非 Java 的应该用 <strong>PKCS1</strong></p>
+
+<p>所以解决办法也很简单，就是将 PKCS8 转成 PKCS1</p>
+
+<h2>PKCS8 转 PKCS1</h2>
+
+<p>使用下面这个函数解决问题</p>
+
+<pre><code class="language-python">from Crypto.PublicKey import RSA
+
+def pkcs8_to_pkcs1(self, pkcs8_key:str) -&gt; str:
+    &quot;&quot;&quot;
+        将 pkcs8 的密钥转换为 pkcs1
+    &quot;&quot;&quot;
+    if not pkcs8_key.startswith(&quot;-----BEGIN RSA PRIVATE KEY-----&quot;):
+        pkcs8_key = f'-----BEGIN RSA PRIVATE KEY-----\n{pkcs8_key}\n-----END RSA PRIVATE KEY-----'
+    return RSA.importKey(pkcs8_key).exportKey().decode()
+</code></pre>
+
+<h1>问题 INVALID_SIGN: Alipay Sign Verify FAILED</h1>
+
+<p>这个问题就是签名错误，显然易见。出现这个问题的原因是把 公钥 和 支付宝公钥 混淆了（文档里也没有提到！！！）</p>
+
+<p><img src="https://user-images.githubusercontent.com/10162120/219953054-36183c55-1dbc-4ef7-9b4d-521aa951e39b.png" alt="NVALID_SIGN: Alipay Sign Verify FAILED" />
+<em>截图来自参考文章</em></p>
+
+<h1>参考文章</h1>
+
+<ul>
+<li><a href="https://blog.csdn.net/lw545034502/article/details/89143057">支付宝支付报错:INVALID_SIGN: Alipay Sign Verify FAILED 解决办法</a></li>
+<li><a href="https://www.cnblogs.com/liuye1990/p/13386624.html">Django支付宝支付 int() argument must be a string, a bytes-like object or a number, not &lsquo;Sequence&rsquo;错误</a></li>
+</ul>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">python</span>
+                
+                <span class="tag">支付宝开放平台</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="15"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

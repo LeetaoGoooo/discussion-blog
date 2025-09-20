@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golang 字符串和 rune - Leetao</title>
+    <meta name="description" content="
+![golang logo](https://user-images.githubusercontent.com/10162120/204745935-99a23a1a-fa37-4814-926d-fb057f2371cb.png)
+
+
+在 Go 中字符串是一个使用�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>Golang 字符串和 rune</h1>
+            <p class="meta">
+                By LeetaoGoooo on November 28, 2022
+            </p>
+            
+            <div class="content">
+                <p><img src="https://user-images.githubusercontent.com/10162120/204745935-99a23a1a-fa37-4814-926d-fb057f2371cb.png" alt="golang logo" /></p>
+
+<p>在 Go 中字符串是一个使用频率很高的数据类型，通常的操作有拼接和切片操作，拼接操作不是这篇文章的重点，这里就不做深入讨论，这里聊聊字符串的切片操作。</p>
+
+<h1>切片</h1>
+
+<h2>字符串的长度</h2>
+
+<p>先看个简单的例子</p>
+
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	sample := &quot;你好，世界&quot;
+	fmt.Printf(&quot;len:%d\n&quot;, len(sample))
+	for index, value := range sample {
+		fmt.Printf(&quot;%d,%q\n&quot;, index, value)
+	}
+}
+</code></pre>
+
+<p>结果应该是多少？5 吗？</p>
+
+<pre><code class="language-shell">len:15
+0,'你'
+3,'好'
+6,'，'
+9,'世'
+12,'界'
+</code></pre>
+
+<h3>其他语言的字符串表现</h3>
+
+<p>是不是与其他语言的有所区别？比如 Python</p>
+
+<pre><code class="language-python">&gt;&gt;&gt; a = &quot;你好，世界&quot;
+&gt;&gt;&gt; len(a)
+5
+</code></pre>
+
+<p>出现这种现象的本质原因是因为 string 在 Go 的实现方式有关，<strong>在 Go 中 string 其实只是一个可读的字节数组切片而已</strong>，是不是真的是这样？我们用 Python 的 bytearray 验证一下:</p>
+
+<pre><code class="language-python">&gt;&gt;&gt; b = bytearray()
+&gt;&gt;&gt; b.extend(a.encode())
+&gt;&gt;&gt; b
+bytearray(b'\xe4\xbd\xa0\xe5\xa5\xbd\xef\xbc\x8c\xe4\xb8\x96\xe7\x95\x8c')
+&gt;&gt;&gt; len(b)
+15
+</code></pre>
+
+<p>符合预期，也侧面论证了上面的观点</p>
+
+<h2>切片</h2>
+
+<p>在了解到 Go 中字符串长度并不是简单的像 Python 等语言那样，显然切片也不能直接根据肉眼看到的字符串长度进行切片，比如上面的例子中<code>sample[:2]</code> 显然结果不太可能是 &ldquo;你好&rdquo;</p>
+
+<p><img width="400" alt="切片运行结果" src="https://user-images.githubusercontent.com/10162120/204718836-d68ef753-4c33-455e-92f5-ae166564ad1c.png"></p>
+
+<p>找到对应的 Index 然后切片是个可行的办法，但是显然不是一个好办法</p>
+
+<p><img width="467" alt="根据 index 切片" src="https://user-images.githubusercontent.com/10162120/204720692-16519bb5-4086-48d4-9311-56378e14ce0c.png"></p>
+
+<p>有没有更简单的办法？有的，使用 <strong>rune</strong></p>
+
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+)
+
+func main() {
+	sample := &quot;你好，世界&quot;
+	fmt.Println(string([]rune(sample)[:2]))
+}
+
+</code></pre>
+
+<p>结果输出:</p>
+
+<pre><code>你好
+</code></pre>
+
+<h1>总结</h1>
+
+<p>出现上面现象的原因本质是因为编码问题，Go 默认是 <code>UTF-8</code> 的编码，但是汉字显然不在其列，所以导致显示异常，而 <code>rune</code> 则代表着 <code>Unicode</code> 编码，因而变现正常起来。</p>
+
+<p><img src="https://user-images.githubusercontent.com/10162120/204784986-e4c92cac-84cd-409b-870b-73a2706f8ab4.png" alt="总结" /></p>
+
+<h1>参考链接</h1>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Unicode#:~:text=The%20standard%2C%20which%20is%20maintained,visual%20control%20and%20formatting%20codes.">Unicode</a></li>
+<li><a href="https://web.getmatter.com/entry/1243938">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a></li>
+<li><a href="https://go.dev/blog/strings">Strings, bytes, runes and characters in Go</a></li>
+</ul>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">go</span>
+                
+                <span class="tag">编码</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="9"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

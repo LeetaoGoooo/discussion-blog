@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符串池化 python - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+
+# 前言
+
+在 Python 中经常通过内存池化技术来提高其性能,那么问题来了,在什么情况下会池化呢? 让我们通过几个例子进...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>字符串池化 python</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>在 Python 中经常通过内存池化技术来提高其性能,那么问题来了,在什么情况下会池化呢? 让我们通过几个例子进行一下理解一下.</p>
+
+<h1>预备知识</h1>
+
+<p>在查看例子之前,首先要提 python 中的一个函数 <strong>id()</strong>,让我们看一下函数说明:</p>
+
+<pre><code class="language-bash">id(obj, /)
+    Return the identity of an object.
+
+    This is guaranteed to be unique among simultaneously existing objects.
+    (CPython uses the object \'s memory address.)
+</code></pre>
+
+<p>通过上述说明,可以得知 id() 将会返回对像的唯一标识,在 CPython 中将会返回内存地址,也就是说如果两个对象 的 id 值一样,可以说着两个对象是相同的了.</p>
+
+<h1>例子</h1>
+
+<p>example 00</p>
+
+<pre><code class="language-python">a = &quot;&quot;
+b = &quot;&quot;
+print(id(a),id(b))
+print(a is b)
+</code></pre>
+
+<p>输出结果:</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; a = &quot;&quot;
+&gt;&gt;&gt; b = &quot;&quot;
+&gt;&gt;&gt; print(id(a),id(b))
+2114853370544 2114853370544
+&gt;&gt;&gt; print(a is b)
+True
+</code></pre>
+
+<p>example 01</p>
+
+<pre><code class="language-python">a = &quot;a&quot;
+b = &quot;a&quot;
+print(id(a),id(b))
+print(a is b)
+</code></pre>
+
+<p>输出结果:</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; a = &quot;a&quot;
+&gt;&gt;&gt; b = &quot;a&quot;
+&gt;&gt;&gt; print(id(a),id(b))
+2114883022608 2114883022608
+&gt;&gt;&gt; print(a is b)
+True
+</code></pre>
+
+<p>example 02</p>
+
+<pre><code class="language-python">a = &quot;magic_string&quot;
+b = &quot;magic&quot; + &quot;_&quot; + &quot;string&quot;
+print(id(a),id(b))
+print(a is b)
+</code></pre>
+
+<p>输出结果:</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; a = &quot;magic_string&quot;
+&gt;&gt;&gt; b = &quot;magic&quot; + &quot;_&quot; + &quot;string&quot;
+&gt;&gt;&gt; print(id(a),id(b))
+2114887161136 2114887161136
+&gt;&gt;&gt; print(a is b)
+True
+</code></pre>
+
+<p>example 03</p>
+
+<pre><code class="language-python">a = &quot;magic!&quot;
+b = &quot;mgaic!&quot;
+print(id(a),id(b))
+print(a is b)
+</code></pre>
+
+<p>输出结果:</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; a = &quot;magic!&quot;
+&gt;&gt;&gt; b = &quot;mgaic!&quot;
+&gt;&gt;&gt; print(id(a),id(b))
+2114885855416 2114889455408
+&gt;&gt;&gt; print(a is b)
+False
+</code></pre>
+
+<p>example 04</p>
+
+<pre><code class="language-python">a,b = &quot;magic!&quot;,&quot;magic!&quot;
+print(id(a),id(b))
+print(a is b)
+</code></pre>
+
+<p>输出结果:</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; a,b = &quot;magic!&quot;,&quot;magic!&quot;
+&gt;&gt;&gt; print(id(a),id(b))
+2114885691912 2114885691912
+&gt;&gt;&gt; print(a is b)
+True
+</code></pre>
+
+<p>example 05</p>
+
+<pre><code class="language-python">a = &quot;!&quot;
+b = &quot;!&quot;
+print(id(a),id(b))
+print(a is b)
+</code></pre>
+
+<p>输出结果：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; a = &quot;!&quot;
+&gt;&gt;&gt; b = &quot;!&quot;
+&gt;&gt;&gt; print(id(a),id(b))
+140564571922024 140564571922024
+&gt;&gt;&gt; print(a is b)
+True
+
+</code></pre>
+
+<p>example 06</p>
+
+<pre><code class="language-python">print(a*20 is 'aaaaaaaaaaaaaaaaaaaa')
+print(a*21 is 'aaaaaaaaaaaaaaaaaaaaa')
+</code></pre>
+
+<p>输出结果:</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; print(a*20 is 'aaaaaaaaaaaaaaaaaaaa')
+False
+&gt;&gt;&gt; print(a*21 is 'aaaaaaaaaaaaaaaaaaaaa')
+False
+</code></pre>
+
+<h1>总结</h1>
+
+<p>通过上述 7 个例子,我们不难对 python 的字符串池化有个大概的认识,我们这里做个简单的总结:</p>
+
+<ol>
+<li>通过 example 00,01,05,我们可以得出对于长度为 0 或者 1 的字符串会被池化</li>
+<li>通过 example 02,03,我们可以得出字符串中只包含字母数字以及下划线的字符串会被池化</li>
+<li>通过 example 04, 我们可以得出当在同一行对不同变量，赋值如果相同的话，它们将会指向同一个对象，注意这里面的 “magic!” 并不符合池化的要求，这只是一种编译器的优化</li>
+<li>example 06 所出现的现象在 python 中有一个专业的术语，讲常量折叠(constant folding),顾名思义，在编译优化时，讲能够计算出的结果的变量直接替换为常量.但是这没有限制吗？显然不是的，在我们的例子中已经发现，当长度超过20的时候，折叠就会失效了，试想一下，如果没有限制的话，初始化的字符串过长，将会严重导致性能的下降以及内存的消耗</li>
+</ol>
+
+<h1>参考链接</h1>
+
+<ol>
+<li><p><a href="http://guilload.com/python-string-interning/">The internals of Python string interning</a></p></li>
+
+<li><p><a href="https://late.am/post/2012/03/26/exploring-python-code-objects.html">exploring python code objects</a></p></li>
+
+<li><p><a href="https://stackoverflow.com/questions/15541404/python-string-interning">Python string interning</a></p></li>
+
+<li><p><a href="http://www.laurentluce.com/posts/python-string-objects-implementation/">Python String objects implementation</a></p></li>
+</ol>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="198"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

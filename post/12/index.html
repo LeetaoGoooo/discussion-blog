@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>git workspace 使用指南 - Leetao</title>
+    <meta name="description" content="![git-logo](https://user-images.githubusercontent.com/10162120/207852227-a06acab4-3830-4368-b730-906cf1303647.png)
+
+在 Git 进行代码管理的时候，时�...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>git workspace 使用指南</h1>
+            <p class="meta">
+                By LeetaoGoooo on December 15, 2022
+            </p>
+            
+            <div class="content">
+                <p><img src="https://user-images.githubusercontent.com/10162120/207852227-a06acab4-3830-4368-b730-906cf1303647.png" alt="git-logo" /></p>
+
+<p>在 Git 进行代码管理的时候，时常出现这样的场景：当我在 feature 分支开发的时候，突然临时有个紧急的问题需要进行修复或者别的在测试的 <code>feature</code> 有问题需要处理（后续以 <code>other</code> 分支），我不得不暂停当前这个分支：</p>
+
+<p><strong>方法一</strong>: 使用 <code>git statsh</code>  将所有的未提交的修改暂时保存起来，等待解决问题之后，切回到之前的分支，然后将对应的 stash 恢复到当前分支下。
+<strong>方法二</strong>：直接 <code>checkout</code> 到 <code>other</code> 分支，然后修复完问题，将 <code>feature</code> 分支修改的东西不提交，然后重新切回。
+<strong>方法三</strong>：直接将修改 <code>commit</code>,然后切到 <code>other</code> 分支处理问题，然后再切回。</p>
+
+<p>其中方法一可能是比较好的解决方案，但是实际使用下来，当需要切换的次数比较频繁的话，应用哪个 <code>stash</code> 就会成为一个头疼的问题。</p>
+
+<p><code>git worktree</code> 就可以很好的解决这个问题，不过值得注意的是 <code>git worktree</code> 并不是一个新的特性，早在 2.19.2 版本就引入了这个特性。</p>
+
+<p><img width="338" alt="when-git-worktree-added" src="https://user-images.githubusercontent.com/10162120/208056610-ac64bada-b229-4d5d-9878-1b6eeafdf42b.png"></p>
+
+<h1>git worktree</h1>
+
+<blockquote>
+<p>Manage multiple working trees attached to the same repository.</p>
+</blockquote>
+
+<p>正常情况下如果直接切换分支的话，我们在当前分支的修改会被带到另外的分支上，这就是为什么我们通常需要提交当前分支的修改或者 <code>stash</code> 的原因，当然也你也可以直接在别的目录下直接重新 <code>git clone</code>  也可以规避这个问题。</p>
+
+<p>不过 <code>git clone</code> 只能算一个这种折中的办法，通过 <code>git worktreee</code> 我们就可以为同一个 <code>repo</code> 创建多个不同的目录，达到 <code>git clone</code> 的效果</p>
+
+<p><img src="https://user-images.githubusercontent.com/10162120/208091972-652f7da0-2c40-4d55-af06-2f12e72e3464.png" alt="git-worktree-flow" /></p>
+
+<h1>使用方法</h1>
+
+<p>通过 <code>git worktree add &lt;path&gt;</code> 命令就可以创建一个名为 <code>path</code> 的分支:</p>
+
+<pre><code class="language-shell">git worktree add ../hotfix
+</code></pre>
+
+<p>会在创建一个 <code>hotfix</code> 分支，并且还有一个 <code>hotfix</code> 的目录与当前目录的同级。</p>
+
+<p><code>shell
+-- repo
+-- hotfix
+</code>`</p>
+
+<p>然后就可以通过编辑器分别打开这两个目录，然后无干扰的独立开发了。当然你可以可以指定一个已经存在的分支进行开发 <code>git worktree add &lt;path&gt; &lt;branch&gt;</code>。</p>
+
+<p>如果这个 <code>worktree</code> 不需要了，执行 <code>git worktree remove &lt;path&gt;</code> 就可以删除这个目录了。</p>
+
+<h1>题外话</h1>
+
+<p>截止到现在还 vscode 和 jetbrains 的相关软件还没有支持这个特效，估计后面也不一定会支持。</p>
+
+<h1>参考文章</h1>
+
+<p><a href="https://git-scm.com/docs/git-worktree">git worktree</a></p>
+
+            </div>
+            
+            <div class="tags">
+                
+                <span class="tag">git</span>
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="12"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

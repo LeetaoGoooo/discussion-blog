@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>再谈 Python 的写文件操作 - Leetao</title>
+    <meta name="description" content="
+
+
+
+
+
+
+# 前言
+
+关于 Python 对文件的读写操作网上有很多,基本上无外乎都是基于打开文件的 mode 的解释
+
+![](http://ww4.sinaimg.cn/l...">
+    
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
+    
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Leetao</a></h1>
+        
+        <p class="site-description">写有趣的代码，做有趣的事</p>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags/">Tags</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+                    </svg>
+                    Theme
+                </button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="post">
+            <h1>再谈 Python 的写文件操作</h1>
+            <p class="meta">
+                By LeetaoGoooo on July 16, 2023
+            </p>
+            
+            <div class="content">
+                <h1>前言</h1>
+
+<p>关于 Python 对文件的读写操作网上有很多,基本上无外乎都是基于打开文件的 mode 的解释</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f9ndo67e2sj20fu0dlmzh.jpg" alt="" /></p>
+
+<p>昨天我媳妇有这样一个需求,读入一个文件如果文件不存在则创建,然后写入,如果文件存在,则读取上次的文件内容,然后添加上这次的内容,是不是很简单,直接用<strong>a或者a+</strong>就可以了. 别着急,重点来了,<strong>文件内容是json数据,追加之后也应该是一个json数据</strong></p>
+
+<p>说的可能比较抽象,那就举个例子</p>
+
+<h1>例子</h1>
+
+<p>两次写入文件内容,分别为 <em>{&lsquo;1&rsquo;:&lsquo;a&rsquo;}</em> 和 <em>{&lsquo;2&rsquo;:&lsquo;b&rsquo;}</em>,那么第一次写入,文件不存在,创建并写入,最终结果应该如下:</p>
+
+<pre><code class="language-json">{
+  '1':'a'
+}
+</code></pre>
+
+<p>第二次,文件存在,读取数据,合并数据重写写入,结果如下:</p>
+
+<pre><code class="language-json">{
+  '1':'a',
+  '2':'b'
+}
+</code></pre>
+
+<p>很显然简单的使用 a 或者 a+ 模式是做不到上述要求的,有兴趣的可以自己尝试一下,它们只是简单的追加内容到上次文件末尾</p>
+
+<h1>实践</h1>
+
+<p>针对上述例子的要求,最容易想到的方案就是:
+	1.先以 r 的模式,打开文件读取文件数据,得到 dictA
+	2.然后以 w 的模式,打开文件,将本次数据 dictB 与 dictA 合并后写入 dictA</p>
+
+<p>首先肯定这种方案没有任何问题,能够解决问题,不过这显然不是最佳方案,因为多次打开文件,增加了 IO 的开销,那有没有只打开一次文件完成上述要求呢?显然是有的,再说解决方案之前,我们先说一下预备知识:<strong>为什么 a 模式下可以追加内容到文件末尾?</strong> 因为在 a 模式下,打开文件后,<strong>文件指针</strong>默认指向文件末尾.ok了,新的方案就这么出来了.</p>
+
+<p>新的方案基于文件指针,我们以 a 或者 a+ 模式打开文件,将文件指针移动到文件开头,读取文件内容,然后合并数据,然后清除文件内容,重新写入合并后的数据.最后看一下代码</p>
+
+<pre><code class="language-python">import json
+import os
+new_dict = {'c':'d'}
+old_dict = {}
+with open('test.json','a+') as f:
+    if os.path.getsize('test.json'):
+        f.seek(0) # 重点,移动指针
+        old_dict = json.load(f)
+    merge_dict = {**old_dict,**new_dict}
+    f.truncate(0) # 清空之前内容
+    json.dump(merge_dict,f)
+</code></pre>
+
+            </div>
+            
+            <div class="tags">
+                
+            </div>
+            
+            <div class="giscus">
+                <script src="https://giscus.app/client.js"
+                    data-repo="leetaogoooo/discussion-blog"
+                    data-repo-id="R_kgDOIOm9Yg"
+                    data-mapping="number"
+                    data-term="188"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            </div>
+            
+            <div class="back-link">
+                <a href="/">&larr; Back to posts</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pres = document.querySelectorAll('pre');
+            pres.forEach(pre => {
+                
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.textContent = 'Copy';
+                
+                
+                pre.appendChild(button);
+                
+                
+                button.addEventListener('click', () => {
+                    
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    
+                    navigator.clipboard.writeText(text).then(() => {
+                        
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        
+                        
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
