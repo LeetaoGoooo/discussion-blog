@@ -1,0 +1,17 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "A static site generator for blogs using GitHub Discussions as content source",
+  "main": "main.go",
+  "scripts": {
+    "build": "go build -o blog",
+    "generate": "go run main.go generate",
+    "serve": "go run main.go serve"
+  },
+  "dependencies": {
+    "github.com/spf13/cobra": "^1.6.1",
+    "github.com/spf13/viper": "^1.14.0",
+    "github.com/shurcooL/githubv4": "^0.0.0",
+    "golang.org/x/oauth2": "^0.4.0"
+  }
+}

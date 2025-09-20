@@ -1,3 +1,0 @@
-pytelegrambotapi
-edge-tts
-pytz

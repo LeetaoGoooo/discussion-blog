@@ -1,0 +1,616 @@
+/* 主题变量 */
+:root {
+  /* Light 模式 */
+  --background: #ffffff;
+  --foreground: #000000;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --border: #e5e5e5;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #000000;
+  --accent: #f5f5f5;
+  --accent-foreground: #000000;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --ring: #000000;
+}
+
+[data-theme="light"] {
+  /* Light 模式 */
+  --background: #ffffff;
+  --foreground: #000000;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --border: #e5e5e5;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #000000;
+  --accent: #f5f5f5;
+  --accent-foreground: #000000;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --ring: #000000;
+}
+
+[data-theme="dark"] {
+  /* Dark 模式 */
+  --background: #000000;
+  --foreground: #ffffff;
+  --muted: #171717;
+  --muted-foreground: #a3a3a3;
+  --border: #262626;
+  --card: #000000;
+  --card-foreground: #ffffff;
+  --popover: #000000;
+  --popover-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #171717;
+  --secondary-foreground: #ffffff;
+  --accent: #171717;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --ring: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark 模式 */
+    --background: #000000;
+    --foreground: #ffffff;
+    --muted: #171717;
+    --muted-foreground: #a3a3a3;
+    --border: #262626;
+    --card: #000000;
+    --card-foreground: #ffffff;
+    --popover: #000000;
+    --popover-foreground: #ffffff;
+    --primary: #ffffff;
+    --primary-foreground: #000000;
+    --secondary: #171717;
+    --secondary-foreground: #ffffff;
+    --accent: #171717;
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --ring: #ffffff;
+  }
+}
+
+/* 基础样式 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 链接样式 */
+a {
+  color: var(--foreground);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* 头部 */
+header {
+  padding: 2rem 1rem;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.site-description {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+header nav {
+  margin: 1rem 0;
+}
+
+header nav ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+header nav li {
+  margin: 0 0.25rem;
+}
+
+header nav a {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--foreground);
+  transition: all 0.2s ease;
+}
+
+header nav a:hover {
+  text-decoration: none;
+  background-color: var(--muted);
+  opacity: 1;
+}
+
+/* 主题切换按钮 */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.theme-toggle:hover {
+  background-color: var(--muted);
+}
+
+/* SVG图标样式 */
+.theme-icon {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+/* 主要内容 */
+main {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* 文章列表 */
+.posts {
+  list-style: none;
+  padding: 0;
+}
+
+.post-preview {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-preview:last-child {
+  border-bottom: none;
+}
+
+.post-preview h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.post-preview .meta {
+  margin: 0 0 1rem 0;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.post-preview .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Tag云样式 */
+.tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.tag-cloud-item {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+}
+
+.tag-cloud-item:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.tag-count {
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+}
+
+.tag:hover {
+  background-color: var(--accent);
+}
+
+/* 文章详情 */
+.post {
+  padding: 1rem 0;
+}
+
+.post h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.post .meta {
+  margin: 0 0 2rem 0;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.post .content {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.post .content p {
+  margin: 0 0 1.5rem 0;
+}
+
+/* 图片样式 */
+.post .content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 0.5rem;
+}
+
+.post .content img + em {
+  display: block;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-top: 0.5rem;
+}
+
+.post .tags {
+  margin: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* 分页 */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.pagination a {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.pagination a:hover {
+  background-color: var(--muted);
+}
+
+.pagination .page-info {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+/* 页脚 */
+footer {
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  border-top: 1px solid var(--border);
+}
+
+/* 代码块样式 */
+pre {
+  position: relative;
+  background-color: var(--muted);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background-color: var(--muted);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* 代码复制按钮 */
+.copy-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.copy-button.copied {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* 代码高亮 */
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: var(--muted);
+  color: var(--foreground);
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+/* 暗黑模式下的代码高亮 */
+@media (prefers-color-scheme: dark) {
+  .hljs {
+    background: var(--muted);
+    color: var(--foreground);
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    color: var(--muted-foreground);
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-subst {
+    color: var(--primary);
+  }
+
+  .hljs-number,
+  .hljs-literal,
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-tag .hljs-attr {
+    color: #6ee7b7;
+  }
+
+  .hljs-string,
+  .hljs-doctag {
+    color: #fca5a5;
+  }
+
+  .hljs-title,
+  .hljs-section,
+  .hljs-selector-id {
+    color: #fbbf24;
+  }
+
+  .hljs-type,
+  .hljs-class .hljs-title {
+    color: #93c5fd;
+  }
+
+  .hljs-tag,
+  .hljs-name,
+  .hljs-attribute {
+    color: #c7d2fe;
+  }
+
+  .hljs-regexp,
+  .hljs-link {
+    color: #86efac;
+  }
+
+  .hljs-symbol,
+  .hljs-bullet {
+    color: #e879f9;
+  }
+
+  .hljs-built_in,
+  .hljs-builtin-name {
+    color: #a5b4fc;
+  }
+
+  .hljs-meta {
+    color: var(--muted-foreground);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+  header {
+    padding: 1rem;
+  }
+  
+  header nav ul {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  header nav li {
+    margin: 0 0.15rem;
+  }
+  
+  header nav a {
+    padding: 0.15rem 0.35rem;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 768px) {
+  header {
+    padding: 3rem 1rem;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+  }
+  
+  main {
+    padding: 3rem 1rem;
+  }
+  
+  .post h1 {
+    font-size: 2.5rem;
+  }
+}

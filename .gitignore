@@ -1,2 +1,27 @@
-venv
-*.pyc
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with go test -c
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories
+node_modules
+vendor
+
+# IDE directories
+.idea
+.vscode
+
+# Build outputs
+content/
+bin/
+
+# Configuration files
+config.yaml
