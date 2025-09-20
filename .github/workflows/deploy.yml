@@ -2,12 +2,11 @@ name: Deploy to GitHub Pages
 
 on:
   discussion:
-    types: [created, edited]
+    types: [created, edited, deleted]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # 只有当讨论是由仓库所有者创建或编辑时才运行
     if: github.event.discussion.user.login == github.repository_owner
     steps:
       - uses: actions/checkout@v3
