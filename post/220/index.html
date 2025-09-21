@@ -17,48 +17,52 @@ flask-admin 算是一个很不错的 flask 后台管理了,用它来做博客系
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>让Flask-admin支持markdown编辑器</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">让Flask-admin支持markdown编辑器</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>flask-admin 算是一个很不错的 flask 后台管理了,用它来做博客系统的管理后端再合适不过了,节约时间成本,避免重复造轮子,但是作为一个程序员,写文章怎么可以没有 markdown 呢? 现在让我们尝试一下让 flask-admin 支持 markdown 吧.</p>
 
-<h1>实践</h1>
+<h1 id="实践">实践</h1>
 
-<h2>Flask-PageDown</h2>
+<h2 id="flask-pagedown">Flask-PageDown</h2>
 
 <p>这个库是对 Pagedown 的封装,将其集成到了Flask-WTF表单中了。具体内容可以去它的 github 仓库看一下: <a href="https://github.com/miguelgrinberg/Flask-PageDown">Flask-PageDown</a></p>
 
-<h3>优缺点</h3>
+<h3 id="优缺点">优缺点</h3>
 
 <p><strong>优点</strong>:</p>
 
@@ -74,85 +78,73 @@ flask-admin 算是一个很不错的 flask 后台管理了,用它来做博客系
 <li>生成的编辑器是上下布局的,不太美观</li>
 </ol>
 
-<h3>使用方法</h3>
+<h3 id="使用方法">使用方法</h3>
 
-<h4>安装和配置</h4>
+<h4 id="安装和配置">安装和配置</h4>
 
 <p>通过 pip 进行安装:</p>
-
-<pre><code>pip install flask-pagedown
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">pip install flask-pagedown
+</span></span></code></pre>
 <p>然后在项目中初始化:</p>
-
-<pre><code class="language-python">from flask_pagedown import PageDown
-app = Flask(__name__)
-pagedown = PageDown(app)
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask_pagedown</span> <span class="kn">import</span> <span class="n">PageDown</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pagedown</span> <span class="o">=</span> <span class="n">PageDown</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</span></span></code></pre>
 <p>当然也可以通过 init_app(app) 的方式进行初始化</p>
-
-<pre><code class="language-python">from flask import Flask
-from flask_pagedown import PageDown
-
-pagedown = PageDown()
-
-def create_app(config_name):
-    app = Flask(__name__, static_folder='static', static_url_path='')
-    app.config.from_object(config[config_name])
-    # 省略部分代码
-    pagedown.init_app(app)
-    return app
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask_pagedown</span> <span class="kn">import</span> <span class="n">PageDown</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pagedown</span> <span class="o">=</span> <span class="n">PageDown</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_app</span><span class="p">(</span><span class="n">config_name</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">static_folder</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">static</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">static_url_path</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="n">config_name</span><span class="p">]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 省略部分代码</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pagedown</span><span class="o">.</span><span class="n">init_app</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">app</span>
+</span></span></code></pre>
 <p>这个编辑器还依赖两个 js 文件,所以还需要在我们的对应的模板中添加进去相应的方法:</p>
-
-<pre><code class="language-html">&lt;html&gt;
-    &lt;head&gt;
-    {{ pagedown.html_head() }}
-    &lt;/head&gt;
-    &lt;body&gt;
-    ...
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">head</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {{ pagedown.html_head() }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="p">/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">body</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    ...
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="p">/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="p">/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre>
 <p>默认情况下这两个 js 是通过 CDN 加载的,也就意味着你的服务器需要可以访问网络,如果只想通过本地就可以访问的话,很简单把这两个 js 文件下载下来,然后将 pagedown.html_head() 替换成两个文件的本地路径就可以了. 两个文件的下载地址: <a href="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.min.js">Markdown.Converter</a>,
 <a href="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Sanitizer.min.js">Markdown.Sanitizer</a></p>
 
-<h4>新增自定义的 ModelView</h4>
+<h4 id="新增自定义的-modelview">新增自定义的 ModelView</h4>
 
 <p>flask-admin 支持自定义的 ModelView, 这是我们可以实现这个功能的基础.</p>
-
-<pre><code class="language-python">class PeachPostView(ModelView):
-
-    form_overrides = {
-        'content': PageDownField
-    }
-
-    def __init__(self, model, session, **kwargs):
-        super(PeachPostView, self).__init__(model, session, **kwargs)
-
-    # 省略部分代码
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">PeachPostView</span><span class="p">(</span><span class="n">ModelView</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">form_overrides</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sa"></span><span class="s1">&#39;</span><span class="s1">content</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">PageDownField</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">(</span><span class="n">PeachPostView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 省略部分代码</span>
+</span></span></code></pre>
 <p>最后在我们的 flask-admin 给我们需要 markdown 编辑器的 model 添加上自定义的 ModelView 就可以了.</p>
-
-<pre><code class="language-python"># 省略部分代码
-admin.add_view(PeachPostView(Post, db.session, endpoint='AdminPost'))
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c1"># 省略部分代码</span>
+</span></span><span class="line"><span class="cl"><span class="n">admin</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">PeachPostView</span><span class="p">(</span><span class="n">Post</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">AdminPost</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">)</span>
+</span></span></code></pre>
 <p>完整代码可以查看 <a href="https://github.com/lt94/peach-blog/tree/cbf375ee764aa5bf4797f526ab8ef7357ba44aa0">use:使用 flask-pagedown 作为 markdown 编辑器</a></p>
 
 <p>最终的效果图:</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fxq60xchfvj31cm0nhgmy.jpg" alt="" /></p>
 
-<h2>使用开源的 markdown 编辑器</h2>
+<h2 id="使用开源的-markdown-编辑器">使用开源的 markdown 编辑器</h2>
 
 <p>没错,这个方法就比较自由了,找自己喜欢的 markdown 编辑器然后集成进去. 这里我最终选择了 <a href="https://github.com/pandao/editor.md.git">editor.md</a> 这个开源编辑器,这个好像很久没维护了,但是颜值挺高的了,就决定是它了.</p>
 
-<h3>优缺点</h3>
+<h3 id="优缺点-1">优缺点</h3>
 
 <p><strong>优点</strong>:</p>
 
@@ -166,13 +158,13 @@ admin.add_view(PeachPostView(Post, db.session, endpoint='AdminPost'))
 <li>对 flask-admin 的改动较多,需要自己写的部分比较多.</li>
 </ol>
 
-<h3>使用方法</h3>
+<h3 id="使用方法-1">使用方法</h3>
 
-<h4>下载 editor.md 插件</h4>
+<h4 id="下载-editor-md-插件">下载 editor.md 插件</h4>
 
 <p>插件下载很简单,从官网上或者 github 上下载, 下载完成后,我这里将 editor.md 下载的文件保存到 static 的 plugin 的目录下了.</p>
 
-<h4>覆盖 flask-admin 原有文件</h4>
+<h4 id="覆盖-flask-admin-原有文件">覆盖 flask-admin 原有文件</h4>
 
 <p>这里由于我们需要使用插件,所以我们需要对 flask-admin 原有的 create.html 和 edit.html 文件进行重写.</p>
 
@@ -185,202 +177,190 @@ admin.add_view(PeachPostView(Post, db.session, endpoint='AdminPost'))
 <p>tip: 上述说所的 flask-admin 的内容,均在你的开发环境中找到 flask-admin 的库所在目录,然后需要复制的文件在: flask_admin\templates\bootstrap3\admin 下</p>
 
 <p>然后配置,使其访问我们指定的文件</p>
-
-<pre><code class="language-python"># 自定义的 modelview
-class PeachPostView(ModelView):
-    # 指定访问文件
-    create_template = 'admin/model/peach-post-create.html'
-    edit_template = 'admin/model/peach-post-edit.html'
-
-    def __init__(self, model, session, **kwargs):
-        super(PeachPostView, self).__init__(model, session, **kwargs)
-
-# 指定 base_template 文件
-admin = Admin(name=name, template_mode=template_mode,index_view=PeachAdminIndexView(), base_template='admin/peach-base.html')
-# 省略部分代码
-admin.add_view(PeachPostView(Post, db.session, endpoint='AdminPost'))
-
-</code></pre>
-
-<h4>修改文件, 支持 markdown</h4>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c1"># 自定义的 modelview</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">PeachPostView</span><span class="p">(</span><span class="n">ModelView</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 指定访问文件</span>
+</span></span><span class="line"><span class="cl">    <span class="n">create_template</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">admin/model/peach-post-create.html</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">edit_template</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">admin/model/peach-post-edit.html</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">(</span><span class="n">PeachPostView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定 base_template 文件</span>
+</span></span><span class="line"><span class="cl"><span class="n">admin</span> <span class="o">=</span> <span class="n">Admin</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">template_mode</span><span class="o">=</span><span class="n">template_mode</span><span class="p">,</span><span class="n">index_view</span><span class="o">=</span><span class="n">PeachAdminIndexView</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="n">base_template</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">admin/peach-base.html</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 省略部分代码</span>
+</span></span><span class="line"><span class="cl"><span class="n">admin</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">PeachPostView</span><span class="p">(</span><span class="n">Post</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">AdminPost</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span></code></pre>
+<h4 id="修改文件-支持-markdown">修改文件, 支持 markdown</h4>
 
 <p>动手修改文件的之前,我们需要先了解一下 flask-amdmin 原有的文件是什么样子的,然后才能正确的修改,这里以 create.html 为例子,截取关键代码.</p>
-
-<pre><code class="language-html"># create.html
-{% import 'admin/lib.html' as lib with context %}
-# ...
-{% block edit_form %}
-    {{ lib.render_form(form, return_url, extra(), form_opts) }} # 使用了 lib 中的函数,看一下这个函数
-{% endblock %}
-
-# lib.html
-
-{% macro render_form(form, cancel_url, extra=None, form_opts=None, action=None, is_modal=False) -%}
-    {% call form_tag(action=action) %}
-        {{ render_form_fields(form, form_opts=form_opts) }}  # 重点是表单渲染,再看一下 render_form_fields 函数
-        {{ render_form_buttons(cancel_url, extra, is_modal) }}
-    {% endcall %}
-{% endmacro %}
-
-{% macro render_form_fields(form, form_opts=None) %}
-    # 省略部分代码
-          {{ render_field(form, f, kwargs) }}  # 看一下 render_field 这个函数
-{% endmacro %}
-
-{% macro render_field(form, field, kwargs={}, caller=None) %}
-  {% set direct_error = h.is_field_error(field.errors) %}
-  &lt;div class=&quot;form-group{{ ' has-error' if direct_error else '' }}&quot;&gt;
-    &lt;label for=&quot;{{ field.id }}&quot; class=&quot;col-md-2 control-label&quot;&gt;{{ field.label.text }}
-        {% if h.is_required_form_field(field) %}
-          &lt;strong style=&quot;color: red&quot;&gt;&amp;#42;&lt;/strong&gt;
-        {%- else -%}
-          &amp;nbsp;
-        {%- endif %}
-    &lt;/label&gt;
-    &lt;div class=&quot;{{ kwargs.get('column_class', 'col-md-10') }}&quot;&gt;
-      {% set _dummy = kwargs.setdefault('class', 'form-control') %}
-      {{ field(**kwargs)|safe }}
-      {% if field.description %}
-      &lt;p class=&quot;help-block&quot;&gt;{{ field.description|safe }}&lt;/p&gt;
-      {% endif %}
-      {% if direct_error %}
-        &lt;ul class=&quot;help-block input-errors&quot;&gt;
-        {% for e in field.errors if e is string %}
-          &lt;li&gt;{{ e }}&lt;/li&gt;
-        {% endfor %}
-        &lt;/ul&gt;
-      {% endif %}
-    &lt;/div&gt;
-    {% if caller %}
-      {{ caller(form, field, direct_error, kwargs) }}
-    {% endif %}
-  &lt;/div&gt;
-{% endmacro %}
-</code></pre>
-
-<p>通过上述 flask-admin 源码的浏览,我们不难发现,最终的渲染最核心的函数就是 lib.html 中的 render_field 函数, 要达到我们的目的,我们就需要对这个函数进行一点的修改了.由于我们只需要对数据库模型的某个字段支持 markdown 就可以了,所以需要我们可以通过 field.id == &lsquo;字段名&rsquo; 的方法去判断,从而让他支持 markdown.</p>
+<pre class="chroma"><code><span class="line"><span class="cl"># create.html
+</span></span><span class="line"><span class="cl">{% import &#39;admin/lib.html&#39; as lib with context %}
+</span></span><span class="line"><span class="cl"># ...
+</span></span><span class="line"><span class="cl">{% block edit_form %}
+</span></span><span class="line"><span class="cl">    {{ lib.render_form(form, return_url, extra(), form_opts) }} # 使用了 lib 中的函数,看一下这个函数
+</span></span><span class="line"><span class="cl">{% endblock %}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># lib.html
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{% macro render_form(form, cancel_url, extra=None, form_opts=None, action=None, is_modal=False) -%}
+</span></span><span class="line"><span class="cl">    {% call form_tag(action=action) %}
+</span></span><span class="line"><span class="cl">        {{ render_form_fields(form, form_opts=form_opts) }}  # 重点是表单渲染,再看一下 render_form_fields 函数
+</span></span><span class="line"><span class="cl">        {{ render_form_buttons(cancel_url, extra, is_modal) }}
+</span></span><span class="line"><span class="cl">    {% endcall %}
+</span></span><span class="line"><span class="cl">{% endmacro %}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{% macro render_form_fields(form, form_opts=None) %}
+</span></span><span class="line"><span class="cl">    # 省略部分代码
+</span></span><span class="line"><span class="cl">          {{ render_field(form, f, kwargs) }}  # 看一下 render_field 这个函数
+</span></span><span class="line"><span class="cl">{% endmacro %}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{% macro render_field(form, field, kwargs={}, caller=None) %}
+</span></span><span class="line"><span class="cl">  {% set direct_error = h.is_field_error(field.errors) %}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group{{ &#39; has-error&#39; if direct_error else &#39;&#39; }}&#34;</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;{{ field.id }}&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-md-2 control-label&#34;</span><span class="p"></span><span class="p">&gt;</span>{{ field.label.text }}
+</span></span><span class="line"><span class="cl">        {% if h.is_required_form_field(field) %}
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">strong</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: red&#34;</span><span class="p"></span><span class="p">&gt;</span><span class="ni">&amp;#42;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">strong</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        {%- else -%}
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;nbsp;</span>
+</span></span><span class="line"><span class="cl">        {%- endif %}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;{{ kwargs.get(&#39;column_class&#39;, &#39;col-md-10&#39;) }}&#34;</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      {% set _dummy = kwargs.setdefault(&#39;class&#39;, &#39;form-control&#39;) %}
+</span></span><span class="line"><span class="cl">      {{ field(**kwargs)|safe }}
+</span></span><span class="line"><span class="cl">      {% if field.description %}
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;help-block&#34;</span><span class="p"></span><span class="p">&gt;</span>{{ field.description|safe }}<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      {% endif %}
+</span></span><span class="line"><span class="cl">      {% if direct_error %}
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;help-block input-errors&#34;</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        {% for e in field.errors if e is string %}
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>{{ e }}<span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        {% endfor %}
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      {% endif %}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {% if caller %}
+</span></span><span class="line"><span class="cl">      {{ caller(form, field, direct_error, kwargs) }}
+</span></span><span class="line"><span class="cl">    {% endif %}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{% endmacro %}
+</span></span></code></pre>
+<p>通过上述 flask-admin 源码的浏览,我们不难发现,最终的渲染最核心的函数就是 lib.html 中的 render_field 函数, 要达到我们的目的,我们就需要对这个函数进行一点的修改了.由于我们只需要对数据库模型的某个字段支持 markdown 就可以了,所以需要我们可以通过 field.id == '字段名' 的方法去判断,从而让他支持 markdown.</p>
 
 <p>为了更好的理解接下来的代码,我们对 editor.md 的使用做一个简单的说明:</p>
-
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;editormd.min.css&quot; /&gt;
-&lt;div id=&quot;editormd&quot;&gt;
-    &lt;textarea style=&quot;display:none;&quot;&gt;### Hello Editor.md !&lt;/textarea&gt;
-&lt;/div&gt;
-</code></pre>
-
-<pre><code class="language-js">&lt;script src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;editormd.min.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-    $(function() {
-        var editor = editormd(&quot;editormd&quot;, {
-            path : &quot;../lib/&quot; // Autoload modules mode, codemirror, marked... dependents libs path
-        });
-
-        /*
-        // or
-        var editor = editormd({
-            id   : &quot;editormd&quot;,
-            path : &quot;../lib/&quot;
-        });
-        */
-    });
-&lt;/script&gt;
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;editormd.min.css&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;editormd&#34;</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;display:none;&#34;</span><span class="p"></span><span class="p">&gt;</span>### Hello Editor.md !<span class="p">&lt;</span><span class="p">/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre><pre class="chroma"><code><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;jquery.min.js&#34;</span><span class="o">&gt;</span><span class="o">&lt;</span><span class="err">/</span><span class="err">s</span><span class="err">c</span><span class="err">r</span><span class="err">i</span><span class="err">p</span><span class="err">t</span><span class="err">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;editormd.min.js&#34;</span><span class="o">&gt;</span><span class="o">&lt;</span><span class="err">/</span><span class="err">s</span><span class="err">c</span><span class="err">r</span><span class="err">i</span><span class="err">p</span><span class="err">t</span><span class="err">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">editor</span> <span class="o">=</span> <span class="nx">editormd</span><span class="p">(</span><span class="s2">&#34;editormd&#34;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">path</span> <span class="o">:</span> <span class="s2">&#34;../lib/&#34;</span> <span class="c1">// Autoload modules mode, codemirror, marked... dependents libs path
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">        // or
+</span></span></span><span class="line"><span class="cl"><span class="cm">        var editor = editormd({
+</span></span></span><span class="line"><span class="cl"><span class="cm">            id   : &#34;editormd&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="cm">            path : &#34;../lib/&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cm">        });
+</span></span></span><span class="line"><span class="cl"><span class="cm">        */</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/</span><span class="err">s</span><span class="err">c</span><span class="err">r</span><span class="err">i</span><span class="err">p</span><span class="err">t</span><span class="err">&gt;</span>
+</span></span></code></pre>
 <p>说明完了怎么使用 editor.md,我们来说一下我们最终的思路, 通过字段名去判断,然后符合添加的情况下,新建一个 div, id 为 editor,然后在 peach-post-create.html 按照 editor.md 的使用方法渲染.说完了思路,接下来就看代码.</p>
 
 <p><strong>修改 peach-lib.html 和 peach-post-create.html 文件</strong></p>
-
-<pre><code class="language-html"># peach-lib.html
-{% macro render_field(form, field, kwargs={}, caller=None) %}
-  {% set direct_error = h.is_field_error(field.errors) %}
-  &lt;div class=&quot;form-group{{ ' has-error' if direct_error else '' }}&quot;&gt;
-    &lt;label for=&quot;{{ field.id }}&quot; class=&quot;col-md-2 control-label&quot;&gt;{{ field.label.text }}
-        {% if h.is_required_form_field(field) %}
-          &lt;strong style=&quot;color: red&quot;&gt;&amp;#42;&lt;/strong&gt;
-        {%- else -%}
-          &amp;nbsp;
-        {%- endif %}
-    &lt;/label&gt;
-    &lt;div class=&quot;{{ kwargs.get('column_class', 'col-md-10') }}&quot;&gt;
-      {% set _dummy = kwargs.setdefault('class', 'form-control') %}
-      {% if field.id == 'content' %} # 符合条件新建一个 div
-        &lt;div id='editormd'&gt;
-            {{ field(**kwargs)|safe }}
-        &lt;/div&gt;
-      {% else %}
-        {{ field(**kwargs)|safe }}
-      {% endif %}
-      {% if field.description %}
-      &lt;p class=&quot;help-block&quot;&gt;{{ field.description|safe }}&lt;/p&gt;
-      {% endif %}
-      {% if direct_error %}
-        &lt;ul class=&quot;help-block input-errors&quot;&gt;
-        {% for e in field.errors if e is string %}
-          &lt;li&gt;{{ e }}&lt;/li&gt;
-        {% endfor %}
-        &lt;/ul&gt;
-      {% endif %}
-    &lt;/div&gt;
-    {% if caller %}
-      {{ caller(form, field, direct_error, kwargs) }}
-    {% endif %}
-  &lt;/div&gt;
-{% endmacro %}
-
-# peach-post-create.html
-{% extends 'admin/master.html' %}
-{% import 'admin/peach-lib.html' as lib with context %}
-{% from 'admin/peach-lib.html' import extra with context %} {# backward compatible #}
-
-# 省略部分代码
-
-  {{ super() }}
-  {{ lib.form_css() }}
-  &lt;link href=&quot;{{ url_for('static', filename='plugins/editor.md/css/editormd.min.css')}}&quot; rel='stylesheet'&gt;
-{% endblock %}
-
-# 省略部分代码
-
-{% block tail %}
-  {{ super() }}
-  {{ lib.form_js() }}
-  &lt;script src=&quot;{{ url_for('static', filename='plugins/editor.md/editormd.js')}}&quot;&gt;&lt;/script&gt;
-  &lt;script type=&quot;text/javascript&quot;&gt;
-    $(function() {
-        var editor = editormd(&quot;editormd&quot;, {
-            path : &quot;/plugins/editor.md/lib/&quot;,
-            height  : 640
-        });
-    });
-  &lt;/script&gt;
-{% endblock %}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"># peach-lib.html
+</span></span><span class="line"><span class="cl">{% macro render_field(form, field, kwargs={}, caller=None) %}
+</span></span><span class="line"><span class="cl">  {% set direct_error = h.is_field_error(field.errors) %}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group{{ &#39; has-error&#39; if direct_error else &#39;&#39; }}&#34;</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;{{ field.id }}&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-md-2 control-label&#34;</span><span class="p"></span><span class="p">&gt;</span>{{ field.label.text }}
+</span></span><span class="line"><span class="cl">        {% if h.is_required_form_field(field) %}
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">strong</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: red&#34;</span><span class="p"></span><span class="p">&gt;</span><span class="ni">&amp;#42;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">strong</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        {%- else -%}
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;nbsp;</span>
+</span></span><span class="line"><span class="cl">        {%- endif %}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;{{ kwargs.get(&#39;column_class&#39;, &#39;col-md-10&#39;) }}&#34;</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      {% set _dummy = kwargs.setdefault(&#39;class&#39;, &#39;form-control&#39;) %}
+</span></span><span class="line"><span class="cl">      {% if field.id == &#39;content&#39; %} # 符合条件新建一个 div
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#39;editormd&#39;</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            {{ field(**kwargs)|safe }}
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      {% else %}
+</span></span><span class="line"><span class="cl">        {{ field(**kwargs)|safe }}
+</span></span><span class="line"><span class="cl">      {% endif %}
+</span></span><span class="line"><span class="cl">      {% if field.description %}
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;help-block&#34;</span><span class="p"></span><span class="p">&gt;</span>{{ field.description|safe }}<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      {% endif %}
+</span></span><span class="line"><span class="cl">      {% if direct_error %}
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;help-block input-errors&#34;</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        {% for e in field.errors if e is string %}
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>{{ e }}<span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        {% endfor %}
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      {% endif %}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {% if caller %}
+</span></span><span class="line"><span class="cl">      {{ caller(form, field, direct_error, kwargs) }}
+</span></span><span class="line"><span class="cl">    {% endif %}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{% endmacro %}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># peach-post-create.html
+</span></span><span class="line"><span class="cl">{% extends &#39;admin/master.html&#39; %}
+</span></span><span class="line"><span class="cl">{% import &#39;admin/peach-lib.html&#39; as lib with context %}
+</span></span><span class="line"><span class="cl">{% from &#39;admin/peach-lib.html&#39; import extra with context %} {# backward compatible #}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 省略部分代码
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  {{ super() }}
+</span></span><span class="line"><span class="cl">  {{ lib.form_css() }}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ url_for(&#39;static&#39;, filename=&#39;plugins/editor.md/css/editormd.min.css&#39;)}}&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{% endblock %}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 省略部分代码
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{% block tail %}
+</span></span><span class="line"><span class="cl">  {{ super() }}
+</span></span><span class="line"><span class="cl">  {{ lib.form_js() }}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;{{ url_for(&#39;static&#39;, filename=&#39;plugins/editor.md/editormd.js&#39;)}}&#34;</span><span class="p"></span><span class="p">&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">editor</span> <span class="o">=</span> <span class="nx">editormd</span><span class="p">(</span><span class="s2">&#34;editormd&#34;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">path</span> <span class="o">:</span> <span class="s2">&#34;/plugins/editor.md/lib/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">height</span>  <span class="o">:</span> <span class="mi">640</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{% endblock %}
+</span></span></code></pre>
 <p><strong>修改 modelview</strong></p>
-
-<pre><code class="language-python">class PeachPostView(ModelView):
-    # 省略部分代码
-    create_template = 'admin/model/peach-post-create.html'
-
-admin = Admin(name=name, template_mode=template_mode,index_view=PeachAdminIndexView(), base_template='admin/peach-base.html')
-# 省略部分代码
-admin.add_view(PeachPostView(Post, db.session, endpoint='AdminPost'))
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">PeachPostView</span><span class="p">(</span><span class="n">ModelView</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 省略部分代码</span>
+</span></span><span class="line"><span class="cl">    <span class="n">create_template</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">admin/model/peach-post-create.html</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">admin</span> <span class="o">=</span> <span class="n">Admin</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">template_mode</span><span class="o">=</span><span class="n">template_mode</span><span class="p">,</span><span class="n">index_view</span><span class="o">=</span><span class="n">PeachAdminIndexView</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="n">base_template</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">admin/peach-base.html</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 省略部分代码</span>
+</span></span><span class="line"><span class="cl"><span class="n">admin</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">PeachPostView</span><span class="p">(</span><span class="n">Post</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">AdminPost</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">)</span>
+</span></span></code></pre>
 <p>完整代码可以查看 <a href="https://github.com/lt94/peach-blog/tree/12a2d6e5fd1f6b5fefb235c496e7816a123c88ee">add:使用 editor.md 编辑器</a></p>
 
 <p>最后看一下效果图:</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fxpv6inei2j31lu17pn4w.jpg" alt="" /></p>
 
-<h1>最后</h1>
+<h1 id="最后">最后</h1>
 
 <p>到此大功告成,欢迎大家关注我的公共号-Leetao, 偶尔分享 flask 之外的知识.</p>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -393,17 +373,13 @@ admin.add_view(PeachPostView(Post, db.session, endpoint='AdminPost'))
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -411,43 +387,85 @@ admin.add_view(PeachPostView(Post, db.session, endpoint='AdminPost'))
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

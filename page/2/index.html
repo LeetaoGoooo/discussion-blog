@@ -9,192 +9,188 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
-        <ul class="posts">
+        <ul class="post-list">
             
-            <li class="post-preview">
-                <h2><a href="/post/257/">Issue with UTF-8 characters in filename  in multer</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/258/">三月野草</a></h2>
+                <p class="post-meta">
+                    By LeetaoGoooo on April 3, 2025
+                </p>
+                <div class="tag-list">
+                    
+                    <a href="/tags/%e9%87%8e%e8%8d%89/" class="tag">野草</a>
+                    
+                </div>
+            </li>
+            
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/257/">Issue with UTF-8 characters in filename  in multer</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on March 10, 2025
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
-                    <span class="tag">code-snippet</span>
+                    <a href="/tags/code-snippet/" class="tag">code-snippet</a>
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/256/">飞书多维表格 &#43; Github Action = 播客？</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/256/">飞书多维表格 &#43; Github Action = 播客？</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on February 22, 2025
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
-                    <span class="tag">python</span>
+                    <a href="/tags/python/" class="tag">python</a>
                     
-                    <span class="tag">github action</span>
+                    <a href="/tags/github%20action/" class="tag">github action</a>
                     
-                    <span class="tag">稍后阅读</span>
+                    <a href="/tags/%e7%a8%8d%e5%90%8e%e9%98%85%e8%af%bb/" class="tag">稍后阅读</a>
                     
-                    <span class="tag">tts</span>
+                    <a href="/tags/tts/" class="tag">tts</a>
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/255/">快捷指令 &#43; Dify &#43;飞书多维表格 = 稍后阅读</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/255/">快捷指令 &#43; Dify &#43;飞书多维表格 = 稍后阅读</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on February 16, 2025
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
-                    <span class="tag">稍后阅读</span>
+                    <a href="/tags/%e7%a8%8d%e5%90%8e%e9%98%85%e8%af%bb/" class="tag">稍后阅读</a>
                     
-                    <span class="tag">Dify</span>
+                    <a href="/tags/Dify/" class="tag">Dify</a>
                     
-                    <span class="tag">快捷指令</span>
+                    <a href="/tags/%e5%bf%ab%e6%8d%b7%e6%8c%87%e4%bb%a4/" class="tag">快捷指令</a>
                     
-                    <span class="tag">效率</span>
+                    <a href="/tags/%e6%95%88%e7%8e%87/" class="tag">效率</a>
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/254/">React 文件上传后无法再次上传</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/254/">React 文件上传后无法再次上传</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on February 11, 2025
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
-                    <span class="tag">react</span>
+                    <a href="/tags/react/" class="tag">react</a>
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/253/">你无法说服用户喜欢上自己其实也很少使用的软件</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/253/">你无法说服用户喜欢上自己其实也很少使用的软件</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on January 4, 2025
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
-                    <span class="tag">野草</span>
+                    <a href="/tags/%e9%87%8e%e8%8d%89/" class="tag">野草</a>
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/252/">Unable to drag and drop the image as similar to the div component</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/252/">Unable to drag and drop the image as similar to the div component</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on December 27, 2024
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
-                    <span class="tag">react</span>
+                    <a href="/tags/react/" class="tag">react</a>
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/251/">2024年-年终总结</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/251/">2024年-年终总结</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on December 21, 2024
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
-                    <span class="tag">年终总结</span>
+                    <a href="/tags/%e5%b9%b4%e7%bb%88%e6%80%bb%e7%bb%93/" class="tag">年终总结</a>
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/249/">How to know if text reaches the line limit in SwiftUI?</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/249/">How to know if text reaches the line limit in SwiftUI?</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on November 12, 2024
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
-                    <span class="tag">code-snippet</span>
+                    <a href="/tags/code-snippet/" class="tag">code-snippet</a>
                     
-                    <span class="tag">swiftui</span>
+                    <a href="/tags/swiftui/" class="tag">swiftui</a>
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/248/">Functional vs. Direct Update In React</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/248/">Functional vs. Direct Update In React</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on October 29, 2024
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
-                    <span class="tag">english</span>
+                    <a href="/tags/english/" class="tag">english</a>
                     
-                    <span class="tag">react</span>
-                    
-                </div>
-            </li>
-            
-            <li class="post-preview">
-                <h2><a href="/post/247/">读书与偏见</a></h2>
-                <p class="meta">
-                    By LeetaoGoooo on October 27, 2024
-                </p>
-                <div class="tags">
-                    
-                    <span class="tag">野草</span>
+                    <a href="/tags/react/" class="tag">react</a>
                     
                 </div>
             </li>
             
         </ul>
         
-        
         <nav class="pagination" aria-label="Pagination">
-            <div>
-                
+            
                 <a href="/" class="prev">
                     &larr; Previous
                 </a>
-                
-            </div>
+            
             
             <div class="page-info">
                 Page 2 of 14
             </div>
             
-            <div>
-                
+            
                 <a href="/page/3/" class="next">
                     Next &rarr;
                 </a>
-                
-            </div>
+            
         </nav>
     </main>
     
@@ -202,45 +198,28 @@
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                const pre = block.parentElement;
+                if (pre.querySelector('.copy-button')) return;
+
                 const button = document.createElement('button');
                 button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                 
                 pre.appendChild(button);
                 
-                
                 button.addEventListener('click', () => {
-                    
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
-                    
-                    
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
+                    navigator.clipboard.writeText(block.innerText).then(() => {
+                        button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
                         setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                        }, 2000);
                     });
                 });
             });
         });
     </script>
-</body>
 </html>

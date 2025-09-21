@@ -15,107 +15,103 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>HttpClient 默认不使用代理【Dart 】</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">HttpClient 默认不使用代理【Dart 】</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>最近使用 flutter 构建 App，涉及到网络请求部分，使用了 dart 自带的 HttpClient 库发现了一个有趣的问题，dart 默认情况下不使用代理，即使电脑开着代理。</p>
 
-<h1>解决方案</h1>
+<h1 id="解决方案">解决方案</h1>
 
 <p>HttpClient 有个 <a href="https://api.dart.dev/stable/2.10.5/dart-io/HttpClient/findProxy.html">findProxy </a>方法，复写这个方法就是设置代理，因此只需要在请求之前设置代理就可以了。</p>
 
-<h2>findProxy</h2>
-
-<pre><code class="language-dart">HttpClient client = HttpClient();
-client.findProxy = (uri) {
-  return &quot;PROXY localhost:3128;&quot;;
-};
-</code></pre>
-
+<h2 id="findproxy">findProxy</h2>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="n">HttpClient</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">client</span><span class="p">.</span><span class="n">findProxy</span> <span class="o">=</span> <span class="p">(</span><span class="n">uri</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="s2">&#34;</span><span class="s2">PROXY localhost:3128;</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="p">;</span>
+</span></span></code></pre>
 <p>但是显然在开发过程中我们并不清楚代理具体的 ip 和端口，所以为了提高可用性，需要一个方法帮助我们发现系统代理。</p>
 
-<h2>发现系统代理</h2>
+<h2 id="发现系统代理">发现系统代理</h2>
 
 <p>flutter 有现成的三方 <a href="https://github.com/kaivean/system_proxy">package-system_proxy</a> 可以帮助获取代理。</p>
 
-<h3>安装 system-proxy</h3>
+<h3 id="安装-system-proxy">安装 system-proxy</h3>
 
 <p>在 pubspec.yaml 中添加依赖</p>
-
-<pre><code class="language-yaml">system_proxy: ^0.0.1
-</code></pre>
-
-<h3>使用</h3>
-
-<pre><code class="language-dart">Map&lt;String, String&gt; proxy = await SystemProxy.getProxySettings();
-if (proxy != null) {
-    print('proxy $proxy');
-}
-</code></pre>
-
-<h2>优化代码</h2>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nt">system_proxy</span><span class="p">:</span><span class="w"> </span><span class="l">^0.0.1</span><span class="w">
+</span></span></span></code></pre>
+<h3 id="使用">使用</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">String</span><span class="o">&gt;</span> <span class="n">proxy</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">SystemProxy</span><span class="p">.</span><span class="n">getProxySettings</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">proxy</span> <span class="o">!</span><span class="o">=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">proxy </span><span class="si">$</span><span class="n">proxy</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
+<h2 id="优化代码">优化代码</h2>
 
 <p>成功安装完需要的 package 之后，优化一下代码，使得在请求之前使用系统代理。</p>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">extension</span> <span class="n">HttpClientExtension</span> <span class="n">on</span> <span class="n">HttpClient</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Future</span><span class="o">&lt;</span><span class="n">HttpClient</span><span class="o">&gt;</span> <span class="n">autoProxy</span><span class="p">(</span><span class="p">)</span> <span class="kd">async</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">String</span><span class="o">&gt;</span> <span class="n">sysProxy</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">SystemProxy</span><span class="p">.</span><span class="n">getProxySettings</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="n">proxy</span> <span class="o">=</span> <span class="s2">&#34;</span><span class="s2">DIRECT</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">sysProxy</span> <span class="o">!</span><span class="o">=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">proxy</span> <span class="o">=</span> <span class="s2">&#34;</span><span class="s2">PROXY </span><span class="si">${</span><span class="n">sysProxy</span><span class="p">[</span><span class="s1">&#39;</span><span class="s1">host</span><span class="s1">&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="n">sysProxy</span><span class="p">[</span><span class="s1">&#39;</span><span class="s1">port</span><span class="s1">&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">; DIRECT</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="s2">find proxy </span><span class="si">$</span><span class="n">proxy</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">findProxy</span> <span class="o">=</span> <span class="p">(</span><span class="n">uri</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">proxy</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">/// 使用方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="kd">var</span> <span class="n">httpClient</span> <span class="o">=</span> <span class="kd">await</span> <span class="k">new</span> <span class="n">HttpClient</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="n">autoProxy</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">/// 逻辑
+</span></span></span></code></pre>
+<h1 id="参考链接">参考链接</h1>
 
-<pre><code class="language-dart">extension HttpClientExtension on HttpClient {
-  Future&lt;HttpClient&gt; autoProxy() async {
-    Map&lt;String, String&gt; sysProxy = await SystemProxy.getProxySettings();
-    var proxy = &quot;DIRECT&quot;;
-    if (sysProxy != null) {
-      proxy = &quot;PROXY ${sysProxy['host']}:${sysProxy['port']}; DIRECT&quot;;
-      print(&quot;find proxy $proxy&quot;);
-    }
-    this.findProxy = (uri) {
-      return proxy;
-    };
-    return this;
-  }
-}
-
-/// 使用方法
- var httpClient = await new HttpClient().autoProxy();
-/// 逻辑
-</code></pre>
-
-<h1>参考链接</h1>
-
-<p><a href="https://github.com/flutter/flutter/issues/20376">Network calls don&rsquo;t show in Charles Proxy Debugger</a></p>
+<p><a href="https://github.com/flutter/flutter/issues/20376">Network calls don't show in Charles Proxy Debugger</a></p>
 
 <p><a href="https://github.com/dart-lang/sdk/issues/5468">Support proxy configuration in HttpClient</a></p>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -128,17 +124,13 @@ if (proxy != null) {
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -146,43 +138,85 @@ if (proxy != null) {
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

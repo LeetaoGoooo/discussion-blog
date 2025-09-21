@@ -20,38 +20,42 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>再谈 Python 的写文件操作</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">再谈 Python 的写文件操作</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>关于 Python 对文件的读写操作网上有很多,基本上无外乎都是基于打开文件的 mode 的解释</p>
 
@@ -61,51 +65,45 @@
 
 <p>说的可能比较抽象,那就举个例子</p>
 
-<h1>例子</h1>
+<h1 id="例子">例子</h1>
 
-<p>两次写入文件内容,分别为 <em>{&lsquo;1&rsquo;:&lsquo;a&rsquo;}</em> 和 <em>{&lsquo;2&rsquo;:&lsquo;b&rsquo;}</em>,那么第一次写入,文件不存在,创建并写入,最终结果应该如下:</p>
-
-<pre><code class="language-json">{
-  '1':'a'
-}
-</code></pre>
-
+<p>两次写入文件内容,分别为 <em>{'1':'a'}</em> 和 <em>{'2':'b'}</em>,那么第一次写入,文件不存在,创建并写入,最终结果应该如下:</p>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="err">&#39;</span><span class="err">1</span><span class="err">&#39;</span><span class="err">:</span><span class="err">&#39;</span><span class="err">a</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
 <p>第二次,文件存在,读取数据,合并数据重写写入,结果如下:</p>
-
-<pre><code class="language-json">{
-  '1':'a',
-  '2':'b'
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="err">&#39;</span><span class="err">1</span><span class="err">&#39;</span><span class="err">:</span><span class="err">&#39;</span><span class="err">a</span><span class="err">&#39;</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl">  <span class="err">&#39;</span><span class="err">2</span><span class="err">&#39;</span><span class="err">:</span><span class="err">&#39;</span><span class="err">b</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
 <p>很显然简单的使用 a 或者 a+ 模式是做不到上述要求的,有兴趣的可以自己尝试一下,它们只是简单的追加内容到上次文件末尾</p>
 
-<h1>实践</h1>
+<h1 id="实践">实践</h1>
 
-<p>针对上述例子的要求,最容易想到的方案就是:
-	1.先以 r 的模式,打开文件读取文件数据,得到 dictA
-	2.然后以 w 的模式,打开文件,将本次数据 dictB 与 dictA 合并后写入 dictA</p>
-
+<p>针对上述例子的要求,最容易想到的方案就是:</p>
+<pre class="chroma"><code><span class="line"><span class="cl">1.先以 r 的模式,打开文件读取文件数据,得到 dictA
+</span></span><span class="line"><span class="cl">2.然后以 w 的模式,打开文件,将本次数据 dictB 与 dictA 合并后写入 dictA
+</span></span></code></pre>
 <p>首先肯定这种方案没有任何问题,能够解决问题,不过这显然不是最佳方案,因为多次打开文件,增加了 IO 的开销,那有没有只打开一次文件完成上述要求呢?显然是有的,再说解决方案之前,我们先说一下预备知识:<strong>为什么 a 模式下可以追加内容到文件末尾?</strong> 因为在 a 模式下,打开文件后,<strong>文件指针</strong>默认指向文件末尾.ok了,新的方案就这么出来了.</p>
 
 <p>新的方案基于文件指针,我们以 a 或者 a+ 模式打开文件,将文件指针移动到文件开头,读取文件内容,然后合并数据,然后清除文件内容,重新写入合并后的数据.最后看一下代码</p>
-
-<pre><code class="language-python">import json
-import os
-new_dict = {'c':'d'}
-old_dict = {}
-with open('test.json','a+') as f:
-    if os.path.getsize('test.json'):
-        f.seek(0) # 重点,移动指针
-        old_dict = json.load(f)
-    merge_dict = {**old_dict,**new_dict}
-    f.truncate(0) # 清空之前内容
-    json.dump(merge_dict,f)
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_dict</span> <span class="o">=</span> <span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">c</span><span class="s1">&#39;</span><span class="p">:</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">d</span><span class="s1">&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">old_dict</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">test.json</span><span class="s1">&#39;</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">a+</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">test.json</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 重点,移动指针</span>
+</span></span><span class="line"><span class="cl">        <span class="n">old_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">merge_dict</span> <span class="o">=</span> <span class="p">{</span><span class="o">*</span><span class="o">*</span><span class="n">old_dict</span><span class="p">,</span><span class="o">*</span><span class="o">*</span><span class="n">new_dict</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 清空之前内容</span>
+</span></span><span class="line"><span class="cl">    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">merge_dict</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+</span></span></code></pre>
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -118,17 +116,13 @@ with open('test.json','a+') as f:
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -136,43 +130,85 @@ with open('test.json','a+') as f:
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

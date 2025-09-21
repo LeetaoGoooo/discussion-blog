@@ -11,37 +11,41 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>git workspace 使用指南</h1>
-            <p class="meta">
-                By LeetaoGoooo on December 15, 2022
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">git workspace 使用指南</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on December 15, 2022
+                </p>
+            </header>
             
-            <div class="content">
+            <div class="post-content">
                 <p><img src="https://user-images.githubusercontent.com/10162120/207852227-a06acab4-3830-4368-b730-906cf1303647.png" alt="git-logo" /></p>
 
 <p>在 Git 进行代码管理的时候，时常出现这样的场景：当我在 feature 分支开发的时候，突然临时有个紧急的问题需要进行修复或者别的在测试的 <code>feature</code> 有问题需要处理（后续以 <code>other</code> 分支），我不得不暂停当前这个分支：</p>
@@ -56,7 +60,7 @@
 
 <p><img width="338" alt="when-git-worktree-added" src="https://user-images.githubusercontent.com/10162120/208056610-ac64bada-b229-4d5d-9878-1b6eeafdf42b.png"></p>
 
-<h1>git worktree</h1>
+<h1 id="git-worktree">git worktree</h1>
 
 <blockquote>
 <p>Manage multiple working trees attached to the same repository.</p>
@@ -68,13 +72,11 @@
 
 <p><img src="https://user-images.githubusercontent.com/10162120/208091972-652f7da0-2c40-4d55-af06-2f12e72e3464.png" alt="git-worktree-flow" /></p>
 
-<h1>使用方法</h1>
+<h1 id="使用方法">使用方法</h1>
 
 <p>通过 <code>git worktree add &lt;path&gt;</code> 命令就可以创建一个名为 <code>path</code> 的分支:</p>
-
-<pre><code class="language-shell">git worktree add ../hotfix
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">git worktree add ../hotfix
+</span></span></code></pre>
 <p>会在创建一个 <code>hotfix</code> 分支，并且还有一个 <code>hotfix</code> 的目录与当前目录的同级。</p>
 
 <p><code>shell
@@ -86,19 +88,19 @@
 
 <p>如果这个 <code>worktree</code> 不需要了，执行 <code>git worktree remove &lt;path&gt;</code> 就可以删除这个目录了。</p>
 
-<h1>题外话</h1>
+<h1 id="题外话">题外话</h1>
 
 <p>截止到现在还 vscode 和 jetbrains 的相关软件还没有支持这个特效，估计后面也不一定会支持。</p>
 
-<h1>参考文章</h1>
+<h1 id="参考文章">参考文章</h1>
 
 <p><a href="https://git-scm.com/docs/git-worktree">git worktree</a></p>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
-                <span class="tag">git</span>
+                <a href="/tags/git/" class="tag">git</a>
                 
             </div>
             
@@ -111,17 +113,13 @@
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -129,43 +127,85 @@
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

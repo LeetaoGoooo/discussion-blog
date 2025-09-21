@@ -9,168 +9,162 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
-        <ul class="posts">
+        <ul class="post-list">
             
-            <li class="post-preview">
-                <h2><a href="/post/226/">2023年博客折腾记</a></h2>
-                <p class="meta">
-                    By LeetaoGoooo on September 24, 2023
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/224/">VoiceBox Feedback</a></h2>
+                <p class="post-meta">
+                    By LeetaoGoooo on September 6, 2023
                 </p>
-                <div class="tags">
-                    
-                    <span class="tag">go</span>
-                    
-                    <span class="tag">vercel</span>
+                <div class="tag-list">
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/225/">Record voice in the background SwiftUI</a></h2>
-                <p class="meta">
-                    By LeetaoGoooo on September 18, 2023
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/223/">导出有道词典单词本</a></h2>
+                <p class="post-meta">
+                    By LeetaoGoooo on August 6, 2023
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
-                    <span class="tag">swiftui</span>
+                    <a href="/tags/python/" class="tag">python</a>
                     
-                    <span class="tag">SwiftUI 学习笔记</span>
+                    <a href="/tags/%e6%9c%89%e9%81%93%e8%af%8d%e5%85%b8/" class="tag">有道词典</a>
+                    
+                    <a href="/tags/%e7%88%ac%e8%99%ab/" class="tag">爬虫</a>
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/28/">滴滴行程分享 Api</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/222/">说说 Django orm 的 bulk_update</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on July 16, 2023
                 </p>
-                <div class="tags">
+                <div class="tag-list">
+                    
+                    <a href="/tags/python/" class="tag">python</a>
+                    
+                    <a href="/tags/django/" class="tag">django</a>
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/222/">说说 Django orm 的 bulk_update</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/221/">设计模式 -【Python篇】</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on July 16, 2023
                 </p>
-                <div class="tags">
-                    
-                    <span class="tag">python</span>
-                    
-                    <span class="tag">django</span>
+                <div class="tag-list">
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/221/">设计模式 -【Python篇】</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/220/">让Flask-admin支持markdown编辑器</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on July 16, 2023
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/220/">让Flask-admin支持markdown编辑器</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/219/">计算1-866278171中奇数列中3出现的个数</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on July 16, 2023
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/219/">计算1-866278171中奇数列中3出现的个数</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/218/">解决 openpyxl 垂直分页符和水平分页符同时添加的问题</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on July 16, 2023
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/218/">解决 openpyxl 垂直分页符和水平分页符同时添加的问题</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/217/">装饰模式</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on July 16, 2023
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/217/">装饰模式</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/216/">编写可维护的JavaScript-第二章(注释)笔记</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on July 16, 2023
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
                 </div>
             </li>
             
-            <li class="post-preview">
-                <h2><a href="/post/216/">编写可维护的JavaScript-第二章(注释)笔记</a></h2>
-                <p class="meta">
+            <li class="post-item">
+                <h2 class="post-title"><a href="/post/215/">编写可维护的JavaScript-第一章(基本的格式化)笔记</a></h2>
+                <p class="post-meta">
                     By LeetaoGoooo on July 16, 2023
                 </p>
-                <div class="tags">
+                <div class="tag-list">
                     
                 </div>
             </li>
             
         </ul>
         
-        
         <nav class="pagination" aria-label="Pagination">
-            <div>
-                
+            
                 <a href="/page/4/" class="prev">
                     &larr; Previous
                 </a>
-                
-            </div>
+            
             
             <div class="page-info">
                 Page 5 of 14
             </div>
             
-            <div>
-                
+            
                 <a href="/page/6/" class="next">
                     Next &rarr;
                 </a>
-                
-            </div>
+            
         </nav>
     </main>
     
@@ -178,45 +172,28 @@
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                const pre = block.parentElement;
+                if (pre.querySelector('.copy-button')) return;
+
                 const button = document.createElement('button');
                 button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                 
                 pre.appendChild(button);
                 
-                
                 button.addEventListener('click', () => {
-                    
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
-                    
-                    
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
+                    navigator.clipboard.writeText(block.innerText).then(() => {
+                        button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
                         setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                        }, 2000);
                     });
                 });
             });
         });
     </script>
-</body>
 </html>

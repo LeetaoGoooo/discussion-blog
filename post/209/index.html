@@ -18,44 +18,48 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>用 python 抓取知乎指定回答下的视频</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">用 python 抓取知乎指定回答下的视频</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>现在知乎允许上传视频，奈何不能下载视频，好气哦，无奈之下研究一下了，然后撸了代码，方便下载视频保存。</p>
 
 <p>接下来以 <a href="https://www.zhihu.com/question/268021660/answer/520507373">猫为什么一点也不怕蛇？</a> 回答为例，分享一下整个下载过程。</p>
 
-<h1>调试一下</h1>
+<h1 id="调试一下">调试一下</h1>
 
 <p>打开 F12, 找到光标，如下图：</p>
 
@@ -74,165 +78,161 @@
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwy6bnesp3j322j0g9din.jpg" alt="" /></p>
 
 <p>让我们自己看一下数据吧:</p>
-
-<pre><code class="language-json">{
-	&quot;playlist&quot;: {
-		&quot;ld&quot;: {
-			&quot;width&quot;: 360,
-			&quot;format&quot;: &quot;mp4&quot;,
-			&quot;play_url&quot;: &quot;https://vdn.vzuu.com/LD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-987c2c504d14ab1165ce2ed47759d927&amp;expiration=1541477643&amp;disable_local_cache=1&quot;,
-			&quot;duration&quot;: 17,
-			&quot;size&quot;: 1123111,
-			&quot;bitrate&quot;: 509,
-			&quot;height&quot;: 640
-		},
-		&quot;hd&quot;: {
-			&quot;width&quot;: 720,
-			&quot;format&quot;: &quot;mp4&quot;,
-			&quot;play_url&quot;: &quot;https://vdn.vzuu.com/HD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-8b8024a22a62f097ca31b8b06b7233a1&amp;expiration=1541477643&amp;disable_local_cache=1&quot;,
-			&quot;duration&quot;: 17,
-			&quot;size&quot;: 4354364,
-			&quot;bitrate&quot;: 1974,
-			&quot;height&quot;: 1280
-		},
-		&quot;sd&quot;: {
-			&quot;width&quot;: 480,
-			&quot;format&quot;: &quot;mp4&quot;,
-			&quot;play_url&quot;: &quot;https://vdn.vzuu.com/SD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-5948c2562d817218c9a9fc41abad1df8&amp;expiration=1541477643&amp;disable_local_cache=1&quot;,
-			&quot;duration&quot;: 17,
-			&quot;size&quot;: 1920976,
-			&quot;bitrate&quot;: 871,
-			&quot;height&quot;: 848
-		}
-	},
-	&quot;title&quot;: &quot;&quot;,
-	&quot;duration&quot;: 17,
-	&quot;cover_info&quot;: {
-		&quot;width&quot;: 720,
-		&quot;thumbnail&quot;: &quot;https://pic2.zhimg.com/80/v2-97b9435a0c32d01c7c931bd00120327d_b.jpg&quot;,
-		&quot;height&quot;: 1280
-	},
-	&quot;type&quot;: &quot;video&quot;,
-	&quot;id&quot;: &quot;1039146361396174848&quot;,
-	&quot;misc_info&quot;: {}
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;playlist&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nt">&#34;ld&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;width&#34;</span><span class="p">:</span> <span class="mi">360</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;format&#34;</span><span class="p">:</span> <span class="s2">&#34;mp4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;play_url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://vdn.vzuu.com/LD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-987c2c504d14ab1165ce2ed47759d927&amp;expiration=1541477643&amp;disable_local_cache=1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;duration&#34;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">1123111</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;bitrate&#34;</span><span class="p">:</span> <span class="mi">509</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;height&#34;</span><span class="p">:</span> <span class="mi">640</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nt">&#34;hd&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;width&#34;</span><span class="p">:</span> <span class="mi">720</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;format&#34;</span><span class="p">:</span> <span class="s2">&#34;mp4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;play_url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://vdn.vzuu.com/HD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-8b8024a22a62f097ca31b8b06b7233a1&amp;expiration=1541477643&amp;disable_local_cache=1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;duration&#34;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">4354364</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;bitrate&#34;</span><span class="p">:</span> <span class="mi">1974</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;height&#34;</span><span class="p">:</span> <span class="mi">1280</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nt">&#34;sd&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;width&#34;</span><span class="p">:</span> <span class="mi">480</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;format&#34;</span><span class="p">:</span> <span class="s2">&#34;mp4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;play_url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://vdn.vzuu.com/SD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-5948c2562d817218c9a9fc41abad1df8&amp;expiration=1541477643&amp;disable_local_cache=1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;duration&#34;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">1920976</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;bitrate&#34;</span><span class="p">:</span> <span class="mi">871</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;height&#34;</span><span class="p">:</span> <span class="mi">848</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;duration&#34;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;cover_info&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nt">&#34;width&#34;</span><span class="p">:</span> <span class="mi">720</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nt">&#34;thumbnail&#34;</span><span class="p">:</span> <span class="s2">&#34;https://pic2.zhimg.com/80/v2-97b9435a0c32d01c7c931bd00120327d_b.jpg&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nt">&#34;height&#34;</span><span class="p">:</span> <span class="mi">1280</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;video&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;1039146361396174848&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;misc_info&#34;</span><span class="p">:</span> <span class="p">{</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
 <p>没错了，我们要下载的视频就在这里面，其中 ld 代表普清,sd 代表标清, hd 代表高清，把相应链接再次在浏览器打开，然后右键保存就可以下载视频了。</p>
 
-<h1>代码</h1>
+<h1 id="代码">代码</h1>
 
 <p>知道整个流程是什么样子，接下来撸代码的过程就简单了，这里就不过再做过多解释了，直接上代码:</p>
-
-<pre><code class="language-python"># -*- encoding: utf-8 -*-
-
-import re
-import requests
-import uuid
-import datetime
-
-
-class DownloadVideo:
-
-    __slots__ = [
-        'url', 'video_name', 'url_format', 'download_url', 'video_number',
-        'video_api', 'clarity_list', 'clarity'
-    ]
-
-    def __init__(self, url, clarity='ld', video_name=None):
-        self.url = url
-        self.video_name = video_name
-        self.url_format = &quot;https://www.zhihu.com/question/\d+/answer/\d+&quot;
-        self.clarity = clarity
-        self.clarity_list = ['ld', 'sd', 'hd']
-        self.video_api = 'https://lens.zhihu.com/api/videos'
-
-    def check_url_format(self):
-        pattern = re.compile(self.url_format)
-        matches = re.match(pattern, self.url)
-        if matches is None:
-            raise ValueError(
-                &quot;链接格式应符合:https://www.zhihu.com/question/{number}/answer/{number}&quot;
-            )
-        return True
-
-    def get_video_number(self):
-        try:
-            headers = {
-                'User-Agent':
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'
-            }
-            response = requests.get(self.url, headers=headers)
-            response.encoding = 'utf-8'
-            html = response.text
-            video_ids = re.findall(r'data-lens-id=&quot;(\d+)&quot;', html)
-            if video_ids:
-                video_id_list = list(set([video_id for video_id in video_ids]))
-                self.video_number = video_id_list[0]
-                return self
-            raise ValueError(&quot;获取视频编号异常:{}&quot;.format(self.url))
-        except Exception as e:
-            raise Exception(e)
-
-    def get_video_url_by_number(self):
-        url = &quot;{}/{}&quot;.format(self.video_api, self.video_number)
-
-        headers = {}
-        headers['Referer'] = 'https://v.vzuu.com/video/{}'.format(
-            self.video_number)
-        headers['Origin'] = 'https://v.vzuu.com'
-        headers[
-            'User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36'
-        headers['Content-Type'] = 'application/json'
-
-        try:
-            response = requests.get(url, headers=headers)
-            response_dict = response.json()
-            if self.clarity in response_dict['playlist']:
-                self.download_url = response_dict['playlist'][
-                    self.clarity]['play_url']
-            else:
-                for clarity in self.clarity_list:
-                    if clarity in response_dict['playlist']:
-                        self.download_url = response_dict['playlist'][
-                            self.clarity]['play_url']
-                        break
-            return self
-        except Exception as e:
-            raise Exception(e)
-
-    def get_video_by_video_url(self):
-        response = requests.get(self.download_url)
-        datetime_str = datetime.datetime.now().strftime(&quot;%Y-%m-%d %H-%M-%S&quot;)
-        if self.video_name is not None:
-            video_name = &quot;{}-{}.mp4&quot;.format(self.video_name, datetime_str)
-        else:
-            video_name = &quot;{}-{}.mp4&quot;.format(str(uuid.uuid1()), datetime_str)
-        path = &quot;{}&quot;.format(video_name)
-        with open(path, 'wb') as f:
-            f.write(response.content)
-
-    def download_video(self):
-
-        if self.clarity not in self.clarity_list:
-            raise ValueError(&quot;清晰度参数异常,仅支持:ld(普清),sd(标清),hd(高清)&quot;)
-
-        if self.check_url_format():
-            return self.get_video_number().get_video_url_by_number().get_video_by_video_url()
-
-
-if __name__ == '__main__':
-    a = DownloadVideo('https://www.zhihu.com/question/53031925/answer/524158069')
-    print(a.download_video())
-</code></pre>
-
-<h1>结语</h1>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c1"># -*- encoding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">uuid</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">datetime</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DownloadVideo</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="sa"></span><span class="s1">&#39;</span><span class="s1">url</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">video_name</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">url_format</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">download_url</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">video_number</span><span class="s1">&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="sa"></span><span class="s1">&#39;</span><span class="s1">video_api</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">clarity_list</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">clarity</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">clarity</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">ld</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">video_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">video_name</span> <span class="o">=</span> <span class="n">video_name</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">url_format</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">https://www.zhihu.com/question/</span><span class="s2">\</span><span class="s2">d+/answer/</span><span class="s2">\</span><span class="s2">d+</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">clarity</span> <span class="o">=</span> <span class="n">clarity</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">clarity_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">ld</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">sd</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hd</span><span class="s1">&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">video_api</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://lens.zhihu.com/api/videos</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">check_url_format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url_format</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="k">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">matches</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="sa"></span><span class="s2">&#34;</span><span class="s2">链接格式应符合:https://www.zhihu.com/question/</span><span class="si">{number}</span><span class="s2">/answer/</span><span class="si">{number}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_video_number</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="sa"></span><span class="s1">&#39;</span><span class="s1">User-Agent</span><span class="s1">&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="sa"></span><span class="s1">&#39;</span><span class="s1">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">response</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">utf-8</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">html</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+</span></span><span class="line"><span class="cl">            <span class="n">video_ids</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="s1">data-lens-id=</span><span class="s1">&#34;</span><span class="s1">(</span><span class="s1">\</span><span class="s1">d+)</span><span class="s1">&#34;</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">html</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">video_ids</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">video_id_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="p">[</span><span class="n">video_id</span> <span class="k">for</span> <span class="n">video_id</span> <span class="ow">in</span> <span class="n">video_ids</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="bp">self</span><span class="o">.</span><span class="n">video_number</span> <span class="o">=</span> <span class="n">video_id_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="bp">self</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">获取视频编号异常:</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_video_url_by_number</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">url</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_api</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_number</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">headers</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Referer</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://v.vzuu.com/video/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">video_number</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">headers</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Origin</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://v.vzuu.com</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">headers</span><span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="sa"></span><span class="s1">&#39;</span><span class="s1">User-Agent</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">headers</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Content-Type</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">application/json</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">response_dict</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clarity</span> <span class="ow">in</span> <span class="n">response_dict</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">playlist</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="bp">self</span><span class="o">.</span><span class="n">download_url</span> <span class="o">=</span> <span class="n">response_dict</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">playlist</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="bp">self</span><span class="o">.</span><span class="n">clarity</span><span class="p">]</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">play_url</span><span class="s1">&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="n">clarity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clarity_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="n">clarity</span> <span class="ow">in</span> <span class="n">response_dict</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">playlist</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="bp">self</span><span class="o">.</span><span class="n">download_url</span> <span class="o">=</span> <span class="n">response_dict</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">playlist</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span>
+</span></span><span class="line"><span class="cl">                            <span class="bp">self</span><span class="o">.</span><span class="n">clarity</span><span class="p">]</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">play_url</span><span class="s1">&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="bp">self</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_video_by_video_url</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">download_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">datetime_str</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">%</span><span class="s2">Y-</span><span class="s2">%</span><span class="s2">m-</span><span class="si">%d</span><span class="s2"> </span><span class="s2">%</span><span class="s2">H-</span><span class="s2">%</span><span class="s2">M-</span><span class="s2">%</span><span class="s2">S</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">video_name</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="si">{}</span><span class="s2">-</span><span class="si">{}</span><span class="s2">.mp4</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_name</span><span class="p">,</span> <span class="n">datetime_str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">video_name</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="si">{}</span><span class="s2">-</span><span class="si">{}</span><span class="s2">.mp4</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid1</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">,</span> <span class="n">datetime_str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">video_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">wb</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">download_video</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clarity</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clarity_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">清晰度参数异常,仅支持:ld(普清),sd(标清),hd(高清)</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_url_format</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_video_number</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">get_video_url_by_number</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">get_video_by_video_url</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">__main__</span><span class="s1">&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">a</span> <span class="o">=</span> <span class="n">DownloadVideo</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.zhihu.com/question/53031925/answer/524158069</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">download_video</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+</span></span></code></pre>
+<h1 id="结语">结语</h1>
 
 <p>代码还有优化空间，这里面我只是下载了回答中的第一个视频，理论上应该存在一个回答下可以有多个视频的。如果还有什么疑问或者建议，可以多多交流。</p>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -245,17 +245,13 @@ if __name__ == '__main__':
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -263,43 +259,85 @@ if __name__ == '__main__':
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>chrome.tabs.onUpdated was called twice - Leetao</title>
-    <meta name="description" content="# Intro
-
-Lately, I&#39;ve been working on a browser extension. While developing, I ran into an issue where `chrome.tabs.onUpdated.addListener` was triggered twice...">
+    <title>新域名的第二年 - Leetao</title>
+    <meta name="description" content="换了新域名 leetao.me 昨天迎来了网站的又一年了，昨天配合 AI 把网站重构了一下，网站依旧始部署在 vercel，不一样的是，...">
     
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
@@ -39,64 +37,32 @@ Lately, I&#39;ve been working on a browser extension. While developing, I ran in
     <main>
         <article class="post">
             <header class="post-header">
-                <h1 class="post-title">chrome.tabs.onUpdated was called twice</h1>
+                <h1 class="post-title">新域名的第二年</h1>
                 <p class="post-meta">
-                    By LeetaoGoooo on April 10, 2024
+                    By LeetaoGoooo on September 21, 2025
                 </p>
             </header>
             
             <div class="post-content">
-                <h1 id="intro">Intro</h1>
+                <p>换了新域名 leetao.me 昨天迎来了网站的又一年了，昨天配合 AI 把网站重构了一下，网站依旧始部署在 vercel，不一样的是，去年使用的是 <a href="https://github.com/LeetaoGoooo/pure">pure</a>,通过 go + Go Runtime with Vercel functions 特性，配合 GitHub discussion 来完成博客的搭建的，这一次同样也是 go + Github discussion，只是不一样的是，通过 go 写了一个<strong>静态网站生成器</strong>。</p>
 
-<p>Lately, I've been working on a browser extension. While developing, I ran into an issue where <code>chrome.tabs.onUpdated.addListener</code> was triggered twice upon tab refresh. It seems odd.</p>
+<p>今年是 AI 元年，各种 AI 编程工具也应接不暇，我从一开始克制，只在 vscode 上使用 AI ，并且只限于 Python，究其原因是，觉得自己就 Python 掌握的比较熟练，其他语言需要持续的学习，到现在全面拥抱 AI，带来的一个很直观的结果就是，去年 <a href="https://github.com/LeetaoGoooo/pure">pure</a> 的开发花了我一个周末的时间，而现在这个新的生成器开发只花了我几个小时不到的时间就完成了。</p>
 
-<h1 id="iframes-caused">Iframes caused?</h1>
+<p>AI 一方面提高了我的工作效率，一方面又引起了我的焦虑，使用 AI 提升工作效率是个不得不掌握的技能，但是如何在这种情况下继续对自己持续提升也是需要考虑的问题。AI的高效是个&quot;甜蜜陷阱&quot;，短期内看起来什么都能快速搞定，但长期可能让人的技能萎缩。</p>
 
-<p>Initially, my colleagues and I conducted some research on this matter and came across an article titled  <a href="https://stackoverflow.com/questions/36808309/chrome-extension-page-update-twice-then-removed-on-youtube">Chrome extension - page update twice then removed on YouTube</a>.</p>
+<p>人与 AI 应该各自应该是什么角色是个很值得思考的问题，以及以什么模式和 AI 协作也是值得摸索的事情。很明显全盘交给 AI 是不可取的，长期必然会导致自己的技能萎缩。<strong>如果你做的 AI 也可以做，AI 做不了的你也做不了，在 AI  后时代，必然是会被淘汰的，因为 AI 可以 24 小时无休，AI 也会变得越来越强，而你不可以 24 小时无休，如果不能更好的成长，其下场不言而喻</strong>。</p>
 
-<p>To validate our hypothesis, i changed original <code>chrome.tabs.onUpdated</code> method to <code>chrome.webNavigation.onHistoryStateUpdated</code> and implemented the same logic as described in the aforementioned article. Without a double, after i refreshed tab again, <code>chrome.webNavigation.onHistoryStateUpdated</code> was trigged twice. Therefore there must be some other errors contributing this problem.</p>
+<p><strong>在我的观点里，AI 应该是个辅助角色，帮助我们更好的成长</strong>。所以在日常以及工作里，一旦感觉自己的成长好像停滞了，我就意识到我在 AI 合作过程中，我被牵着鼻子了。AI 出现前，这种感觉往往是在一个公司待了几年，对业务比较熟悉才会出现，但是现在这种感觉出现时间被缩短了。</p>
 
-<p>Furthermore, i noticed that this problem arose after certain versions were released. It's clear that it must be introduced in a specific commit. Therefore, my next step is to identify the first bad commit.</p>
+<p>AI 可以提高效率可以完成工作，但是高质量的完成工作和完成工作是两回事，前者依旧需要不少时间，也不是把需求用自然语言说个 AI 听，之后就可以在那里玩手机，安安静静地等着 AI 完成所有的工作，所需的精力甚至不比没有 AI 前的少，因为这是一个全新的模式，没有所谓的最佳实践，一切大家都在摸索中。</p>
 
-<h1 id="first-bad-commit">First bad commit</h1>
-
-<p>After using <a href="https://git-scm.com/docs/git-bisect">git bisect</a>,I finally identified the problematic commit. I won't provide instructions about git bisect here, you can learn it from the link above. When I found the problematic commit, I carefully examined the code. Every line appeared normal, with no apparent issues. However, it seemed unreasonable. After double-checking the code several times, one line caught my attention.</p>
-<pre class="chroma"><code><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">generateXXX</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@root/src/pages/background&#39;</span><span class="p">;</span>
-</span></span></code></pre>
-<p>Yeah, i import a method from <code>background.ts</code> file and what does <code>background.ts</code> file looks like ?</p>
-<pre class="chroma"><code><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">generateXXX() {</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="p">.</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">chrome</span><span class="p">.</span><span class="nx">tabs</span><span class="p">.</span><span class="nx">onUpdated</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">_tabId</span>: <span class="kt">number</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">changeInfo</span>: <span class="kt">chrome.tabs.TabChangeInfo</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">tab</span>: <span class="kt">chrome.tabs.Tab</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"> <span class="p">.</span><span class="p">.</span><span class="p">.</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre>
-<p>At this point, it became clear what caused the problem. It was simply because <code>chrome.tabs.onUpdated.addListener</code> was imported into another file, and when the tab was refreshed, this method was triggered twice.</p>
-
-<h1 id="solution">Solution</h1>
-
-<p>There are many solutions to resolve this problem. The easiest way is to move that function to another file. Additionally, you can use any other approaches you prefer</p>
-
-<h1 id="references">References</h1>
-
-<ol>
-<li><a href="https://stackoverflow.com/questions/36808309/chrome-extension-page-update-twice-then-removed-on-youtube">Chrome extension - page update twice then removed on YouTube</a>.</li>
-<li><a href="https://git-scm.com/docs/git-bisect">git bisect</a></li>
-</ol>
+<p>不过想来想要自我成长的话，那么时间肯定是必须的，自己反思也是必须的，这个准则应该适用于任何时代背景下吧。</p>
 
             </div>
             
             <div class="tag-list">
                 
-                <a href="/tags/english/" class="tag">english</a>
-                
-                <a href="/tags/browser-extension/" class="tag">browser-extension</a>
+                <a href="/tags/%e9%87%8e%e8%8d%89/" class="tag">野草</a>
                 
             </div>
             
@@ -105,7 +71,7 @@ Lately, I&#39;ve been working on a browser extension. While developing, I ran in
                     data-repo="leetaogoooo/discussion-blog"
                     data-repo-id="R_kgDOIOm9Yg"
                     data-mapping="number"
-                    data-term="235"
+                    data-term="272"
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"

@@ -19,6 +19,22 @@
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
   --ring: #000000;
+  /* shadcn additions */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow: 0 6px 18px rgba(2, 6, 23, 0.08);
+  --shadow-lg: 0 20px 40px rgba(2, 6, 23, 0.12);
+  --glass: rgba(255, 255, 255, 0.04);
+  --btn-bg: var(--muted);
+  --btn-foreground: var(--foreground);
+  --card-border: rgba(0, 0, 0, 0.04);
+  /* Font stacks */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', system-ui, sans-serif;
+  --font-mono: SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Noto Mono', 'Droid Sans Mono', monospace;
+  /* CJK friendly fallbacks (will be overridden for zh) */
+  --font-cjk: 'Noto Sans CJK SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
 }
 
 [data-theme="light"] {
@@ -63,6 +79,14 @@
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
   --ring: #ffffff;
+  /* shadcn additions for dark */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+  --shadow-lg: 0 20px 40px rgba(2, 6, 23, 0.7);
+  --glass: rgba(255, 255, 255, 0.02);
+  --btn-bg: var(--muted);
+  --btn-foreground: var(--foreground);
+  --card-border: rgba(255, 255, 255, 0.04);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -99,9 +123,9 @@ body {
   padding: 0;
   background-color: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-sans);
   line-height: 1.6;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.2s ease;
 }
 
 /* 链接样式 */
@@ -116,10 +140,51 @@ a:hover {
 }
 
 /* 头部 */
-header {
-  padding: 2rem 1rem;
+
+header.site-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem;
   border-bottom: 1px solid var(--border);
-  text-align: center;
+  background: linear-gradient(180deg, transparent, var(--glass));
+  gap: 2rem;
+}
+
+.site-header__left {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.site-header__right {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 0;
+}
+
+@media (max-width: 800px) {
+  header.site-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 1.25rem 0.5rem;
+  }
+
+  .site-header__left,
+  .site-header__right {
+    align-items: flex-start;
+  }
+
+  .site-header__right {
+    margin-top: 0.5rem;
+    align-items: flex-start;
+  }
 }
 
 header h1 {
@@ -138,6 +203,14 @@ header nav {
   margin: 1rem 0;
 }
 
+/* Make .site-nav work without <ul> wrapper */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 header nav ul {
   display: flex;
   justify-content: center;
@@ -153,13 +226,13 @@ header nav li {
 
 header nav a {
   display: block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.9rem;
-  font-weight: 500;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
   text-decoration: none;
   color: var(--foreground);
-  transition: all 0.2s ease;
+  transition: transform 0.12s ease, background-color 0.12s ease, opacity 0.12s ease;
 }
 
 header nav a:hover {
@@ -171,10 +244,10 @@ header nav a:hover {
 /* 主题切换按钮 */
 .theme-toggle {
   background: none;
-  border: 1px solid var(--border);
-  color: var(--foreground);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+  border: 1px solid var(--card-border);
+  color: var(--btn-foreground);
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 0.875rem;
   transition: all 0.2s ease;
@@ -184,7 +257,8 @@ header nav a:hover {
 }
 
 .theme-toggle:hover {
-  background-color: var(--muted);
+  background-color: var(--btn-bg);
+  transform: translateY(-1px);
 }
 
 /* SVG图标样式 */
@@ -201,33 +275,42 @@ main {
   padding: 2rem 1rem;
 }
 
-/* 文章列表 */
+/* 文章列表（模板使用 post-list/post-item） */
+.post-list,
 .posts {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
+.post-item,
 .post-preview {
-  padding: 1.5rem 0;
+  padding: 1.35rem 1rem;
   border-bottom: 1px solid var(--border);
+  display: block;
+  gap: 0.5rem;
 }
 
+.post-item:last-child,
 .post-preview:last-child {
   border-bottom: none;
 }
 
+.post-title,
 .post-preview h2 {
   margin: 0 0 0.5rem 0;
   font-size: 1.25rem;
   font-weight: 600;
 }
 
+.post-meta,
 .post-preview .meta {
   margin: 0 0 1rem 0;
   font-size: 0.875rem;
   color: var(--muted-foreground);
 }
 
+.tag-list,
 .post-preview .tags {
   display: flex;
   flex-wrap: wrap;
@@ -243,14 +326,16 @@ main {
 }
 
 .tag-cloud-item {
-  display: inline-block;
-  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
   background-color: var(--muted);
   color: var(--muted-foreground);
-  font-size: 1rem;
-  border-radius: 0.25rem;
-  transition: background-color 0.2s ease;
+  font-size: 0.95rem;
+  border-radius: var(--radius);
+  transition: transform 0.12s ease, background-color 0.12s ease;
   text-decoration: none;
+  box-shadow: var(--shadow-sm);
 }
 
 .tag-cloud-item:hover {
@@ -264,13 +349,14 @@ main {
 }
 
 .tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: 0.25rem 0.5rem;
   background-color: var(--muted);
   color: var(--muted-foreground);
-  font-size: 0.75rem;
-  border-radius: 0.25rem;
-  transition: background-color 0.2s ease;
+  font-size: 0.8rem;
+  border-radius: var(--radius-sm);
+  transition: transform 0.12s ease, background-color 0.12s ease;
 }
 
 .tag:hover {
@@ -280,6 +366,7 @@ main {
 /* 文章详情 */
 .post {
   padding: 1rem 0;
+  background: transparent;
 }
 
 .post h1 {
@@ -294,17 +381,20 @@ main {
   color: var(--muted-foreground);
 }
 
-.post .content {
+.post .content,
+.post-content {
   font-size: 1rem;
   line-height: 1.75;
 }
 
-.post .content p {
+.post .content p,
+.post-content p {
   margin: 0 0 1.5rem 0;
 }
 
 /* 图片样式 */
-.post .content img {
+.post .content img,
+.post-content img {
   max-width: 100%;
   height: auto;
   display: block;
@@ -312,7 +402,8 @@ main {
   border-radius: 0.5rem;
 }
 
-.post .content img + em {
+.post .content img+em,
+.post-content img+em {
   display: block;
   text-align: center;
   font-size: 0.875rem;
@@ -364,13 +455,14 @@ footer {
 }
 
 /* 代码块样式 */
-pre {
+pre.chroma {
   position: relative;
-  background-color: var(--muted);
-  border-radius: 0.5rem;
+  background-color: var(--chroma-bg, #f6f8fa); /* Use chroma background or fallback */
+  border-radius: var(--radius);
   padding: 1rem;
   overflow-x: auto;
   margin: 1.5rem 0;
+  box-shadow: var(--shadow-sm);
 }
 
 code {
@@ -379,6 +471,26 @@ code {
   background-color: var(--muted);
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
+}
+
+/* Language aware font overrides: apply CJK stack when document or elements are Chinese */
+/* Prefer document-level html[lang^="zh"] and :lang() for inline language detection */
+html[lang^="zh"],
+html[lang*="-zh"] {
+  --font-sans: var(--font-cjk);
+  --font-mono: 'Noto Sans Mono CJK', var(--font-mono);
+}
+
+:lang(zh),
+:lang(zh-CN),
+:lang(zh-TW),
+:lang(zh-HK) {
+  font-family: var(--font-cjk);
+}
+
+/* If you have mixed content where inline spans are in English inside zh pages, keep a readable Latin fallback */
+:lang(en) {
+  font-family: var(--font-sans);
 }
 
 pre code {
@@ -391,12 +503,12 @@ pre code {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
-  background-color: var(--muted);
-  color: var(--muted-foreground);
-  border: 1px solid var(--border);
-  border-radius: 0.25rem;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
+  background-color: var(--btn-bg);
+  color: var(--btn-foreground);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -404,11 +516,13 @@ pre code {
 .copy-button:hover {
   background-color: var(--accent);
   color: var(--accent-foreground);
+  transform: translateY(-1px);
 }
 
 .copy-button.copied {
   background-color: var(--primary);
   color: var(--primary-foreground);
+  box-shadow: var(--shadow-sm);
 }
 
 /* 代码高亮 */
@@ -416,7 +530,7 @@ pre code {
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: var(--muted);
+  background: transparent;
   color: var(--foreground);
 }
 
@@ -509,7 +623,7 @@ pre code {
 /* 暗黑模式下的代码高亮 */
 @media (prefers-color-scheme: dark) {
   .hljs {
-    background: var(--muted);
+    background: transparent;
     color: var(--foreground);
   }
 
@@ -574,23 +688,69 @@ pre code {
   }
 }
 
+/* Utility: subtle card */
+.card {
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+}
+
+/* Buttons (primary/ghost) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid transparent;
+  background: var(--btn-bg);
+  color: var(--btn-foreground);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+}
+
+/* small helpers */
+.muted {
+  color: var(--muted-foreground);
+}
+
+
 /* 响应式设计 */
 @media (max-width: 600px) {
   header {
     padding: 1rem;
   }
-  
+
   header nav ul {
     justify-content: flex-start;
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   header nav li {
     margin: 0 0.15rem;
   }
-  
+
   header nav a {
     padding: 0.15rem 0.35rem;
     white-space: nowrap;
@@ -601,15 +761,15 @@ pre code {
   header {
     padding: 3rem 1rem;
   }
-  
+
   header h1 {
     font-size: 2rem;
   }
-  
+
   main {
     padding: 3rem 1rem;
   }
-  
+
   .post h1 {
     font-size: 2.5rem;
   }

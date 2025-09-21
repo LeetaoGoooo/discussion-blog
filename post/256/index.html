@@ -9,37 +9,41 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>飞书多维表格 &#43; Github Action = 播客？</h1>
-            <p class="meta">
-                By LeetaoGoooo on February 22, 2025
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">飞书多维表格 &#43; Github Action = 播客？</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on February 22, 2025
+                </p>
+            </header>
             
-            <div class="content">
+            <div class="post-content">
                 <p>通过飞书多维表格的自动化将收藏的文章再加工一次，将昨天收藏的文章借由 AI 去总结成一个简短的 5 分钟左右的文章，然后同时将总结的文章转成语音的形式，这样子就可以在碎片化的时间将收藏的文章简单的通读一遍了。</p>
 
 <p>整体的流程图如下：</p>
@@ -48,9 +52,9 @@
 
 <p>通过多维表格去触发 GitHub Action ，然后在 GitHub Action 里完成文字转语音的流程，接着将完成的音频文件推送到群组中去。</p>
 
-<h1>多维表格</h1>
+<h1 id="多维表格">多维表格</h1>
 
-<h2>自动化流程</h2>
+<h2 id="自动化流程">自动化流程</h2>
 
 <p>在飞书的多维表格自动化流程中完成数据的预处理，包含四个步骤:</p>
 
@@ -62,103 +66,93 @@
 <li>将总结的日报内容 <code>News</code> 通过 Http 的请求方式推送到 Github Action 下</li>
 </ol>
 
-<h2>AI 总结  Prompt</h2>
+<h2 id="ai-总结-prompt">AI 总结  Prompt</h2>
 
 <p>其中 4 中使用到的 <code>prompt</code> 如下:</p>
-
-<pre><code class="language-markdown"># 角色
-
-你是一位经验丰富的技术领域文稿撰写人员，能够根据给定的总结信息生成一篇时长在 5 分钟之内的新闻早报文稿。
-
-## 技能
-
-6. 精准提炼给定总结中的关键信息。
-
-7. 围绕关键信息组织连贯、生动且符合新闻早报风格的内容。
-
-8. 合理控制文稿篇幅，确保播报时长在 5 分钟之内。
-
-9. 按照 markdown 格式撰写文稿，准确处理原文链接。
-
-## 限制
-
-- 文稿内容必须基于给定的总结信息展开。
-
-- 文稿播报时长严格控制在 5 分钟之内。
-
-- 语言风格符合新闻早报的严谨性和时效性。
-
-- 文稿格式应当为 markdown 格式
-
-- 篇幅控制在 1024 个字符之内。
-
-## 用户要求
-
-请根据以下总结，生成一篇时长在 5 分钟之内的新闻早报文稿：
-
-[查找到的所有记录]
-</code></pre>
-
-<h2>Http 请求</h2>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="gh"># 角色
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>
+</span></span><span class="line"><span class="cl">你是一位经验丰富的技术领域文稿撰写人员，能够根据给定的总结信息生成一篇时长在 5 分钟之内的新闻早报文稿。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## 技能
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
+</span></span><span class="line"><span class="cl"><span class="k">6.</span> 精准提炼给定总结中的关键信息。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">7.</span> 围绕关键信息组织连贯、生动且符合新闻早报风格的内容。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">8.</span> 合理控制文稿篇幅，确保播报时长在 5 分钟之内。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">9.</span> 按照 markdown 格式撰写文稿，准确处理原文链接。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## 限制
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
+</span></span><span class="line"><span class="cl"><span class="k">-</span> 文稿内容必须基于给定的总结信息展开。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">-</span> 文稿播报时长严格控制在 5 分钟之内。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">-</span> 语言风格符合新闻早报的严谨性和时效性。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">-</span> 文稿格式应当为 markdown 格式
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">-</span> 篇幅控制在 1024 个字符之内。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## 用户要求
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
+</span></span><span class="line"><span class="cl">请根据以下总结，生成一篇时长在 5 分钟之内的新闻早报文稿：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[查找到的所有记录]
+</span></span></code></pre>
+<h2 id="http-请求">Http 请求</h2>
 
 <p>其中 5 通过 Http 请求触发对应的 repo 的 workflow：</p>
-
-<pre><code class="language-bash">curl -X POST \                      
-  https://api.github.com/repos/{username}/{repo}/actions/workflows/{workflow-id}/dispatches \
-  -H &quot;Accept: application/vnd.github.v3+json&quot; \
-  -H &quot;Authorization: Bearer {token}&quot; \ # 自行申请的 token
-  -d '{
-    &quot;ref&quot;: &quot;master&quot;, # branch 名称
-    &quot;inputs&quot;: {
-      &quot;news&quot;: &quot;&quot; # 总结的内容
-    }
-  }'
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">curl -X POST <span class="se">\ </span>                     
+</span></span><span class="line"><span class="cl">  https://api.github.com/repos/<span class="o">{</span>username<span class="o">}</span>/<span class="o">{</span>repo<span class="o">}</span>/actions/workflows/<span class="o">{</span>workflow-id<span class="o">}</span>/dispatches <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Accept: application/vnd.github.v3+json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer {token}&#34;</span> <span class="se">\ </span><span class="c1"># 自行申请的 token</span>
+</span></span><span class="line"><span class="cl">  -d <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;ref&#34;: &#34;master&#34;, # branch 名称
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;inputs&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s1">      &#34;news&#34;: &#34;&#34; # 总结的内容
+</span></span></span><span class="line"><span class="cl"><span class="s1">    }
+</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span>
+</span></span></code></pre>
 <p>其中需要获取到对应的 workflow id，可以通过下面的方式获取</p>
-
-<pre><code class="language-bash"> curl https://api.github.com/repos/{username}/{repo}/actions/workflows -H &quot;Authorization: Bearer {token}&quot; # change to your config
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"> curl https://api.github.com/repos/<span class="o">{</span>username<span class="o">}</span>/<span class="o">{</span>repo<span class="o">}</span>/actions/workflows -H <span class="s2">&#34;Authorization: Bearer {token}&#34;</span> <span class="c1"># change to your config</span>
+</span></span></code></pre>
 <p>所需的 token 需要从 <a href="https://github.com/settings/tokens">🔗</a> 申请，为了确保对应的 workflow 可以接受参数，我们也需要对代码仓库下的 workflow 进行修改。</p>
 
-<h1>Github Action</h1>
+<h1 id="github-action">Github Action</h1>
 
-<h2>workflow</h2>
-
-<pre><code class="language-yaml">on:
-  workflow_dispatch:
-    inputs:
-      news:
-        description: 'Yesterday News Summary'
-        required: true
-        type: string
-
-...
-python what-i-read-yesterday.py &quot;${{ inputs.news }}&quot;
-</code></pre>
-
+<h2 id="workflow">workflow</h2>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">      </span><span class="nt">news</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Yesterday News Summary&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">python what-i-read-yesterday.py &#34;${{ inputs.news }}&#34;</span><span class="w">
+</span></span></span></code></pre>
 <p>重点是在 workflow 的文件里的 inputs 下需要接受的参数，然后在后续通过 <code>${{ inputs.news }}</code> 去使用这个参数了。</p>
 
-<h2>tts</h2>
+<h2 id="tts">tts</h2>
 
 <p>通过 <a href="https://pypi.org/project/edge-tts/">edge-tts</a> 这个库将文字转成对应的音频文件</p>
-
-<pre><code class="language-python">import edge_tts
-import datetime
-import pytz
-
-VOICE = &quot;zh-CN-XiaoxiaoNeural&quot; # 音色
-
-def generate_voice(text:str):
-	...
-	today_voice_path = '' # 文件位置
-	communicate = edge_tts.Communicate(text, VOICE)
-	communicate.save_sync(today_voice_path)
-	return today_voice_path
-</code></pre>
-
-<h1>最后</h1>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">edge_tts</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">datetime</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pytz</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">VOICE</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">zh-CN-XiaoxiaoNeural</span><span class="s2">&#34;</span> <span class="c1"># 音色</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">generate_voice</span><span class="p">(</span><span class="n">text</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="o">.</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">	<span class="n">today_voice_path</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">&#39;</span> <span class="c1"># 文件位置</span>
+</span></span><span class="line"><span class="cl">	<span class="n">communicate</span> <span class="o">=</span> <span class="n">edge_tts</span><span class="o">.</span><span class="n">Communicate</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">VOICE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">communicate</span><span class="o">.</span><span class="n">save_sync</span><span class="p">(</span><span class="n">today_voice_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">today_voice_path</span>
+</span></span></code></pre>
+<h1 id="最后">最后</h1>
 
 <p>最后将音频文件和总结的文字内容一起推送到群组中去。</p>
 
@@ -170,15 +164,15 @@ def generate_voice(text:str):
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
-                <span class="tag">python</span>
+                <a href="/tags/python/" class="tag">python</a>
                 
-                <span class="tag">github action</span>
+                <a href="/tags/github%20action/" class="tag">github action</a>
                 
-                <span class="tag">稍后阅读</span>
+                <a href="/tags/%e7%a8%8d%e5%90%8e%e9%98%85%e8%af%bb/" class="tag">稍后阅读</a>
                 
-                <span class="tag">tts</span>
+                <a href="/tags/tts/" class="tag">tts</a>
                 
             </div>
             
@@ -191,17 +185,13 @@ def generate_voice(text:str):
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -209,43 +199,85 @@ def generate_voice(text:str):
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

@@ -14,87 +14,81 @@ docker run -d --name es01...">
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>&#39;Docker 搭建 Elasticsearch &#43; Kibana &#43; IK 中文分词&#39;</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">&#39;Docker 搭建 Elasticsearch &#43; Kibana &#43; IK 中文分词&#39;</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>安装启动 Elasticsearch</h1>
-
-<pre><code class="language-docker">docker network create elastic
-docker pull docker.elastic.co/elasticsearch/elasticsearch:7.14.0
-docker run -d --name es01-test --net elastic -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:7.14.0
-</code></pre>
-
-<h1>安装启动 Kibana</h1>
-
-<pre><code class="language-docker">docker pull docker.elastic.co/kibana/kibana:7.14.0
-docker run -d --name kib01-test --net elastic -p 5601:5601 -e &quot;ELASTICSEARCH_HOSTS=http://es01-test:9200&quot; docker.elastic.co/kibana/kibana:7.14.0
-</code></pre>
-
+            <div class="post-content">
+                <h1 id="安装启动-elasticsearch">安装启动 Elasticsearch</h1>
+<pre class="chroma"><code><span class="line"><span class="cl">docker network create elastic<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>docker pull docker.elastic.co/elasticsearch/elasticsearch:7.14.0<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>docker run -d --name es01-test --net elastic -p 9200:9200 -p 9300:9300 -e <span class="s2">&#34;discovery.type=single-node&#34;</span> docker.elastic.co/elasticsearch/elasticsearch:7.14.0<span class="err">
+</span></span></span></code></pre>
+<h1 id="安装启动-kibana">安装启动 Kibana</h1>
+<pre class="chroma"><code><span class="line"><span class="cl">docker pull docker.elastic.co/kibana/kibana:7.14.0<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>docker run -d --name kib01-test --net elastic -p 5601:5601 -e <span class="s2">&#34;ELASTICSEARCH_HOSTS=http://es01-test:9200&#34;</span> docker.elastic.co/kibana/kibana:7.14.0<span class="err">
+</span></span></span></code></pre>
 <p>启动完成之后访问 <a href="http://localhost:5601/"><code>http://localhost:5601</code></a> 即可，默认是英文，配置中文可以参考</p>
 
-<h2>Kibana 汉化</h2>
+<h2 id="kibana-汉化">Kibana 汉化</h2>
 
 <p>在 <code>kibana.yml</code> 中加入</p>
-
-<pre><code class="language-java">i18n.locale: &quot;zh-CN&quot;
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">i18n</span><span class="p">.</span><span class="na">locale</span><span class="p">:</span><span class="w"> </span><span class="s">&#34;</span><span class="s">zh-CN</span><span class="s">&#34;</span><span class="w">
+</span></span></span></code></pre>
 <p>然后重启 kibana 即可</p>
 
 <p>配置完成后重启服务，界面如下图：</p>
 
 <p><img src="https://www.leetao94.cn/post-images/1631010579381.png" alt="" /></p>
 
-<h1>安装 IK 中文分词</h1>
+<h1 id="安装-ik-中文分词">安装 IK 中文分词</h1>
 
 <p>es 中本身自带英文分词，但是实际业务需要存在中文分词的场景，所以手动安装中文分词插件。</p>
 
-<h2>下载 IK 分词插件</h2>
+<h2 id="下载-ik-分词插件">下载 IK 分词插件</h2>
 
 <p>从 github 上根据不同的 es 版本下载对应的 ik 插件压缩包</p>
 
 <p><a href="https://github.com/medcl/elasticsearch-analysis-ik/releases">https://github.com/medcl/elasticsearch-analysis-ik/releases</a></p>
 
-<h2>在 es 的 plugins 解压</h2>
-
-<pre><code class="language-docker">cd your-es-plugins/plugins/ &amp;&amp; mkdir ik
-unzip elasticsearch-analysis-ik-7.14.0.zip
-</code></pre>
-
+<h2 id="在-es-的-plugins-解压">在 es 的 plugins 解压</h2>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nb">cd</span> your-es-plugins/plugins/ <span class="o">&amp;&amp;</span> mkdir ik<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>unzip elasticsearch-analysis-ik-7.14.0.zip<span class="err">
+</span></span></span></code></pre>
 <p>然后重新启动 es，这里我是使用 docker 启动 es 的，所以先通过 <code>docker cp</code> 的命令将插件复制到容器中的</p>
-
-<pre><code class="language-docker">docker cp es.zip container-id:/usr/share/elasticsearch/plugins/es
-</code></pre>
-
-<h1>重启 es</h1>
+<pre class="chroma"><code><span class="line"><span class="cl">docker cp es.zip container-id:/usr/share/elasticsearch/plugins/es<span class="err">
+</span></span></span></code></pre>
+<h1 id="重启-es">重启 es</h1>
 
 <p>重启 es 的服务，如果成功加载插件，控制台会有如下的输出:</p>
 
@@ -102,7 +96,7 @@ unzip elasticsearch-analysis-ik-7.14.0.zip
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -115,17 +109,13 @@ unzip elasticsearch-analysis-ik-7.14.0.zip
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -133,43 +123,85 @@ unzip elasticsearch-analysis-ik-7.14.0.zip
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

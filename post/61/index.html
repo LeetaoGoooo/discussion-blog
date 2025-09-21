@@ -14,112 +14,108 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>ImportError- unable to find Qt5Core.dll on PATH</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">ImportError- unable to find Qt5Core.dll on PATH</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>今天在 windows 下打包 PyQt5 应用出现了 <strong>ImportError: unable to find Qt5Core.dll on PATH</strong> 错误，搜索了一下找到以下解决办法</p>
 
-<h1>解决办法</h1>
+<h1 id="解决办法">解决办法</h1>
 
-<h2>使用 &ndash;path 参数</h2>
+<h2 id="使用-path-参数">使用 --path 参数</h2>
 
 <p>由于我们打包出错的原因是缺少 <strong>Qt5Core.dll</strong>，所以在打包过程中，指定路径。使用方法如下</p>
-
-<pre><code>pyinstaller --path path_to_\Python\Lib\site-packages\PyQt5\Qt\bin demo.py
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">pyinstaller --path path_to_\Python\Lib\site-packages\PyQt5\Qt\bin demo.py
+</span></span></code></pre>
 <p>这种方法没有成功，从打包信息来看，pyinstaller 并没有使用我指定的路径。github 也有人提到这个问题</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1g7z6dero3nj20ii01idg1.jpg" alt="1571143796623.jpg" /></p>
 
 <p>具体信息可以点击 <a href="https://github.com/pyinstaller/pyinstaller/issues/2152">PyQT 5.7 DLLs are not bundled </a> 查看</p>
 
-<h2>升级 pyinstaller</h2>
+<h2 id="升级-pyinstaller">升级 pyinstaller</h2>
 
 <p>也有人提到升级 pyinstaller 到最新版本可以解决，同样没有成功。使用方法：</p>
-
-<pre><code>pip install --upgrade pyinstaller
-</code></pre>
-
-<h2>构建导入依赖的脚本</h2>
+<pre class="chroma"><code><span class="line"><span class="cl">pip install --upgrade pyinstaller
+</span></span></code></pre>
+<h2 id="构建导入依赖的脚本">构建导入依赖的脚本</h2>
 
 <p>最后在 stackoverflow 中找到了解决办法 <a href="https://stackoverflow.com/questions/56949297/how-to-fix-importerror-unable-to-find-qt5core-dll-on-path-after-pyinstaller-b">How to fix “ImportError: unable to find Qt5Core.dll on PATH” after pyinstaller bundled the python application</a>，通过构建一个依赖脚本，在引入 PyQt5 相关库之前，指定依赖的路径。</p>
-
-<pre><code>import fix_qt_import_error # 依赖脚本
-
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">import fix_qt_import_error # 依赖脚本
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">from PyQt5.QtWidgets import *
+</span></span><span class="line"><span class="cl">from PyQt5.QtCore import *
+</span></span><span class="line"><span class="cl">from PyQt5.QtGui import *
+</span></span></code></pre>
 <p>这个成功解决了我的问题，下面是脚本具体内容 <code>fix_qt_import_error.py</code> 的具体内容</p>
-
-<pre><code># Fix qt import error
-# Include this file before import PyQt5
-import os
-import sys
-import logging
- 
- 
-def _append_run_path():
-    if getattr(sys, 'frozen', False):
-        pathlist = []
- 
-        # If the application is run as a bundle, the pyInstaller bootloader
-        # extends the sys module by a flag frozen=True and sets the app
-        # path into variable _MEIPASS'.
-        pathlist.append(sys._MEIPASS)
- 
-        # the application exe path
-        _main_app_path = os.path.dirname(sys.executable)
-        pathlist.append(_main_app_path)
- 
-        # append to system path enviroment
-        os.environ[&quot;PATH&quot;] += os.pathsep + os.pathsep.join(pathlist)
- 
-    logging.error(&quot;current PATH: %s&quot;, os.environ['PATH'])
-
- 
-_append_run_path()
-</code></pre>
-
-<h1>猜想</h1>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c1"># Fix qt import error</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Include this file before import PyQt5</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">sys</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">logging</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_append_run_path</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">frozen</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">False</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pathlist</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="c1"># If the application is run as a bundle, the pyInstaller bootloader</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># extends the sys module by a flag frozen=True and sets the app</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># path into variable _MEIPASS&#39;.</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pathlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">_MEIPASS</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="c1"># the application exe path</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_main_app_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pathlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_main_app_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="c1"># append to system path enviroment</span>
+</span></span><span class="line"><span class="cl">        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">PATH</span><span class="s2">&#34;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">os</span><span class="o">.</span><span class="n">pathsep</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">pathsep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pathlist</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">current PATH: </span><span class="si">%s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">PATH</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="n">_append_run_path</span><span class="p">(</span><span class="p">)</span>
+</span></span></code></pre>
+<h1 id="猜想">猜想</h1>
 
 <p>之前没有安装 Anaconda，打包一切正常，默认会使用虚拟环境的 python 解释器，现在打包的时候，发现默认使用的解释器是 Anaconda 的 base 环境下的，可能这也是问题的原因之一，有待后续考证。。。</p>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -132,17 +128,13 @@ _append_run_path()
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -150,43 +142,85 @@ _append_run_path()
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

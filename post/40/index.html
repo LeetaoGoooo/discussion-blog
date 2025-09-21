@@ -20,38 +20,42 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>ES6 arrow function and function declaration expressions</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">ES6 arrow function and function declaration expressions</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>What is Arrow function</h1>
+            <div class="post-content">
+                <h1 id="what-is-arrow-function">What is Arrow function</h1>
 
 <p>关于什么是箭头函数,让我们看一下 MDN 给出的定义</p>
 
@@ -61,32 +65,30 @@
 
 <p>不难看出上面的定义说出了箭头函数的一些特点:没有自己的this，arguments，super或 new.target,更适用于那些本来需要匿名函数的地方，并且它们不能用作构造函数。也就是意味着,如果在没有使用 <code>this</code>,<code>arguments</code> 或者 <code>new</code> 等前提下,你可以使用箭头函数替换原本的函数声明。</p>
 
-<h1>Are arrow function and funciton declaration equivalen</h1>
+<h1 id="are-arrow-function-and-funciton-declaration-equivalen">Are arrow function and funciton declaration equivalen</h1>
 
 <p>结合上述的说明，很容易得知,箭头函数和函数声明并不相同。通过几个简单的例子说明这一点:</p>
 
-<h2>this</h2>
+<h2 id="this">this</h2>
 
 <ol>
 <li><strong>箭头函数</strong> 默认指向定义它时,它所处的上下文对象,而不是执行期间的对象</li>
 </ol>
-
-<pre><code class="language-javascript">    var exampleObj = {
-        a: 'test',
-        arrowOutputA: () =&gt; {
-            console.log(this.a);
-            console.log(this);
-        },
-        funcOutputA: function () {
-            console.log(this.a);
-            console.log(this);
-        }
-    }
-
-    exampleObj.arrowOutputA();
-    exampleObj.funcOutputA();
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">exampleObj</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">a</span><span class="o">:</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">arrowOutputA</span><span class="o">:</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">funcOutputA</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">exampleObj</span><span class="p">.</span><span class="nx">arrowOutputA</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">exampleObj</span><span class="p">.</span><span class="nx">funcOutputA</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span></code></pre>
 <p>输出结果如下:</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fu16qj14wxj30fb05lt8o.jpg" alt="" /></p>
@@ -98,87 +100,79 @@
 </ol>
 
 <p>让我们通过一组代码对照一下:</p>
-
-<pre><code class="language-javascript">window.name = 'window';
-
-var exampeObj = {
-	name: 'example'
-}
-
-function showName() {
-	console.log(this.name)
-}
-
-showName.call(exampeObj)
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nb">window</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;window&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">exampeObj</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;example&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">showName</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">showName</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">exampeObj</span><span class="p">)</span>
+</span></span></code></pre>
 <p>输出结果如下:</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fu1ew99prrj306p04xaa4.jpg" alt="" /></p>
 
 <p>从上图我们可以看到,上述代码的 <code>this</code> 指向由从 <code>window</code> 变成了 <code>exampleObj</code>
 kan chu</p>
-
-<pre><code class="language-javascript">window.name = 'window';
-
-var exampleObj = {
-	name: 'example'
-}
-
-var showName = () =&gt; {
-	console.log(this.name)
-}
-
-showName.call(exampleObj);
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nb">window</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;window&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">exampleObj</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;example&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">showName</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">showName</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">exampleObj</span><span class="p">)</span><span class="p">;</span>
+</span></span></code></pre>
 <p>输出的结果如下:</p>
 
 <p><img src="https://ws1.sinaimg.cn/large/006wYWbGly1fu1h993a8wj306804vdfw.jpg" alt="" /></p>
 
 <p>从上述结果我们不难看出,箭头函数的 <code>this</code> 指向没有发生任何改变</p>
 
-<h2>arguments</h2>
+<h2 id="arguments">arguments</h2>
 
 <p>上述内容提到箭头函数无法绑定 <code>arguments</code> 参数对象,因此不能通过arguments对象访问传入参数，但是可以用 <code>rest</code> 参数实现。关于 rest 参数具体内容可以访问 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Rest_parameters">Rest parameters</a>去进一步了解。</p>
-
-<pre><code class="language-javascript">var example = (...params) =&gt; {
-	console.log(params);
-}
-example(1,2,3);
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">example</span> <span class="o">=</span> <span class="p">(</span><span class="p">...</span><span class="nx">params</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">example</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="p">;</span>
+</span></span></code></pre>
 <p>结果如下:</p>
 
 <p><img src="https://ws1.sinaimg.cn/large/006wYWbGly1fu1hs0sg5ej307e025a9z.jpg" alt="" /></p>
 
-<h2>new</h2>
+<h2 id="new">new</h2>
 
 <p>箭头函数内部并没有 <code>Construct</code> 方法，所以没有原型属性（prototype),想开头说的那样没法当构造函数,所以很显然也不能用 <code>new</code> 关键字来实例化对象。</p>
-
-<pre><code class="language-javascript">var exampleNew = (x) =&gt; {this.name = x};
-var example = new exampleNew();
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">exampleNew</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">x</span><span class="p">}</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">example</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">exampleNew</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span></code></pre>
 <p>结果如下图:</p>
 
 <p><img src="https://ws1.sinaimg.cn/large/006wYWbGly1fu1hxp6bmdj30bk01saa2.jpg" alt="" /></p>
 
-<h1>Compatibility</h1>
+<h1 id="compatibility">Compatibility</h1>
 
 <p>最后看一下箭头函数的兼容性:</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fu18ws4mtxj327n0t2whp.jpg" alt="" /></p>
 
-<h1>References</h1>
+<h1 id="references">References</h1>
 
-<p><a href="https://stackoverflow.com/questions/24900875/whats-the-meaning-of-an-arrow-formed-from-equals-greater-than-in-javas">What&rsquo;s the meaning of “=&gt;” (an arrow formed from equals &amp; greater than) in JavaScript?</a></p>
+<p><a href="https://stackoverflow.com/questions/24900875/whats-the-meaning-of-an-arrow-formed-from-equals-greater-than-in-javas">What's the meaning of “=&gt;” (an arrow formed from equals &amp; greater than) in JavaScript?</a></p>
 
 <p><a href="https://stackoverflow.com/questions/34361379/arrow-function-vs-function-declaration-expressions-are-they-equivalent-exch">Arrow function vs function declaration / expressions: Are they equivalent / exchangeable?</a></p>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -191,17 +185,13 @@ var example = new exampleNew();
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -209,43 +199,85 @@ var example = new exampleNew();
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

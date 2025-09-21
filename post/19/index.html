@@ -10,57 +10,57 @@ Recently i looked through  the document for [flutter_bloc](https://bloclibrary.d
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>sealed class in dart</h1>
-            <p class="meta">
-                By LeetaoGoooo on June 18, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">sealed class in dart</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on June 18, 2023
+                </p>
+            </header>
             
-            <div class="content">
+            <div class="post-content">
                 <p>Recently i looked through  the document for <a href="https://bloclibrary.dev/">flutter_bloc</a>. Document is well-organized, with some good examples. One feature that caught my attention was the use of the <code>sealed</code> keyword in the  for the <a href="https://bloclibrary.dev/#/flutterinfinitelisttutorial?id=flutter-infinite-list-tutorial">Flutter Infinite List</a></p>
-
-<pre><code class="language-dart">  part of 'post_bloc.dart';
-  
-  sealed class PostEvent extends Equatable {
-    @override
-    List&lt;Object&gt; get props =&gt; [];
-  }
-  
-  final class PostFetched extends PostEvent {}
-  
-</code></pre>
-
-<h1>Sealed class</h1>
+<pre class="chroma"><code><span class="line"><span class="cl">  <span class="k">part of</span> <span class="s1">&#39;</span><span class="s1">post_bloc.dart</span><span class="s1">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">sealed</span> <span class="kd">class</span> <span class="nc">PostEvent</span> <span class="kd">extends</span> <span class="n">Equatable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="o">&lt;</span><span class="kt">Object</span><span class="o">&gt;</span> <span class="kd">get</span> <span class="n">props</span> <span class="o">=</span><span class="o">&gt;</span> <span class="p">[</span><span class="p">]</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="kd">class</span> <span class="nc">PostFetched</span> <span class="kd">extends</span> <span class="n">PostEvent</span> <span class="p">{</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span></code></pre>
+<h1 id="sealed-class">Sealed class</h1>
 
 <p>Like Kotlin and Scala, Dart has introduced  sealed class in Dart3.0. A sealed class can be declared using the keyword sealed</p>
-
-<pre><code class="language-dart">  sealed class Animal()
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">  <span class="n">sealed</span> <span class="kd">class</span> <span class="nc">Animal</span><span class="p">(</span><span class="p">)</span>
+</span></span></code></pre>
 <p>The <code>sealed</code> modifier prevents a class from being extended or implemented outside its own library. Sealed classes are implicitly <a href="https://dart.dev/language/class-modifiers#abstract">abstract</a>.</p>
 
 <ul>
@@ -69,46 +69,44 @@ Recently i looked through  the document for [flutter_bloc](https://bloclibrary.d
 <li>Can define constructors for their subclasses to use.</li>
 </ul>
 
-<p>The use of sealed classes allows developers to  create a known, enumerable set of subtypes, use <code>sealed</code> modifier. And the compiler is able to check if you have covered all subtypes of the sealed class in a switch statement. If you haven&rsquo;t, you might get compile  errors when your switch case statement is not exclusive.</p>
+<p>The use of sealed classes allows developers to  create a known, enumerable set of subtypes, use <code>sealed</code> modifier. And the compiler is able to check if you have covered all subtypes of the sealed class in a switch statement. If you haven't, you might get compile  errors when your switch case statement is not exclusive.</p>
 
-<h2>Example</h2>
-
-<pre><code class="language-dart">  sealed class Animal {}
-  
-  class Cat extends Animal{}
-  
-  class Dog extends Animal {}
-  
-  class Bird extends Animal {}
-  
-  // Abstract classes can't be instantiated.
-  Animal animal = Animal();
-  
-  // Subclasses can be instantiated
-  Cat cat = Cat();
-  
-  // raise a Error: The type 'Animal' is not exhaustively matched by the 
-  // switch cases since it doesn't match 'Bird()'.
-  String getAnimalBark(Animal animal) {
-    return switch (animal) {
-      Cat() =&gt; 'cat bark',
-      Dog() =&gt; 'bog bark',
-      // Bird() =&gt; &quot;bird bark&quot;
-    };
-  }
-</code></pre>
-
+<h2 id="example">Example</h2>
+<pre class="chroma"><code><span class="line"><span class="cl">  <span class="n">sealed</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="p">{</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">class</span> <span class="nc">Cat</span> <span class="kd">extends</span> <span class="n">Animal</span><span class="p">{</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span> <span class="p">{</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">class</span> <span class="nc">Bird</span> <span class="kd">extends</span> <span class="n">Animal</span> <span class="p">{</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// Abstract classes can&#39;t be instantiated.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Animal</span> <span class="n">animal</span> <span class="o">=</span> <span class="n">Animal</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// Subclasses can be instantiated
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Cat</span> <span class="n">cat</span> <span class="o">=</span> <span class="n">Cat</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// raise a Error: The type &#39;Animal&#39; is not exhaustively matched by the 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// switch cases since it doesn&#39;t match &#39;Bird()&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">String</span> <span class="n">getAnimalBark</span><span class="p">(</span><span class="n">Animal</span> <span class="n">animal</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">switch</span> <span class="p">(</span><span class="n">animal</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Cat</span><span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="s1">&#39;</span><span class="s1">cat bark</span><span class="s1">&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Dog</span><span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="s1">&#39;</span><span class="s1">bog bark</span><span class="s1">&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// Bird() =&gt; &#34;bird bark&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre>
 <p>To demonstrate the usage of sealed classes, the code defines an <code>Animal</code> sealed class with three subclasses: <code>Cat</code>, <code>Dog</code>, and <code>Bird</code>. The code also shows that , such as the <code>Animal</code> class, cannot be instantiated, while subclasses can be instantiated. Finally, the code demonstrates how the <code>switch</code> statement can be used with sealed classes to ensure all possible cases are covered.</p>
 
-<h1>References</h1>
+<h1 id="references">References</h1>
 
 <p><a href="https://dart.dev/language/class-modifiers#sealed">Class modifiers-sealed</a></p>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
-                <span class="tag">dart</span>
+                <a href="/tags/dart/" class="tag">dart</a>
                 
             </div>
             
@@ -121,17 +119,13 @@ Recently i looked through  the document for [flutter_bloc](https://bloclibrary.d
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -139,43 +133,85 @@ Recently i looked through  the document for [flutter_bloc](https://bloclibrary.d
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

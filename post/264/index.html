@@ -12,42 +12,46 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>Flutter WidgetsBindingObserver 详解</h1>
-            <p class="meta">
-                By LeetaoGoooo on May 21, 2025
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">Flutter WidgetsBindingObserver 详解</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on May 21, 2025
+                </p>
+            </header>
             
-            <div class="content">
-                <h2>前言</h2>
+            <div class="post-content">
+                <h2 id="前言">前言</h2>
 
 <p><code>WidgetsBindingObserver</code> 是 Flutter 中一个非常重要的接口，它允许你的 Flutter 应用监听和响应底层平台（操作系统）和 Flutter 引擎的各种生命周期事件和系统变化。</p>
 
-<h2>作用</h2>
+<h2 id="作用">作用</h2>
 
 <p><code>WidgetsBindingObserver</code> 的核心作用是作为连接 Flutter 应用逻辑和底层系统事件的桥梁。通过实现这个接口，你可以：</p>
 
@@ -60,9 +64,9 @@
 
 <p>总的来说，它的作用是让你的应用能够<strong>感知并适应外部环境的变化</strong>，从而实现更健壮、更智能的用户体验和资源管理。</p>
 
-<h2>使用场景</h2>
+<h2 id="使用场景">使用场景</h2>
 
-<h4>应用生命周期管理 (<code>didChangeAppLifecycleState</code>)</h4>
+<h4 id="应用生命周期管理-didchangeapplifecyclestate">应用生命周期管理 (<code>didChangeAppLifecycleState</code>)</h4>
 
 <p>这是最主要、最频繁使用的场景。你需要根据 <code>AppLifecycleState</code> 的不同值来执行相应操作：</p>
 
@@ -102,7 +106,7 @@
 </ul></li>
 </ul>
 
-<h4>系统配置变化 (<code>didChange...</code>)</h4>
+<h4 id="系统配置变化-didchange">系统配置变化 (<code>didChange...</code>)</h4>
 
 <ul>
 <li><p><strong><code>didChangePlatformBrightness</code> (深色/浅色模式切换):</strong></p>
@@ -132,14 +136,14 @@
 </ul></li>
 </ul>
 
-<h4>内存管理 (<code>didHaveMemoryPressure</code>)</h4>
+<h4 id="内存管理-didhavememorypressure">内存管理 (<code>didHaveMemoryPressure</code>)</h4>
 
 <ul>
 <li><strong>清理缓存：</strong> 当系统发出内存压力警告时，主动清除图片缓存、网络请求缓存或其他不必要的内存占用，以防止应用被系统强制关闭。</li>
 <li><strong>释放非关键资源：</strong> 释放一些可以随时重新加载的、但当前不急需的大型对象。</li>
 </ul>
 
-<h2>用法</h2>
+<h2 id="用法">用法</h2>
 
 <p>使用 <code>WidgetsBindingObserver</code> 的典型做法就是将其混入到一个 <code>StatefulWidget</code> 的 <code>State</code> 类中：</p>
 
@@ -158,117 +162,115 @@
 </ol>
 
 <p><strong>示例代码：</strong></p>
-
-<pre><code class="language-dart">import 'package:flutter/material.dart';
-
-class LifecycleAwareWidget extends StatefulWidget {
-  @override
-  _LifecycleAwareWidgetState createState() =&gt; _LifecycleAwareWidgetState();
-}
-
-class _LifecycleAwareWidgetState extends State&lt;LifecycleAwareWidget&gt;
-    with WidgetsBindingObserver { // 1. 混入 WidgetsBindingObserver
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this); // 2. 注册观察者
-    print('Widget initState - Observer added');
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this); // 4. 移除观察者，防止内存泄漏
-    print('Widget dispose - Observer removed');
-    super.dispose();
-  }
-
-  // 3. 实现回调方法
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('AppLifecycleState changed: $state');
-    switch (state) {
-      case AppLifecycleState.resumed:
-        // 应用回到前台
-        print('App is back in foreground!');
-        // 示例：重新加载数据，恢复动画，重新连接Socket等
-        break;
-      case AppLifecycleState.inactive:
-        // 应用处于不活跃状态（如iOS来电、多任务切换器）
-        print('App is inactive.');
-        // 示例：暂停非关键的动画
-        break;
-      case AppLifecycleState.paused:
-        // 应用进入后台
-        print('App is in background.');
-        // 示例：保存数据，暂停媒体播放，断开Socket，停止相机等
-        break;
-      case AppLifecycleState.detached:
-        // 应用被分离（Android，Flutter引擎视图被移除）
-        print('App is detached.');
-        // 示例：执行最后的清理
-        break;
-      case AppLifecycleState.hidden:
-        // 应用被隐藏 (Web 或特定场景，不常用)
-        print('App is hidden.');
-        break;
-    }
-  }
-
-  @override
-  void didChangeMetrics() {
-    print('Metrics changed (e.g., screen size, orientation)');
-    // 示例：响应屏幕旋转
-  }
-
-  @override
-  void didChangePlatformBrightness() {
-    print('Platform brightness changed (dark/light mode)');
-    // 示例：更新自定义UI的主题
-  }
-
-  @override
-  void didChangeLocales() {
-    print('Locales changed (language settings)');
-    // 示例：重新加载国际化资源
-  }
-
-  @override
-  void didHaveMemoryPressure() {
-    print('Received memory pressure warning!');
-    // 示例：清理缓存
-  }
-
-  // 其他回调方法...
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('WidgetsBindingObserver Demo'),
-      ),
-      body: Center(
-        child: Text('Check console for lifecycle and system events!'),
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: LifecycleAwareWidget(),
-  ));
-}
-</code></pre>
-
-<h3>注意事项：</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;</span><span class="s1">package:flutter/material.dart</span><span class="s1">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">LifecycleAwareWidget</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_LifecycleAwareWidgetState</span> <span class="n">createState</span><span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="n">_LifecycleAwareWidgetState</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">_LifecycleAwareWidgetState</span> <span class="kd">extends</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">LifecycleAwareWidget</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">with</span> <span class="n">WidgetsBindingObserver</span> <span class="p">{</span> <span class="c1">// 1. 混入 WidgetsBindingObserver
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">initState</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">super</span><span class="p">.</span><span class="n">initState</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WidgetsBinding</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">addObserver</span><span class="p">(</span><span class="k">this</span><span class="p">)</span><span class="p">;</span> <span class="c1">// 2. 注册观察者
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">Widget initState - Observer added</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">dispose</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WidgetsBinding</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">removeObserver</span><span class="p">(</span><span class="k">this</span><span class="p">)</span><span class="p">;</span> <span class="c1">// 4. 移除观察者，防止内存泄漏
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">Widget dispose - Observer removed</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">super</span><span class="p">.</span><span class="n">dispose</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 3. 实现回调方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">didChangeAppLifecycleState</span><span class="p">(</span><span class="n">AppLifecycleState</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">AppLifecycleState changed: </span><span class="si">$</span><span class="n">state</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="n">AppLifecycleState</span><span class="p">.</span><span class="nl">resumed:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 应用回到前台
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">App is back in foreground!</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 示例：重新加载数据，恢复动画，重新连接Socket等
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="n">AppLifecycleState</span><span class="p">.</span><span class="nl">inactive:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 应用处于不活跃状态（如iOS来电、多任务切换器）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">App is inactive.</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 示例：暂停非关键的动画
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="n">AppLifecycleState</span><span class="p">.</span><span class="nl">paused:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 应用进入后台
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">App is in background.</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 示例：保存数据，暂停媒体播放，断开Socket，停止相机等
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="n">AppLifecycleState</span><span class="p">.</span><span class="nl">detached:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 应用被分离（Android，Flutter引擎视图被移除）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">App is detached.</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 示例：执行最后的清理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="n">AppLifecycleState</span><span class="p">.</span><span class="nl">hidden:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 应用被隐藏 (Web 或特定场景，不常用)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">App is hidden.</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">didChangeMetrics</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">Metrics changed (e.g., screen size, orientation)</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 示例：响应屏幕旋转
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">didChangePlatformBrightness</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">Platform brightness changed (dark/light mode)</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 示例：更新自定义UI的主题
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">didChangeLocales</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">Locales changed (language settings)</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 示例：重新加载国际化资源
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">didHaveMemoryPressure</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">Received memory pressure warning!</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 示例：清理缓存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 其他回调方法...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Scaffold</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">WidgetsBindingObserver Demo</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">body:</span> <span class="n">Center</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">Check console for lifecycle and system events!</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">runApp</span><span class="p">(</span><span class="n">MaterialApp</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nl">home:</span> <span class="n">LifecycleAwareWidget</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
+<h3 id="注意事项">注意事项：</h3>
 
 <ul>
 <li><strong>不阻塞UI：</strong> 在回调方法中不要执行耗时的操作，否则的话，会阻塞主线程，影响用户体验。耗时操作应当其放到后台线程中去执行。</li>
 <li><strong>处理平台差异：</strong> <code>AppLifecycleState</code> 的某些状态在不同平台上的行为可能略有不同（例如 <code>inactive</code> 主要用于 iOS）。在编写逻辑时需要考虑这些差异。</li>
 </ul>
 
-<h1>V.S.  AppLifecycleListener</h1>
+<h1 id="v-s-applifecyclelistener">V.S.  AppLifecycleListener</h1>
 
 <p>如果仅需要检测生命周期的变化的话，建议选择 <code>AppLifecycleListener</code>,因为相较于 <code>WidgetsBindingObserver</code>,后者提供了更细粒度的、独立的生命周期回调方法。</p>
 
@@ -276,102 +278,100 @@ void main() {
 
 <p><img src="https://github.com/user-attachments/assets/2f104c94-c309-4041-b63f-092badf81bfe" alt="Diagram of the application lifecycle defined by the AppLifecycleState enum" /></p>
 
-<h3>示例</h3>
-
-<pre><code class="language-dart">import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-
-
-void main() {
-  runApp(const AppLifecycleListenerExample());
-}
-
-class AppLifecycleListenerExample extends StatelessWidget {
-  const AppLifecycleListenerExample({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(home: Scaffold(body: AppLifecycleDisplay()));
-  }
-}
-
-class AppLifecycleDisplay extends StatefulWidget {
-  const AppLifecycleDisplay({super.key});
-
-  @override
-  State&lt;AppLifecycleDisplay&gt; createState() =&gt; _AppLifecycleDisplayState();
-}
-
-class _AppLifecycleDisplayState extends State&lt;AppLifecycleDisplay&gt; {
-  late final AppLifecycleListener _listener;
-  final ScrollController _scrollController = ScrollController();
-  final List&lt;String&gt; _states = &lt;String&gt;[];
-  late AppLifecycleState? _state;
-
-  @override
-  void initState() {
-    super.initState();
-    _state = SchedulerBinding.instance.lifecycleState;
-    _listener = AppLifecycleListener(
-      onShow: () =&gt; _handleTransition('show'),
-      onResume: () =&gt; _handleTransition('resume'),
-      onHide: () =&gt; _handleTransition('hide'),
-      onInactive: () =&gt; _handleTransition('inactive'),
-      onPause: () =&gt; _handleTransition('pause'),
-      onDetach: () =&gt; _handleTransition('detach'),
-      onRestart: () =&gt; _handleTransition('restart'),
-      onStateChange: _handleStateChange,
-    );
-    if (_state != null) {
-      _states.add(_state!.name);
-    }
-  }
-
-  @override
-  void dispose() {
-    _listener.dispose();
-    super.dispose();
-  }
-
-  void _handleTransition(String name) {
-    setState(() {
-      _states.add(name);
-    });
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeOut,
-    );
-  }
-
-  void _handleStateChange(AppLifecycleState state) {
-    setState(() {
-      _state = state;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        width: 300,
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: Column(
-            children: &lt;Widget&gt;[
-              Text('Current State: ${_state ?? 'Not initialized yet'}'),
-              const SizedBox(height: 30),
-              Text('State History:\n  ${_states.join('\n  ')}'),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-</code></pre>
-
-<h2>参考文档</h2>
+<h3 id="示例">示例</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;</span><span class="s1">package:flutter/material.dart</span><span class="s1">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;</span><span class="s1">package:flutter/scheduler.dart</span><span class="s1">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">runApp</span><span class="p">(</span><span class="kd">const</span> <span class="n">AppLifecycleListenerExample</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">AppLifecycleListenerExample</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">const</span> <span class="n">AppLifecycleListenerExample</span><span class="p">(</span><span class="p">{</span><span class="k">super</span><span class="p">.</span><span class="n">key</span><span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kd">const</span> <span class="n">MaterialApp</span><span class="p">(</span><span class="nl">home:</span> <span class="n">Scaffold</span><span class="p">(</span><span class="nl">body:</span> <span class="n">AppLifecycleDisplay</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">AppLifecycleDisplay</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">const</span> <span class="n">AppLifecycleDisplay</span><span class="p">(</span><span class="p">{</span><span class="k">super</span><span class="p">.</span><span class="n">key</span><span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="n">State</span><span class="o">&lt;</span><span class="n">AppLifecycleDisplay</span><span class="o">&gt;</span> <span class="n">createState</span><span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="n">_AppLifecycleDisplayState</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">_AppLifecycleDisplayState</span> <span class="kd">extends</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">AppLifecycleDisplay</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">late</span> <span class="kd">final</span> <span class="n">AppLifecycleListener</span> <span class="n">_listener</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">ScrollController</span> <span class="n">_scrollController</span> <span class="o">=</span> <span class="n">ScrollController</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="n">_states</span> <span class="o">=</span> <span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">[</span><span class="p">]</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">late</span> <span class="n">AppLifecycleState</span><span class="o">?</span> <span class="n">_state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">initState</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">super</span><span class="p">.</span><span class="n">initState</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_state</span> <span class="o">=</span> <span class="n">SchedulerBinding</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">lifecycleState</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_listener</span> <span class="o">=</span> <span class="n">AppLifecycleListener</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">onShow:</span> <span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="n">_handleTransition</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">show</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">onResume:</span> <span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="n">_handleTransition</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">resume</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">onHide:</span> <span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="n">_handleTransition</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">hide</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">onInactive:</span> <span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="n">_handleTransition</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">inactive</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">onPause:</span> <span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="n">_handleTransition</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">pause</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">onDetach:</span> <span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="n">_handleTransition</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">detach</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">onRestart:</span> <span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="n">_handleTransition</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">restart</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">onStateChange:</span> <span class="n">_handleStateChange</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">_state</span> <span class="o">!</span><span class="o">=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">_states</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">_state</span><span class="o">!</span><span class="p">.</span><span class="n">name</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">dispose</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_listener</span><span class="p">.</span><span class="n">dispose</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">super</span><span class="p">.</span><span class="n">dispose</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">_handleTransition</span><span class="p">(</span><span class="kt">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">setState</span><span class="p">(</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">_states</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_scrollController</span><span class="p">.</span><span class="n">animateTo</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="n">_scrollController</span><span class="p">.</span><span class="n">position</span><span class="p">.</span><span class="n">maxScrollExtent</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">duration:</span> <span class="kd">const</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">milliseconds:</span> <span class="m">200</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">curve:</span> <span class="n">Curves</span><span class="p">.</span><span class="n">easeOut</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">_handleStateChange</span><span class="p">(</span><span class="n">AppLifecycleState</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">setState</span><span class="p">(</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">_state</span> <span class="o">=</span> <span class="n">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Center</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">child:</span> <span class="n">SizedBox</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">width:</span> <span class="m">300</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">child:</span> <span class="n">SingleChildScrollView</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">controller:</span> <span class="n">_scrollController</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">child:</span> <span class="n">Column</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nl">children:</span> <span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="p">[</span>
+</span></span><span class="line"><span class="cl">              <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">Current State: </span><span class="si">${</span><span class="n">_state</span> <span class="o">?</span><span class="o">?</span> <span class="s1">&#39;</span><span class="s1">Not initialized yet</span><span class="s1">&#39;</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="kd">const</span> <span class="n">SizedBox</span><span class="p">(</span><span class="nl">height:</span> <span class="m">30</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;</span><span class="s1">State History:</span><span class="se">\n</span><span class="s1">  </span><span class="si">${</span><span class="n">_states</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  </span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
+<h2 id="参考文档">参考文档</h2>
 
 <ol>
 <li><a href="https://api.flutter.dev/flutter/widgets/AppLifecycleListener-class.html">AppLifecycleListener</a></li>
@@ -381,9 +381,9 @@ class _AppLifecycleDisplayState extends State&lt;AppLifecycleDisplay&gt; {
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
-                <span class="tag">flutter</span>
+                <a href="/tags/flutter/" class="tag">flutter</a>
                 
             </div>
             
@@ -396,17 +396,13 @@ class _AppLifecycleDisplayState extends State&lt;AppLifecycleDisplay&gt; {
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -414,43 +410,85 @@ class _AppLifecycleDisplayState extends State&lt;AppLifecycleDisplay&gt; {
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

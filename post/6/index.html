@@ -13,38 +13,42 @@ Python 可以通过 [ctypes](https://docs.python.org/3/library/ctypes.html) 模�
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>Python 中调用 Go 代码</h1>
-            <p class="meta">
-                By LeetaoGoooo on October 28, 2022
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">Python 中调用 Go 代码</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on October 28, 2022
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>Python 可以通过 <a href="https://docs.python.org/3/library/ctypes.html">ctypes</a> 模块调用 C 语言实现的函数，调用的方式很简单：</p>
 
@@ -55,110 +59,98 @@ Python 可以通过 [ctypes](https://docs.python.org/3/library/ctypes.html) 模�
 <li>最后通过 <code>{CDLL_instance}.{function_name}({function_parameters})</code> 格式调用 c 语言对应的函数</li>
 </ol>
 
-<h2>步骤一</h2>
-
-<pre><code class="language-C">//  my_functions.c.
-#include &lt;stdio.h&gt;
-
-int square(int i) {
-	return i * i;
-}
-</code></pre>
-
-<h2>步骤二</h2>
+<h2 id="步骤一">步骤一</h2>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c1">//  my_functions.c.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
+<h2 id="步骤二">步骤二</h2>
 
 <p>使用下述命令，创建 so 文件</p>
-
-<pre><code class="language-shell">cc -fPIC -shared -o my_functions.so my_functions.c
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">cc -fPIC -shared -o my_functions.so my_functions.c
+</span></span></code></pre>
 <p><img src="https://user-images.githubusercontent.com/10162120/198480454-c0ee5a37-8143-415b-b45d-9291880d9f82.png" alt="编译生成 so 文件" /></p>
 
-<h3>步骤三&amp;四</h3>
+<h3 id="步骤三-四">步骤三&amp;四</h3>
 
 <p>调用 C 的函数</p>
-
-<pre><code class="language-shell">&gt;&gt;&gt; from ctypes import *
-&gt;&gt;&gt; so_file = &quot;/Users/leetao/workspace/python/test/my_functions.so&quot;
-&gt;&gt;&gt; my_functions = CDLL(so_file)
-&gt;&gt;&gt; 
-&gt;&gt;&gt; print(type(my_functions))
-&lt;class 'ctypes.CDLL'&gt;
-&gt;&gt;&gt; 
-&gt;&gt;&gt; print(my_functions.square(10))
-100
-&gt;&gt;&gt; print(my_functions.square(8))
-64
-&gt;&gt;&gt; 
-</code></pre>
-
-<h1>调用 GO 代码</h1>
+<pre class="chroma"><code><span class="line"><span class="cl">&gt;&gt;&gt; from ctypes import *
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; <span class="nv">so_file</span> <span class="o">=</span> <span class="s2">&#34;/Users/leetao/workspace/python/test/my_functions.so&#34;</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; <span class="nv">my_functions</span> <span class="o">=</span> CDLL<span class="o">(</span>so_file<span class="o">)</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; 
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; print<span class="o">(</span>type<span class="o">(</span>my_functions<span class="o">)</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">&lt;class <span class="s1">&#39;ctypes.CDLL&#39;</span>&gt;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; 
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; print<span class="o">(</span>my_functions.square<span class="o">(</span>10<span class="o">)</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="m">100</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; print<span class="o">(</span>my_functions.square<span class="o">(</span>8<span class="o">)</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="m">64</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; 
+</span></span></code></pre>
+<h1 id="调用-go-代码">调用 GO 代码</h1>
 
 <p>从上面的 C 语言的调用过程，不难发现，最重要的是生成的 <code>.so</code> 文件，如果我们可以将 go 编辑成 <code>.so</code> 文件就可以得到 Python 调用 Go 的目的了。</p>
 
-<h2>CGO</h2>
+<h2 id="cgo">CGO</h2>
 
 <p>Go 有个标准库 <a href="https://pkg.go.dev/cmd/cgo">CGO</a> 可以用来创建调用 C 代码的 Go 包，当然反过来也可以。</p>
 
-<h3>例子</h3>
-
-<pre><code class="language-go">package main
-​
-import &quot;C&quot;  //必须引入C库
-​
-import &quot;fmt&quot;
-​
-//加入下面注释代码，表示导出，可以被python调用
-​
-//export Sum
-func Sum(a int, b int) int {
-  return a + b
-}
-​
-​
-func main() {
-  //必须加一个main函数，作为CGO编译的入口，无具体实现代码
-}
-</code></pre>
-
+<h3 id="例子">例子</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">​</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="s">&#34;C&#34;</span><span class="w">  </span><span class="cp">//必须引入C库</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">​</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="s">&#34;fmt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">​</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">//加入下面注释代码，表示导出，可以被python调用</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">​</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">//export Sum</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">func</span><span class="w"> </span><span class="nf">Sum</span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">​</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">​</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="cp">//必须加一个main函数，作为CGO编译的入口，无具体实现代码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre>
 <p>需要注意的是：</p>
 
 <ul>
 <li>注释 //export Sum 在编译 动态库（dll ,so）的时候是必须的，说明了动态库需要输出的函数</li>
 <li>main函数必须写，没有执行代码，作为CGO编译的入口</li>
-<li>必须引入C库（import &ldquo;C&rdquo;）</li>
+<li>必须引入C库（import &quot;C&quot;）</li>
 </ul>
 
-<h3>编译动态库</h3>
+<h3 id="编译动态库">编译动态库</h3>
 
 <p>使用下面的命令进行编译</p>
-
-<pre><code class="language-shell">go build -buildmode=c-shared -o s1.so s1.go
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">go build -buildmode<span class="o">=</span>c-shared -o s1.so s1.go
+</span></span></code></pre>
 <p>注意📢：</p>
 
 <ul>
 <li>-o表示输出，s1.so 表示编译成so文件的名字，s1.go表示编译哪个go文件</li>
-<li>&rdquo;-s -w&rdquo; 选项用于减小生成动态链接库的体积，-s 是压缩，-w 是去掉调试信息
+<li>&quot;-s -w&quot; 选项用于减小生成动态链接库的体积，-s 是压缩，-w 是去掉调试信息
 <code>go build -ldflags &quot;-s -w&quot; -o main.dll -buildmode=c-shared s1.go</code></li>
 <li>编译模式buildmode:</li>
 </ul>
 
 <p><img width="707" alt="编译模式" src="https://user-images.githubusercontent.com/10162120/198488629-bc443f2b-6e8a-4fc7-9654-458066afe740.png"></p>
 
-<h3>使用 Python 语言调用</h3>
-
-<pre><code class="language-python">from ctypes import cdll
-
-lib = cdll.LoadLibrary('./s1.so')
-
-# 调用go语言的Sum
-result = lib.Sum(100, 200)
-print(result)
-</code></pre>
-
-<h1>最后</h1>
+<h3 id="使用-python-语言调用">使用 Python 语言调用</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">cdll</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">lib</span> <span class="o">=</span> <span class="n">cdll</span><span class="o">.</span><span class="n">LoadLibrary</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">./s1.so</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 调用go语言的Sum</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">Sum</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span></code></pre>
+<h1 id="最后">最后</h1>
 
 <p>Python 和 GO 之间的参数传递需要经过 C 的疏忽类型转换，所以还需要了解 python 中 ctypes 数据类型和 python 数据类型以及 C 的数据类型对应关系</p>
 
@@ -175,22 +167,18 @@ print(result)
 <p><img width="799" alt="对应关系" src="https://user-images.githubusercontent.com/10162120/198492039-adffc174-0fb9-411d-a2b3-c5e43036c6dc.png"></p>
 
 <p>也就是说，如果写如下的 go 代码：</p>
-
-<pre><code class="language-go">//export hello
-func hello(namePtr *C.char){
-   name := C.GoString(namePtr)
-   log.Println(&quot;Hello&quot;, name)
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="cp">//export hello</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">func</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="nx">namePtr</span><span class="w"> </span><span class="o">*</span><span class="nx">C</span><span class="p">.</span><span class="nx">char</span><span class="p">)</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">   </span><span class="nx">name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">C</span><span class="p">.</span><span class="nf">GoString</span><span class="p">(</span><span class="nx">namePtr</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">   </span><span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre>
 <p>也就意味着，我们的 Python 调用代码中参数类型也需要对应起来：</p>
-
-<pre><code class="language-python">hello = library.hello
-hello.argtypes = [ctypes.c_char_p]
-hello(&quot;everyone&quot;.encode('utf-8'))
-</code></pre>
-
-<h1>参考文章</h1>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">hello</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">hello</span>
+</span></span><span class="line"><span class="cl"><span class="n">hello</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">hello</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">everyone</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">utf-8</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">)</span>
+</span></span></code></pre>
+<h1 id="参考文章">参考文章</h1>
 
 <ul>
 <li><a href="https://pkg.go.dev/cmd/cgo">cgo</a></li>
@@ -200,11 +188,11 @@ hello(&quot;everyone&quot;.encode('utf-8'))
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
-                <span class="tag">python</span>
+                <a href="/tags/python/" class="tag">python</a>
                 
-                <span class="tag">go</span>
+                <a href="/tags/go/" class="tag">go</a>
                 
             </div>
             
@@ -217,17 +205,13 @@ hello(&quot;everyone&quot;.encode('utf-8'))
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -235,43 +219,85 @@ hello(&quot;everyone&quot;.encode('utf-8'))
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

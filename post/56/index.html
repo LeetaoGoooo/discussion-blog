@@ -17,61 +17,65 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>HTTP 状态码 302,303,307</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">HTTP 状态码 302,303,307</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
+            <div class="post-content">
                 <p>最近一直在看《HTTP The Definitive Guide》,对此大家可能有点陌生，但是一提它的中文名称那就是耳熟能详了,它的中文书名是《http权威指南》.在看到HTTP Messages这一章Status Code这一节,发现状态码302、303、307这三个很相似,然后对此进行了对比,特此记录.</p>
 
-<h2>302 Found</h2>
+<h2 id="302-found">302 Found</h2>
 
 <blockquote>
-<p>This is an example of industry practice contradicting the standard. The HTTP/1.0 specification (RFC 1945) required the client to perform a temporary redirect (the original describing phrase was &ldquo;Moved Temporarily&rdquo;, but popular browsers implemented 302 with the functionality of a 303 See Other.Therefore, HTTP/1.1 added status codes 303 and 307 to distinguish between the two behaviours. However, some Web applications and frameworks use the 302 status code as if it were the 303 ——[1]</p>
+<p>This is an example of industry practice contradicting the standard. The HTTP/1.0 specification (RFC 1945) required the client to perform a temporary redirect (the original describing phrase was &quot;Moved Temporarily&quot;, but popular browsers implemented 302 with the functionality of a 303 See Other.Therefore, HTTP/1.1 added status codes 303 and 307 to distinguish between the two behaviours. However, some Web applications and frameworks use the 302 status code as if it were the 303 ——[1]</p>
 </blockquote>
 
 <p>在看下维基百科的定义:</p>
 
 <blockquote>
 <p>The HTTP response status code 302 Found is a common way of performing URL redirection.
-An HTTP response with this status code will additionally provide a URL in the header field location. The user agent (e.g. a web browser) is invited by a response with this code to make a second, otherwise identical, request to the new URL specified in the location field. The HTTP/1.0 specification (RFC 1945) initially defined this code, and gives it the description phrase &ldquo;Moved Temporarily&rdquo;.
+An HTTP response with this status code will additionally provide a URL in the header field location. The user agent (e.g. a web browser) is invited by a response with this code to make a second, otherwise identical, request to the new URL specified in the location field. The HTTP/1.0 specification (RFC 1945) initially defined this code, and gives it the description phrase &quot;Moved Temporarily&quot;.
 Many web browsers implemented this code in a manner that violated this standard, changing the request type of the new request to GET, regardless of the type employed in the original request (e.g. POST).For this reason, HTTP/1.1 (RFC 2616) added the new status codes 303 and 307 to disambiguate between the two behaviours, with 303 mandating the change of request type to GET, and 307 preserving the request type as originally sent. Despite the greater clarity provided by this disambiguation, the 302 code is still employed in web frameworks to preserve compatibility with browsers that do not implement the HTTP/1.1 specification.
 As a consequence, the update of RFC 2616 changes the definition to allow user agents to rewrite POST to GET ——[2]</p>
 </blockquote>
 
 <p>结合上面两个我们大致可以总结出这样一些结论:</p>
 
-<p>在 RFC 1945 中初次定义状态码302,并将其描述位&rdquo;Moved Temporarily&rdquo;(暂时移动).预期关于302的使用应该如下,当一个http的response状态码为302的时候,其响应头肯定回包含一个可选的URL(如下图).客户端预期需要根据该URL进行二次请求.正常情况下客户端的请求方式应该与之前保持一致,但是许多Web浏览器并没有遵守这个规定，而是不管原始请求使用何种类型，都将新请求的请求类型变为GET.由于这个原因,在HTTP/1.1 (RFC 2616)添加 303 和 307 这两个状态码,其中 303强制将请求类型改变为GET，307保留原始发送的请求类型. 而302则用来维持与尚未实现HTTP/1.1规范的浏览器的兼容性.</p>
+<p>在 RFC 1945 中初次定义状态码302,并将其描述位&quot;Moved Temporarily&quot;(暂时移动).预期关于302的使用应该如下,当一个http的response状态码为302的时候,其响应头肯定回包含一个可选的URL(如下图).客户端预期需要根据该URL进行二次请求.正常情况下客户端的请求方式应该与之前保持一致,但是许多Web浏览器并没有遵守这个规定，而是不管原始请求使用何种类型，都将新请求的请求类型变为GET.由于这个原因,在HTTP/1.1 (RFC 2616)添加 303 和 307 这两个状态码,其中 303强制将请求类型改变为GET，307保留原始发送的请求类型. 而302则用来维持与尚未实现HTTP/1.1规范的浏览器的兼容性.</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fng94l5z7bj30fr09z3ym.jpg" alt="" /></p>
 
-<h2>303 See Other (since HTTP/1.1)</h2>
+<h2 id="303-see-other-since-http-1-1">303 See Other (since HTTP/1.1)</h2>
 
 <blockquote>
 <p>The response to the request can be found under another URI using the GET method. When received in response to a POST (or PUT/DELETE), the client should presume that the server has received the data and should issue a new GET request to the given URI.</p>
@@ -81,15 +85,18 @@ As a consequence, the update of RFC 2616 changes the definition to allow user ag
 
 <p>它主要用于允许POST操作的输出将客户端重定向到选定的资源，因为这样做提供了与POST响应相对应的信息，并且该表单可以独立于原始请求单独标识、书签和缓存,个人理解是正常情况下我们在一个页面进行了post操作,然后得到服务器响应在当前页面获取到相应数据,显然这种情况下页面是无法保存书签和缓存的,一旦我们重新访问这个页面，之前的数据还是需要我们重新请求的，303则是将响应的内容重新定向到一个新的页面,并且下次访问该页面的时候响应的数据还是仍然存在的，比如消息确认页面或上传进度页面.</p>
 
-<p>对于303响应GET方式的请求,我个人是有点困惑的.RFC7321表述内容如下:
-&gt;A 303 response to a GET request indicates that the origin server does not have a representation of the target resource that can be transferred by the server over HTTP.  However, the Location field value refers to a resource that is descriptive of the target resource, such that making a retrieval request on that other resource might result in a representation that is useful to recipients without implying that it represents the original target resource.  Note that answers to the questions of what can be represented, what representations are adequate, and what might be a useful description are outside the scope of HTTP. ——[3]</p>
+<p>对于303响应GET方式的请求,我个人是有点困惑的.RFC7321表述内容如下:</p>
+
+<blockquote>
+<p>A 303 response to a GET request indicates that the origin server does not have a representation of the target resource that can be transferred by the server over HTTP.  However, the Location field value refers to a resource that is descriptive of the target resource, such that making a retrieval request on that other resource might result in a representation that is useful to recipients without implying that it represents the original target resource.  Note that answers to the questions of what can be represented, what representations are adequate, and what might be a useful description are outside the scope of HTTP. ——[3]</p>
+</blockquote>
 
 <p>直观的翻译大意如下:
 对GET请求的303响应表明，源服务器不具有可由服务器通过HTTP传输的目标资源的表示形式。但是，Location字段值是指描述目标资源的资源，因此，对该其他资源发出检索请求可能会导致对收件人有用的表示，而不会暗示它代表原始目标资源。</p>
 
 <p>我的理解是对于GET方式返回303代表,其目标资源并不能很好的借由服务器通过HTTP协议很好的展示出来.响应头中的Location的值指的是一种资源,用来是描述目标资源的.对该资源请求可能获取到对客户端有用的信息.</p>
 
-<h2>307 Temporary Redirect (since HTTP/1.1)</h2>
+<h2 id="307-temporary-redirect-since-http-1-1">307 Temporary Redirect (since HTTP/1.1)</h2>
 
 <blockquote>
 <p>In this case, the request should be repeated with another URI; however, future requests should still use the original URI. In contrast to how 302 was historically implemented, the request method is not allowed to be changed when reissuing the original request. For example, a POST request should be repeated using another POST request</p>
@@ -97,7 +104,7 @@ As a consequence, the update of RFC 2616 changes the definition to allow user ag
 
 <p>307就相对毕竟简单些,如果返回的状态码为307,则表明使用head中location的URI进行再一次的请求,但是以后的请求仍然使用原来的URI.与以往实现302的方式不同，在重新发出原始请求时，不允许更改请求方法。例如，应该使用另一个POST请求重复POST请求.</p>
 
-<h1>参考链接</h1>
+<h1 id="参考链接">参考链接</h1>
 
 <p>[1] <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection">3xx_Redirection</a></p>
 
@@ -107,7 +114,7 @@ As a consequence, the update of RFC 2616 changes the definition to allow user ag
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -120,17 +127,13 @@ As a consequence, the update of RFC 2616 changes the definition to allow user ag
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -138,43 +141,85 @@ As a consequence, the update of RFC 2616 changes the definition to allow user ag
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

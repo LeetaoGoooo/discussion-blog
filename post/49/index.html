@@ -13,166 +13,156 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>Flask-SQLAlchemy 多表对单模型</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">Flask-SQLAlchemy 多表对单模型</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>在 Flask 中 Flask-SQLAlchemy 应该是最常用的 ORM 了，通过它来构建 Model  来映射数据库中的表。通常情况下都是一个表对应一个模型，这种方案很简单。那么如果是多个表对应一个模型的情况下，该如何处理呢？接下来结合一个具体的案例来讲解这一内容。</p>
 
-<h1>案例</h1>
+<h1 id="案例">案例</h1>
 
 <p>现在我有一个数据库 <strong>test.db</strong>,它的表如下：</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1gf74p3v35jj30cc0eg0uy.jpg" alt="1590195419952-4200c916-62c2-4f6e-9c1b-d79859502926.png" /></p>
 
 <p>有很多表并且表名类似，而且表名类似的表的结构相同，以 <strong>UPS1_20190716</strong> 为例，看一下它的表结构：</p>
-
-<pre><code class="language-shell">Id
-workTime
-device
-status
-temp
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">Id
+</span></span><span class="line"><span class="cl">workTime
+</span></span><span class="line"><span class="cl">device
+</span></span><span class="line"><span class="cl">status
+</span></span><span class="line"><span class="cl">temp
+</span></span></code></pre>
 <p>那么如何定义Model呢？像下面这样？</p>
-
-<pre><code class="language-python">class UPS120190719:
-	__tablename__ = 'UPS1_20190716'
-	Id = db.Column(db.Integer,primary_key=True)
-	workTime = db.Column(db.Time)
-	...
-    
-class UPS220190716:
-	__tablename__ = 'UPS2_20190716'
-	...
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UPS120190719</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">__tablename__</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">UPS1_20190716</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">workTime</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Time</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="o">.</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UPS220190716</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">__tablename__</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">UPS2_20190716</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">.</span><span class="o">.</span><span class="o">.</span>
+</span></span></code></pre>
 <p>显然这样子代码不够优雅，有重复的代码，需要优化。那么该怎么解决呢？</p>
 
-<h1>解决方案</h1>
+<h1 id="解决方案">解决方案</h1>
 
 <p>有俩种方案都可以解决上述问题，不过俩种方案应用场景略有不同，可以根据实际情况来决定。</p>
 
-<h2>类的继承</h2>
+<h2 id="类的继承">类的继承</h2>
 
 <p>第一种方法就是利用类可以继承的特性去实现了，我们定义一个表的基类,然后其它 UPS 表继承 UpsBase即可：</p>
-
-<pre><code class="language-python">class UpsBase:
-	Id = db.Column(db.Integer,primary_key=True)
-   	workTime = db.Column(db.Time)
-   	...
-
-class UPS120190716(UpsBase):
-	__tablename__ = 'UPS1_20190716'
-
-class UPS220190716(UpsBase):
-	__tablename__ = 'UPS2_20190716'
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UpsBase</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   	<span class="n">workTime</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Time</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   	<span class="o">.</span><span class="o">.</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UPS120190716</span><span class="p">(</span><span class="n">UpsBase</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">__tablename__</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">UPS1_20190716</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UPS220190716</span><span class="p">(</span><span class="n">UpsBase</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">__tablename__</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">UPS2_20190716</span><span class="s1">&#39;</span>
+</span></span></code></pre>
 <p>当表的数量固定这是一个很好的解决方案，但是一旦当数据库的表会发生变动，比如隔天增长几张表，显然我们不太可能天天定义新的<code>Model</code>，然后重新部署服务的。这个情况就需要用到第二种解决方案了。</p>
 
-<h2>动态定义表类</h2>
+<h2 id="动态定义表类">动态定义表类</h2>
 
 <p>同样的这种方法也需要首先定义表的基类：</p>
-
-<pre><code class="language-python">class UpsBase:
-   Id = db.Column(db.Integer,primary_key=True)
-   workTime = db.Column(db.Time)
-   ...
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UpsBase</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">   <span class="n">Id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="n">workTime</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Time</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+</span></span></code></pre>
 <p>但是这里就不需要定义其它 UPS 表的类了，这里是动态定义，那就意味着，我们只在需要的时候创建，那么如何创建呢？在 Python 中可以使用 type 函数动态创建类，需要注意的时，在创建时需要设置 **<strong>tablename</strong> **的值。</p>
-
-<pre><code class="language-python">Ups1_20190716 = type('UPS120190716', (UpsBase, db.Model), {'__tablename__':'UPS1_20190716'})
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">Ups1_20190716</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">UPS120190716</span><span class="s1">&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">UpsBase</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span><span class="p">,</span> <span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">__tablename__</span><span class="s1">&#39;</span><span class="p">:</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">UPS1_20190716</span><span class="s1">&#39;</span><span class="p">}</span><span class="p">)</span>
+</span></span></code></pre>
 <p>之后就可以创建实例了：</p>
-
-<pre><code class="language-python">Ups = Ups1_20190716()
-</code></pre>
-
-<h2>例子</h2>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">Ups</span> <span class="o">=</span> <span class="n">Ups1_20190716</span><span class="p">(</span><span class="p">)</span>
+</span></span></code></pre>
+<h2 id="例子">例子</h2>
 
 <p>下面补充一个例子：<strong>如果根据表名动态创建表，如果表不存在则创建</strong></p>
-
-<pre><code class="language-python3">from flask import Flask,jsonify
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import inspect
-
-
-app = Flask(__name__)
-app.config[&quot;SQLALCHEMY_DATABASE_URI&quot;] = &quot;sqlite:///test.sqlite3&quot;
-app.config[&quot;SQLALCHEMY_TRACK_MODIFICATIONS&quot;] = False
-
-db = SQLAlchemy(app=app)
-
-class UpsBase:
-    Id = db.Column(db.Integer,primary_key=True)
-    workTime = db.Column(db.Time)
-
-def table_exists(name):
-    engine = db.get_engine()
-    ret = inspect(engine).has_table(name)
-    print('Table &quot;{}&quot; exists: {}'.format(name, ret))
-    return ret
-
-
-@app.route(&quot;/&lt;table_name&gt;&quot;)
-def index(table_name):
-    if not table_exists(table_name):
-        up_test = dynamic_table(UpsBase, table_name)
-        up_test.__table__.create(db.engine)
-    return jsonify({&quot;code&quot;:200})
-    
-
-
-
-def dynamic_table(table_base, table_name: str, bind_key='db') -&gt; db.Model:
-    &quot;&quot;&quot;[summary]
-    Arguments:
-        table_base {Object} -- [表的属性类，包含表的所有列]
-        table_name {str} -- [表名]
-        bind_key {str} -- [绑定的数据库]
-    Returns:
-        [Model] -- [对应的 db Model]
-    &quot;&quot;&quot;
-    return type(table_name.capitalize(), (table_base, db.Model),
-                {'__tablename__': table_name, '__bind_key__': bind_key, '__table_args__': {'extend_existing': True}})()
-
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span><span class="n">jsonify</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask_sqlalchemy</span> <span class="kn">import</span> <span class="n">SQLAlchemy</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">inspect</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">SQLALCHEMY_DATABASE_URI</span><span class="s2">&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">sqlite:///test.sqlite3</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">SQLALCHEMY_TRACK_MODIFICATIONS</span><span class="s2">&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">db</span> <span class="o">=</span> <span class="n">SQLAlchemy</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UpsBase</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">workTime</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Time</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">table_exists</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">engine</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_engine</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ret</span> <span class="o">=</span> <span class="n">inspect</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span><span class="o">.</span><span class="n">has_table</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Table </span><span class="s1">&#34;</span><span class="si">{}</span><span class="s1">&#34;</span><span class="s1"> exists: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ret</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">/&lt;table_name&gt;</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">table_name</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">table_exists</span><span class="p">(</span><span class="n">table_name</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">up_test</span> <span class="o">=</span> <span class="n">dynamic_table</span><span class="p">(</span><span class="n">UpsBase</span><span class="p">,</span> <span class="n">table_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">up_test</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="p">{</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">code</span><span class="s2">&#34;</span><span class="p">:</span><span class="mi">200</span><span class="p">}</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">dynamic_table</span><span class="p">(</span><span class="n">table_base</span><span class="p">,</span> <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bind_key</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">db</span><span class="s1">&#39;</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">[summary]</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    Arguments:</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">        table_base </span><span class="si">{Object}</span><span class="s2"> -- [表的属性类，包含表的所有列]</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">        table_name </span><span class="si">{str}</span><span class="s2"> -- [表名]</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">        bind_key </span><span class="si">{str}</span><span class="s2"> -- [绑定的数据库]</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    Returns:</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">        [Model] -- [对应的 db Model]</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    </span><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">table_name</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="p">(</span><span class="n">table_base</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">__tablename__</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">table_name</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">__bind_key__</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">bind_key</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">__table_args__</span><span class="s1">&#39;</span><span class="p">:</span> <span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">extend_existing</span><span class="s1">&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span><span class="p">}</span><span class="p">)</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span></code></pre>
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -185,17 +175,13 @@ def dynamic_table(table_base, table_name: str, bind_key='db') -&gt; db.Model:
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -203,43 +189,85 @@ def dynamic_table(table_base, table_name: str, bind_key='db') -&gt; db.Model:
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

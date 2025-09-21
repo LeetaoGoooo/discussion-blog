@@ -18,127 +18,101 @@ $(&#39;#com&#39;).combobox(&#39;getText&#39;) //获取当前...">
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>Easyui的常用控件使用方法</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">Easyui的常用控件使用方法</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h3>获取combobox选中的值,文本</h3>
-
-<pre><code class="language-javascript">$('#com').combobox('getValue') //获取当前选中的值
-$('#com').combobox('getText') //获取当前选中的文字
-</code></pre>
-
-<h3>combotree设置默认值</h3>
-
-<pre><code class="language-javascript">$('#combotree').combotree('setValue',value);
-</code></pre>
-
-<h3>禁用与启用combobox</h3>
-
-<pre><code class="language-javascript">$('#combobox').combobox('disable',true)
-$('#combobox').combobox('enable')
-</code></pre>
-
-<h3>combobox的隐藏与显示</h3>
-
-<pre><code class="language-javascript">$('#combobox + .combo').hide()
-$('#combobox + .combo').show()
-</code></pre>
-
-<h3>获取textarea的值</h3>
-
-<pre><code class="language-javascript">$('#textarea').val()
-</code></pre>
-
-<h3>禁用与启用textarea</h3>
-
-<pre><code class="language-javascript">document.getElementById('textarea').disabled=true;
-document.getElementById('textarea').disabled=false
-</code></pre>
-
-<h3>获取textbox的值</h3>
-
-<pre><code class="language-javascript">$('#textbox').val()
-</code></pre>
-
-<h3>禁用与启用textbox</h3>
-
-<pre><code class="language-javascript">$('#textbox').textbox('disable',true)
-$('#textbox').textbox('enable')
-</code></pre>
-
-<h3>linkbutton的禁用与启用</h3>
-
-<pre><code class="language-javascript">$('#linkbutton').linkbutton('disable');
-$('#linkbutton').linkbutton('enable');
-</code></pre>
-
-<h3>form的清空</h3>
-
-<pre><code class="language-javascript">$('#form').form('clear');
-</code></pre>
-
-<h3>禁用整个form里面的输入框</h3>
-
-<pre><code class="language-javascript">$(&quot;#Form :input&quot;).attr(&quot;readonly&quot;, &quot;readonly&quot;);
-$(&quot;input&quot;).attr(&quot;readonly&quot;, &quot;readonly&quot;); 
-</code></pre>
-
-<h3>validatebox的禁用与启用</h3>
+            <div class="post-content">
+                <h3 id="获取combobox选中的值-文本">获取combobox选中的值,文本</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#com&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">combobox</span><span class="p">(</span><span class="s1">&#39;getValue&#39;</span><span class="p">)</span> <span class="c1">//获取当前选中的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#com&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">combobox</span><span class="p">(</span><span class="s1">&#39;getText&#39;</span><span class="p">)</span> <span class="c1">//获取当前选中的文字
+</span></span></span></code></pre>
+<h3 id="combotree设置默认值">combotree设置默认值</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#combotree&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">combotree</span><span class="p">(</span><span class="s1">&#39;setValue&#39;</span><span class="p">,</span><span class="nx">value</span><span class="p">)</span><span class="p">;</span>
+</span></span></code></pre>
+<h3 id="禁用与启用combobox">禁用与启用combobox</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#combobox&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">combobox</span><span class="p">(</span><span class="s1">&#39;disable&#39;</span><span class="p">,</span><span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#combobox&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">combobox</span><span class="p">(</span><span class="s1">&#39;enable&#39;</span><span class="p">)</span>
+</span></span></code></pre>
+<h3 id="combobox的隐藏与显示">combobox的隐藏与显示</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#combobox + .combo&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">hide</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#combobox + .combo&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="p">)</span>
+</span></span></code></pre>
+<h3 id="获取textarea的值">获取textarea的值</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#textarea&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="p">)</span>
+</span></span></code></pre>
+<h3 id="禁用与启用textarea">禁用与启用textarea</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">disabled</span><span class="o">=</span><span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">disabled</span><span class="o">=</span><span class="kc">false</span>
+</span></span></code></pre>
+<h3 id="获取textbox的值">获取textbox的值</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#textbox&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="p">)</span>
+</span></span></code></pre>
+<h3 id="禁用与启用textbox">禁用与启用textbox</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#textbox&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">textbox</span><span class="p">(</span><span class="s1">&#39;disable&#39;</span><span class="p">,</span><span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#textbox&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">textbox</span><span class="p">(</span><span class="s1">&#39;enable&#39;</span><span class="p">)</span>
+</span></span></code></pre>
+<h3 id="linkbutton的禁用与启用">linkbutton的禁用与启用</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#linkbutton&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">linkbutton</span><span class="p">(</span><span class="s1">&#39;disable&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#linkbutton&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">linkbutton</span><span class="p">(</span><span class="s1">&#39;enable&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span></code></pre>
+<h3 id="form的清空">form的清空</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#form&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">form</span><span class="p">(</span><span class="s1">&#39;clear&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span></code></pre>
+<h3 id="禁用整个form里面的输入框">禁用整个form里面的输入框</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#Form :input&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;readonly&#34;</span><span class="p">,</span> <span class="s2">&#34;readonly&#34;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s2">&#34;input&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;readonly&#34;</span><span class="p">,</span> <span class="s2">&#34;readonly&#34;</span><span class="p">)</span><span class="p">;</span> 
+</span></span></code></pre>
+<h3 id="validatebox的禁用与启用">validatebox的禁用与启用</h3>
 
 <p>前两种适用于单个的validatebox;</p>
-
-<pre><code class="language-javascript">$(&quot;#id&quot;).attr(&quot;readonly&quot;, true); 
-$(&quot;#id&quot;).removeAttr(&quot;readonly&quot;);
-$(&quot;#id&quot;).attr(&quot;readonly&quot;, &quot;readonly&quot;); 
-$(&quot;#id&quot;).removeAttr(&quot;readonly&quot;);
-</code></pre>
-
-<h3>清空validatebox的值</h3>
-
-<pre><code class="language-javascript">$('#id').val(&quot;&quot;)
-</code></pre>
-
-<h3>datebox禁用启用方法</h3>
-
-<pre><code class="language-javascript">$(&quot;#datebox&quot;).datebox('disable'); 
-$(&quot;#datebox&quot;).datebox('enable');
-</code></pre>
-
-<h3>datetimebox禁用启用方法</h3>
-
-<pre><code class="language-javascript">$(&quot;#datetimebox&quot;).datetimebox('disable');
-$('#datetimebox').datatimebox('enable');
-</code></pre>
-
-<h3>TextArea禁止拉动拖动改变大小</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#id&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;readonly&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#id&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s2">&#34;readonly&#34;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#id&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;readonly&#34;</span><span class="p">,</span> <span class="s2">&#34;readonly&#34;</span><span class="p">)</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#id&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s2">&#34;readonly&#34;</span><span class="p">)</span><span class="p">;</span>
+</span></span></code></pre>
+<h3 id="清空validatebox的值">清空validatebox的值</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#id&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span></code></pre>
+<h3 id="datebox禁用启用方法">datebox禁用启用方法</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#datebox&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">datebox</span><span class="p">(</span><span class="s1">&#39;disable&#39;</span><span class="p">)</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#datebox&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">datebox</span><span class="p">(</span><span class="s1">&#39;enable&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span></code></pre>
+<h3 id="datetimebox禁用启用方法">datetimebox禁用启用方法</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#datetimebox&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">datetimebox</span><span class="p">(</span><span class="s1">&#39;disable&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#datetimebox&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">datatimebox</span><span class="p">(</span><span class="s1">&#39;enable&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span></code></pre>
+<h3 id="textarea禁止拉动拖动改变大小">TextArea禁止拉动拖动改变大小</h3>
 
 <ol>
 <li>彻底禁用拖动:在sytle中添加resize:none</li>
@@ -153,7 +127,7 @@ maxheight: my
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -166,17 +140,13 @@ maxheight: my
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -184,43 +154,85 @@ maxheight: my
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

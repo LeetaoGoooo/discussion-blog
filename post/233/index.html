@@ -10,38 +10,42 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>Go 测试中如何实现 setUp 和 tearDown 功能</h1>
-            <p class="meta">
-                By LeetaoGoooo on January 22, 2024
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">Go 测试中如何实现 setUp 和 tearDown 功能</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on January 22, 2024
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>在实际写 Go 的单元测试过程中，我们有时候需要在执行测试之前调用 setUp 函数（加载配置完成初始化操作）和测试执行之后执行 tearDown 函数（关闭释放连接或者资源），通过可以分为以下三个情况:</p>
 
@@ -51,93 +55,83 @@
 <li>	单个测试用例执行前后</li>
 </ol>
 
-<h1>所有测试用例执行前后</h1>
+<h1 id="所有测试用例执行前后">所有测试用例执行前后</h1>
 
 <p>Go 的 testing 的标准库里提供了一个 <code>TestMain</code> 的方法</p>
-
-<pre><code class="language-go">  func TestMain(m *testing.M)
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="w">  </span><span class="kd">func</span><span class="w"> </span><span class="nf">TestMain</span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">M</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre>
 <p>一个最小的实现如下:</p>
-
-<pre><code class="language-go">  func setUp() {
-    // set up
-  }
-  
-  func tearDown() {
-    // tear down
-  }
-  
-  func TestMain(m *testing.M) {
-    setUp()
-    
-    code := m.Run()
-    
-    tearDown()
-    
-    os.Exist(code)
-  }
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="w">  </span><span class="kd">func</span><span class="w"> </span><span class="nf">setUp</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span><span class="c1">// set up</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">func</span><span class="w"> </span><span class="nf">tearDown</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span><span class="c1">// tear down</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">func</span><span class="w"> </span><span class="nf">TestMain</span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">M</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span><span class="nf">setUp</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">code</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">tearDown</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nf">Exist</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre>
 <p>就像最先说到的那样，我们通常会在全局的 <code>setUp</code> 里完成一些资源的连接或者加载，完成一些其他测试用例需要使用的共同的实例的初始化，然后在 <code>tearDown</code> 完成资源的释放和回收</p>
 
-<h1>分组测试用例执行前后</h1>
+<h1 id="分组测试用例执行前后">分组测试用例执行前后</h1>
 
 <p>有时候我们会进行分组测试,这个时候配合 <code>t.Run</code> 使用完成 <code>subtest</code>，对测试用例进行归类，与全局的 setUp 和 tearDown 不同的是，在这种场景下每个分组需要的资源可能略微不同，这个时候我们就需要有差异化的初始化了，一个典型的例子如下：</p>
-
-<pre><code class="language-go">  func TestSomethingWhenGivenCondition(t *testing.T) {
-    // set up
-    
-    t.Run(&quot;特性1&quot;, func(t *testing.T) {
-      
-    })
-    t.Run(&quot;特性2&quot;, func(t *testing.T) {
-      // Subtest 2 code goes here
-    })
-   
-    // tear down
-  }
-</code></pre>
-
-<h1>单个测试用例执行前后</h1>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="w">  </span><span class="kd">func</span><span class="w"> </span><span class="nf">TestSomethingWhenGivenCondition</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span><span class="c1">// set up</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;特性1&#34;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span><span class="nx">t</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;特性2&#34;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">      </span><span class="c1">// Subtest 2 code goes here</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">   
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// tear down</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre>
+<h1 id="单个测试用例执行前后">单个测试用例执行前后</h1>
 
 <p>go 的 test 标准库并没有提供在每个测试用例执行前后的函数，对于这种场景，就需要我们自己构建对应的函数去完成了，一个最小的实现方法通常如下：</p>
-
-<pre><code class="language-go">  func setupTestCase(t *testing.T) func(t *testing.T) {
-  	// set up 
-    	// code 
-  	return func(t *testing.T) {
-  	   // code
-        // tear down
-  	}
-  }
-  
-  func TestA(t *testing.T) {
-  	teardownTestCase := setupTestCase(t)
-  	defer teardownTestCase(t)
-  	// code
-  }
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="w">  </span><span class="kd">func</span><span class="w"> </span><span class="nf">setupTestCase</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  	</span><span class="c1">// set up </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    	</span><span class="c1">// code </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  	</span><span class="k">return</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  	   </span><span class="c1">// code</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">        </span><span class="c1">// tear down</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">func</span><span class="w"> </span><span class="nf">TestA</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  	</span><span class="nx">teardownTestCase</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">setupTestCase</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  	</span><span class="k">defer</span><span class="w"> </span><span class="nf">teardownTestCase</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  	</span><span class="c1">// code</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre>
 <p>每次测试用例执行前后的时候，对应的 set up 的 tear down 的代码都会被执行。除此之外，也有借助 t.Run 去实现这一目的的</p>
-
-<pre><code class="language-go">  func testCase(test func(t *testing.T, c *testContext)) func(*testing.T) {
-    return func(t *testing.T) {
-      context := &amp;testContext{}
-      context.beforeEach()
-      defer context.afterEach()
-      test(t, context)
-    }
-  }
-  
-  func TestSomething(t *testing.T) {
-    t.Run(&quot;Some test case&quot;, testCase(func(t *testing.T, c *testContext) {
-      // Test code goes here which can leverage the context
-    }))
-  }
-</code></pre>
-
-<h1>参考</h1>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="w">  </span><span class="kd">func</span><span class="w"> </span><span class="nf">testCase</span><span class="p">(</span><span class="nx">test</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">*</span><span class="nx">testContext</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">      </span><span class="nx">context</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">testContext</span><span class="p">{</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">      </span><span class="nx">context</span><span class="p">.</span><span class="nf">beforeEach</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">      </span><span class="k">defer</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">afterEach</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">      </span><span class="nf">test</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">func</span><span class="w"> </span><span class="nf">TestSomething</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span><span class="nx">t</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;Some test case&#34;</span><span class="p">,</span><span class="w"> </span><span class="nf">testCase</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">*</span><span class="nx">testContext</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">      </span><span class="c1">// Test code goes here which can leverage the context</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre>
+<h1 id="参考">参考</h1>
 
 <ul>
 <li><a href="https://medium.com/kare-nuorteva/go-unit-test-setup-and-teardown-db1601a796f2">Go unit test setup and teardown</a></li>
@@ -148,9 +142,9 @@
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
-                <span class="tag">go</span>
+                <a href="/tags/go/" class="tag">go</a>
                 
             </div>
             
@@ -163,17 +157,13 @@
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -181,43 +171,85 @@
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

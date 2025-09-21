@@ -17,38 +17,42 @@ https://rustlang-cn.org) �...">
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>导出 VuePress 构建的网站为 PDF</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">导出 VuePress 构建的网站为 PDF</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>学 Rust 也有一段时间了,网上也有不少官方文档的中文翻译版,但是似乎只有 <a href="https://rustlang-cn.org">Rust中文网站</a> 文档一直是最新的,奈何并没有 PDF 供直接下载,是在是不太方便,为了方便阅读以及方便后续文档更新,决定用 Python 写一个爬虫将网页下载下来保持为 PDF. 最后完成结果如下:</p>
 
@@ -56,9 +60,9 @@ https://rustlang-cn.org) �...">
 
 <p>是的没错,将官网样式也保留下来成功转为 PDF,接下来分享一下整个爬虫的过程,最终的爬虫<strong>可以导出任意 VuePress 搭建的网站为 PDF</strong>.</p>
 
-<h1>爬虫</h1>
+<h1 id="爬虫">爬虫</h1>
 
-<h2>依赖库的选定</h2>
+<h2 id="依赖库的选定">依赖库的选定</h2>
 
 <ol>
 <li>requests</li>
@@ -68,7 +72,7 @@ https://rustlang-cn.org) �...">
 
 <p>关于 requests 和 BeautifulSoup4 库这里就不做介绍了, 写过爬虫的基本上都接触过, 重点说一下 pdfkit 库, 毫无疑问,它就是导出 PDF 的关键,简单说一下它的用法</p>
 
-<h3>PdfKit</h3>
+<h3 id="pdfkit">PdfKit</h3>
 
 <p>PdfKit 库是对 Wkhtmltopdf 工具包的封装类,所以在使用之前,需要去官网下载相应的安装包安装到电脑上, <a href="https://wkhtmltopdf.org/downloads.html">下载地址</a></p>
 
@@ -78,147 +82,137 @@ https://rustlang-cn.org) �...">
 
 <p>安装完成之后,说一下 PdfKit 的常用方法,常用方法有三个</p>
 
-<h4>from_url</h4>
-
-<pre><code class="language-python">def from_url(url, output_path, options=None, toc=None, cover=None,
-             configuration=None, cover_first=False):
-    &quot;&quot;&quot;
-    Convert file of files from URLs to PDF document
-
-    :param url: URL or list of URLs to be saved
-    :param output_path: path to output PDF file. False means file will be returned as string.
-    :param options: (optional) dict with wkhtmltopdf global and page options, with or w/o '--'
-    :param toc: (optional) dict with toc-specific wkhtmltopdf options, with or w/o '--'
-    :param cover: (optional) string with url/filename with a cover html page
-    :param configuration: (optional) instance of pdfkit.configuration.Configuration()
-    :param configuration_first: (optional) if True, cover always precedes TOC
-
-    Returns: True on success
-    &quot;&quot;&quot;
-
-    r = PDFKit(url, 'url', options=options, toc=toc, cover=cover,
-               configuration=configuration, cover_first=cover_first)
-
-    return r.to_pdf(output_path)
-</code></pre>
-
+<h4 id="from-url">from_url</h4>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">toc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cover</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="n">configuration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cover_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    Convert file of files from URLs to PDF document</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param url: URL or list of URLs to be saved</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param output_path: path to output PDF file. False means file will be returned as string.</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param options: (optional) dict with wkhtmltopdf global and page options, with or w/o </span><span class="s2">&#39;</span><span class="s2">--</span><span class="s2">&#39;</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param toc: (optional) dict with toc-specific wkhtmltopdf options, with or w/o </span><span class="s2">&#39;</span><span class="s2">--</span><span class="s2">&#39;</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param cover: (optional) string with url/filename with a cover html page</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param configuration: (optional) instance of pdfkit.configuration.Configuration()</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param configuration_first: (optional) if True, cover always precedes TOC</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    Returns: True on success</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    </span><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">r</span> <span class="o">=</span> <span class="n">PDFKit</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">url</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">toc</span><span class="o">=</span><span class="n">toc</span><span class="p">,</span> <span class="n">cover</span><span class="o">=</span><span class="n">cover</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="n">configuration</span><span class="o">=</span><span class="n">configuration</span><span class="p">,</span> <span class="n">cover_first</span><span class="o">=</span><span class="n">cover_first</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">to_pdf</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+</span></span></code></pre>
 <p>从函数名上就很容易理解这个函数的作用,没错就是根据 url 下载网页为 PDF</p>
 
-<h4>from_file()</h4>
-
-<pre><code class="language-python">def from_file(input, output_path, options=None, toc=None, cover=None, css=None,
-              configuration=None, cover_first=False):
-    &quot;&quot;&quot;
-    Convert HTML file or files to PDF document
-
-    :param input: path to HTML file or list with paths or file-like object
-    :param output_path: path to output PDF file. False means file will be returned as string.
-    :param options: (optional) dict with wkhtmltopdf options, with or w/o '--'
-    :param toc: (optional) dict with toc-specific wkhtmltopdf options, with or w/o '--'
-    :param cover: (optional) string with url/filename with a cover html page
-    :param css: (optional) string with path to css file which will be added to a single input file
-    :param configuration: (optional) instance of pdfkit.configuration.Configuration()
-    :param configuration_first: (optional) if True, cover always precedes TOC
-
-    Returns: True on success
-    &quot;&quot;&quot;
-
-    r = PDFKit(input, 'file', options=options, toc=toc, cover=cover, css=css,
-               configuration=configuration, cover_first=cover_first)
-
-    return r.to_pdf(output_path)
-</code></pre>
-
+<h4 id="from-file">from_file()</h4>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">toc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cover</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">css</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="n">configuration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cover_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    Convert HTML file or files to PDF document</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param input: path to HTML file or list with paths or file-like object</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param output_path: path to output PDF file. False means file will be returned as string.</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param options: (optional) dict with wkhtmltopdf options, with or w/o </span><span class="s2">&#39;</span><span class="s2">--</span><span class="s2">&#39;</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param toc: (optional) dict with toc-specific wkhtmltopdf options, with or w/o </span><span class="s2">&#39;</span><span class="s2">--</span><span class="s2">&#39;</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param cover: (optional) string with url/filename with a cover html page</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param css: (optional) string with path to css file which will be added to a single input file</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param configuration: (optional) instance of pdfkit.configuration.Configuration()</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param configuration_first: (optional) if True, cover always precedes TOC</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    Returns: True on success</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    </span><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">r</span> <span class="o">=</span> <span class="n">PDFKit</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">file</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">toc</span><span class="o">=</span><span class="n">toc</span><span class="p">,</span> <span class="n">cover</span><span class="o">=</span><span class="n">cover</span><span class="p">,</span> <span class="n">css</span><span class="o">=</span><span class="n">css</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="n">configuration</span><span class="o">=</span><span class="n">configuration</span><span class="p">,</span> <span class="n">cover_first</span><span class="o">=</span><span class="n">cover_first</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">to_pdf</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+</span></span></code></pre>
 <p>这个则是从文件中生成 PDF, 也是我最后选择的方案,至于为什么没有选择 <em>from_url()</em>,稍后等我分析完,就会明白了.</p>
 
-<h4>from_string</h4>
-
-<pre><code class="language-python">def from_string(input, output_path, options=None, toc=None, cover=None, css=None,
-                configuration=None, cover_first=False):
-    &quot;&quot;&quot;
-    Convert given string or strings to PDF document
-
-    :param input: string with a desired text. Could be a raw text or a html file
-    :param output_path: path to output PDF file. False means file will be returned as string.
-    :param options: (optional) dict with wkhtmltopdf options, with or w/o '--'
-    :param toc: (optional) dict with toc-specific wkhtmltopdf options, with or w/o '--'
-    :param cover: (optional) string with url/filename with a cover html page
-    :param css: (optional) string with path to css file which will be added to a input string
-    :param configuration: (optional) instance of pdfkit.configuration.Configuration()
-    :param configuration_first: (optional) if True, cover always precedes TOC
-
-    Returns: True on success
-    &quot;&quot;&quot;
-
-    r = PDFKit(input, 'string', options=options, toc=toc, cover=cover, css=css,
-               configuration=configuration, cover_first=cover_first)
-
-    return r.to_pdf(output_path)
-</code></pre>
-
+<h4 id="from-string">from_string</h4>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">toc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cover</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">css</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">configuration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cover_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    Convert given string or strings to PDF document</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param input: string with a desired text. Could be a raw text or a html file</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param output_path: path to output PDF file. False means file will be returned as string.</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param options: (optional) dict with wkhtmltopdf options, with or w/o </span><span class="s2">&#39;</span><span class="s2">--</span><span class="s2">&#39;</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param toc: (optional) dict with toc-specific wkhtmltopdf options, with or w/o </span><span class="s2">&#39;</span><span class="s2">--</span><span class="s2">&#39;</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param cover: (optional) string with url/filename with a cover html page</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param css: (optional) string with path to css file which will be added to a input string</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param configuration: (optional) instance of pdfkit.configuration.Configuration()</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    :param configuration_first: (optional) if True, cover always precedes TOC</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    Returns: True on success</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    </span><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">r</span> <span class="o">=</span> <span class="n">PDFKit</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">string</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">toc</span><span class="o">=</span><span class="n">toc</span><span class="p">,</span> <span class="n">cover</span><span class="o">=</span><span class="n">cover</span><span class="p">,</span> <span class="n">css</span><span class="o">=</span><span class="n">css</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="n">configuration</span><span class="o">=</span><span class="n">configuration</span><span class="p">,</span> <span class="n">cover_first</span><span class="o">=</span><span class="n">cover_first</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">to_pdf</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+</span></span></code></pre>
 <p>这个方法则是从字符串中生成 PDF,很明显没有办法保持网页样式,所以不考虑.关于更多 PdfKit 的用法,可以去 <a href="https://wkhtmltopdf.org/usage/wkhtmltopdf.txt">wkhtmltopdf文档</a> 查看</p>
 
-<h3>分析目标网页</h3>
+<h3 id="分析目标网页">分析目标网页</h3>
 
 <p>依赖库选定完毕,接下来就是分析目标网页,开始写爬虫的过程了.</p>
 
-<h2>测试 PdfKit</h2>
+<h2 id="测试-pdfkit">测试 PdfKit</h2>
 
 <p>PdfKit 自带一个 from_url 生成 PDF 的功能,如果可以生成合适的 PDF,那我们只需要获取所有网页链接就可以了,可以节省很多时间,先测试一下生成的效果</p>
-
-<pre><code class="language-python">import pdfkit
-pdfkit.from_url(&quot;https://rustlang-cn.org/office/rust/book/&quot;, 'out.pdf', configuration=pdfkit.configuration(
-                wkhtmltopdf=&quot;path/to/wkhtmltopdf.exe&quot;))
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pdfkit</span>
+</span></span><span class="line"><span class="cl"><span class="n">pdfkit</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">https://rustlang-cn.org/office/rust/book/</span><span class="s2">&#34;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">out.pdf</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">configuration</span><span class="o">=</span><span class="n">pdfkit</span><span class="o">.</span><span class="n">configuration</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">wkhtmltopdf</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">path/to/wkhtmltopdf.exe</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">)</span>
+</span></span></code></pre>
 <p>导出结果如下:</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g2vxuidy40j31430hzjs9.jpg" alt="" /></p>
 
 <p>从结果不难看出,网页的样式保存下来了,但是侧边栏,顶部和底边导航栏也都被保留下来了,并且侧边栏还挡住了主要内容,所以使用 from_url 这个方法就被排除了.</p>
 
-<h2>最终方案</h2>
+<h2 id="最终方案">最终方案</h2>
 
 <p>通过测试,我们得知不能使用 from_url 那么只能通过使用 from_file 去导出了, 并且在我们将网页下载下来保存到本地之前,我们需要修改网页内容,移除<strong>顶部导航栏,侧边栏,以及底部导航栏</strong></p>
 
-<h3>获取相应元素</h3>
+<h3 id="获取相应元素">获取相应元素</h3>
 
 <p>现在让我们先获取页面下一页链接,打开浏览器调试模式,审查一下网页元素,不难发现所有下一页导航,都处于 <em><span class="next"></span></em>  之下的超链接 <em><a></a></em> 中,如下图:</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g2vxutej20j30l0099t90.jpg" alt="" /></p>
 
 <p>通过同样的方法,不难发现顶部导航栏,侧边栏,以及底部导航栏对应的元素,依次为 <em><div class="navbar"></div>,<div class="sidebar"></div>,<div class="page-edit"></div></em>, 找到对应的元素接着就是<strong>获取链接和销毁不必要元素</strong></p>
-
-<pre><code class="language-python">class DownloadVuePress2Pdf:
-
-    def get_content_and_next_url(self, content): # content 为网页内容
-         # 获取链接和销毁不必要元素
-        navbar = soup.select('.navbar')
-        if len(navbar):
-            navbar[0].decompose()
-
-        sidebar = soup.select('.sidebar')
-        if len(sidebar):
-            sidebar[0].decompose()
-
-        page_edit = soup.select('.page-edit')
-        if len(page_edit):
-            page_edit[0].decompose()
-
-        # 注意下一页链接在底部导航栏元素中,
-        # 要先获取链接后,才能销毁元素,顺序不能颠倒
-        next_span = soup.select(&quot;.next&quot;)
-        if len(next_span):
-            next_span_href = next_span[0].a['href']
-        else:
-            next_span_href = None
-
-        page_nav = soup.select('.page-nav')
-        if len(page_nav):
-            page_nav[0].decompose()
-</code></pre>
-
-<h3>保持导出 PDF 样式</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DownloadVuePress2Pdf</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_content_and_next_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span><span class="p">:</span> <span class="c1"># content 为网页内容</span>
+</span></span><span class="line"><span class="cl">         <span class="c1"># 获取链接和销毁不必要元素</span>
+</span></span><span class="line"><span class="cl">        <span class="n">navbar</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.navbar</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">navbar</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">navbar</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">decompose</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">sidebar</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.sidebar</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sidebar</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sidebar</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">decompose</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">page_edit</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.page-edit</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_edit</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">page_edit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">decompose</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 注意下一页链接在底部导航栏元素中,</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 要先获取链接后,才能销毁元素,顺序不能颠倒</span>
+</span></span><span class="line"><span class="cl">        <span class="n">next_span</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">.next</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">next_span</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">next_span_href</span> <span class="o">=</span> <span class="n">next_span</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">href</span><span class="s1">&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">next_span_href</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">page_nav</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.page-nav</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_nav</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">page_nav</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">decompose</span><span class="p">(</span><span class="p">)</span>
+</span></span></code></pre>
+<h3 id="保持导出-pdf-样式">保持导出 PDF 样式</h3>
 
 <p>为了使得导出 PDF 的样式和网页一致,我们有俩种方法:</p>
 
@@ -228,32 +222,28 @@ pdfkit.from_url(&quot;https://rustlang-cn.org/office/rust/book/&quot;, 'out.pdf'
 </ol>
 
 <p>在上述代码中添加如下代码:</p>
-
-<pre><code class="language-python">for link in links:
-     if not link['href'].startswith(&quot;http&quot;):
-        link['href'] = css_domain + link['href'] # css_domain 为 css 默认域名,需要设置,获取方式可见下图
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">     <span class="k">if</span> <span class="ow">not</span> <span class="n">link</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">href</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">http</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">link</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">href</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">css_domain</span> <span class="o">+</span> <span class="n">link</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">href</span><span class="s1">&#39;</span><span class="p">]</span> <span class="c1"># css_domain 为 css 默认域名,需要设置,获取方式可见下图</span>
+</span></span></code></pre>
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g2vxuy2ubwj316s089gmk.jpg" alt="" /></p>
 
-<h1>导出</h1>
+<h1 id="导出">导出</h1>
 
 <p>通过上述的方式,我们将网页下载下来保存到本地,全部下载完成之后,最后就是导出为 PDF 了,通过 from_file() 方法很容易完成导出这个操作</p>
-
-<pre><code class="language-python">pdfkit.from_file([文件列表], &quot;导出的文件名称.pdf&quot;, options=options, configuration=config)
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">pdfkit</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="p">[</span><span class="n">文件列表</span><span class="p">]</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">导出的文件名称.pdf</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">configuration</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+</span></span></code></pre>
 <p>至此导出 Rust 官网文档为 PDF 的过程全部完成,效果如开头展示的那样</p>
 
 <p><strong>注意</strong>: 由于 VuePress 搭建的网站基本上布局格式一样, 所以上面的代码同样可以用来导出其他由 VuePress 构建的网站</p>
 
-<h1>完整代码</h1>
+<h1 id="完整代码">完整代码</h1>
 
 <p>可以关注我的公众号,回复 <strong>20190509</strong> 获得</p>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -266,17 +256,13 @@ pdfkit.from_url(&quot;https://rustlang-cn.org/office/rust/book/&quot;, 'out.pdf'
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -284,43 +270,85 @@ pdfkit.from_url(&quot;https://rustlang-cn.org/office/rust/book/&quot;, 'out.pdf'
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

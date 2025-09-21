@@ -9,111 +9,103 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>Django OneToOneField RelatedObjectDoesNotExist</h1>
-            <p class="meta">
-                By LeetaoGoooo on January 31, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">Django OneToOneField RelatedObjectDoesNotExist</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on January 31, 2023
+                </p>
+            </header>
             
-            <div class="content">
+            <div class="post-content">
                 <blockquote>
 <p>A one-to-one relationship. Conceptually, this is similar to a <a href="https://docs.djangoproject.com/en/4.1/ref/models/fields/#django.db.models.ForeignKey">ForeignKey</a> with <a href="https://docs.djangoproject.com/en/4.1/ref/models/fields/#django.db.models.Field.unique">unique=True</a>, but the “reverse” side of the relation will directly return a single object.</p>
 </blockquote>
 
-<p>This is most useful as the primary key of a model which “extends” another model in some way;but sometimes it may cause <strong>RelatedObjectDoesNotExist</strong> if the certain one doesn&rsquo;t exist.</p>
+<p>This is most useful as the primary key of a model which “extends” another model in some way;but sometimes it may cause <strong>RelatedObjectDoesNotExist</strong> if the certain one doesn't exist.</p>
 
-<h1>Example</h1>
+<h1 id="example">Example</h1>
 
 <p>take a example from stackoverflow <a href="https://stackoverflow.com/questions/60872434/django-onetoonefield-relatedobjectdoesnotexist">Django : OneToOneField - RelatedObjectDoesNotExist</a></p>
-
-<pre><code class="language-python">class Answer(models.Model):
-    answer = models.CharField(max_length=300)
-    question = models.ForeignKey('Question', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return &quot;{0}, view: {1}&quot;.format(self.answer, self.answer_number)
-
-
-class Vote(models.Model):
-    answer = models.OneToOneField(Answer, related_name=&quot;votes&quot;, on_delete=models.CASCADE)
-    users = models.ManyToManyField(User)
-
-    def __str__(self):
-        return str(self.answer.answer)[:30]
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Answer</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">answer</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">question</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Question</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="sa"></span><span class="s2">&#34;</span><span class="si">{0}</span><span class="s2">, view: </span><span class="si">{1}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">answer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">answer_number</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Vote</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">answer</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">Answer</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">votes</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">users</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">answer</span><span class="o">.</span><span class="n">answer</span><span class="p">)</span><span class="p">[</span><span class="p">:</span><span class="mi">30</span><span class="p">]</span>
+</span></span></code></pre>
 <p>it will be ok,if we only use Answer:</p>
-
-<pre><code class="language-shell">&gt;&gt;&gt; Answer.objects.all()[0]
-&lt;Answer: choix 1 , view: 0&gt;
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">&gt;&gt;&gt; Answer.objects.all<span class="o">(</span><span class="o">)</span><span class="o">[</span>0<span class="o">]</span>
+</span></span><span class="line"><span class="cl">&lt;Answer: choix <span class="m">1</span> , view: 0&gt;
+</span></span></code></pre>
 <p>when it comes to Vote:</p>
-
-<pre><code class="language-shell">&gt;&gt;&gt; Answer.objects.all()[0].votes
-???
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">&gt;&gt;&gt; Answer.objects.all<span class="o">(</span><span class="o">)</span><span class="o">[</span>0<span class="o">]</span>.votes
+</span></span><span class="line"><span class="cl">???
+</span></span></code></pre>
 <p><strong>⚠️ Once if the answer has no votes, it will raise RelatedObjectDoesNotExist error</strong></p>
-
-<pre><code class="language-python">    raise self.RelatedObjectDoesNotExist(
-questions.models.Answer.votes.RelatedObjectDoesNotExist: Answer has no votes.
-</code></pre>
-
-<h1>Solution</h1>
+<pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">RelatedObjectDoesNotExist</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl"><span class="n">questions</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Answer</span><span class="o">.</span><span class="n">votes</span><span class="o">.</span><span class="n">RelatedObjectDoesNotExist</span><span class="p">:</span> <span class="n">Answer</span> <span class="n">has</span> <span class="n">no</span> <span class="n">votes</span><span class="o">.</span>
+</span></span></code></pre>
+<h1 id="solution">Solution</h1>
 
 <p>How to avoid this ? Of course,you can catch the error simply</p>
-
-<pre><code class="language-python">answer = Answer.objects.all().first()
-try:
-   vote = answer.votes
-except Answer._meta.model.related_field.RelatedObjectDoesNotExist as e:
-   vote = None
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">answer</span> <span class="o">=</span> <span class="n">Answer</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">   <span class="n">vote</span> <span class="o">=</span> <span class="n">answer</span><span class="o">.</span><span class="n">votes</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="n">Answer</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">related_field</span><span class="o">.</span><span class="n">RelatedObjectDoesNotExist</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">   <span class="n">vote</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span></code></pre>
 <p>Also, use <code>hasattr</code> instead</p>
-
-<pre><code class="language-python">answer = Answer.objects.all().first()
-vote = answer.votes if hasattr(answer, 'votes') else None
-</code></pre>
-
-<h1>Refences</h1>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">answer</span> <span class="o">=</span> <span class="n">Answer</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">vote</span> <span class="o">=</span> <span class="n">answer</span><span class="o">.</span><span class="n">votes</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">answer</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">votes</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+</span></span></code></pre>
+<h1 id="refences">Refences</h1>
 
 <p><a href="https://stackoverflow.com/questions/60872434/django-onetoonefield-relatedobjectdoesnotexist">Django : OneToOneField - RelatedObjectDoesNotExist</a></p>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
-                <span class="tag">python</span>
+                <a href="/tags/python/" class="tag">python</a>
                 
-                <span class="tag">django</span>
+                <a href="/tags/django/" class="tag">django</a>
                 
-                <span class="tag">english</span>
+                <a href="/tags/english/" class="tag">english</a>
                 
             </div>
             
@@ -126,17 +118,13 @@ vote = answer.votes if hasattr(answer, 'votes') else None
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -144,43 +132,85 @@ vote = answer.votes if hasattr(answer, 'votes') else None
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

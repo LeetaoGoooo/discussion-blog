@@ -16,43 +16,50 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>装饰模式</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">装饰模式</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
+            <div class="post-content">
                 <p>之前写Python的时候，用到了装饰器，然后不由自主想到了设计模式中的装饰模式，正好最近一直在看设计模式，就记录下自己的一些理解。如有错误，欢迎指正。</p>
 
-<h4>装饰模式</h4>
+<h4 id="装饰模式">装饰模式</h4>
 
-<p>比较官方的定义是这样的
-&gt;装饰模式是在不必改变原类文件和使用继承的情况下，动态地扩展一个对象的功能。它是通过创建一个包装对象，也就是装饰来包裹真实的对象</p>
+<p>比较官方的定义是这样的</p>
+
+<blockquote>
+<p>装饰模式是在不必改变原类文件和使用继承的情况下，动态地扩展一个对象的功能。它是通过创建一个包装对象，也就是装饰来包裹真实的对象</p>
+</blockquote>
 
 <p>装饰，装饰嘛，很显然你只想让别人看见最终装饰的东西，并不像让别人看见你的装饰过程。打个比方说，你去餐馆吃饭，很明显主要是吃饭，当然光吃米饭，肯定难以下咽了，你想了想准备吃青椒肉丝盖浇饭，然后餐馆厨房开始做了，这个时候你想去厨房去瞧一瞧，你发现厨房门上贴着“非工作人员入内”，意思很明显嘛，餐馆并不希望我去参观他做盖浇饭的过程，谁知道中间有什么猫腻，最后呈现在我面前的就是我自己点的那份青椒肉丝盖浇饭，当然盖浇饭不止这一种还有番茄鸡蛋盖浇饭啊，鱼香肉丝盖浇饭啊。。。不过厨房加工的地方不让看。</p>
 
@@ -70,99 +77,100 @@
 <p>和这样
 <img src="http://images2015.cnblogs.com/blog/627405/201604/627405-20160402113915941-776244202.png" alt="" /></p>
 
-<p>顺便说下starUML类图中部分符号的含义:
-1. <strong>类 ( Class )</strong> :三层矩形框表示，第一层类名，<strong>如果是抽象类，是用斜体表示的</strong>；第二层是字段和属性；第三层则是类方法，其中&rdquo;+&ldquo;表示该方法是public的，“-”表示private，“#”表示protected
-2. <strong>继承类（）</strong>:用空心三角形+实现来表示</p>
+<p>顺便说下starUML类图中部分符号的含义:</p>
+
+<ol>
+<li><strong>类 ( Class )</strong> :三层矩形框表示，第一层类名，<strong>如果是抽象类，是用斜体表示的</strong>；第二层是字段和属性；第三层则是类方法，其中&quot;+&quot;表示该方法是public的，“-”表示private，“#”表示protected</li>
+<li><strong>继承类（）</strong>:用空心三角形+实现来表示</li>
+</ol>
 
 <p>Talk is cheap，show me the code：</p>
-
-<pre><code class="language-php">&lt;?php
-abstract class food
-{
-	public $_name;
-	abstract public function cook();
-}
-
-//被装饰的类
-class rice extends food
-{
-	public function __construct()
-	{
-		$this-&gt;_name = 'rice';
-	}
-
-	public function cook()
-	{
-		return &quot;cooked_rice&quot;;
-	}
-}
-
-//盖浇饭decorator
-class fooddecorator extends food
-{
-	public function __construct()
-	{
-		$this-&gt;_name = 'fooddecorator';
-	}
-
-	public function cook(){
-		return &quot;cooking&quot;;
-	}
-} 
-
-//青椒
-class  capsicum extends fooddecorator
-{
-	public $_food;
-	public function __construct($food)
-	{
-		$this-&gt;_name = 'capsicum';
-		if($food instanceof food)
-		{
-			$this-&gt;_food = $food;
-		}else{
-			return false;
-		}
-	}
-
-	public function cook()
-	{
-		return $this-&gt;_food-&gt;cook().&quot; cooked_capsicum&quot;;
-	}
-}
-
-//肉丝
-class meat extends fooddecorator
-{
-	public $_food;
-	public function __construct($food)
-	{
-		$this-&gt;_name = 'meat';
-		if($food instanceof food)
-		{
-			$this-&gt;_food = $food;
-		}else{
-			return false;
-		}
-	}
-
-	public function cook()
-	{
-		return $this-&gt;_food-&gt;cook().&quot; cooked_meat&quot;;
-	}
-}
-
-//qr 青椒加饭 qjrs means 青椒肉丝
-$rice = new rice();
-//加青椒
-$qr = new capsicum($rice);
-//加肉
-$qjrs = new meat($qr);
-
-echo &quot;fried green peppers:&quot;.$qjrs-&gt;cook();
-?&gt;
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="o">&lt;</span><span class="o">?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">abstract</span> <span class="k">class</span> <span class="nc">food</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">abstract</span> <span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="nf">cook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//被装饰的类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">rice</span> <span class="k">extends</span> <span class="nx">food</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_name</span> <span class="o">=</span> <span class="s1">&#39;rice&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="nf">cook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s2">&#34;</span><span class="s2">cooked_rice</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//盖浇饭decorator
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">fooddecorator</span> <span class="k">extends</span> <span class="nx">food</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_name</span> <span class="o">=</span> <span class="s1">&#39;fooddecorator&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="nf">cook</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s2">&#34;</span><span class="s2">cooking</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//青椒
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span>  <span class="nc">capsicum</span> <span class="k">extends</span> <span class="nx">fooddecorator</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$_food</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="fm">__construct</span><span class="p">(</span><span class="nv">$food</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_name</span> <span class="o">=</span> <span class="s1">&#39;capsicum&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="nv">$food</span> <span class="nx">instanceof</span> <span class="nx">food</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_food</span> <span class="o">=</span> <span class="nv">$food</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="nf">cook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_food</span><span class="o">-&gt;</span><span class="na">cook</span><span class="p">()</span><span class="o">.</span><span class="s2">&#34;</span><span class="s2"> cooked_capsicum</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//肉丝
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">meat</span> <span class="k">extends</span> <span class="nx">fooddecorator</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$_food</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="fm">__construct</span><span class="p">(</span><span class="nv">$food</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_name</span> <span class="o">=</span> <span class="s1">&#39;meat&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="nv">$food</span> <span class="nx">instanceof</span> <span class="nx">food</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_food</span> <span class="o">=</span> <span class="nv">$food</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="nf">cook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_food</span><span class="o">-&gt;</span><span class="na">cook</span><span class="p">()</span><span class="o">.</span><span class="s2">&#34;</span><span class="s2"> cooked_meat</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//qr 青椒加饭 qjrs means 青椒肉丝
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$rice</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">rice</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//加青椒
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$qr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">capsicum</span><span class="p">(</span><span class="nv">$rice</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//加肉
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$qjrs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">meat</span><span class="p">(</span><span class="nv">$qr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;</span><span class="s2">fried green peppers:</span><span class="s2">&#34;</span><span class="o">.</span><span class="nv">$qjrs</span><span class="o">-&gt;</span><span class="na">cook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre>
 <p>结果:
 <img src="http://images2015.cnblogs.com/blog/627405/201604/627405-20160402114203301-1802542429.png" alt="" /></p>
 
@@ -170,65 +178,63 @@ echo &quot;fried green peppers:&quot;.$qjrs-&gt;cook();
 <strong>装饰模式是围绕一个核心，然后动态装饰这个核心，很明显盖浇饭的核心是饭，在饭上加不同的菜，产生了不同的盖浇饭</strong>
 这个时候估计有人说了，我不用装饰模式也可以实现着个过程啊~
 然后写了这样的代码：</p>
-
-<pre><code class="language-php">&lt;?php
-abstract class food
-{
-	public $_name;
-	abstract public function cook();
-}
-
-class rice extends food
-{
-	public function __construct()
-	{
-		$this-&gt;_name = 'rice';
-	}
-
-	public function cook()
-	{
-		return &quot; cooked_rice&quot;;
-	}
-}
-
-class capsicum extends food
-{
-	public function __construct()
-	{
-		$this-&gt;_name = 'capsicum';
-	}
-
-	public function cook()
-	{
-		return &quot; cooked_capsicum&quot;;
-	}
-}
-
-class meat extends food
-{
-	public function __construct()
-	{
-		$this-&gt;_name = 'meat';
-	}
-
-	public function cook()
-	{
-		return &quot; cooked_meat&quot;;
-	}
-}
-
-$rice = new rice();
-$capsicum = new capsicum();
-$meat = new meat();
-echo &quot;fried green peppers:&quot;.$rice-&gt;cook().$capsicum-&gt;cook().$meat-&gt;cook();
-?&gt;
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="o">&lt;</span><span class="o">?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">abstract</span> <span class="k">class</span> <span class="nc">food</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="nv">$_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">abstract</span> <span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="nf">cook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">rice</span> <span class="k">extends</span> <span class="nx">food</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_name</span> <span class="o">=</span> <span class="s1">&#39;rice&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="nf">cook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s2">&#34;</span><span class="s2"> cooked_rice</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">capsicum</span> <span class="k">extends</span> <span class="nx">food</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_name</span> <span class="o">=</span> <span class="s1">&#39;capsicum&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="nf">cook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s2">&#34;</span><span class="s2"> cooked_capsicum</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">meat</span> <span class="k">extends</span> <span class="nx">food</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_name</span> <span class="o">=</span> <span class="s1">&#39;meat&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="nf">cook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s2">&#34;</span><span class="s2"> cooked_meat</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$rice</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">rice</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$capsicum</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">capsicum</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$meat</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">meat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;</span><span class="s2">fried green peppers:</span><span class="s2">&#34;</span><span class="o">.</span><span class="nv">$rice</span><span class="o">-&gt;</span><span class="na">cook</span><span class="p">()</span><span class="o">.</span><span class="nv">$capsicum</span><span class="o">-&gt;</span><span class="na">cook</span><span class="p">()</span><span class="o">.</span><span class="nv">$meat</span><span class="o">-&gt;</span><span class="na">cook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre>
 <p>结果很明显跟上面一样~但是没有区别吗~很明显第二种方法，第二种方法暴露了你做盖浇饭的顺序，就相当于顾客悄悄溜进厨房，看着厨师把盖浇饭做好了，见证了这一从无到有的过程，因此我们需要用装饰模式，将这加工处理的工程隐藏起来，只有这一个区别吗？很明显并不是，第二种方法三个子类处于同级，不分主次，但是不要忘了，顾客是去吃米饭的，之所以要了盖浇饭是为了让米饭更好吃，如果真的没有菜，做不成盖浇饭，只吃米顾客还是可以接受的，但是要是没有米，光有菜可不行，米饭是前提条件。要是觉得难以接受这个设定，就把盖浇饭换成各种类型的粥吧，绿豆粥，红薯粥。。。，要是少了米，还能叫粥吗。</p>
 
 <p>最后做下简单的总结</p>
 
-<h4>装饰模式总结</h4>
+<h4 id="装饰模式总结">装饰模式总结</h4>
 
 <p>1.装饰模式是向原有的类，动态的添加新的功能。
 2.把类中的装饰功能从类中移去，是简化了原有类。
@@ -238,7 +244,7 @@ echo &quot;fried green peppers:&quot;.$rice-&gt;cook().$capsicum-&gt;cook().$mea
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -251,17 +257,13 @@ echo &quot;fried green peppers:&quot;.$rice-&gt;cook().$capsicum-&gt;cook().$mea
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -269,43 +271,85 @@ echo &quot;fried green peppers:&quot;.$rice-&gt;cook().$capsicum-&gt;cook().$mea
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

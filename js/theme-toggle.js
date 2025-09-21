@@ -121,3 +121,22 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
     new ThemeToggle().setTheme(newTheme);
   }
 });
+
+// 监听主题变化事件，确保代码高亮正确更新
+document.addEventListener('DOMContentLoaded', () => {
+  const themeObserver = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+        // 主题已更改，触发代码高亮更新
+        document.dispatchEvent(new CustomEvent('themeChanged', {
+          detail: { theme: document.documentElement.getAttribute('data-theme') }
+        }));
+      }
+    });
+  });
+
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme']
+  });
+});

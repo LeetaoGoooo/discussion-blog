@@ -21,38 +21,42 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>Flask的源码系列——前身</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">Flask的源码系列——前身</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>What is Flask?</h1>
+            <div class="post-content">
+                <h1 id="what-is-flask">What is Flask?</h1>
 
 <p>用了这么久的 Flask 框架,那么 Flask 究竟是什么呢？借用官方文档的一句话来说明这个问题:</p>
 
@@ -62,7 +66,7 @@
 
 <p>不难理解上面的一句话: Flask 是一个基于 <strong>WSGI</strong> 的轻量级的应用框架.那么 WSGI 又是什么?</p>
 
-<h1>What is WSGI ?</h1>
+<h1 id="what-is-wsgi">What is WSGI ?</h1>
 
 <blockquote>
 <p>The Web Server Gateway Interface (WSGI) is a simple calling convention for web servers to forward requests to web applications or frameworks written in the Python programming language. ——[ 1 ]
@@ -75,7 +79,7 @@ WSGI is a Python standard described in detail in PEP 3333. ——[ 2 ]</p>
 WSGI 是 Web 服务器网关接口。它描述了 web 服务器如何与 web 应用程序通信，以及如何将 web 应用程序链接在一起处理一个请求。
 WSGI 是在 <a href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a> [3]中详细描述的 Python 标准。</p>
 
-<h2>Why is WSGI necessary?</h2>
+<h2 id="why-is-wsgi-necessary">Why is WSGI necessary?</h2>
 
 <p>最初的传统的 Web 服务器是没有办法运行 Python 的应用程序的。直到 1990年末,一个  Grisha Trubetskoy 的开发者提出了一个 <a href="https://grisha.org/blog/2013/10/25/mod-python-the-long-story/">mod_python 的 Apache module</a>。然后再随后的几年和2000年初,apache 装载了 mod_python 模块,然后绝大多数的 python web 应用程序都得以运行。然而 mod_python 并不是一个标准的规格,随着 mod_module 开发的停滞不前和安全隐患被发现, python 社区意识到必须要有一个始终如一运行 python 代码的方法，因此 wsgi 应运而生。直到现在，WSGI仍然是运行 python web 应用程序的公认方法。</p>
 
@@ -83,21 +87,21 @@ WSGI 是在 <a href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333<
 
 <p>如上图所示，WSGI 服务器只是调用在 PEP 3333 标准中定义的 WSGI 应用程序上的可调用对象。</p>
 
-<h2>WSGI&rsquo;s Purpose</h2>
+<h2 id="wsgi-s-purpose">WSGI's Purpose</h2>
 
-<p>所以为什么不直接将 WSGI 服务器直接指向 WSGI 的应用框架呢?
-    1. <strong>WSGI 能够提供可好的可拓展性.</strong>  基于 WSGI，开发人员可以随时将 Web 组件替换为其他的。比如说由 Green Unicorn 无缝切换到 uWSGI。
-    2. <strong>WSGI服务器提升了负载规模</strong> 一次为千个请求提供动态内容数是WSGI服务器，而不是框架。 WSGI服务器处理来自Web服务器的处理请求，并决定如何将这些请求传递给应用程序框架的进程。</p>
-
+<p>所以为什么不直接将 WSGI 服务器直接指向 WSGI 的应用框架呢?</p>
+<pre class="chroma"><code><span class="line"><span class="cl">1. **WSGI 能够提供可好的可拓展性.**  基于 WSGI，开发人员可以随时将 Web 组件替换为其他的。比如说由 Green Unicorn 无缝切换到 uWSGI。 
+</span></span><span class="line"><span class="cl">2. **WSGI服务器提升了负载规模** 一次为千个请求提供动态内容数是WSGI服务器，而不是框架。 WSGI服务器处理来自Web服务器的处理请求，并决定如何将这些请求传递给应用程序框架的进程。
+</span></span></code></pre>
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fqmsl2kaf4j30xr0b23yw.jpg" alt="" /></p>
 
-<h2>What is  PEP 3333  ?</h2>
+<h2 id="what-is-pep-3333">What is  PEP 3333  ?</h2>
 
 <p>PEP 3333 一直出现在上文中,那么 PEP 3333 的究竟说了什么呢,有兴趣的读者可以直接点击<a href="https://www.python.org/dev/peps/pep-3333">PEP 3333</a>查看原文。嫌麻烦的话，可以直接看下图，一图胜千言,我花了一点时间将 PEP 3333 中的主要内容整理成了一个简单的脑图</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fqmnnn8ekjj324r1f9445.jpg" alt="" /></p>
 
-<h1>References</h1>
+<h1 id="references">References</h1>
 
 <p>[ 1 ] <a href="https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface">Web Server Gateway Interface</a></p>
 
@@ -109,7 +113,7 @@ WSGI 是在 <a href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333<
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -122,17 +126,13 @@ WSGI 是在 <a href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333<
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -140,43 +140,85 @@ WSGI 是在 <a href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333<
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

@@ -11,38 +11,42 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>Full-Screen Issue With .Sheet</h1>
-            <p class="meta">
-                By LeetaoGoooo on April 20, 2025
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">Full-Screen Issue With .Sheet</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on April 20, 2025
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>之前的 PromptHub 有个 Setting 页面，用来展示自定义配置的，预期是点击配置按钮，然后希望 Setting 页面可以完整展示</p>
 
@@ -53,16 +57,14 @@
 <p><img width="525" alt="实际效果" src="https://github.com/user-attachments/assets/70a4f3cb-1f8c-49d5-9ef9-be74e15ef323" /></p>
 
 <p>核心代码的是如下：</p>
-
-<pre><code class="language-swift">.sheet(isPresented: $showingSettings) {
-SettingsView(isPresented: $showingSettings, isComeFromSettingPage: false)
-.frame(maxWidth: .infinity, maxHeight: .infinity)
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="p">.</span><span class="n">sheet</span><span class="p">(</span><span class="n">isPresented</span><span class="p">:</span> <span class="err">$</span><span class="n">showingSettings</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">SettingsView</span><span class="p">(</span><span class="n">isPresented</span><span class="p">:</span> <span class="err">$</span><span class="n">showingSettings</span><span class="p">,</span> <span class="n">isComeFromSettingPage</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="n">frame</span><span class="p">(</span><span class="n">maxWidth</span><span class="p">:</span> <span class="p">.</span><span class="n">infinity</span><span class="p">,</span> <span class="n">maxHeight</span><span class="p">:</span> <span class="p">.</span><span class="n">infinity</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
 <p>随后就是 Debug 之路</p>
 
-<h1>Sheet &amp;&amp; Frame</h1>
+<h1 id="sheet-frame">Sheet &amp;&amp; Frame</h1>
 
 <p>从实际效果来看，很明显<strong>.frame(maxWidth: .infinity, maxHeight: .infinity)</strong>并没有生效。从上面代码可以看到涉及到两个 modifier:</p>
 
@@ -74,48 +76,42 @@ SettingsView(isPresented: $showingSettings, isComeFromSettingPage: false)
 
 <p>所以需要将这两个 modifier 进行逐个拆解，以及组合从而解释目前的现象.</p>
 
-<h2>Frame</h2>
+<h2 id="frame">Frame</h2>
 
 <p>先说<strong>frame(maxWidth: .infinity, maxHeight: .infinity)</strong>这行代码只是一个倾向性，告诉父视图在允许的情况下尽可能的占据最大的视图尺寸，这种约束其实是最小的，基本上完全由父视图原本的机制决定。在当前场景下，它的父视图是什么？是 sheet  所以剩下要梳理的是，sheet 的视图机制问题了。</p>
 
-<h2>Sheet</h2>
+<h2 id="sheet">Sheet</h2>
 
 <p>官方文档链接：<a href="https://developer.apple.com/documentation/swiftui/view/sheet(ispresented:ondismiss:content:">sheet(isPresented:onDismiss:content:)</a>)</p>
-
-<pre><code>In vertically compact environments, such as iPhone in landscape orientation, a sheet presentation automatically adapts to appear as a full-screen cover.
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">In vertically compact environments, such as iPhone in landscape orientation, a sheet presentation automatically adapts to appear as a full-screen cover.
+</span></span></code></pre>
 <p>即在垂直空间受限的环境中，例如横向模式下的 iPhone，sheet 视图的呈现方式会自动调整为全屏覆盖。不过我们这里是在 macOS 下，Sheet 默认情况下的尺寸大小完全由<strong>内容尺寸</strong>决定，如果有<strong>理想尺寸</strong>则由其决定。</p>
 
 <p>回到示例中，SettingsView 并没有设置<strong>idealWidth</strong>和<strong>idealHeight</strong>, 所以最终还是由SettingsView 的内容尺寸决定。所以这里问题最终回到了<strong>SettingsView</strong>视图问题</p>
 
 <p><img width="929" alt="Screenshot 2025-04-20 at 15 09 45" src="https://github.com/user-attachments/assets/d1ec04ee-d99e-4f72-965a-9fb3b88513f5" /></p>
 
-<h1>SettingsView</h1>
-
-<pre><code class="language-swiftui">NavigationView {
-...
-}
-</code></pre>
-
+<h1 id="settingsview">SettingsView</h1>
+<pre class="chroma"><code><span class="line"><span class="cl">NavigationView {
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre>
 <p><img width="978" alt="NavigationView" src="https://github.com/user-attachments/assets/5fbaa881-ea3b-4982-b6b4-5f16fac1aa33" /></p>
 
 <p>NavigationView 在 macOS 10.15–15.4 已经被废弃了，这就可能出现问题的原因吧，甚至有建议把  NavigationView 放到 sheet 下就可以正常工作，并没有去尝试。</p>
-
-<pre><code class="language-swift">.sheet(isPresented: $showSheet) {
-  NavigationView {
-  …
-  }
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="p">.</span><span class="n">sheet</span><span class="p">(</span><span class="n">isPresented</span><span class="p">:</span> <span class="err">$</span><span class="n">showSheet</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">NavigationView</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="err">…</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
 <p>当切换到<strong>NavigationSplitView</strong>基本能够符合预期的工作，但是由于 sheet 的原因会根据内容尺寸去变化大小，在 SettingsView 里俩个标签页大小不一致，所以窗口大小会在切换的时候变化，为了保持一致性，最终使用了另外一种方法，这都是后话了。</p>
 
-<h1>最后</h1>
+<h1 id="最后">最后</h1>
 
 <p>和流程图说的那样，如果 Frame 是固定尺寸的话，其实也是可以正常工作的，但是固定尺寸并不灵活，所以在实际休修复这个问题的时候，我也没有去考虑。</p>
 
-<h1>参考文档</h1>
+<h1 id="参考文档">参考文档</h1>
 
 <ol>
 <li><a href="https://developer.apple.com/documentation/swiftui/navigationview">NavigationView</a></li>
@@ -125,11 +121,11 @@ SettingsView(isPresented: $showingSettings, isComeFromSettingPage: false)
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
-                <span class="tag">swiftui</span>
+                <a href="/tags/swiftui/" class="tag">swiftui</a>
                 
-                <span class="tag">swift</span>
+                <a href="/tags/swift/" class="tag">swift</a>
                 
             </div>
             
@@ -142,17 +138,13 @@ SettingsView(isPresented: $showingSettings, isComeFromSettingPage: false)
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -160,43 +152,85 @@ SettingsView(isPresented: $showingSettings, isComeFromSettingPage: false)
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

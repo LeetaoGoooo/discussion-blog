@@ -4,7 +4,7 @@
 	<subtitle>写有趣的代码，做有趣的事</subtitle>
 	<link href="https://www.leetao.me"/>
 	<link href="https://www.leetao.me/atom.xml" rel="self"/>
-	<updated>2025-08-31T09:12:01Z</updated>
+	<updated>2025-09-21T12:12:24Z</updated>
 	<id>https://www.leetao.me</id>
 	<author>
 		<name>Leetao</name>
@@ -12,48 +12,13 @@
 	</author>
 	
 	<entry>
-		<title>SwiftUI popver 变成类似 sheet 效果</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/265"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/265" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/265</id>
-		<published>2025-07-21T02:15:22Z</published>
-		<updated>2025-07-21T02:15:22Z</updated>
-		<summary type="html">| 修改前效果 | 修改后效果 |
-|&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;&amp;ndash;|
-|  |  |
-
-
-
-
-结论
-
-popover 变成类似 sheet 的效果，是 SwiftUI 的预期行为，不是 Bug。
-
-
-�...</summary>
-	</entry>
-	
-	<entry>
-		<title>关于</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/10</id>
-		<published>2022-12-04T10:20:50Z</published>
-		<updated>2022-12-04T10:20:50Z</updated>
-		<summary type="html">
-Enjoys writing interesting code, and doing fun things
-写有趣的代码，做有趣的事
-
-
-Program Language
-
-Python、Golang、Rust、Dart、Swift
-
-
-Hobbies
-
-Running、Swimming and Reading
-...</summary>
+		<title>新域名的第二年</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/272"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/272" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/272</id>
+		<published>2025-09-21T12:12:24Z</published>
+		<updated>2025-09-21T12:12:24Z</updated>
+		<summary type="html">换了新域名 leetao.me 昨天迎来了网站的又一年了，昨天配合 AI 把网站重构了一下，网站依旧始部署在 vercel，不一样的是，去年使用的是 pure,通过 go + Go R...</summary>
 	</entry>
 	
 	<entry>
@@ -92,6 +57,28 @@ TextEditor(text: $userInput)
 
 
 今天算是沾了台风的光又家居家办公了一天，居家办公效率有的时候是个谜，幸运地是，今天的效率还算蛮高的，截止到下班前把之前遗留的一些�...</summary>
+	</entry>
+	
+	<entry>
+		<title>SwiftUI popver 变成类似 sheet 效果</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/265"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/265" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/265</id>
+		<published>2025-07-21T02:15:22Z</published>
+		<updated>2025-07-21T02:15:22Z</updated>
+		<summary type="html">| 修改前效果 | 修改后效果 |
+|&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;&amp;ndash;|
+|  |  |
+
+
+
+
+结论
+
+popover 变成类似 sheet 的效果，是 SwiftUI 的预期行为，不是 Bug。
+
+
+�...</summary>
 	</entry>
 	
 	<entry>
@@ -560,25 +547,6 @@ Lately, I&amp;rsquo;ve been working on a browser extension. While developing, I 
 	</entry>
 	
 	<entry>
-		<title>自动同步豆瓣图书封面到 Notion 的读书笔记</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/14"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/14" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/14</id>
-		<published>2023-02-12T08:22:14Z</published>
-		<updated>2023-02-12T08:22:14Z</updated>
-		<summary type="html">TL;DR
-
-可以通过以下脚本实现同步封面到 Notion 读书笔记
-
-python
-from typing import List, TypedDict
-import requests
-import os
-
-database_id = os.getenv(&amp;quot;database_id&amp;quot;)...</summary>
-	</entry>
-	
-	<entry>
 		<title>open extension popup when click on context menu</title>
 		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/230"/>
 		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/230" rel="alternate"/>
@@ -587,30 +555,6 @@ database_id = os.getenv(&amp;quot;database_id&amp;quot;)...</summary>
 		<updated>2023-11-28T13:36:59Z</updated>
 		<summary type="html">
 Recently, I&amp;rsquo;ve been working on a browser extension and hoping to implement a feature where a popup can be displayed when the user clicks the context menu. After researching this, i&amp;rsquo;m do ...</summary>
-	</entry>
-	
-	<entry>
-		<title>VoiceBox Feedback</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/224"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/224" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/224</id>
-		<published>2023-09-06T08:50:59Z</published>
-		<updated>2023-09-06T08:50:59Z</updated>
-		<summary type="html">VoiceBox Feedback
-</summary>
-	</entry>
-	
-	<entry>
-		<title>导出有道词典单词本</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/223"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/223" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/223</id>
-		<published>2023-08-06T08:46:34Z</published>
-		<updated>2023-08-06T08:46:34Z</updated>
-		<summary type="html">更新 2023-10-26
-
-
-经由 @XYZ-99 提示才发现网页默认单词列表的只是【我的单词本】（猜测应该是默认的单词本，手机端可以设置），对于多单词本的情况�...</summary>
 	</entry>
 	
 	<entry>
@@ -649,13 +593,27 @@ swift
 	</entry>
 	
 	<entry>
-		<title>滴滴行程分享 Api</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/28"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/28" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/28</id>
-		<published>2023-07-16T08:31:35Z</published>
-		<updated>2023-07-16T08:31:35Z</updated>
-		<summary type="html">分享一个很久之前写的一个关于滴滴行程的脚本，脚本的主要功能是根据滴滴行程分享的 url 获取订单情况，通过定时轮询还可以获取乘客到目的地的距...</summary>
+		<title>VoiceBox Feedback</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/224"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/224" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/224</id>
+		<published>2023-09-06T08:50:59Z</published>
+		<updated>2023-09-06T08:50:59Z</updated>
+		<summary type="html">VoiceBox Feedback
+</summary>
+	</entry>
+	
+	<entry>
+		<title>导出有道词典单词本</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/223"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/223" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/223</id>
+		<published>2023-08-06T08:46:34Z</published>
+		<updated>2023-08-06T08:46:34Z</updated>
+		<summary type="html">更新 2023-10-26
+
+
+经由 @XYZ-99 提示才发现网页默认单词列表的只是【我的单词本】（猜测应该是默认的单词本，手机端可以设置），对于多单词本的情况�...</summary>
 	</entry>
 	
 	<entry>
@@ -1334,16 +1292,6 @@ sudo fuser -k 80/tcp
 	</entry>
 	
 	<entry>
-		<title>HP EliteDesk 800 G3  SFF 台式机 使用  BiosConfigUtility 配置 Bios</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/55"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/55" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/55</id>
-		<published>2023-07-16T08:32:02Z</published>
-		<updated>2023-07-16T08:32:02Z</updated>
-		<summary type="html">在windows下装个docker真是不容易,到最后一步,没有办法开启VTx. 其实很简单,前提如果是可以进入bios的情况下. 不知道怎么会是我的台式机(HP EliteDesk 800 G3  S...</summary>
-	</entry>
-	
-	<entry>
 		<title>H-Index</title>
 		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/54"/>
 		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/54" rel="alternate"/>
@@ -1353,6 +1301,16 @@ sudo fuser -k 80/tcp
 		<summary type="html">Given an array of citations (each citation is a non-negative integer) of a researcher, write a function to compute the researcher&amp;rsquo;s h-index.
 
 According to the definition of h-index on Wikipedia:...</summary>
+	</entry>
+	
+	<entry>
+		<title>HP EliteDesk 800 G3  SFF 台式机 使用  BiosConfigUtility 配置 Bios</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/55"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/55" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/55</id>
+		<published>2023-07-16T08:32:02Z</published>
+		<updated>2023-07-16T08:32:02Z</updated>
+		<summary type="html">在windows下装个docker真是不容易,到最后一步,没有办法开启VTx. 其实很简单,前提如果是可以进入bios的情况下. 不知道怎么会是我的台式机(HP EliteDesk 800 G3  S...</summary>
 	</entry>
 	
 	<entry>
@@ -1705,6 +1663,16 @@ yum list | grep mysql
 	</entry>
 	
 	<entry>
+		<title>滴滴行程分享 Api</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/28"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/28" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/28</id>
+		<published>2023-07-16T08:31:35Z</published>
+		<updated>2023-07-16T08:31:35Z</updated>
+		<summary type="html">分享一个很久之前写的一个关于滴滴行程的脚本，脚本的主要功能是根据滴滴行程分享的 url 获取订单情况，通过定时轮询还可以获取乘客到目的地的距...</summary>
+	</entry>
+	
+	<entry>
 		<title>&#39;类的自定注册以及应用场景&#39;</title>
 		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/27"/>
 		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/27" rel="alternate"/>
@@ -1825,6 +1793,18 @@ Recently i looked through  the document for flutter_bloc. Document is well-organ
 	</entry>
 	
 	<entry>
+		<title>某网站防 Selenium 爬取的方案和解决方案</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/17"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/17" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/17</id>
+		<published>2023-03-15T03:32:53Z</published>
+		<updated>2023-03-15T03:32:53Z</updated>
+		<summary type="html"># 前言
+
+最近在爬取某网站的使用 selenium 模拟登录，发现手动登录一切正常，但是一旦使用 selenium，最后提交事件无法被触发，导致无法登录，显然 sel...</summary>
+	</entry>
+	
+	<entry>
 		<title>openpyxl Value must be either numerical or a string containing a wildcard</title>
 		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/16"/>
 		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/16" rel="alternate"/>
@@ -1836,18 +1816,6 @@ Recently i looked through  the document for flutter_bloc. Document is well-organ
 前言
 
 openpyxl 在 3.1.0 之后版本引入了一个新的 bug，具体问题可以参考 issue-1959。一旦你使用的 Excel 文件中的通配符(wildcard) 不存在数字的话，就会如�...</summary>
-	</entry>
-	
-	<entry>
-		<title>某网站防 Selenium 爬取的方案和解决方案</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/17"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/17" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/17</id>
-		<published>2023-03-15T03:32:53Z</published>
-		<updated>2023-03-15T03:32:53Z</updated>
-		<summary type="html"># 前言
-
-最近在爬取某网站的使用 selenium 模拟登录，发现手动登录一切正常，但是一旦使用 selenium，最后提交事件无法被触发，导致无法登录，显然 sel...</summary>
 	</entry>
 	
 	<entry>
@@ -1868,17 +1836,22 @@ openpyxl 在 3.1.0 之后版本引入了一个新的 bug，具体问题可以参
 	</entry>
 	
 	<entry>
-		<title>Golang 字符串和 rune</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/9"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/9" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/9</id>
-		<published>2022-11-28T12:27:57Z</published>
-		<updated>2022-11-28T12:27:57Z</updated>
-		<summary type="html">
+		<title>自动同步豆瓣图书封面到 Notion 的读书笔记</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/14"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/14" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/14</id>
+		<published>2023-02-12T08:22:14Z</published>
+		<updated>2023-02-12T08:22:14Z</updated>
+		<summary type="html">TL;DR
 
+可以通过以下脚本实现同步封面到 Notion 读书笔记
 
+python
+from typing import List, TypedDict
+import requests
+import os
 
-在 Go 中字符串是一个使用频率很高的数据类型，通常的操作有拼接和切片操作，拼接操作不是这篇文章的重点，这里就不做深入讨论，这里聊聊�...</summary>
+database_id = os.getenv(&amp;quot;database_id&amp;quot;)...</summary>
 	</entry>
 	
 	<entry>
@@ -1926,6 +1899,43 @@ func GetIntersection[T comparable](a []T, b []T) []T {
 
 	for _, v := range a {
 		h...</summary>
+	</entry>
+	
+	<entry>
+		<title>关于</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/10</id>
+		<published>2022-12-04T10:20:50Z</published>
+		<updated>2022-12-04T10:20:50Z</updated>
+		<summary type="html">
+Enjoys writing interesting code, and doing fun things
+写有趣的代码，做有趣的事
+
+
+Program Language
+
+Python、Golang、Rust、Dart、Swift
+
+
+Hobbies
+
+Running、Swimming and Reading
+...</summary>
+	</entry>
+	
+	<entry>
+		<title>Golang 字符串和 rune</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/9"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/9" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/9</id>
+		<published>2022-11-28T12:27:57Z</published>
+		<updated>2022-11-28T12:27:57Z</updated>
+		<summary type="html">
+
+
+
+在 Go 中字符串是一个使用频率很高的数据类型，通常的操作有拼接和切片操作，拼接操作不是这篇文章的重点，这里就不做深入讨论，这里聊聊�...</summary>
 	</entry>
 	
 	<entry>

@@ -16,168 +16,142 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>在Ubuntu14.04上使用Gunicorn和Nginx部署Flask应用</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">在Ubuntu14.04上使用Gunicorn和Nginx部署Flask应用</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
+            <div class="post-content">
                 <p>最近闲来无事折腾了一下自己的个人公共号,通过 Flask 构建了几个简单的小功能然后部署到服务器上.网上关于部署的教程有很多,这里我就简单介绍一下我的部署步骤.</p>
 
-<h1>部署的准备工作</h1>
+<h1 id="部署的准备工作">部署的准备工作</h1>
 
 <p>更新并安装下述的包</p>
-
-<pre><code class="language-shell">apt-get update
-apt-get install python-pip python-dev nginx
-</code></pre>
-
-<h1>创建虚拟环境</h1>
+<pre class="chroma"><code><span class="line"><span class="cl">apt-get update
+</span></span><span class="line"><span class="cl">apt-get install python-pip python-dev nginx
+</span></span></code></pre>
+<h1 id="创建虚拟环境">创建虚拟环境</h1>
 
 <p>切到项目所以目录下,由于我使用的是 python 版本是 3.5.2 的,所以通过下述命令去创建虚拟环境</p>
-
-<pre><code class="language-shell">python -m venv Env # Env 为创建的虚拟环境的名称
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">python -m venv Env <span class="c1"># Env 为创建的虚拟环境的名称</span>
+</span></span></code></pre>
 <p>然后激活环境安装相应的库</p>
-
-<pre><code class="language-shell">source Env/bin/activate
-pip install gunicorn # 这里省略了其他需要安装的包 
-</code></pre>
-
-<h1>创建 WSGI 文件</h1>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="nb">source</span> Env/bin/activate
+</span></span><span class="line"><span class="cl">pip install gunicorn <span class="c1"># 这里省略了其他需要安装的包 </span>
+</span></span></code></pre>
+<h1 id="创建-wsgi-文件">创建 WSGI 文件</h1>
 
 <p>通过命令行在项目目录下创建 <code>wsgi.py</code> 文件</p>
-
-<pre><code class="language-shell">nano wsgi.py # 原来用 vim,后来发现用 nano 也很爽
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">nano wsgi.py <span class="c1"># 原来用 vim,后来发现用 nano 也很爽</span>
+</span></span></code></pre>
 <p>这个文件内容其实很简单就是让程序运行起来:</p>
-
-<pre><code class="language-python"># wsgi.py
-from httpbin import create_app # httpbin 项目目录
-
-application = create_app('default')
-
-if __name__ == '__main__':
-    application.run()
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c1"># wsgi.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">httpbin</span> <span class="kn">import</span> <span class="n">create_app</span> <span class="c1"># httpbin 项目目录</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">application</span> <span class="o">=</span> <span class="n">create_app</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">default</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">__main__</span><span class="s1">&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">application</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="p">)</span>
+</span></span></code></pre>
 <p>然后保存</p>
 
-<h1>使用 Gunicorn 运行应用</h1>
+<h1 id="使用-gunicorn-运行应用">使用 Gunicorn 运行应用</h1>
 
 <p>由于服务默认开发端口仅有80和443端口,对此我也懒得修改,直接将服务挂载到80端口进行测试</p>
-
-<pre><code class="language-shell">gunicorn --bind 0.0.0.0:80 wsgi
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">gunicorn --bind 0.0.0.0:80 wsgi
+</span></span></code></pre>
 <p>通过访问我应用的指定的api然后成功获得了数据,然后开始进行下一步</p>
 
-<h1>创建一个启动脚本</h1>
+<h1 id="创建一个启动脚本">创建一个启动脚本</h1>
 
 <p>这个脚本顾名思义允许 Ubuntu 自动启动 Gunicorn 从而挂载我的 Flask 应用.在 <code>/etc/init</code> 目录下创建以 <code>.conf</code> 结尾的文件:</p>
-
-<pre><code class="language-shell">nano /etc/init/wechat.conf
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">nano /etc/init/wechat.conf
+</span></span></code></pre>
 <p>文件内容如下:</p>
-
-<pre><code class="language-shell"># wechat.conf
-
-description &quot;Gunicorn application server running wechat&quot;
-
-start on runlevel [2345]
-stop on runlevel [!2345]
-
-respawn
-setuid root # 我的是root用户,如果你是在其他用户下运行则将其他改为其他用户名称
-setgid www-data
-
-env PATH=/home/py/wechat/Env/bin # python 环境目录
-chdir /home/py/wechat
-exec gunicorn --workers 3 --bind unix:wechat.sock -m 007 wsgi
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c1"># wechat.conf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">description <span class="s2">&#34;Gunicorn application server running wechat&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">start on runlevel <span class="o">[</span>2345<span class="o">]</span>
+</span></span><span class="line"><span class="cl">stop on runlevel <span class="o">[</span>!2345<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">respawn
+</span></span><span class="line"><span class="cl">setuid root <span class="c1"># 我的是root用户,如果你是在其他用户下运行则将其他改为其他用户名称</span>
+</span></span><span class="line"><span class="cl">setgid www-data
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">env <span class="nv">PATH</span><span class="o">=</span>/home/py/wechat/Env/bin <span class="c1"># python 环境目录</span>
+</span></span><span class="line"><span class="cl">chdir /home/py/wechat
+</span></span><span class="line"><span class="cl"><span class="nb">exec</span> gunicorn --workers <span class="m">3</span> --bind unix:wechat.sock -m <span class="m">007</span> wsgi
+</span></span></code></pre>
 <p>保存退出,然后尝试运行你的脚本文件</p>
-
-<pre><code class="language-shell">start wechat
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">start wechat
+</span></span></code></pre>
 <p>想要查看是否运行成功的话，可以使用下述命令:</p>
-
-<pre><code class="language-shell">ps -aux | grep wechat
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">ps -aux <span class="p">|</span> grep wechat
+</span></span></code></pre>
 <p>如果你在输出的结果中看到相应的进程了就说明你的脚本运行成功了.然后就可以进行下一步</p>
 
-<h1>配置 Nginx</h1>
+<h1 id="配置-nginx">配置 Nginx</h1>
 
 <p>在这里介绍了如何简单配置 Nginx,但是在实际应用中需要思考一下是否真的需要用到 Nginx,Nginx有很多功能,但是对于像这样简单的小应用,直接 Gunicorn 裸跑也是没毛病的,但是你说你一台服务器挂多个域名,避免 Gunicorn 独占 80 端口，用 Nginx 这个更没毛病.</p>
 
 <p>在 <code>/etc/nginx/sites-available</code> 目录下创建项目配置文件 <code>wechat</code>,没必要将缺省文件删除</p>
-
-<pre><code class="language-shell">nano /etc/nginx/sites-available/wechat
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">nano /etc/nginx/sites-available/wechat
+</span></span></code></pre>
 <p>配置文件内容如下:</p>
-
-<pre><code class="language-shell">server {
-    listen 80;
-    server_name server_domain_or_IP;
-
-    location / {
-        include proxy_params;
-        proxy_pass http://unix:/home/py/wechat/wechat.sock;
-    }
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    listen 80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server_name server_domain_or_IP<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        include proxy_params<span class="p">;</span>
+</span></span><span class="line"><span class="cl">        proxy_pass http://unix:/home/py/wechat/wechat.sock<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre>
 <p>保存退出,然后为了确保配置文件生效,将其链接到 <code>sites-enabled</code> 目录下:</p>
-
-<pre><code class="language-shell">ln -s /etc/nginx/sites-available/wechat /etc/nginx/sites-enabled
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">ln -s /etc/nginx/sites-available/wechat /etc/nginx/sites-enabled
+</span></span></code></pre>
 <p>测试一下配置文件是否有语法错误:</p>
-
-<pre><code class="language-shell">nginx -t
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">nginx -t
+</span></span></code></pre>
 <p>如果看见 succssful 的成功单词就说明配置文件没有任何问题,然后重启 nginx</p>
-
-<pre><code class="language-shell">service nginx restart 
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">service nginx restart 
+</span></span></code></pre>
 <p>大功告成~</p>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -190,17 +164,13 @@ exec gunicorn --workers 3 --bind unix:wechat.sock -m 007 wsgi
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -208,43 +178,85 @@ exec gunicorn --workers 3 --bind unix:wechat.sock -m 007 wsgi
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

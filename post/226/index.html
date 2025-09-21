@@ -11,145 +11,141 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>2023年博客折腾记</h1>
-            <p class="meta">
-                By LeetaoGoooo on September 24, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">2023年博客折腾记</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on September 24, 2023
+                </p>
+            </header>
             
-            <div class="content">
+            <div class="post-content">
                 <p><img src="https://github.com/LeetaoGoooo/discussion-blog/assets/10162120/37d59486-a509-4819-bc09-8720678a6900" alt="image" /></p>
 
 <p>每年总有一段时间想折腾一下博客，今年的博客历时三天总算折腾结束了。之前的博客是自己基于 Github Discussion 开发的，使用的语言是 Go，今年也不想着再用别的语言重写一遍了，不过尝试了用 Vercel 的 Serverless function 把自己的博客成功的从阿里云迁移到 Vercel 了，这样子的话就不需要续费服务器了，感觉省下来了一个亿。</p>
 
-<h1>代码</h1>
+<h1 id="代码">代码</h1>
 
 <p>完整代码可以去 <a href="https://github.com/LeetaoGoooo/pure">pure</a> 查看，这里简单说一下核心的改造地方：</p>
 
-<h2>目录结构</h2>
+<h2 id="目录结构">目录结构</h2>
 
 <p>由于 Vercel 的要求，新增了一个 Api 的目录，然后由于一些原因，对代码进行了改造，实际最后新增了好几个目录：</p>
 
 <p><img src="https://github.com/LeetaoGoooo/discussion-blog/assets/10162120/1d2dd27c-5dd6-4aea-aac8-12c3c07725ed" alt="image" /></p>
 
-<h2>路由问题</h2>
+<h2 id="路由问题">路由问题</h2>
 
 <p>默认 serverless 的路由是 <code>api</code> 开头的，但是如果最后主页变成 <code>/api/posts</code>之类的，实在太丑陋了，所以需要改写路径，一开始参考  <a href="https://github.com/vercel/vercel/discussions/6730">Rewriting route for serverless function projects (i.e. no more /api)</a> 直接修改 <code>vercel.json</code> 如下：</p>
-
-<pre><code class="language-json">{
-  &quot;rewrites&quot;: [
-    { &quot;source&quot;: &quot;/:path*&quot;, &quot;destination&quot;: &quot;/api/:path*&quot; }
-  ]
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;rewrites&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;/:path*&#34;</span><span class="p">,</span> <span class="nt">&#34;destination&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/:path*&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
 <p>有效但是只有一部分，只有主页部分是好的，其他部分都不行，然后最后使用 <code>redirects</code> 和 <code>rewrites</code> 完成了这个需求，不过不是完美实现，然后有缺陷，主页变成了 <code>/posts</code>，其他部分都正常：</p>
-
-<pre><code class="language-json">{
-     	
-  &quot;redirects&quot;: [
-    {
-      &quot;source&quot;: &quot;/&quot;,
-      &quot;destination&quot;: &quot;/posts&quot;,
-      &quot;permanent&quot;: true
-    }
-  ],
-      &quot;rewrites&quot;: [
-        {
-          &quot;source&quot;: &quot;/posts&quot;,
-          &quot;destination&quot;: &quot;/api/posts&quot;
-        },
-        {
-          &quot;source&quot;: &quot;/post/(.*)&quot;,
-          &quot;destination&quot;: &quot;/api/post/(.*)&quot;
-        },
-        {
-          &quot;source&quot;: &quot;/about&quot;,
-          &quot;destination&quot;: &quot;/api/about&quot;
-        },
-        {
-          &quot;source&quot;: &quot;/atom.xml&quot;,
-          &quot;destination&quot;: &quot;/api/atom.xml&quot;
-        },
-        {
-          &quot;source&quot;:&quot;/category/(.*)&quot;,
-          &quot;destination&quot;: &quot;/api/category/(.*)&quot;
-        },
-        {
-          &quot;source&quot;:&quot;/404&quot;,
-          &quot;destination&quot;: &quot;/api/404&quot;
-        },
-        {
-          &quot;source&quot;: &quot;/api/(.*)&quot;,
-          &quot;destination&quot;: &quot;/api/index.go&quot;
-        }
-      ]
-
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">     	
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;redirects&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;destination&#34;</span><span class="p">:</span> <span class="s2">&#34;/posts&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;permanent&#34;</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;rewrites&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;/posts&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;destination&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/posts&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;/post/(.*)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;destination&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/post/(.*)&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;/about&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;destination&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/about&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;/atom.xml&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;destination&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/atom.xml&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;source&#34;</span><span class="p">:</span><span class="s2">&#34;/category/(.*)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;destination&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/category/(.*)&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;source&#34;</span><span class="p">:</span><span class="s2">&#34;/404&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;destination&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/404&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/(.*)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;destination&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/index.go&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
 <p>不得不说实在太土了，不过好在能用，后面看看有没有更优雅的方式。</p>
 
-<h1>一些坑</h1>
+<h1 id="一些坑">一些坑</h1>
 
 <p>由于 serveless 函数不支持使用上传的文件，所以我只好把原来的模版文件全部写到 <code>constants.go</code> 文件中，然后所有的 css 文件都直接引用 cdn 的文件。</p>
 
 <p>其实另外一个问题，其实是个小问题，我之前使用的 go 框架是 gin， vercel 默认的 golang 的 serverless 例子是这样子：</p>
-
-<pre><code class="language-go">package handler
- 
-import (
-  &quot;fmt&quot;
-  &quot;net/http&quot;
-)
- 
-func Handler(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprintf(w, &quot;&lt;h1&gt;Hello from Go!&lt;/h1&gt;&quot;)
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">handler</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="s">&#34;fmt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="s">&#34;net/http&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">func</span><span class="w"> </span><span class="nf">Handler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;&lt;h1&gt;Hello from Go!&lt;/h1&gt;&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre>
 <p>这就是需要我对原来的启动代码进行小小的改造，接受  <code>(w http.ResponseWriter, r *http.Request)</code> 这两个参数，改动如下：</p>
-
-<pre><code class="language-go">func Handler(writer http.ResponseWriter, request *http.Request) {
-	r := gin.New()
-        // ...
-	r.ServeHTTP(writer, request)
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">Handler</span><span class="p">(</span><span class="nx">writer</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">	</span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">gin</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">        </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">	</span><span class="nx">r</span><span class="p">.</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">writer</span><span class="p">,</span><span class="w"> </span><span class="nx">request</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre>
 <p>到这里就基本改造完成，然后部署到 vercel，最后把阿里云的服务器停掉，域名指向 vercel 分配到默认域名上，一切大功告成🎉，后面应该不会再折腾博客了，就在 discussion 上安安心心地写博客了</p>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
-                <span class="tag">go</span>
+                <a href="/tags/go/" class="tag">go</a>
                 
-                <span class="tag">vercel</span>
+                <a href="/tags/vercel/" class="tag">vercel</a>
                 
             </div>
             
@@ -162,17 +158,13 @@ func Handler(w http.ResponseWriter, r *http.Request) {
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -180,43 +172,85 @@ func Handler(w http.ResponseWriter, r *http.Request) {
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

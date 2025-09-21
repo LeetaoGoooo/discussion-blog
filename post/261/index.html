@@ -11,38 +11,42 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>Download a Google Drive file using the `drive.file` scope</h1>
-            <p class="meta">
-                By LeetaoGoooo on April 7, 2025
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">Download a Google Drive file using the `drive.file` scope</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on April 7, 2025
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>drive.readonly 方便，但是被拒绝了</h1>
+            <div class="post-content">
+                <h1 id="drive-readonly-方便-但是被拒绝了">drive.readonly 方便，但是被拒绝了</h1>
 
 <p>最近的项目有个需求就是将用户的 Google Drive 的文件导出到我们自己的应用。从 Google Drive 的文档看下载的逻辑并不难，核心就是获取到用户在 Google Drive 选中的文件的 id 和认证的 token 就可以完成文件的下载了。问题这涉及到 Google Drive 的 scope 选择的问题。</p>
 
@@ -55,157 +59,151 @@
 
 <p>他们推荐使用 driver.file 而不是 Restricted Drive API scopes — driver.readonly 所以问题就变成了如何使用 drive.file 去实现下载文件的功能。</p>
 
-<h1>基于 drive.file 的 scope 去实现下载 Google Drive 文件</h1>
+<h1 id="基于-drive-file-的-scope-去实现下载-google-drive-文件">基于 drive.file 的 scope 去实现下载 Google Drive 文件</h1>
 
 <p>最初写了如下的代码来实现基本的获取用户选择的文件 id 和 token</p>
-
-<pre><code class="language-ts">const config: GoogleDrivePickerConfig = {
-  allowMultiSelect: true,
-  scopes: ['https://www.googleapis.com/auth/drive.file'],
-};
- 
-const createPicker = (options: CreatePickerOptions) =&gt; {
-    const { oauthToken, apiKey, config, setSelectedFiles } = options;
-    if (!window.google?.picker) {
-      handleError('Google Picker API is not available');
-      return;
-    }
-  
-    const pickerBuilder = new window.google.picker.PickerBuilder()
-      .addView(
-        config.viewId
-          ? window.google.picker.ViewId[config.viewId]
-          : window.google.picker.ViewId.DOCS,
-      )
-      .setOAuthToken(oauthToken)
-      .setDeveloperKey(apiKey)
-      .setCallback((data: PickerCallbackData) =&gt; {
-        if (data.action === window.google?.picker?.Action?.PICKED) {
-          const files = data.docs.map(
-            (doc): GoogleDriveFile =&gt; ({
-              id: doc.id,
-              ... 省略部分代码
-            }),
-          );
-          setSelectedFiles(files);
-        }
-      });
-  
-    if (config.allowMultiSelect) {
-      pickerBuilder.enableFeature(
-        window.google.picker.Feature.MULTISELECT_ENABLED,
-      );
-    }
-  
-    pickerBuilder.build().setVisible(true);
-  };
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">config</span>: <span class="kt">GoogleDrivePickerConfig</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">allowMultiSelect</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">scopes</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;https://www.googleapis.com/auth/drive.file&#39;</span><span class="p">]</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">createPicker</span> <span class="o">=</span> <span class="p">(</span><span class="nx">options</span>: <span class="kt">CreatePickerOptions</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">oauthToken</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="nx">setSelectedFiles</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">options</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">google</span><span class="o">?</span><span class="p">.</span><span class="nx">picker</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">handleError</span><span class="p">(</span><span class="s1">&#39;Google Picker API is not available&#39;</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">pickerBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">window</span><span class="p">.</span><span class="nx">google</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">PickerBuilder</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">addView</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">config</span><span class="p">.</span><span class="nx">viewId</span>
+</span></span><span class="line"><span class="cl">          <span class="o">?</span> <span class="nb">window</span><span class="p">.</span><span class="nx">google</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">ViewId</span><span class="p">[</span><span class="nx">config</span><span class="p">.</span><span class="nx">viewId</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="o">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">google</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">ViewId</span><span class="p">.</span><span class="nx">DOCS</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">setOAuthToken</span><span class="p">(</span><span class="nx">oauthToken</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">setDeveloperKey</span><span class="p">(</span><span class="nx">apiKey</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">setCallback</span><span class="p">(</span><span class="p">(</span><span class="nx">data</span>: <span class="kt">PickerCallbackData</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">action</span> <span class="o">===</span> <span class="nb">window</span><span class="p">.</span><span class="nx">google</span><span class="o">?</span><span class="p">.</span><span class="nx">picker</span><span class="o">?</span><span class="p">.</span><span class="nx">Action</span><span class="o">?</span><span class="p">.</span><span class="nx">PICKED</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="kr">const</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">docs</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="o">:</span> <span class="nx">GoogleDriveFile</span> <span class="o">=</span><span class="o">&gt;</span> <span class="p">(</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">id</span>: <span class="kt">doc.id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="p">.</span><span class="p">.</span><span class="p">.</span> <span class="err">省</span><span class="err">略</span><span class="err">部</span><span class="err">分</span><span class="err">代</span><span class="err">码</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">setSelectedFiles</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">allowMultiSelect</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pickerBuilder</span><span class="p">.</span><span class="nx">enableFeature</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">window</span><span class="p">.</span><span class="nx">google</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">Feature</span><span class="p">.</span><span class="nx">MULTISELECT_ENABLED</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">    <span class="nx">pickerBuilder</span><span class="p">.</span><span class="nx">build</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nx">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="p">;</span>
+</span></span></code></pre>
 <p>然后通过下述的函数去下载文件</p>
-
-<pre><code class="language-ts">import { google } from 'googleapis';
-import { OAuth2Client } from 'google-auth-library';
-
-interface DownloadedGoogleFile {
-  buffer?: Buffer;
-  image?: string; // base64 string
-  originalname?: string;
-  mimetype: string;
-}
-
-export async function GoogleDownloadFile(
-  token: string,
-  fileId: string
-): Promise&lt;DownloadedGoogleFile | false&gt; {
-  const authClient = new OAuth2Client();
-  authClient.credentials.access_token = token;
-
-  const drive = google.drive({ version: 'v3', auth: authClient });
-
-  const metadataRes = await drive.files.get({
-    fileId,
-    fields: 'name, mimeType',
-  });
-
-  if (metadataRes.status !== 200 || !metadataRes.data) {
-    return false;
-  }
-
-  const { name, mimeType } = metadataRes.data;
-
-  if (!mimeType) return false;
-
-
-  let streamRes;
-
-  if (mimeType.startsWith('application/vnd.google-apps.')) {
-
-    const exportMimeMap: Record&lt;string, string&gt; = {
-      'application/vnd.google-apps.document': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'application/vnd.google-apps.spreadsheet': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/vnd.google-apps.presentation': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-    };
-
-    const exportMimeType = exportMimeMap[mimeType];
-
-    if (!exportMimeType) {
-      console.warn(`Unsupported export type for mimeType: ${mimeType}`);
-      return false;
-    }
-
-    streamRes = await drive.files.export(
-      { fileId, mimeType: exportMimeType },
-      { responseType: 'stream' }
-    );
-  } else {
-
-    streamRes = await drive.files.get(
-      { fileId, alt: 'media' },
-      { responseType: 'stream' }
-    );
-  }
-
-  if (streamRes.status !== 200 || !streamRes.data) {
-    return false;
-  }
-
-  ... 省略部分代码
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">google</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;googleapis&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">OAuth2Client</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;google-auth-library&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">DownloadedGoogleFile</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">buffer?</span>: <span class="kt">Buffer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">image?</span>: <span class="kt">string</span><span class="p">;</span> <span class="c1">// base64 string
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">originalname?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mimetype</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">async</span> <span class="kd">function</span> <span class="nx">GoogleDownloadFile</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">token</span>: <span class="kt">string</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fileId</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">DownloadedGoogleFile</span> <span class="err">|</span> <span class="na">false</span><span class="p"></span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">authClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OAuth2Client</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">authClient</span><span class="p">.</span><span class="nx">credentials</span><span class="p">.</span><span class="nx">access_token</span> <span class="o">=</span> <span class="nx">token</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">drive</span> <span class="o">=</span> <span class="nx">google</span><span class="p">.</span><span class="nx">drive</span><span class="p">(</span><span class="p">{</span> <span class="nx">version</span><span class="o">:</span> <span class="s1">&#39;v3&#39;</span><span class="p">,</span> <span class="nx">auth</span>: <span class="kt">authClient</span> <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">metadataRes</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">drive</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fileId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fields</span><span class="o">:</span> <span class="s1">&#39;name, mimeType&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">metadataRes</span><span class="p">.</span><span class="nx">status</span> <span class="o">!==</span> <span class="mi">200</span> <span class="o">||</span> <span class="o">!</span><span class="nx">metadataRes</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">mimeType</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">metadataRes</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">mimeType</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">streamRes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">mimeType</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s1">&#39;application/vnd.google-apps.&#39;</span><span class="p">)</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">exportMimeMap</span>: <span class="kt">Record</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">,</span> <span class="na">string</span><span class="p"></span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;application/vnd.google-apps.document&#39;</span><span class="o">:</span> <span class="s1">&#39;application/vnd.openxmlformats-officedocument.wordprocessingml.document&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;application/vnd.google-apps.spreadsheet&#39;</span><span class="o">:</span> <span class="s1">&#39;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;application/vnd.google-apps.presentation&#39;</span><span class="o">:</span> <span class="s1">&#39;application/vnd.openxmlformats-officedocument.presentationml.presentation&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">exportMimeType</span> <span class="o">=</span> <span class="nx">exportMimeMap</span><span class="p">[</span><span class="nx">mimeType</span><span class="p">]</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">exportMimeType</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="sb">`</span><span class="sb">Unsupported export type for mimeType: </span><span class="si">${</span><span class="nx">mimeType</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">streamRes</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">drive</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="kr">export</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">fileId</span><span class="p">,</span> <span class="nx">mimeType</span>: <span class="kt">exportMimeType</span> <span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">responseType</span><span class="o">:</span> <span class="s1">&#39;stream&#39;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">streamRes</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">drive</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">fileId</span><span class="p">,</span> <span class="nx">alt</span><span class="o">:</span> <span class="s1">&#39;media&#39;</span> <span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">responseType</span><span class="o">:</span> <span class="s1">&#39;stream&#39;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">streamRes</span><span class="p">.</span><span class="nx">status</span> <span class="o">!==</span> <span class="mi">200</span> <span class="o">||</span> <span class="o">!</span><span class="nx">streamRes</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="p">.</span><span class="p">.</span> <span class="err">省</span><span class="err">略</span><span class="err">部</span><span class="err">分</span><span class="err">代</span><span class="err">码</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
 <p>但是测试结果都是 404 ,如下图：
 ￼
 <img src="https://github.com/user-attachments/assets/42944941-fba5-4741-ac93-3fa21c952a10" alt="status 404," /></p>
 
 <p>然后同事加入 Debug 队伍中，最后他翻到了 Google Picker 的 Api，然后使用它的示例代码竟然成功了。</p>
-
-<pre><code class="language-ts">// Create and render a Google Picker object for selecting from Drive.
-function createPicker() {
-  const showPicker = () =&gt; {
-    // TODO(developer): Replace with your API key
-    const picker = new google.picker.PickerBuilder()
-        .addView(google.picker.ViewId.DOCS)
-        .setOAuthToken(accessToken)
-        .setDeveloperKey('API_KEY')
-        .setCallback(pickerCallback)
-        .setAppId(APP_ID)
-        .build();
-    picker.setVisible(true);
-  }
-   ... 省略部分代码
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c1">// Create and render a Google Picker object for selecting from Drive.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">createPicker() {</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">showPicker</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// TODO(developer): Replace with your API key
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">picker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">google</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">PickerBuilder</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nx">addView</span><span class="p">(</span><span class="nx">google</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">ViewId</span><span class="p">.</span><span class="nx">DOCS</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nx">setOAuthToken</span><span class="p">(</span><span class="nx">accessToken</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nx">setDeveloperKey</span><span class="p">(</span><span class="s1">&#39;API_KEY&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nx">setCallback</span><span class="p">(</span><span class="nx">pickerCallback</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nx">setAppId</span><span class="p">(</span><span class="nx">APP_ID</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nx">build</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">picker</span><span class="p">.</span><span class="nx">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="p">.</span><span class="p">.</span><span class="p">.</span> <span class="err">省</span><span class="err">略</span><span class="err">部</span><span class="err">分</span><span class="err">代</span><span class="err">码</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre>
 <p>经过对比，我们发现正在使用的那个库没有支持   <code>.setAppId(APP_ID)</code> 这个方法,随后我又翻了一下 PickerBuilder 的方法列表，确定  <code>.setAppId(APP_ID)</code>  这个方法的重要性</p>
 
 <p>￼
 <img src="https://github.com/user-attachments/assets/09357923-0fea-4091-9240-71c24bc87aa2" alt="Pasted Graphic 5" /></p>
 
-<h1>最后</h1>
+<h1 id="最后">最后</h1>
 
 <p>最后的最后，知道问题的原因了，我把这个需要的方法加到正在使用的库了，然后一切都正常工作了。怀疑了一切，都没有怀疑我用的的库，没想到最后被背刺的是我最信任的库～</p>
 
-<h1>参考链接</h1>
+<h1 id="参考链接">参考链接</h1>
 
 <p><a href="https://stackoverflow.com/questions/22403014/google-drive-api-scope-and-file-access-drive-vs-drive-files">Google Drive api scope and file access (drive vs drive.files) - Stack Overflow</a>
 <a href="https://developers.google.com/workspace/drive/api/guides/api-specific-auth">Choose Google Drive API scopes  |  Google for Developers</a>
@@ -214,11 +212,11 @@ function createPicker() {
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
-                <span class="tag">react</span>
+                <a href="/tags/react/" class="tag">react</a>
                 
-                <span class="tag">google-drive</span>
+                <a href="/tags/google-drive/" class="tag">google-drive</a>
                 
             </div>
             
@@ -231,17 +229,13 @@ function createPicker() {
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -249,43 +243,85 @@ function createPicker() {
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

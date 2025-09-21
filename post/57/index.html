@@ -20,226 +20,190 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>How To Serve Flask Applications with uWSGI and Nginx on Ubuntu 14.04</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">How To Serve Flask Applications with uWSGI and Nginx on Ubuntu 14.04</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>部署过程中出现错误</h1>
+            <div class="post-content">
+                <h1 id="部署过程中出现错误">部署过程中出现错误</h1>
 
 <blockquote>
 <p>[emerg] 10255#0: bind() to 0.0.0.0:80 failed (98: Address already in use)</p>
 </blockquote>
 
 <p>解决办法,使用如下命令关闭占用80端口的程序</p>
+<pre class="chroma"><code><span class="line"><span class="cl">sudo fuser -k 80/tcp
+</span></span></code></pre>
+<h1 id="准备工作">准备工作</h1>
 
-<pre><code class="language-shell">sudo fuser -k 80/tcp
-</code></pre>
-
-<h1>准备工作</h1>
-
-<h2>安装相关的软件</h2>
+<h2 id="安装相关的软件">安装相关的软件</h2>
 
 <p>使用如下命令行,完成相应的 <em>python-pip python-dev</em> 和 <em>ngnix</em> 安装</p>
-
-<pre><code class="language-shell">sudo apt-get update
-sudo apt-get install python-pip python-dev nginx
-</code></pre>
-
-<h2>创建 Python的虚拟环境</h2>
+<pre class="chroma"><code><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get install python-pip python-dev nginx
+</span></span></code></pre>
+<h2 id="创建-python的虚拟环境">创建 Python的虚拟环境</h2>
 
 <p>参考我的另一文章<a href="http://www.leetao94.cn/2016/10/11/why-I-use-virtualenv/">为什么使用virtualenv</a></p>
 
 <p>安装成功之后,然后创建为我们的flask项目创建一个目录，然后在该目录下创建虚拟环境,如下:</p>
-
-<pre><code class="language-shell">mkdir ~/myproject
-cd ~/myproject
-virtualenv myprojectenv
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">mkdir ~/myproject
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ~/myproject
+</span></span><span class="line"><span class="cl">virtualenv myprojectenv
+</span></span></code></pre>
 <p>关于 <em>virtuelenv</em> 相关使用这里不再讲述</p>
 
-<h2>创建flask项目</h2>
+<h2 id="创建flask项目">创建flask项目</h2>
 
-<h3>安装 Flask 和 uWSGI</h3>
+<h3 id="安装-flask-和-uwsgi">安装 Flask 和 uWSGI</h3>
 
 <p>使用 <em>pip</em> 安装 Falsk 和 uWSGI,这里我们不需要激活虚拟环境</p>
-
-<pre><code class="language-shell">pip install uwsgi flask
-</code></pre>
-
-<h3>创建应用</h3>
+<pre class="chroma"><code><span class="line"><span class="cl">pip install uwsgi flask
+</span></span></code></pre>
+<h3 id="创建应用">创建应用</h3>
 
 <p>这里作为演示,我们将会在一个文件中创建一个简单的应用.使用下面命令:</p>
-
-<pre><code class="language-shell">vim ~/myproject/myproject.py
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">vim ~/myproject/myproject.py
+</span></span></code></pre>
 <p>然后在文件中键入下述代码:</p>
-
-<pre><code class="language-python">from flask import Flask
-application = Flask(__name__)
-
-@application.route(&quot;/&quot;)
-def hello():
-    return &quot;&lt;h1 style='color:blue'&gt;Hello There!&lt;/h1&gt;&quot;
-
-if __name__ == &quot;__main__&quot;:
-    application.run(host='0.0.0.0')
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+</span></span><span class="line"><span class="cl"><span class="n">application</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@application.route</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">/</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">&lt;h1 style=</span><span class="s2">&#39;</span><span class="s2">color:blue</span><span class="s2">&#39;</span><span class="s2">&gt;Hello There!&lt;/h1&gt;</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">__main__</span><span class="s2">&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">application</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">0.0.0.0</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span></code></pre>
 <p>保存并退出,然后我们通过命令行运行我们的应用了:</p>
-
-<pre><code class="language-shell">python myproject.py
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">python myproject.py
+</span></span></code></pre>
 <p>然后通过浏览器访问,终端输出的 IP 地址或者域名(xxxx:5000)，然后你可能会看见下图:</p>
 
 <p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fehvhoila8j205601ea9u.jpg" alt="" /></p>
 
-<h3>创建 WSGI 入口</h3>
+<h3 id="创建-wsgi-入口">创建 WSGI 入口</h3>
 
 <p>经过刚才验证,我们已经可以确认项目可以运行,接下来我们将创建一个文件，作为我们应用的入口.通过这个文件我们可以很好的与 uWSGI 进行交互.通过命令行创建 <em>wsgi.py</em> 文件</p>
-
-<pre><code class="language-shell">vim ~/myproject/wsgi.py
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">vim ~/myproject/wsgi.py
+</span></span></code></pre>
 <p>这个文件十分简单,我们可以简单的将我们的 flask 应用实例引入进来，然后运行它</p>
-
-<pre><code class="language-python"># wsgi.py
-from myproject import application
-
-if __name__ == &quot;__main__&quot;:
-    application.run()
-</code></pre>
-
-<h2>配置 uWSGI</h2>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c1"># wsgi.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">myproject</span> <span class="kn">import</span> <span class="n">application</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">__main__</span><span class="s2">&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">application</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="p">)</span>
+</span></span></code></pre>
+<h2 id="配置-uwsgi">配置 uWSGI</h2>
 
 <p>我们的应用基本完成然后我们应用的入口也成功的创建了,接下来我们就需要开始 uWSGI 的配置了</p>
 
-<h3>测试 uWSGI 的服务</h3>
+<h3 id="测试-uwsgi-的服务">测试 uWSGI 的服务</h3>
 
 <p>我们需要做的第一件事就是测试 uWSGI 能不能运行我们的应用.不需要太麻烦，我们只需要通过下述的命令就可以测试:</p>
-
-<pre><code class="language-shell">uwsgi --socket 0.0.0.0:8000 --protocol=http -w wsgi
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">uwsgi --socket 0.0.0.0:8000 --protocol<span class="o">=</span>http -w wsgi
+</span></span></code></pre>
 <p>现在你可以通过浏览器访问你的应用,类似xxxx:8000，如果你看见和刚才一样的页面就说明的测试基本是成功的.如果在此之前你激活了你的虚拟环境,那么接下来记得退出它,接下来的操作都是需要在本地的 Python 环境下.</p>
 
-<h3>创建 uWSGI 配置文件</h3>
+<h3 id="创建-uwsgi-配置文件">创建 uWSGI 配置文件</h3>
 
 <p>同样是在之前的项目文件下创建 <em>myproject.ini</em> 文件</p>
-
-<pre><code class="language-shell">vim ~/myproject/myproject.ini
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">vim ~/myproject/myproject.ini
+</span></span></code></pre>
 <p>然后在该文件中键入如下内容:</p>
-
-<pre><code class="language-shell">[uwsgi]
-module = wsgi
-
-master = true
-processes = 5
-
-socket = myproject.sock
-chmod-socket = 660
-vacuum = true
-
-die-on-term = true
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="o">[</span>uwsgi<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">module</span> <span class="o">=</span> wsgi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">master</span> <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="nv">processes</span> <span class="o">=</span> <span class="m">5</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">socket</span> <span class="o">=</span> myproject.sock
+</span></span><span class="line"><span class="cl">chmod-socket <span class="o">=</span> <span class="m">660</span>
+</span></span><span class="line"><span class="cl"><span class="nv">vacuum</span> <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">die-on-term <span class="o">=</span> <span class="nb">true</span>
+</span></span></code></pre>
 <p>输入完成之后保存并退出.</p>
 
-<h3>创建启动脚本</h3>
+<h3 id="创建启动脚本">创建启动脚本</h3>
 
 <p>创建启动脚本的目的就是为了在服务运行的时候可以运行我们的 Flask 应用.我们需要在*/etc/init*目录下创建一个 *.conf*的文件,这里我们就以 *myproject.conf*为例</p>
-
-<pre><code class="language-shell">sudo vim /etc/init/myproject.conf
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">sudo vim /etc/init/myproject.conf
+</span></span></code></pre>
 <p>然后键入如下内容:</p>
-
-<pre><code class="language-shell">description &quot;uWSGI server instance configured to serve myproject&quot;
-
-start on runlevel [2345]
-stop on runlevel [!2345]
-
-setuid user
-setgid www-data
-
-env PATH=/home/user/myproject/myprojectenv/bin
-chdir /home/user/myproject
-exec uwsgi --ini myproject.ini
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">description <span class="s2">&#34;uWSGI server instance configured to serve myproject&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">start on runlevel <span class="o">[</span>2345<span class="o">]</span>
+</span></span><span class="line"><span class="cl">stop on runlevel <span class="o">[</span>!2345<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">setuid user
+</span></span><span class="line"><span class="cl">setgid www-data
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">env <span class="nv">PATH</span><span class="o">=</span>/home/user/myproject/myprojectenv/bin
+</span></span><span class="line"><span class="cl">chdir /home/user/myproject
+</span></span><span class="line"><span class="cl"><span class="nb">exec</span> uwsgi --ini myproject.ini
+</span></span></code></pre>
 <p>添加完成后保存并退出,接下来我们就可以通过命令启动该进程了</p>
-
-<pre><code class="language-shell">sudo start myproject
-</code></pre>
-
-<h2>配置 Nginx 反向代理</h2>
+<pre class="chroma"><code><span class="line"><span class="cl">sudo start myproject
+</span></span></code></pre>
+<h2 id="配置-nginx-反向代理">配置 Nginx 反向代理</h2>
 
 <p>我们的 uWSGI 应用现在已经被启动并运行了,在项目目录下等待着请求.我们还需要通过配置 Nginx 将 web 请求转发到该接口上.</p>
 
-<h3>创建 Nginx 配置文件</h3>
-
-<pre><code class="language-shell">sudo vim /etc/nginx/sites-available/myproject
-</code></pre>
-
+<h3 id="创建-nginx-配置文件">创建 Nginx 配置文件</h3>
+<pre class="chroma"><code><span class="line"><span class="cl">sudo vim /etc/nginx/sites-available/myproject
+</span></span></code></pre>
 <p>然后键入如下命令:</p>
-
-<pre><code class="language-shell">server {
-    listen 80;
-    server_name server_domain_or_IP;
-
-    location / {
-        include uwsgi_params;
-        uwsgi_pass unix:/home/user/myproject/myproject.sock;
-    }
-}
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    listen 80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server_name server_domain_or_IP<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        include uwsgi_params<span class="p">;</span>
+</span></span><span class="line"><span class="cl">        uwsgi_pass unix:/home/user/myproject/myproject.sock<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre>
 <p>添加完成后保存并退出.为了保证我们的配置能够生效,我们需要将文件链接到 <em>sites-enabled</em> 目录下:</p>
-
-<pre><code class="language-shell">sudo ln -s /etc/nginx/sites-available/myproject /etc/nginx/sites-enabled
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">sudo ln -s /etc/nginx/sites-available/myproject /etc/nginx/sites-enabled
+</span></span></code></pre>
 <p>我们可以通过下述命令测试我们创建的文件语法是否正确:</p>
-
-<pre><code class="language-shell">sudo nginx -t
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">sudo nginx -t
+</span></span></code></pre>
 <p>如果没有返回任何错误信息,我们可以重启 Nginx 重新加载我们的配置</p>
-
-<pre><code class="language-shell">sudo service nginix restart
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl">sudo service nginix restart
+</span></span></code></pre>
 <p>现在你可以通过浏览器直接访问你的域名或者IP地址看到我们的应用了.</p>
 
 <blockquote>
@@ -248,7 +212,7 @@ exec uwsgi --ini myproject.ini
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -261,17 +225,13 @@ exec uwsgi --ini myproject.ini
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -279,43 +239,85 @@ exec uwsgi --ini myproject.ini
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

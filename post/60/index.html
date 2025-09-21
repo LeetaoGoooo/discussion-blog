@@ -11,42 +11,46 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>&#39;pep 544 Protocols: Structural subtyping (static duck typing)&#39;</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">&#39;pep 544 Protocols: Structural subtyping (static duck typing)&#39;</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>在 <a href="https://www.python.org/dev/peps/pep-0484">PEP 484</a>  中引入的 Typing hints (类型提示) 可以用来为静态类型检查器和其他第三方工具指定类型元数据。但是在，<a href="https://www.python.org/dev/peps/pep-0484">PEP 484</a>  只指定了名义子类型的语义。在这个 <a href="https://www.python.org/dev/peps/pep-0544/">PEP 544</a> 中，指定了协议类的静态和运行时语义，这将为结构性子类型（静态鸭子类型）提供一个支持。</p>
 
-<h2>什么是鸭子类型(Duck Typing)？</h2>
+<h2 id="什么是鸭子类型-duck-typing">什么是鸭子类型(Duck Typing)？</h2>
 
 <blockquote>
 <p>If it walks like a duck and it quacks like a duck, then it must be a duck。</p>
@@ -57,60 +61,54 @@
 <p>在编程中这就意味着当我们编写接收特定输入的函数时，我们只需要关心该函数输入的行为、属性，而不是该函数输入的显式类型。</p>
 
 <blockquote>
-<p>例如，在不使用鸭子类型的语言中，我们可以编写一个函数，它接受一个类型为&rdquo;鸭子&rdquo;的对象，并调用它的&rdquo;走&rdquo;和&rdquo;叫&rdquo;方法。在使用鸭子类型的语言中，这样的一个函数可以接受一个任意类型的对象，并调用它的&rdquo;走&rdquo;和&rdquo;叫&rdquo;方法。— 百度百科</p>
+<p>例如，在不使用鸭子类型的语言中，我们可以编写一个函数，它接受一个类型为&quot;鸭子&quot;的对象，并调用它的&quot;走&quot;和&quot;叫&quot;方法。在使用鸭子类型的语言中，这样的一个函数可以接受一个任意类型的对象，并调用它的&quot;走&quot;和&quot;叫&quot;方法。— 百度百科</p>
 </blockquote>
 
 <p>那么如何在 Python 中实现“鸭子类型”呢？</p>
 
-<h1>鸭子类型</h1>
+<h1 id="鸭子类型">鸭子类型</h1>
 
 <p>现在有这样子场景，我们需要编写一个函数去计算一个拥有边长(len_side)的物体的周长，伪代码如下：</p>
-
-<pre><code class="language-sql">function calcute_circumference(shape):
-		circumference = 0 
-		for side in shape.len_side: /// 遍历边长
-			circumference += side
-		return circumference /// 周长
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="k">function</span><span class="w"> </span><span class="n">calcute_circumference</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="n">circumference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">for</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">shape</span><span class="p">.</span><span class="n">len_side</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="o">/</span><span class="o">/</span><span class="w"> </span><span class="err">遍</span><span class="err">历</span><span class="err">边</span><span class="err">长</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="n">circumference</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">side</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="n">circumference</span><span class="w"> </span><span class="o">/</span><span class="o">/</span><span class="o">/</span><span class="w"> </span><span class="err">周</span><span class="err">长</span><span class="w">
+</span></span></span></code></pre>
 <p>从伪代码不难看出，我们不关心是什么的物体，我们只需要保证这个物体可以有一个 len_side（列表） 字段就可以了。</p>
 
 <p>现在我们可以借由 <code>Protocol</code> 去实现它。</p>
-
-<pre><code class="language-python">from typing import Protocol
-
-class ObjWithSideLen(Protocol):
-	side_len: list
-
-def calcute_circumference(shape: ObjWithSideLen):
-	circumference = 0 
-	for side in shape.side_len:
-		circumference += side
-	return circumference
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ObjWithSideLen</span><span class="p">(</span><span class="n">Protocol</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">side_len</span><span class="p">:</span> <span class="nb">list</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">calcute_circumference</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">ObjWithSideLen</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">circumference</span> <span class="o">=</span> <span class="mi">0</span> 
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">shape</span><span class="o">.</span><span class="n">side_len</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">circumference</span> <span class="o">+</span><span class="o">=</span> <span class="n">side</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">circumference</span>
+</span></span></code></pre>
 <p>从上面的例子不难看出 <code>Protocol</code> 有点类似 Java 中的接口，只需要在函数上使用它，并不需要去关注输入的参数的具体类型。</p>
 
-<h1>泛型</h1>
+<h1 id="泛型">泛型</h1>
 
 <p>我们还可以配合使用 <code>typing</code> 中的 <code>TypeVar</code> 实现泛型参数化，让我们的函数更加抽象化，只要符合协议，无论什么类型的输入都可以。</p>
-
-<pre><code class="language-python">from typing import Protocol
-
-class ObjWithSideLen(Protocol):
-	side_len: list
-
-T = TypeVar('T', bound=ObjWithSideLen)
-
-def calcute_circumference(shape: T) -&gt; T:
-	circumference = 0 
-	for side in shape.side_len:
-		circumference += side
-	shape.circumference = circumference
-	return shape
-</code></pre>
-
-<h1>延伸</h1>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ObjWithSideLen</span><span class="p">(</span><span class="n">Protocol</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">side_len</span><span class="p">:</span> <span class="nb">list</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">T</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">ObjWithSideLen</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">calcute_circumference</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">circumference</span> <span class="o">=</span> <span class="mi">0</span> 
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">shape</span><span class="o">.</span><span class="n">side_len</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">circumference</span> <span class="o">+</span><span class="o">=</span> <span class="n">side</span>
+</span></span><span class="line"><span class="cl">	<span class="n">shape</span><span class="o">.</span><span class="n">circumference</span> <span class="o">=</span> <span class="n">circumference</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">shape</span>
+</span></span></code></pre>
+<h1 id="延伸">延伸</h1>
 
 <p>上述的例子都可以借由 Python 中的 ABCs 去实现的，但是两者的侧重点有所不同，由于篇幅有限，在下一篇文章，让我们仔细对比一下两者的的区别。</p>
 
@@ -126,7 +124,7 @@ def calcute_circumference(shape: T) -&gt; T:
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -139,17 +137,13 @@ def calcute_circumference(shape: T) -&gt; T:
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -157,43 +151,85 @@ def calcute_circumference(shape: T) -&gt; T:
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

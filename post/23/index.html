@@ -12,288 +12,276 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>配合Github Actions 做一个自动推送的 Rss 订阅机器人</h1>
-            <p class="meta">
-                By LeetaoGoooo on July 16, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">配合Github Actions 做一个自动推送的 Rss 订阅机器人</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on July 16, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>一直都有订阅 Rss 的习惯，前段时间配合钉钉的自定义机器人，建了一个在钉钉定时推送消息的群，当时是服务是跑在自己的小水管上的，并且是在自己博客的基础上的，依赖了 Flask。后续想着开源，考虑到单独一个 Rss 推送机器人依赖一个 Web 框架就显得比较笨重了，就着手将这部分服务独立出来。</p>
 
-<h1>钉钉 RSS 推送机器人</h1>
+<h1 id="钉钉-rss-推送机器人">钉钉 RSS 推送机器人</h1>
 
 <p>钉钉 RSS 推送机器人，主要内容分为两部分，第一部分是钉钉机器人；第二部分是订阅推送。</p>
 
-<h2>钉钉机器人</h2>
+<h2 id="钉钉机器人">钉钉机器人</h2>
 
 <p>因为是自定义内容，钉钉现有的机器人不支持，所以我们需要借助钉钉的自定义机器人。</p>
 
-<h3>步骤一</h3>
+<h3 id="步骤一">步骤一</h3>
 
 <p>【电脑钉钉 】-【群聊】-【群设置】-【智能群助手】-【添加更多】-【添加机器人】-【自定义】-【添加】，编辑机器人名称和选择添加的群组。完成必要的安全设置（至少选择一种），勾选 我已阅读并同意《自定义机器人服务及免责条款》，点击“完成”即可。
 <img src="/posts/1603444780.png" alt="" /></p>
 
-<h3>步骤二</h3>
+<h3 id="步骤二">步骤二</h3>
 
 <p>复制出机器人的Webhook地址（格式如下截图），可用于向这个群发送消息。并点击【完成】，自定义机器人就添加成功了。
 <img src="/posts/1603444871.png" alt="" />
 为了安全考虑，这里我们在创建机器人的时候，勾选“<strong>加签</strong>”。这样子会获得 webhook 和 secret 两个参数</p>
-
-<pre><code class="language-python">webhook = 'https://oapi.dingtalk.com/robot/send?access_token=这里填写自己钉钉群自定义机器人的token'
-secret = 'SEC11b9...这里填写自己的加密设置密钥'
-</code></pre>
-
-<h2>消息推送</h2>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">webhook</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://oapi.dingtalk.com/robot/send?access_token=这里填写自己钉钉群自定义机器人的token</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">secret</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">SEC11b9...这里填写自己的加密设置密钥</span><span class="s1">&#39;</span>
+</span></span></code></pre>
+<h2 id="消息推送">消息推送</h2>
 
 <p>完成机器人的创建，就需要完成通过 api 将消息推送到群里，使用 <a href="https://github.com/zhuifengshen/DingtalkChatbot">DingtalkChatbot</a></p>
 
-<h3>安装</h3>
-
-<pre><code class="language-bash">pip install DingtalkChatbot
-</code></pre>
-
-<h3>例子</h3>
-
-<pre><code class="language-python">from dingtalkchatbot.chatbot import DingtalkChatbot
-# WebHook地址
-webhook = 'https://oapi.dingtalk.com/robot/send?access_token=这里填写自己钉钉群自定义机器人的token'
-secret = 'SEC11b9...这里填写自己的加密设置密钥'  # 可选：创建机器人勾选“加签”选项时使用
-# 初始化机器人小丁
-xiaoding = DingtalkChatbot(webhook)  # 方式一：通常初始化方式
-xiaoding = DingtalkChatbot(webhook, secret=secret)  # 方式二：勾选“加签”选项时使用（v1.5以上新功能）
-xiaoding = DingtalkChatbot(webhook, pc_slide=True)  # 方式三：设置消息链接在PC端侧边栏打开（v1.5以上新功能）
-# Text消息@所有人
-xiaoding.send_text(msg='我就是小丁，小丁就是我！', is_at_all=True)
-</code></pre>
-
-<h2>RSS 解析</h2>
+<h3 id="安装">安装</h3>
+<pre class="chroma"><code><span class="line"><span class="cl">pip install DingtalkChatbot
+</span></span></code></pre>
+<h3 id="例子">例子</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">dingtalkchatbot</span><span class="nn">.</span><span class="nn">chatbot</span> <span class="kn">import</span> <span class="n">DingtalkChatbot</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WebHook地址</span>
+</span></span><span class="line"><span class="cl"><span class="n">webhook</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://oapi.dingtalk.com/robot/send?access_token=这里填写自己钉钉群自定义机器人的token</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">secret</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">SEC11b9...这里填写自己的加密设置密钥</span><span class="s1">&#39;</span>  <span class="c1"># 可选：创建机器人勾选“加签”选项时使用</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 初始化机器人小丁</span>
+</span></span><span class="line"><span class="cl"><span class="n">xiaoding</span> <span class="o">=</span> <span class="n">DingtalkChatbot</span><span class="p">(</span><span class="n">webhook</span><span class="p">)</span>  <span class="c1"># 方式一：通常初始化方式</span>
+</span></span><span class="line"><span class="cl"><span class="n">xiaoding</span> <span class="o">=</span> <span class="n">DingtalkChatbot</span><span class="p">(</span><span class="n">webhook</span><span class="p">,</span> <span class="n">secret</span><span class="o">=</span><span class="n">secret</span><span class="p">)</span>  <span class="c1"># 方式二：勾选“加签”选项时使用（v1.5以上新功能）</span>
+</span></span><span class="line"><span class="cl"><span class="n">xiaoding</span> <span class="o">=</span> <span class="n">DingtalkChatbot</span><span class="p">(</span><span class="n">webhook</span><span class="p">,</span> <span class="n">pc_slide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 方式三：设置消息链接在PC端侧边栏打开（v1.5以上新功能）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Text消息@所有人</span>
+</span></span><span class="line"><span class="cl"><span class="n">xiaoding</span><span class="o">.</span><span class="n">send_text</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">我就是小丁，小丁就是我！</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">is_at_all</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span></code></pre>
+<h2 id="rss-解析">RSS 解析</h2>
 
 <p>rss 解析，这里使用 feedparser 进行解析。</p>
 
-<h3>安装</h3>
-
-<pre><code class="language-bash">pip install DingtalkChatbot
-</code></pre>
-
-<h3>例子</h3>
-
-<pre><code class="language-python">&gt;&gt;&gt; import feedparser
-&gt;&gt;&gt; leetao_feed = feedparser.parse('https://www.leetao94.cn/feeds') # parse() 方法，解析对应的 url
-&gt;&gt;&gt; leetao_feed.feed # feed 对象
-{'title': &quot;Peach Blog's Feeds&quot;, 'title_detail': {'type': 'text/plain', 'language': None, 
-                                                 'base': 'https://www.leetao94.cn/feeds', 'value': &quot;Peach Blog's Feeds&quot;}, 
- 'id': 'https://www.leetao94.cn/feeds', 'guidislink': True, 
- 'link': 'https://www.leetao94.cn/', 'updated': '2020-09-25T19:53:35Z',
- 'updated_parsed': time.struct_time(tm_year=2020, tm_mon=9, tm_mday=25, tm_hour=19, tm_min=53, tm_sec=35, tm_wday=4, tm_yday=269, tm_isdst=0), 
- 'links': [{'href': 'https://www.leetao94.cn/', 'rel': 'alternate', 'type': 'text/html'}, 
-           {'href': 'https://www.leetao94.cn/feeds', 'rel': 'self', 'type': 'application/atom+xml'}], 
- 'generator_detail': {'name': 'Werkzeug'}, 'generator': 'Werkzeug'}
-&gt;&gt;&gt; type(leetao_feed.entries) # 解析出来的文章列表对象
-&lt;class 'list'&gt;
-&gt;&gt;&gt; len(leetao_feed.entries)
-10
-&gt;&gt;&gt; leetao_feed.entries[0] # 单个文章的内容
-{'title': 'Mybatis中特殊符号#{}和${}', 
- 'title_detail': {'type': 'text/plain', 
-                  'language': None, 'base': 'https://www.leetao94.cn/feeds',
-                  'value': 'Mybatis中特殊符号#{}和${}'},
- 'id': 'https://www.leetao94.cn/post/Mybatis中特殊符号#{}和${}', 
- 'guidislink': True, 'link': 'https://www.leetao94.cn/post/Mybatis中特殊符号#{}和${}',
- 'updated': '2020-09-25T19:53:35Z', 
- 'updated_parsed': time.struct_time(tm_year=2020, tm_mon=9, tm_mday=25, tm_hour=19, tm_min=53, tm_sec=35, tm_wday=4, tm_yday=269, tm_isdst=0),
- 'published': '2020-09-25T19:53:35Z', 
- 'published_parsed': time.struct_time(tm_year=2020, tm_mon=9, tm_mday=25, tm_hour=19, tm_min=53, tm_sec=35, tm_wday=4, tm_yday=269, tm_isdst=0),
- 'links': [{'href': 'https://www.leetao94.cn/post/Mybatis中特殊符号#{}和${}', 
-            'rel': 'alternate', 'type': 'text/html'}], 'authors': [{'name': 'Leetao'}], 
- 'author_detail': {'name': 'Leetao'}, 'author': 'Leetao', 
- 'content': [{'type': 'text/html', 'language': None, 'base': 'https://www.leetao94.cn/feeds',
-              'value': '...'}
-</code></pre>
-
+<h3 id="安装-1">安装</h3>
+<pre class="chroma"><code><span class="line"><span class="cl">pip install DingtalkChatbot
+</span></span></code></pre>
+<h3 id="例子-1">例子</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="nn">feedparser</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">leetao_feed</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.leetao94.cn/feeds</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># parse() 方法，解析对应的 url</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">leetao_feed</span><span class="o">.</span><span class="n">feed</span> <span class="c1"># feed 对象</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">title</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Peach Blog</span><span class="s2">&#39;</span><span class="s2">s Feeds</span><span class="s2">&#34;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">title_detail</span><span class="s1">&#39;</span><span class="p">:</span> <span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">type</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">text/plain</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">language</span><span class="s1">&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                                                 <span class="sa"></span><span class="s1">&#39;</span><span class="s1">base</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.leetao94.cn/feeds</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">value</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Peach Blog</span><span class="s2">&#39;</span><span class="s2">s Feeds</span><span class="s2">&#34;</span><span class="p">}</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">id</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.leetao94.cn/feeds</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">guidislink</span><span class="s1">&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">link</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.leetao94.cn/</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">updated</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">2020-09-25T19:53:35Z</span><span class="s1">&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">updated_parsed</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">(</span><span class="n">tm_year</span><span class="o">=</span><span class="mi">2020</span><span class="p">,</span> <span class="n">tm_mon</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">tm_mday</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">tm_hour</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span> <span class="n">tm_min</span><span class="o">=</span><span class="mi">53</span><span class="p">,</span> <span class="n">tm_sec</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">tm_wday</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">tm_yday</span><span class="o">=</span><span class="mi">269</span><span class="p">,</span> <span class="n">tm_isdst</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">links</span><span class="s1">&#39;</span><span class="p">:</span> <span class="p">[</span><span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">href</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.leetao94.cn/</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">rel</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">alternate</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">type</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">text/html</span><span class="s1">&#39;</span><span class="p">}</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">           <span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">href</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.leetao94.cn/feeds</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">rel</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">self</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">type</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">application/atom+xml</span><span class="s1">&#39;</span><span class="p">}</span><span class="p">]</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">generator_detail</span><span class="s1">&#39;</span><span class="p">:</span> <span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">name</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">Werkzeug</span><span class="s1">&#39;</span><span class="p">}</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">generator</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">Werkzeug</span><span class="s1">&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">leetao_feed</span><span class="o">.</span><span class="n">entries</span><span class="p">)</span> <span class="c1"># 解析出来的文章列表对象</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">list</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">leetao_feed</span><span class="o">.</span><span class="n">entries</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">leetao_feed</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># 单个文章的内容</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">title</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">Mybatis中特殊符号#</span><span class="si">{}</span><span class="s1">和$</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">title_detail</span><span class="s1">&#39;</span><span class="p">:</span> <span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">type</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">text/plain</span><span class="s1">&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                  <span class="sa"></span><span class="s1">&#39;</span><span class="s1">language</span><span class="s1">&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">base</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.leetao94.cn/feeds</span><span class="s1">&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="sa"></span><span class="s1">&#39;</span><span class="s1">value</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">Mybatis中特殊符号#</span><span class="si">{}</span><span class="s1">和$</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">id</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.leetao94.cn/post/Mybatis中特殊符号#</span><span class="si">{}</span><span class="s1">和$</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">guidislink</span><span class="s1">&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">link</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.leetao94.cn/post/Mybatis中特殊符号#</span><span class="si">{}</span><span class="s1">和$</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">updated</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">2020-09-25T19:53:35Z</span><span class="s1">&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">updated_parsed</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">(</span><span class="n">tm_year</span><span class="o">=</span><span class="mi">2020</span><span class="p">,</span> <span class="n">tm_mon</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">tm_mday</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">tm_hour</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span> <span class="n">tm_min</span><span class="o">=</span><span class="mi">53</span><span class="p">,</span> <span class="n">tm_sec</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">tm_wday</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">tm_yday</span><span class="o">=</span><span class="mi">269</span><span class="p">,</span> <span class="n">tm_isdst</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">published</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">2020-09-25T19:53:35Z</span><span class="s1">&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">published_parsed</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">(</span><span class="n">tm_year</span><span class="o">=</span><span class="mi">2020</span><span class="p">,</span> <span class="n">tm_mon</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">tm_mday</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">tm_hour</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span> <span class="n">tm_min</span><span class="o">=</span><span class="mi">53</span><span class="p">,</span> <span class="n">tm_sec</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">tm_wday</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">tm_yday</span><span class="o">=</span><span class="mi">269</span><span class="p">,</span> <span class="n">tm_isdst</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">links</span><span class="s1">&#39;</span><span class="p">:</span> <span class="p">[</span><span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">href</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.leetao94.cn/post/Mybatis中特殊符号#</span><span class="si">{}</span><span class="s1">和$</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="sa"></span><span class="s1">&#39;</span><span class="s1">rel</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">alternate</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">type</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">text/html</span><span class="s1">&#39;</span><span class="p">}</span><span class="p">]</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">authors</span><span class="s1">&#39;</span><span class="p">:</span> <span class="p">[</span><span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">name</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">Leetao</span><span class="s1">&#39;</span><span class="p">}</span><span class="p">]</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">author_detail</span><span class="s1">&#39;</span><span class="p">:</span> <span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">name</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">Leetao</span><span class="s1">&#39;</span><span class="p">}</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">author</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">Leetao</span><span class="s1">&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">content</span><span class="s1">&#39;</span><span class="p">:</span> <span class="p">[</span><span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">type</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">text/html</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">language</span><span class="s1">&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">base</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.leetao94.cn/feeds</span><span class="s1">&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="sa"></span><span class="s1">&#39;</span><span class="s1">value</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">...</span><span class="s1">&#39;</span><span class="p">}</span>
+</span></span></code></pre>
 <p>具体用法可以参考官方文档：<a href="https://pythonhosted.org/feedparser/">https://pythonhosted.org/feedparser/</a></p>
 
-<h2>RSS 钉钉机器人</h2>
+<h2 id="rss-钉钉机器人">RSS 钉钉机器人</h2>
 
-<p>准备工作完成之后，就是将机器人和 Rss 解析内容整合到一起，为了避免重复推送内容，很显然需要借助数据库，考虑简便性，采用 python 原生支持的 <strong>sqlite 数据库</strong>免安装；为了操作数据库方便，这里就使用轻量级的 ORM &ndash; <strong>peewee</strong>。</p>
+<p>准备工作完成之后，就是将机器人和 Rss 解析内容整合到一起，为了避免重复推送内容，很显然需要借助数据库，考虑简便性，采用 python 原生支持的 <strong>sqlite 数据库</strong>免安装；为了操作数据库方便，这里就使用轻量级的 ORM -- <strong>peewee</strong>。</p>
 
-<h3>模型定义</h3>
+<h3 id="模型定义">模型定义</h3>
 
 <p>首先完成数据模型的定义，两个模型，一个是 RSS 源模型，一个是 History 历史记录模型。</p>
-
-<pre><code class="language-python"># models.py
-# -*- encoding: utf-8 -*-
-from peewee import *
-import datetime
-
-db = SqliteDatabase('rss.db')
-
-
-class BaseModel(Model):
-    class Meta:
-        database = db
-
-
-class Rss(BaseModel):
-    feed = CharField(unique=True) # rss 源地址
-    cover = CharField(max_length=255) # 封面 
-    title = CharField(max_length=20) # rss 的标题
-    url = CharField(max_length=255) # 官网地址 可选
-
-
-class History(BaseModel):
-    url = CharField(max_length=255)
-    publish_at = DateField(default=datetime.datetime.now)
-
-
-def create_tables():
-    with db:
-        db.create_tables([Rss, History])
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c1"># models.py</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -*- encoding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">peewee</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">datetime</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">db</span> <span class="o">=</span> <span class="n">SqliteDatabase</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">rss.db</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BaseModel</span><span class="p">(</span><span class="n">Model</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">database</span> <span class="o">=</span> <span class="n">db</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Rss</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">feed</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># rss 源地址</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cover</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span> <span class="c1"># 封面 </span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># rss 的标题</span>
+</span></span><span class="line"><span class="cl">    <span class="n">url</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span> <span class="c1"># 官网地址 可选</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">History</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">url</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">publish_at</span> <span class="o">=</span> <span class="n">DateField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_tables</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">db</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">db</span><span class="o">.</span><span class="n">create_tables</span><span class="p">(</span><span class="p">[</span><span class="n">Rss</span><span class="p">,</span> <span class="n">History</span><span class="p">]</span><span class="p">)</span>
+</span></span></code></pre>
 <p>模型定义完成，接下来就是代码的整合了。</p>
 
-<h3>整合代码</h3>
-
-<pre><code class="language-python"># -*- encoding: utf-8 -*-
-
-&quot;&quot;&quot;
-rss.py
-钉钉 Rss 机器人
- 
-&quot;&quot;&quot;
-from datetime import datetime
-import feedparser
-from dingtalkchatbot.chatbot import DingtalkChatbot, CardItem, ActionCard
-import dateparser
-from models import db, Rss, History
-import os
-
-class RssRobot:
-    def __init__(self):
-        self.robot = DingtalkChatbot(
-            os.environ.get(&quot;DD_WEBHOOK&quot;),
-            pc_slide=True, secret=os.environ.get(&quot;DD_SECRET&quot;)) # 两个环境变量
-
-    def parse_rss(self):
-        rss_list = Rss.select()
-        rss_card_dict = {}
-        post_url_list = [rss_history.url for rss_history in
-                         History.select().where(History.publish_at == datetime.today().strftime(&quot;%Y-%m-%d&quot;))] # 查询当天的历史记录
-        for rss in rss_list:
-            rss_history_list = []
-            card_list = [
-                CardItem(title=rss.title, url=rss.url, pic_url=rss.cover)]
-            feed = feedparser.parse(rss.feed)            
-            for entry in feed.entries:
-                if entry.link not in post_url_list and self.is_today(entry): # 判断链接是否是当天的并且没有推送过的
-                    card_list.append(CardItem(title=f'{entry.title}', url=entry.link,
-                                            pic_url='https://ftp.bmp.ovh/imgs/2020/07/6cdb9f606677c9e3.jpg'))
-                    rss_history_list.append(History(url=entry.link))
-
-            if len(card_list) &gt; 1:
-                rss_card_dict[rss.title] = card_list
-                with db.atomic():
-                    History.bulk_create(rss_history_list, batch_size=10)
-
-        return rss_card_dict
-
-    def is_today(self, entry):
-        return dateparser.parse(entry['updated']).date() == datetime.today().date()
-
-    def send_rss(self):
-        rss_card_dict = self.parse_rss()
-        for key in rss_card_dict:
-            self.robot.send_feed_card(rss_card_dict[key])
-
-
-def send_rss():
-    rss_bot = RssRobot()
-    rss_bot.send_rss()
-
-if __name__ == '__main__':
-    send_rss()
-</code></pre>
-
+<h3 id="整合代码">整合代码</h3>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c1"># -*- encoding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">rss.py</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">钉钉 Rss 机器人</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2"> </span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">feedparser</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">dingtalkchatbot</span><span class="nn">.</span><span class="nn">chatbot</span> <span class="kn">import</span> <span class="n">DingtalkChatbot</span><span class="p">,</span> <span class="n">CardItem</span><span class="p">,</span> <span class="n">ActionCard</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">dateparser</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">db</span><span class="p">,</span> <span class="n">Rss</span><span class="p">,</span> <span class="n">History</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">RssRobot</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">robot</span> <span class="o">=</span> <span class="n">DingtalkChatbot</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DD_WEBHOOK</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pc_slide</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">secret</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DD_SECRET</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">)</span> <span class="c1"># 两个环境变量</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">parse_rss</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rss_list</span> <span class="o">=</span> <span class="n">Rss</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rss_card_dict</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">post_url_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">rss_history</span><span class="o">.</span><span class="n">url</span> <span class="k">for</span> <span class="n">rss_history</span> <span class="ow">in</span>
+</span></span><span class="line"><span class="cl">                         <span class="n">History</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">History</span><span class="o">.</span><span class="n">publish_at</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">%</span><span class="s2">Y-</span><span class="s2">%</span><span class="s2">m-</span><span class="si">%d</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">)</span><span class="p">]</span> <span class="c1"># 查询当天的历史记录</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">rss</span> <span class="ow">in</span> <span class="n">rss_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">rss_history_list</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">card_list</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="n">CardItem</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">rss</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">rss</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">pic_url</span><span class="o">=</span><span class="n">rss</span><span class="o">.</span><span class="n">cover</span><span class="p">)</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">feed</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">rss</span><span class="o">.</span><span class="n">feed</span><span class="p">)</span>            
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">feed</span><span class="o">.</span><span class="n">entries</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">link</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">post_url_list</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_today</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span><span class="p">:</span> <span class="c1"># 判断链接是否是当天的并且没有推送过的</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">card_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CardItem</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">entry</span><span class="o">.</span><span class="n">link</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                            <span class="n">pic_url</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://ftp.bmp.ovh/imgs/2020/07/6cdb9f606677c9e3.jpg</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">rss_history_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">History</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">entry</span><span class="o">.</span><span class="n">link</span><span class="p">)</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">card_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">rss_card_dict</span><span class="p">[</span><span class="n">rss</span><span class="o">.</span><span class="n">title</span><span class="p">]</span> <span class="o">=</span> <span class="n">card_list</span>
+</span></span><span class="line"><span class="cl">                <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">atomic</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">History</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">rss_history_list</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">rss_card_dict</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">is_today</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">dateparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">updated</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="p">)</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">send_rss</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rss_card_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_rss</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">rss_card_dict</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">send_feed_card</span><span class="p">(</span><span class="n">rss_card_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">send_rss</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rss_bot</span> <span class="o">=</span> <span class="n">RssRobot</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rss_bot</span><span class="o">.</span><span class="n">send_rss</span><span class="p">(</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">__main__</span><span class="s1">&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">send_rss</span><span class="p">(</span><span class="p">)</span>
+</span></span></code></pre>
 <p>到这里，算是完成了 Rss 钉钉机器人的大部分功能了，还差唯一的定时推送，原本考虑是用 Python 的常见的定时任务库去完成的，但是考虑的后续部署，还需要一台服务器，奈何自己的阿里云服务器最低配不一定能支持住了，就想着结合 Github Actions 把服务器也省了。</p>
 
-<h1>Github Actions</h1>
+<h1 id="github-actions">Github Actions</h1>
 
 <p><code>Github Actions</code>是<code>Github</code>推出的一个新的功能，可以为我们的项目自动化地构建工作流，例如代码检查，自动化打包，测试，发布版本等等。入口在项目<code>pull request</code>的旁边。</p>
 
 <p><img src="/posts/1603444919.png" alt="" />
 这里就不再详细介绍 Github Actions 了，贴一下我写的 workflows 文件</p>
 
-<h2>workflows</h2>
-
-<pre><code class="language-yaml"># 钉钉 rss 推送机器人
-name: DingDingRssBot
-
-on:               
-  schedule:                              # 设置定时任务
-    - cron: '0 0/1 * * *'
-    
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-    steps:
-    - name: 'Checkout codes'
-      uses: actions/checkout@v2           # 拉取最新的代码
-    - name: Set up Python 3.7.6
-      uses: actions/setup-python@v2       # 设置 python 版本
-      with:
-        python-version: 3.7.6
-    - name: Install dependencies          # 安装依赖
-      run: |
-        cd robot
-        pip install -r requirements.txt
-    - name: send rss                      
-      env:
-        DD_WEBHOOK: ${{ secrets.webhook }}
-        DD_SECRET: ${{ secrets.secret }}
-      run: |
-        cd robot
-        python rss.py
-    - name: Commit
-      run: |
-        git config --global user.email leetao94cn@gmail.com
-        git config --global user.name lt94
-        git add .
-        git commit -m &quot;update&quot; -a
-    - name: Push changes
-      uses: ad-m/github-push-action@master 
-      with:
-        branch: main
-        github_token: ${{ secrets.TOKEN }}
-</code></pre>
-
+<h2 id="workflows">workflows</h2>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="c"># 钉钉 rss 推送机器人</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">DingDingRssBot</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="w">              
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w"> </span><span class="w">                             </span><span class="c"># 设置定时任务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0 0/1 * * *&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">  </span><span class="nt">build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Checkout codes&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2          </span><span class="w"> </span><span class="c"># 拉取最新的代码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up Python 3.7.6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-python@v2      </span><span class="w"> </span><span class="c"># 设置 python 版本</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="m">3.7</span><span class="m">.6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install dependencies         </span><span class="w"> </span><span class="c"># 安装依赖</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">        cd robot
+</span></span></span><span class="line"><span class="cl"><span class="sd">        pip install -r requirements.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">send rss                      </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">        </span><span class="nt">DD_WEBHOOK</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.webhook }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">DD_SECRET</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.secret }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">        cd robot
+</span></span></span><span class="line"><span class="cl"><span class="sd">        python rss.py</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Commit</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">        git config --global user.email leetao94cn@gmail.com
+</span></span></span><span class="line"><span class="cl"><span class="sd">        git config --global user.name lt94
+</span></span></span><span class="line"><span class="cl"><span class="sd">        git add .
+</span></span></span><span class="line"><span class="cl"><span class="sd">        git commit -m &#34;update&#34; -a</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Push changes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">ad-m/github-push-action@master </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="w">        </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l">main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.TOKEN }}</span><span class="w">
+</span></span></span></code></pre>
 <p>其中三个环境变量需要我们自行配置，在项目的 Settings 中的 Secrets 中设置
 <img src="/posts/1603444956.png" alt="" /></p>
 
@@ -303,7 +291,7 @@ jobs:
 
 <p>Person access tokens 主要是用来将修改推送到仓库的，借助 Github Actions 运行完成之后会把代码删除，会导致产生的修改丢失，这样子的话历史记录就无法保存，因此我们需要在每次推送完成之后，将对数据库的修改推送到仓库中。</p>
 
-<h1>总结</h1>
+<h1 id="总结">总结</h1>
 
 <p>到此所有配置完成，Github Actions 会定时执行 rss 推送任务。
 <img src="/posts/1603445024.png" alt="" /></p>
@@ -314,7 +302,7 @@ jobs:
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
             </div>
             
@@ -327,17 +315,13 @@ jobs:
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -345,43 +329,85 @@ jobs:
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

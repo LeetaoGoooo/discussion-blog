@@ -11,50 +11,52 @@
     <link rel="icon" href="/favicon.svg" type="image/x-icon">
     
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS Feed">
 </head>
-<body>
-    <header>
-        <h1><a href="/">Leetao</a></h1>
-        
-        <p class="site-description">写有趣的代码，做有趣的事</p>
-        
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/tags/">Tags</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">
-                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    Theme
-                </button></li>
-            </ul>
-        </nav>
+                </button>
+            </nav>
+        </div>
     </header>
     
     <main>
         <article class="post">
-            <h1>支付宝开放平台 Python SDK 下的一些坑</h1>
-            <p class="meta">
-                By LeetaoGoooo on February 19, 2023
-            </p>
+            <header class="post-header">
+                <h1 class="post-title">支付宝开放平台 Python SDK 下的一些坑</h1>
+                <p class="post-meta">
+                    By LeetaoGoooo on February 19, 2023
+                </p>
+            </header>
             
-            <div class="content">
-                <h1>前言</h1>
+            <div class="post-content">
+                <h1 id="前言">前言</h1>
 
 <p>最近因为业务原因，需要使用支付宝开放平台的一些 Api 写一些脚本，所以选择了 Python，然后就遇到坑了，不是一个坑，而是好几个</p>
 
-<h1>问题 alipay.aop.api.exception.Exception.RequestException</h1>
+<h1 id="问题-alipay-aop-api-exception-exception-requestexception">问题 alipay.aop.api.exception.Exception.RequestException</h1>
 
 <p>具体错误信息如下：</p>
-
-<pre><code class="language-python">alipay.aop.api.exception.Exception.RequestException:
- [516aa23a-cdfd-11e9-a62d-441ca8249e46]
-request sign failed. int() argument must be a string, a bytes-like object or a number, not 'Sequence'
-</code></pre>
-
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="n">alipay</span><span class="o">.</span><span class="n">aop</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">Exception</span><span class="o">.</span><span class="n">RequestException</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="mi">516</span><span class="n">aa23a</span><span class="o">-</span><span class="n">cdfd</span><span class="o">-</span><span class="mf">11e9</span><span class="o">-</span><span class="n">a62d</span><span class="o">-</span><span class="mi">441</span><span class="n">ca8249e46</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">request</span> <span class="n">sign</span> <span class="n">failed</span><span class="o">.</span> <span class="nb">int</span><span class="p">(</span><span class="p">)</span> <span class="n">argument</span> <span class="n">must</span> <span class="n">be</span> <span class="n">a</span> <span class="n">string</span><span class="p">,</span> <span class="n">a</span> <span class="nb">bytes</span><span class="o">-</span><span class="n">like</span> <span class="nb">object</span> <span class="ow">or</span> <span class="n">a</span> <span class="n">number</span><span class="p">,</span> <span class="ow">not</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">Sequence</span><span class="s1">&#39;</span>
+</span></span></code></pre>
 <p><img src="https://user-images.githubusercontent.com/10162120/219952256-9fe97364-a26f-4436-a625-24d113ea318f.png" alt="alipay.aop.api.exception.Exception.RequestException" />
 <em>截图来自参考文章</em></p>
 
@@ -62,42 +64,40 @@ request sign failed. int() argument must be a string, a bytes-like object or a n
 
 <p>所以解决办法也很简单，就是将 PKCS8 转成 PKCS1</p>
 
-<h2>PKCS8 转 PKCS1</h2>
+<h2 id="pkcs8-转-pkcs1">PKCS8 转 PKCS1</h2>
 
 <p>使用下面这个函数解决问题</p>
-
-<pre><code class="language-python">from Crypto.PublicKey import RSA
-
-def pkcs8_to_pkcs1(self, pkcs8_key:str) -&gt; str:
-    &quot;&quot;&quot;
-        将 pkcs8 的密钥转换为 pkcs1
-    &quot;&quot;&quot;
-    if not pkcs8_key.startswith(&quot;-----BEGIN RSA PRIVATE KEY-----&quot;):
-        pkcs8_key = f'-----BEGIN RSA PRIVATE KEY-----\n{pkcs8_key}\n-----END RSA PRIVATE KEY-----'
-    return RSA.importKey(pkcs8_key).exportKey().decode()
-</code></pre>
-
-<h1>问题 INVALID_SIGN: Alipay Sign Verify FAILED</h1>
+<pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto</span><span class="nn">.</span><span class="nn">PublicKey</span> <span class="kn">import</span> <span class="n">RSA</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">pkcs8_to_pkcs1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkcs8_key</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">        将 pkcs8 的密钥转换为 pkcs1</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="s2">    </span><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">pkcs8_key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">-----BEGIN RSA PRIVATE KEY-----</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pkcs8_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="s1">-----BEGIN RSA PRIVATE KEY-----</span><span class="se">\n</span><span class="si">{</span><span class="n">pkcs8_key</span><span class="si">}</span><span class="se">\n</span><span class="s1">-----END RSA PRIVATE KEY-----</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">RSA</span><span class="o">.</span><span class="n">importKey</span><span class="p">(</span><span class="n">pkcs8_key</span><span class="p">)</span><span class="o">.</span><span class="n">exportKey</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="p">)</span>
+</span></span></code></pre>
+<h1 id="问题-invalid-sign-alipay-sign-verify-failed">问题 INVALID_SIGN: Alipay Sign Verify FAILED</h1>
 
 <p>这个问题就是签名错误，显然易见。出现这个问题的原因是把 公钥 和 支付宝公钥 混淆了（文档里也没有提到！！！）</p>
 
 <p><img src="https://user-images.githubusercontent.com/10162120/219953054-36183c55-1dbc-4ef7-9b4d-521aa951e39b.png" alt="NVALID_SIGN: Alipay Sign Verify FAILED" />
 <em>截图来自参考文章</em></p>
 
-<h1>参考文章</h1>
+<h1 id="参考文章">参考文章</h1>
 
 <ul>
 <li><a href="https://blog.csdn.net/lw545034502/article/details/89143057">支付宝支付报错:INVALID_SIGN: Alipay Sign Verify FAILED 解决办法</a></li>
-<li><a href="https://www.cnblogs.com/liuye1990/p/13386624.html">Django支付宝支付 int() argument must be a string, a bytes-like object or a number, not &lsquo;Sequence&rsquo;错误</a></li>
+<li><a href="https://www.cnblogs.com/liuye1990/p/13386624.html">Django支付宝支付 int() argument must be a string, a bytes-like object or a number, not 'Sequence'错误</a></li>
 </ul>
 
             </div>
             
-            <div class="tags">
+            <div class="tag-list">
                 
-                <span class="tag">python</span>
+                <a href="/tags/python/" class="tag">python</a>
                 
-                <span class="tag">支付宝开放平台</span>
+                <a href="/tags/%e6%94%af%e4%bb%98%e5%ae%9d%e5%bc%80%e6%94%be%e5%b9%b3%e5%8f%b0/" class="tag">支付宝开放平台</a>
                 
             </div>
             
@@ -110,17 +110,13 @@ def pkcs8_to_pkcs1(self, pkcs8_key:str) -&gt; str:
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="preferred_color_scheme"
-                    data-lang="zh-CN"
-                    data-loading="lazy"
+                    data-theme="light"
+                    data-lang="en"
                     crossorigin="anonymous"
                     async>
                 </script>
             </div>
             
-            <div class="back-link">
-                <a href="/">&larr; Back to posts</a>
-            </div>
         </article>
     </main>
     
@@ -128,43 +124,85 @@ def pkcs8_to_pkcs1(self, pkcs8_key:str) -&gt; str:
         <p>&copy; Leetao. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             
-            const pres = document.querySelectorAll('pre');
-            pres.forEach(pre => {
-                
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.textContent = 'Copy';
-                
-                
-                pre.appendChild(button);
-                
-                
-                button.addEventListener('click', () => {
+            const giscusScript = document.querySelector('script[src^="https://giscus.app/client.js"]');
+            const setGiscusTheme = (theme) => {
+                if (giscusScript) {
+                    const message = { setConfig: { theme: theme } };
+                    const iframe = document.querySelector('.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+                    }
+                }
+            };
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            setGiscusTheme(currentTheme);
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'data-theme') {
+                        setGiscusTheme(mutation.target.getAttribute('data-theme'));
+                    }
+                });
+            }).observe(document.documentElement, { attributes: true });
+
+
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre.chroma').forEach((pre) => {
                     
-                    const code = pre.querySelector('code');
-                    const text = code ? code.textContent : pre.textContent;
+                    const existingButton = pre.querySelector('.copy-button');
+                    if (existingButton) {
+                        existingButton.remove();
+                    }
                     
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
                     
-                    navigator.clipboard.writeText(text).then(() => {
-                        
-                        button.textContent = 'Copied!';
-                        button.classList.add('copied');
-                        
-                        
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                            button.classList.remove('copied');
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        const code = pre.querySelector('code');
+                        if (code) {
+                            navigator.clipboard.writeText(code.innerText).then(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                                setTimeout(() => {
+                                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                                }, 2000);
+                            });
+                        }
                     });
                 });
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+            
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>
