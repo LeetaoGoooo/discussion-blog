@@ -12,6 +12,28 @@
 	</author>
 	
 	<entry>
+		<title>SwiftUI popver 变成类似 sheet 效果</title>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/265"/>
+		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/265" rel="alternate"/>
+		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/265</id>
+		<published>2025-07-21T02:15:22Z</published>
+		<updated>2025-07-21T02:15:22Z</updated>
+		<summary type="html">| 修改前效果 | 修改后效果 |
+|&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;&amp;ndash;|
+|  |  |
+
+
+
+
+结论
+
+popover 变成类似 sheet 的效果，是 SwiftUI 的预期行为，不是 Bug。
+
+
+�...</summary>
+	</entry>
+	
+	<entry>
 		<title>关于</title>
 		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10"/>
 		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/10" rel="alternate"/>
@@ -70,28 +92,6 @@ TextEditor(text: $userInput)
 
 
 今天算是沾了台风的光又家居家办公了一天，居家办公效率有的时候是个谜，幸运地是，今天的效率还算蛮高的，截止到下班前把之前遗留的一些�...</summary>
-	</entry>
-	
-	<entry>
-		<title>SwiftUI popver 变成类似 sheet 效果</title>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/265"/>
-		<link href="https://github.com/LeetaoGoooo/discussion-blog/discussions/265" rel="alternate"/>
-		<id>https://github.com/LeetaoGoooo/discussion-blog/discussions/265</id>
-		<published>2025-07-21T02:15:22Z</published>
-		<updated>2025-07-21T02:15:22Z</updated>
-		<summary type="html">| 修改前效果 | 修改后效果 |
-|&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;&amp;ndash;|
-|  |  |
-
-
-
-
-结论
-
-popover 变成类似 sheet 的效果，是 SwiftUI 的预期行为，不是 Bug。
-
-
-�...</summary>
 	</entry>
 	
 	<entry>

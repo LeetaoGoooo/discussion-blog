@@ -96,18 +96,18 @@
 
 <p>在 iOS 16.4+ 中，使用 <code>.presentationCompactAdaptation()</code> 修饰符 <strong>应用在 popover 的内容视图上</strong>：</p>
 
-<p>&rdquo;`swift
-Image(systemName: &ldquo;info.circle&rdquo;)
+<pre><code class="language-swift">Image(systemName: &quot;info.circle&quot;)
     .onTapGesture {
         isShowingPopover.toggle()
     }
     .popover(isPresented: $isShowingPopover, arrowEdge: .bottom) {
-        // 在 popover 内容添加修饰符<a href="@context-ref?id=0">原文</a>
-        Text(&ldquo;Popover Content&rdquo;)
+        // 在 popover 内容添加修饰符[原文](@context-ref?id=0)
+        Text(&quot;Popover Content&quot;)
             .padding()
-            .presentationCompactAdaptation(.popover) // ← 关键代码<a href="@context-ref?id=1">原文</a>
+            .presentationCompactAdaptation(.popover) // ← 关键代码[原文](@context-ref?id=1)
     }
-    .offset(y: 180)</p>
+    .offset(y: 180)
+</code></pre>
 
             </div>
             
