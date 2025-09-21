@@ -33,7 +33,8 @@ type Config struct {
 			Category   string `mapstructure:"category"`
 			CategoryID string `mapstructure:"category_id"`
 		} `mapstructure:"giscus"`
-		Favicon string `mapstructure:"favicon"`
+		Favicon  string `mapstructure:"favicon"`
+		Language string `mapstructure:"language"`
 	} `mapstructure:"site"`
 }
 
@@ -98,20 +99,7 @@ var generateCmd = &cobra.Command{
 
 		// 初始化生成器
 		genConfig := generator.Config{
-			Site: struct {
-				Title       string
-				URL         string
-				Description string
-				Author      string
-				Email       string
-				AboutID     int
-				Giscus      struct {
-					RepoID     string
-					Category   string
-					CategoryID string
-				}
-				Favicon string
-			}{
+			Site: generator.Site{
 				Title:       config.Site.Title,
 				URL:         config.Site.URL,
 				Description: config.Site.Description,
@@ -127,12 +115,10 @@ var generateCmd = &cobra.Command{
 					Category:   config.Site.Giscus.Category,
 					CategoryID: config.Site.Giscus.CategoryID,
 				},
-				Favicon: config.Site.Favicon,
+				Favicon:  config.Site.Favicon,
+				Language: config.Site.Language,
 			},
-			Github: struct {
-				Owner string
-				Repo  string
-			}{
+			Github: generator.Github{
 				Owner: config.Github.Owner,
 				Repo:  config.Github.Repo,
 			},
@@ -195,20 +181,7 @@ var previewCmd = &cobra.Command{
 
 		// 初始化生成器
 		genConfig := generator.Config{
-			Site: struct {
-				Title       string
-				URL         string
-				Description string
-				Author      string
-				Email       string
-				AboutID     int
-				Giscus      struct {
-					RepoID     string
-					Category   string
-					CategoryID string
-				}
-				Favicon string
-			}{
+			Site: generator.Site{
 				Title:       config.Site.Title,
 				URL:         config.Site.URL,
 				Description: config.Site.Description,
@@ -224,12 +197,10 @@ var previewCmd = &cobra.Command{
 					Category:   config.Site.Giscus.Category,
 					CategoryID: config.Site.Giscus.CategoryID,
 				},
-				Favicon: config.Site.Favicon,
+				Favicon:  config.Site.Favicon,
+				Language: config.Site.Language,
 			},
-			Github: struct {
-				Owner string
-				Repo  string
-			}{
+			Github: generator.Github{
 				Owner: config.Github.Owner,
 				Repo:  config.Github.Repo,
 			},

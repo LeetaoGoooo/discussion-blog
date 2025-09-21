@@ -1,6 +1,8 @@
 module pure
 
-go 1.21
+go 1.22
+
+toolchain go1.24.4
 
 require (
 	github.com/shurcooL/githubv4 v0.0.0-20220922232305-70b4d362a8cb
@@ -10,6 +12,8 @@ require (
 )
 
 require (
+	github.com/alecthomas/chroma/v2 v2.20.0 // indirect
+	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
