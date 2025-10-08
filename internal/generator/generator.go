@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
+	texttemplate "text/template"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strings"
 	"time"
 
@@ -91,6 +92,18 @@ func NewSiteGenerator(config Config, templateDir, outputDir string) (*SiteGenera
 			s = strings.TrimPrefix(s, "{")
 			s = strings.TrimSuffix(s, "}")
 			return s
+		},
+		"truncateHTML": func(s string, length int) string {
+			// Convert markdown to HTML first
+			htmlContent := blackfriday.Run([]byte(s))
+			// Remove HTML tags
+			re := regexp.MustCompile("<[^>]*>")
+			plainText := re.ReplaceAllString(string(htmlContent), "")
+			// Truncate to specified length
+			if len(plainText) > length {
+				plainText = plainText[:length] + "..."
+			}
+			return plainText
 		},
 	}
 
@@ -444,61 +457,138 @@ func (g *SiteGenerator) generateTagPageForTag(tag string, discussions []fetcher.
 
 func (g *SiteGenerator) generateRSSFeed(discussions []fetcher.Discussion) error {
 	// Create RSS feed
-	rssPath := filepath.Join(g.outputDir, "atom.xml")
+	rssPath := filepath.Join(g.outputDir, "rss.xml")
 	file, err := os.Create(rssPath)
 	if err != nil {
-		return fmt.Errorf("failed to create atom.xml: %w", err)
+		return fmt.Errorf("failed to create rss.xml: %w", err)
 	}
 	defer file.Close()
 
-	// Atom feed template
-	rssTemplate := `<?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-	<title>{{.Site.Title}}</title>
-	<subtitle>{{.Site.Description}}</subtitle>
-	<link href="{{.Site.URL}}"/>
-	<link href="{{.Site.URL}}/atom.xml" rel="self"/>
-	<updated>{{.Updated}}</updated>
-	<id>{{.Site.URL}}</id>
-	<author>
-		<name>{{.Site.Author}}</name>
-		<email>{{.Site.Email}}</email>
-	</author>
-	{{range .Discussions}}
-	<entry>
-		<title>{{.Title}}</title>
-		<link href="{{.URL}}"/>
-		<link href="{{.URL}}" rel="alternate"/>
-		<id>{{.URL}}</id>
-		<published>{{.CreatedAt.Format "2006-01-02T15:04:05Z07:00"}}</published>
-		<updated>{{.CreatedAt.Format "2006-01-02T15:04:05Z07:00"}}</updated>
-		<summary type="html">{{.Body | escapeHTML}}</summary>
-	</entry>
-	{{end}}
-</feed>
-`
-
-	tmpl, err := template.New("atom").Funcs(template.FuncMap{
-		"escapeHTML": func(s string) template.HTML {
-			// Convert markdown to HTML and escape HTML entities
-			html := blackfriday.Run([]byte(s))
-			// Remove HTML tags for summary
-			re := regexp.MustCompile("<[^>]*>")
-			summary := re.ReplaceAllString(string(html), "")
-			// Truncate summary to 200 characters
-			if len(summary) > 200 {
-				summary = summary[:200] + "..."
-			}
-			return template.HTML(template.HTMLEscapeString(summary))
-		},
-	}).Parse(rssTemplate)
+	// Read the RSS template from file or use default
+	rssTemplateContent, err := os.ReadFile(filepath.Join(g.templateDir, "../templates/rss.xml"))
 	if err != nil {
-		return fmt.Errorf("failed to parse Atom template: %w", err)
+		// Fallback to embedded RSS 2.0 template
+		rssTemplateContent = []byte(`<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>{{.Site.Title}}</title>
+        <description>{{.Site.Description}}</description>
+        <link>{{.Site.URL}}</link>
+        <lastBuildDate>{{.Updated}}</lastBuildDate>
+        <language>{{.Site.Language | default "en"}}</language>
+        <generator>Discussion Blog Generator</generator>
+        {{range .Discussions}}
+        <item>
+            <title>{{.Title}}</title>
+            <description>{{truncateHTML .Body 200}}</description>
+            <link>{{.URL}}</link>
+            <guid isPermaLink="true">{{.URL}}</guid>
+            <pubDate>{{.CreatedAt.Format "Mon, 02 Jan 2006 15:04:05 MST"}}</pubDate>
+        </item>
+        {{end}}
+    </channel>
+</rss>`)
 	}
 
-	// Get the most recent updated time
+	// For RSS XML, we need to use text/template to avoid HTML escaping of XML structure
+	tmpl, err := texttemplate.New("rss").Funcs(texttemplate.FuncMap{
+		"default": func(defaultValue, value interface{}) interface{} {
+			if value == nil || value == "" {
+				return defaultValue
+			}
+			return value
+		},
+		"truncate": func(s string, length int) string {
+			if len(s) <= length {
+				return s
+			}
+			return s[:length] + "..."
+		},
+		"truncateHTML": func(s string, length int) string {
+			// Convert markdown to HTML first
+			htmlContent := blackfriday.Run([]byte(s))
+			// Remove HTML tags
+			re := regexp.MustCompile("<[^>]*>")
+			plainText := re.ReplaceAllString(string(htmlContent), "")
+			// Truncate to specified length
+			if len(plainText) > length {
+				plainText = plainText[:length] + "..."
+			}
+			
+			// Handle line endings properly for XML
+			plainText = strings.ReplaceAll(plainText, "\r\n", "\n")
+			plainText = strings.ReplaceAll(plainText, "\r", "\n")
+			
+			// Clean the string to only include valid XML 1.0 characters
+			// Valid XML 1.0 characters are: 
+			// #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+			var cleaned strings.Builder
+			for _, r := range plainText {
+				if r == 0x09 || r == 0x0A || r == 0x0D || 
+				   (r >= 0x20 && r <= 0xD7FF) || 
+				   (r >= 0xE000 && r <= 0xFFFD) || 
+				   (r >= 0x10000 && r <= 0x10FFFF) {
+					cleaned.WriteRune(r)
+				} else {
+					// Replace invalid characters with a replacement character or skip them
+					// For XML, we'll replace with a space or a question mark
+					cleaned.WriteRune(' ')
+				}
+			}
+			plainText = cleaned.String()
+			
+			// Escape XML special characters
+			plainText = strings.ReplaceAll(plainText, "&", "&amp;")
+			plainText = strings.ReplaceAll(plainText, "<", "&lt;")
+			plainText = strings.ReplaceAll(plainText, ">", "&gt;")
+			plainText = strings.ReplaceAll(plainText, "\"", "&quot;")
+			plainText = strings.ReplaceAll(plainText, "'", "&apos;")
+			
+			// Replace newlines with XML character entities
+			plainText = strings.ReplaceAll(plainText, "\n", "&#10;")
+			
+			return plainText
+		},
+		"markdown": func(s string) string {
+			// Clean up line endings
+			s = strings.ReplaceAll(s, "\r\n", "\n")
+			s = strings.ReplaceAll(s, "\r", "\n")
+
+			// Convert markdown to HTML with Chroma
+			renderer := &ChromaRenderer{HTML: blackfriday.NewHTMLRenderer(blackfriday.HTMLRendererParameters{
+				Flags: blackfriday.UseXHTML,
+			})}
+			extensions := blackfriday.CommonExtensions | blackfriday.AutoHeadingIDs | blackfriday.NoEmptyLineBeforeBlock
+			html := blackfriday.Run([]byte(s), blackfriday.WithRenderer(renderer), blackfriday.WithExtensions(extensions))
+			return string(html)
+		},
+		"trimBraces": func(s string) string {
+			s = strings.TrimPrefix(s, "{")
+			s = strings.TrimSuffix(s, "}")
+			return s
+		},
+	}).Parse(string(rssTemplateContent))
+	if err != nil {
+		return fmt.Errorf("failed to parse RSS template: %w", err)
+	}
+
+	// Sort discussions by creation date (newest first) and take only the latest 10
+	sortedDiscussions := make([]fetcher.Discussion, len(discussions))
+	copy(sortedDiscussions, discussions)
+	
+	// Sort by CreatedAt in descending order (newest first)
+	sort.Slice(sortedDiscussions, func(i, j int) bool {
+		return sortedDiscussions[i].CreatedAt.After(sortedDiscussions[j].CreatedAt)
+	})
+	
+	// Take only the first 10 discussions (newest ones)
+	if len(sortedDiscussions) > 10 {
+		sortedDiscussions = sortedDiscussions[:10]
+	}
+
+	// Get the most recent created time from the discussions we're including
 	var updated time.Time
-	for _, discussion := range discussions {
+	for _, discussion := range sortedDiscussions {
 		if discussion.CreatedAt.After(updated) {
 			updated = discussion.CreatedAt
 		}
@@ -511,6 +601,7 @@ func (g *SiteGenerator) generateRSSFeed(discussions []fetcher.Discussion) error 
 			URL         string
 			Author      string
 			Email       string
+			Language    string
 		}
 		Updated     string
 		Discussions []fetcher.Discussion
@@ -521,19 +612,21 @@ func (g *SiteGenerator) generateRSSFeed(discussions []fetcher.Discussion) error 
 			URL         string
 			Author      string
 			Email       string
+			Language    string
 		}{
 			Title:       g.config.Site.Title,
 			Description: g.config.Site.Description,
 			URL:         g.config.Site.URL,
 			Author:      g.config.Site.Author,
 			Email:       g.config.Site.Email,
+			Language:    g.config.Site.Language,
 		},
-		Updated:     updated.Format("2006-01-02T15:04:05Z07:00"),
-		Discussions: discussions,
+		Updated:     updated.Format("Mon, 02 Jan 2006 15:04:05 MST"),
+		Discussions: sortedDiscussions,
 	}
 
 	if err := tmpl.Execute(file, data); err != nil {
-		return fmt.Errorf("failed to execute Atom template: %w", err)
+		return fmt.Errorf("failed to execute RSS template: %w", err)
 	}
 
 	return nil
@@ -619,13 +712,13 @@ func (g *SiteGenerator) copyStaticAssets() error {
 		}
 
 		// Read source file
-		srcData, err := ioutil.ReadFile(path)
+		srcData, err := os.ReadFile(path)
 		if err != nil {
 			return err
 		}
 
 		// Write to destination
-		if err := ioutil.WriteFile(destPath, srcData, 0644); err != nil {
+		if err := os.WriteFile(destPath, srcData, 0644); err != nil {
 			return err
 		}
 

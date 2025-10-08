@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>{{.Site.Title}}</title>
+        <description>{{.Site.Description}}</description>
+        <link>{{.Site.URL}}</link>
+        <lastBuildDate>{{.Updated}}</lastBuildDate>
+        <language>{{.Site.Language | default "en"}}</language>
+        <generator>Discussion Blog Generator</generator>
+        {{range .Discussions}}
+        <item>
+            <title>{{.Title}}</title>
+            <description>{{truncateHTML .Body 200}}</description>
+            <link>{{.URL}}</link>
+            <guid isPermaLink="true">{{.URL}}</guid>
+            <pubDate>{{.CreatedAt.Format "Mon, 02 Jan 2006 15:04:05 MST"}}</pubDate>
+        </item>
+        {{end}}
+    </channel>
+</rss>
