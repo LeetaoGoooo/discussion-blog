@@ -87,25 +87,36 @@
     
     <script src="/js/theme-toggle.js"></script>
     <script>
+        // 为首页添加复制按钮功能
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('pre code').forEach((block) => {
-                const pre = block.parentElement;
-                if (pre.querySelector('.copy-button')) return;
+            // 初始化复制按钮
+            function initCopyButtons() {
+                document.querySelectorAll('pre code').forEach((block) => {
+                    const pre = block.parentElement;
+                    if (pre.querySelector('.copy-button')) return;
 
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-                
-                pre.appendChild(button);
-                
-                button.addEventListener('click', () => {
-                    navigator.clipboard.writeText(block.innerText).then(() => {
-                        button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
-                        setTimeout(() => {
-                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-                        }, 2000);
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                    
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        navigator.clipboard.writeText(block.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
                     });
                 });
+            }
+            
+            initCopyButtons();
+            
+            // 监听主题变化事件，重新初始化复制按钮
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
             });
         });
     </script>

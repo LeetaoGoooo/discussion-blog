@@ -69,7 +69,7 @@
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="light"
+                    data-theme="preferred_color_scheme"
                     data-lang="en"
                     crossorigin="anonymous"
                     async>
@@ -77,6 +77,24 @@
             </div>
             
         </article>
+        
+        <nav class="post-navigation">
+            {{if .PrevDiscussion}}
+            <a href="/post/{{.PrevDiscussion.Number}}/" class="nav-btn prev-post">
+                &larr; {{.PrevDiscussion.Title}}
+            </a>
+            {{else}}
+            <span></span>
+            {{end}}
+            
+            {{if .NextDiscussion}}
+            <a href="/post/{{.NextDiscussion.Number}}/" class="nav-btn next-post">
+                {{.NextDiscussion.Title}} &rarr;
+            </a>
+            {{else}}
+            <span></span>
+            {{end}}
+        </nav>
     </main>
     
     <footer>
@@ -136,24 +154,6 @@
                         }
                     });
                 });
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-                
-                pre.style.position = 'relative';
-                pre.appendChild(button);
-                
-                button.addEventListener('click', () => {
-                    const code = pre.querySelector('code');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText).then(() => {
-                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
-                            setTimeout(() => {
-                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-                            }, 2000);
-                        });
-                    }
-                });
             }
             
             // 初始化复制按钮
@@ -164,6 +164,9 @@
                 initCopyButtons();
             });
         });
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>

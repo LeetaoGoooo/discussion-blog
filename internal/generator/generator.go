@@ -330,7 +330,12 @@ func (g *SiteGenerator) generateIndexPage(discussions []fetcher.Discussion) erro
 }
 
 func (g *SiteGenerator) generatePostPages(discussions []fetcher.Discussion) error {
-	for _, discussion := range discussions {
+	// Sort discussions by discussion number to ensure correct 'previous' and 'next'
+	sort.Slice(discussions, func(i, j int) bool {
+		return discussions[i].Number < discussions[j].Number
+	})
+
+	for i, discussion := range discussions {
 		// Create post directory
 		postDir := filepath.Join(g.outputDir, "post", fmt.Sprintf("%d", discussion.Number))
 		if err := os.MkdirAll(postDir, 0755); err != nil {
@@ -345,13 +350,28 @@ func (g *SiteGenerator) generatePostPages(discussions []fetcher.Discussion) erro
 		}
 		defer file.Close()
 
+		// Determine previous and next discussions
+		var prevDiscussion *fetcher.Discussion
+		if i > 0 {
+			prevDiscussion = &discussions[i-1]
+		}
+
+		var nextDiscussion *fetcher.Discussion
+		if i < len(discussions)-1 {
+			nextDiscussion = &discussions[i+1]
+		}
+
 		// Prepare data for template
 		data := struct {
-			Site       Config
-			Discussion fetcher.Discussion
+			Site           Config
+			Discussion     fetcher.Discussion
+			PrevDiscussion *fetcher.Discussion
+			NextDiscussion *fetcher.Discussion
 		}{
-			Site:       g.config,
-			Discussion: discussion,
+			Site:           g.config,
+			Discussion:     discussion,
+			PrevDiscussion: prevDiscussion,
+			NextDiscussion: nextDiscussion,
 		}
 
 		// Execute the post template
@@ -827,11 +847,15 @@ func (g *SiteGenerator) generateAboutPage(discussions []fetcher.Discussion) erro
 
 	// Prepare data for template
 	data := struct {
-		Site       Config
-		Discussion fetcher.Discussion
+		Site           Config
+		Discussion     fetcher.Discussion
+		PrevDiscussion *fetcher.Discussion
+		NextDiscussion *fetcher.Discussion
 	}{
-		Site:       g.config,
-		Discussion: *aboutDiscussion,
+		Site:           g.config,
+		Discussion:     *aboutDiscussion,
+		PrevDiscussion: nil,
+		NextDiscussion: nil,
 	}
 
 	// Execute the post template for about page
