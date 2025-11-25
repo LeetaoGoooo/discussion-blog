@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Leetao</title>
+        <description>写有趣的代码，做有趣的事</description>
+        <link>https://www.leetao.me</link>
+        <lastBuildDate>Sun, 21 Sep 2025 12:12:24 UTC</lastBuildDate>
+        <language>en</language>
+        <generator>Discussion Blog Generator</generator>
+        
+        <item>
+            <title>新域名的第二年</title>
+            <description>换了新域名 leetao.me 昨天迎来了网站的又一年了，昨天配合 AI 把网站重构了一下，网站依旧始部署在 vercel，不一样的是，去年使用的是 pure,通过 go + Go R...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/272</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/272</guid>
+            <pubDate>Sun, 21 Sep 2025 12:12:24 UTC</pubDate>
+        </item>
+        
+        <item>
+            <title>如何调整输入光标到 TextEditor 边框的距离</title>
+            <description>导言&#10;&#10;&#10;对于一个默认的 TextEditor：&#10;&#10;swift&#10;@State private var userInput: String = &amp;quot;&amp;quot;&#10;...&#10;TextEditor(text: $userInput)&#10;&#10;&#10;它的输入光标如下图&#10;&#10;&#10;&#10;默认的样式�...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/267</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/267</guid>
+            <pubDate>Sun, 31 Aug 2025 09:12:01 UTC</pubDate>
+        </item>
+        
+        <item>
+            <title>野草—写在七月的尾巴</title>
+            <description>&#10;&#10;&#10;今天算是沾了台风的光又家居家办公了一天，居家办公效率有的时候是个谜，幸运地是，今天的效率还算蛮高的，截止到下班前把之前遗留的一些��...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/266</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/266</guid>
+            <pubDate>Thu, 31 Jul 2025 02:25:45 UTC</pubDate>
+        </item>
+        
+        <item>
+            <title>SwiftUI popver 变成类似 sheet 效果</title>
+            <description>| 修改前效果 | 修改后效果 |&#10;|&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;&amp;ndash;|&#10;|  |  |&#10;&#10;&#10;&#10;&#10;结论&#10;&#10;popover 变成类似 sheet 的效果，是 SwiftUI 的预期行为，不是 Bug。&#10;&#10;&#10;��...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/265</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/265</guid>
+            <pubDate>Mon, 21 Jul 2025 02:15:22 UTC</pubDate>
+        </item>
+        
+        <item>
+            <title>Flutter WidgetsBindingObserver 详解</title>
+            <description>&#10;&#10;前言&#10;&#10;&#10;WidgetsBindingObserver 是 Flutter 中一个非常重要的接口，它允许你的 Flutter 应用监听和响应底层平台（操作系统）和 Flutter 引擎的各种生命周期事�...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/264</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/264</guid>
+            <pubDate>Wed, 21 May 2025 12:22:58 UTC</pubDate>
+        </item>
+        
+        <item>
+            <title>Full-Screen Issue With .Sheet</title>
+            <description>前言&#10;&#10;&#10;之前的 PromptHub 有个 Setting 页面，用来展示自定义配置的，预期是点击配置按钮，然后希望 Setting 页面可以完整展示&#10;&#10;&#10;&#10;但是实际的展示效果��...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/263</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/263</guid>
+            <pubDate>Sun, 20 Apr 2025 08:06:01 UTC</pubDate>
+        </item>
+        
+        <item>
+            <title>libreoffice-convert may not work as expected in Docker</title>
+            <description>Recently, we tried converting Office documents to PDF using libreoffice-convert. It worked well on the local machine, but when run inside Docker, everything broke — the PDFs were filled with white b...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/262</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/262</guid>
+            <pubDate>Tue, 15 Apr 2025 03:22:43 UTC</pubDate>
+        </item>
+        
+        <item>
+            <title>Download a Google Drive file using the `drive.file` scope</title>
+            <description>drive.readonly 方便，但是被拒绝了&#10;&#10;&#10; 最近的项目有个需求就是将用户的 Google Drive 的文件导出到我们自己的应用。从 Google Drive 的文档看下载的逻辑并不�...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/261</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/261</guid>
+            <pubDate>Mon, 07 Apr 2025 10:00:24 UTC</pubDate>
+        </item>
+        
+        <item>
+            <title>NSEvent.addGlobalMonitorForEvents vs CGEventTapCreate</title>
+            <description>&#10;&#10;&#10;最近想做个 Apple Note 的强化工具，市面上虽然有了，但是还是想着自己去实践一下，毕竟有的是软件而不是知识。纸上得来终觉浅。想要实现的功��...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/260</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/260</guid>
+            <pubDate>Sun, 06 Apr 2025 12:52:30 UTC</pubDate>
+        </item>
+        
+        <item>
+            <title>Swift 中 CGEvent 的使用</title>
+            <description>CGEvent &#10;&#10;&#10;CGEvent 的定义如下：&#10;&#10;&amp;gt; Defines an opaque type that represents a low-level hardware event.&#10;&#10;通常用来表示低级别用户输入事件的核心数据类型，我们可以�...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/259</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/259</guid>
+            <pubDate>Sun, 06 Apr 2025 10:16:42 UTC</pubDate>
+        </item>
+        
+    </channel>
+</rss>

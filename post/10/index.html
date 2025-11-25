@@ -29,6 +29,13 @@ Python、Golang、Rust、Dart、Swif...">
                 <a href="/">Home</a>
                 <a href="/tags/">Tags</a>
                 <a href="/about/">About</a>
+                <a class="feed-link" href="/rss.xml" title="RSS Feed">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg>
+                </a>
                 <button class="theme-toggle" id="theme-toggle">
                     <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -60,10 +67,6 @@ Python、Golang、Rust、Dart、Swif...">
 <h2 id="hobbies">Hobbies</h2>
 
 <p>Running、Swimming and <a href="https://leetao-personal.notion.site/2afd1299ff56483085529e32aeec3b94?v=aba15b7116374ef4ab8fa5cb66abcc18&amp;pvs=25">Reading</a></p>
-
-<h2 id="newsletter">Newsletter</h2>
-
-<p><a href="https://quail.ink/leetao">Leetao's Space</a></p>
 
 <h2 id="app">App</h2>
 
@@ -136,7 +139,7 @@ liruifengv <span  style="color:#949494;font-size:13px">Web 开发者，Astro 项
                     data-reactions-enabled="1"
                     data-emit-metadata="0"
                     data-input-position="top"
-                    data-theme="light"
+                    data-theme="preferred_color_scheme"
                     data-lang="en"
                     crossorigin="anonymous"
                     async>
@@ -144,6 +147,20 @@ liruifengv <span  style="color:#949494;font-size:13px">Web 开发者，Astro 项
             </div>
             
         </article>
+        
+        <nav class="post-navigation">
+            
+            <a href="/post/9/" class="nav-btn prev-post">
+                &larr; Golang 字符串和 rune
+            </a>
+            
+            
+            
+            <a href="/post/11/" class="nav-btn next-post">
+                Slice 取交集和差集的通用方法 &rarr;
+            </a>
+            
+        </nav>
     </main>
     
     <footer>
@@ -203,24 +220,6 @@ liruifengv <span  style="color:#949494;font-size:13px">Web 开发者，Astro 项
                         }
                     });
                 });
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-                
-                pre.style.position = 'relative';
-                pre.appendChild(button);
-                
-                button.addEventListener('click', () => {
-                    const code = pre.querySelector('code');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText).then(() => {
-                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
-                            setTimeout(() => {
-                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-                            }, 2000);
-                        });
-                    }
-                });
             }
             
             
@@ -231,6 +230,9 @@ liruifengv <span  style="color:#949494;font-size:13px">Web 开发者，Astro 项
                 initCopyButtons();
             });
         });
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>

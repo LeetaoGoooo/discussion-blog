@@ -25,6 +25,13 @@
                 <a href="/">Home</a>
                 <a href="/tags/">Tags</a>
                 <a href="/about/">About</a>
+                <a class="feed-link" href="/rss.xml" title="RSS Feed">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg>
+                </a>
                 <button class="theme-toggle" id="theme-toggle">
                     <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -67,5 +74,39 @@
     </footer>
     
     <script src="/js/theme-toggle.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            function initCopyButtons() {
+                document.querySelectorAll('pre code').forEach((block) => {
+                    const pre = block.parentElement;
+                    if (pre.querySelector('.copy-button')) return;
+
+                    const button = document.createElement('button');
+                    button.className = 'copy-button';
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                    
+                    pre.appendChild(button);
+                    
+                    button.addEventListener('click', () => {
+                        navigator.clipboard.writeText(block.innerText).then(() => {
+                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>';
+                            setTimeout(() => {
+                                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                            }, 2000);
+                        });
+                    });
+                });
+            }
+            
+            initCopyButtons();
+            
+            
+            document.addEventListener('themeChanged', () => {
+                initCopyButtons();
+            });
+        });
+    </script>
 </body>
 </html>
