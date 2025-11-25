@@ -28,9 +28,11 @@ class ThemeToggle {
   constructor() {
     // 获取主题切换按钮
     this.themeToggle = document.getElementById('theme-toggle');
-    // 当前主题
+    console.log('Theme toggle element found:', this.themeToggle);
+    // 当前主题 - 优先使用存储的主题，然后是系统主题，最后是默认值
     this.currentTheme = this.getStoredTheme() || this.getSystemTheme();
-    
+    console.log('Initial theme determined:', this.currentTheme);
+
     // 初始化
     this.init();
   }
@@ -39,14 +41,19 @@ class ThemeToggle {
    * 初始化主题切换功能
    */
   init() {
-    // 设置初始主题
-    this.setTheme(this.currentTheme);
-    
+    // 设置初始主题（应用到DOM and update button）
+    this.applyTheme(this.currentTheme);
+    console.log('Initial theme applied');
+
     // 绑定点击事件
     if (this.themeToggle) {
+      console.log('Adding click event listener to theme toggle button');
       this.themeToggle.addEventListener('click', () => {
         this.toggleTheme();
+        console.log('Theme toggle clicked');
       });
+    } else {
+      console.error('Theme toggle button not found in DOM!');
     }
   }
 
@@ -67,35 +74,64 @@ class ThemeToggle {
   }
 
   /**
+   * 应用主题（不存储到localStorage，用于初始化）
+   * @param {string} theme 要应用的主题 ('light' 或 'dark')
+   */
+  applyTheme(theme) {
+    console.log(`Applying theme: ${theme}`); 
+    // 更新当前主题
+    this.currentTheme = theme;
+
+    // 更新HTML元素上的data-theme属性
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 更新按钮内容
+    this.updateButtonContent();
+    
+    // 触发主题变化事件，用于更新代码高亮等
+    this.dispatchThemeChangeEvent();
+  }
+
+  /**
    * 设置主题
    * @param {string} theme 要设置的主题 ('light' 或 'dark')
    */
   setTheme(theme) {
+    console.log(`Setting theme: ${theme}`);
     // 更新当前主题
     this.currentTheme = theme;
-    
+
     // 更新HTML元素上的data-theme属性
     document.documentElement.setAttribute('data-theme', theme);
-    
+
     // 更新按钮内容
     this.updateButtonContent();
-    
+
     // 存储主题到localStorage
     localStorage.setItem('theme', theme);
+    
+    // 触发主题变化事件，用于更新代码高亮等
+    this.dispatchThemeChangeEvent();
   }
 
   /**
    * 更新按钮内容（图标和文本）
    */
   updateButtonContent() {
-    if (!this.themeToggle) return;
-    
+    console.log('Updating button content, current theme:', this.currentTheme);
+    if (!this.themeToggle) {
+      console.error('Theme toggle button not available in updateButtonContent');
+      return;
+    }
+
     if (this.currentTheme === 'dark') {
       // 深色主题显示太阳图标和"Light"文本
       this.themeToggle.innerHTML = `${sunIcon} Light`;
+      console.log('Set button to sun icon for light theme');
     } else {
       // 浅色主题显示月亮图标和"Dark"文本
       this.themeToggle.innerHTML = `${moonIcon} Dark`;
+      console.log('Set button to moon icon for dark theme');
     }
   }
 
@@ -103,14 +139,30 @@ class ThemeToggle {
    * 切换主题
    */
   toggleTheme() {
+    console.log('Toggle theme function called');
     const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+    console.log('Current theme:', this.currentTheme, 'New theme:', newTheme);
     this.setTheme(newTheme);
+  }
+  
+  /**
+   * 触发主题变化事件
+   */
+  dispatchThemeChangeEvent() {
+    document.dispatchEvent(new CustomEvent('themeChanged', {
+      detail: { theme: this.currentTheme }
+    }));
   }
 }
 
+// 存储全局实例，以便在需要时引用
+let themeToggleInstance;
+
 // 页面加载完成后初始化主题切换功能
 document.addEventListener('DOMContentLoaded', () => {
-  new ThemeToggle();
+  console.log('DOM Content Loaded, initializing ThemeToggle');
+  themeToggleInstance = new ThemeToggle();
+  console.log('ThemeToggle instance created:', themeToggleInstance);
 });
 
 // 监听系统主题偏好变化
@@ -118,6 +170,27 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
   // 只有在没有存储主题时才响应系统主题变化
   if (!localStorage.getItem('theme')) {
     const newTheme = e.matches ? 'dark' : 'light';
-    new ThemeToggle().setTheme(newTheme);
+    if (themeToggleInstance) {
+      themeToggleInstance.setTheme(newTheme); // Apply and store the new theme preference
+    }
   }
+});
+
+// 监听主题变化事件，确保代码高亮正确更新
+document.addEventListener('DOMContentLoaded', () => {
+  const themeObserver = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+        // 主题已更改，触发代码高亮更新
+        document.dispatchEvent(new CustomEvent('themeChanged', {
+          detail: { theme: document.documentElement.getAttribute('data-theme') }
+        }));
+      }
+    });
+  });
+
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme']
+  });
 });

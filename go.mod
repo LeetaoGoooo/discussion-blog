@@ -1,8 +1,12 @@
 module pure
 
-go 1.21
+go 1.22
+
+toolchain go1.24.4
 
 require (
+	github.com/alecthomas/chroma/v2 v2.20.0
+	github.com/russross/blackfriday/v2 v2.1.0
 	github.com/shurcooL/githubv4 v0.0.0-20220922232305-70b4d362a8cb
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.14.0
@@ -10,6 +14,7 @@ require (
 )
 
 require (
+	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
@@ -18,7 +23,6 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
-	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/shurcooL/graphql v0.0.0-20220606043923-3cf50f8a0a29 // indirect
 	github.com/spf13/afero v1.9.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect

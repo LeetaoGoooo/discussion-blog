@@ -3,11 +3,40 @@ package fetcher
 import (
 	"context"
 	"fmt"
+	"sort"
+	"strings"
 	"time"
 
 	"github.com/shurcooL/githubv4"
 	"golang.org/x/oauth2"
 )
+
+// fixUnclosedCodeBlocks fixes unclosed code blocks in markdown content
+func fixUnclosedCodeBlocks(content string) string {
+	lines := strings.Split(content, "\n")
+	fixedLines := make([]string, 0, len(lines))
+	
+	inCodeBlock := false
+	
+	for _, line := range lines {
+		// Check if this line starts a code block
+		if strings.HasPrefix(strings.TrimSpace(line), "```") && !inCodeBlock {
+			inCodeBlock = true
+		} else if strings.HasPrefix(strings.TrimSpace(line), "```") && inCodeBlock {
+			// This line closes the code block
+			inCodeBlock = false
+		}
+		
+		fixedLines = append(fixedLines, line)
+	}
+	
+	// If we're still in a code block at the end, add a closing marker
+	if inCodeBlock {
+		fixedLines = append(fixedLines, "```")
+	}
+	
+	return strings.Join(fixedLines, "\n")
+}
 
 // FetchDiscussions fetches discussions from GitHub
 func FetchDiscussions(token, owner, repo string) ([]Discussion, error) {
@@ -78,11 +107,14 @@ func FetchDiscussions(token, owner, repo string) ([]Discussion, error) {
 				}
 			}
 
+			// Fix unclosed code blocks in the content
+			fixedBody := fixUnclosedCodeBlocks(node.Body)
+			
 			discussions = append(discussions, Discussion{
 				ID:    node.ID,
 				Number: node.Number,
 				Title: node.Title,
-				Body:  node.Body,
+				Body:  fixedBody,
 				Author: node.Author.Login,
 				Category: struct {
 					ID   string
@@ -102,7 +134,12 @@ func FetchDiscussions(token, owner, repo string) ([]Discussion, error) {
 		}
 
 		variables["cursor"] = githubv4.String(query.Repository.Discussions.PageInfo.EndCursor)
-	}
+		}
+
+	// Sort discussions by creation time (newest first)
+	sort.Slice(discussions, func(i, j int) bool {
+		return discussions[i].CreatedAt.After(discussions[j].CreatedAt)
+	})
 
 	return discussions, nil
 }
