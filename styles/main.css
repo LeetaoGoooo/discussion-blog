@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap'); /* Replace with actual LxgwWenKai font import if self-hosting or using a different CDN */
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-web/style.css');
+
 /* ═══════════════════════════════════════════════════════════
    Apple-Inspired Premium Theme - 2025 Edition
    Optimized Version: Fresh & Minimalist Style with SVG Icons
@@ -51,9 +54,9 @@
   --radius-full: 9999px;
   
   /* Typography */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+    --font-sans: "Roboto", -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, 'Cascadia Mono', monospace;
-  --font-cjk: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+  --font-cjk: "LxgwWenKai", 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
   
   /* Spacing Scale */
   --space-xs: 0.25rem;
