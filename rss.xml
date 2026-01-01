@@ -4,9 +4,17 @@
         <title>Leetao</title>
         <description>写有趣的代码，做有趣的事</description>
         <link>https://www.leetao.me</link>
-        <lastBuildDate>Sun, 21 Sep 2025 12:12:24 UTC</lastBuildDate>
+        <lastBuildDate>Thu, 01 Jan 2026 09:13:45 UTC</lastBuildDate>
         <language>en</language>
         <generator>Discussion Blog Generator</generator>
+        
+        <item>
+            <title>2025 年度总结 (一)</title>
+            <description>&#10;Codex 的额度还有 10% ，今天就暂且放过它了，不过明天还是要把她压榨干净的。今天是 2025 年的最后一天，按照惯例写一篇年终总结，今年的年终总结�...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/274</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/274</guid>
+            <pubDate>Thu, 01 Jan 2026 09:13:45 UTC</pubDate>
+        </item>
         
         <item>
             <title>新域名的第二年</title>
@@ -78,14 +86,6 @@
             <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/260</link>
             <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/260</guid>
             <pubDate>Sun, 06 Apr 2025 12:52:30 UTC</pubDate>
-        </item>
-        
-        <item>
-            <title>Swift 中 CGEvent 的使用</title>
-            <description>CGEvent &#10;&#10;&#10;CGEvent 的定义如下：&#10;&#10;&amp;gt; Defines an opaque type that represents a low-level hardware event.&#10;&#10;通常用来表示低级别用户输入事件的核心数据类型，我们可以�...</description>
-            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/259</link>
-            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/259</guid>
-            <pubDate>Sun, 06 Apr 2025 10:16:42 UTC</pubDate>
         </item>
         
     </channel>
