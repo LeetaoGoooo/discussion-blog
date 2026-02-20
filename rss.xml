@@ -4,9 +4,17 @@
         <title>Leetao</title>
         <description>写有趣的代码，做有趣的事</description>
         <link>https://www.leetao.me</link>
-        <lastBuildDate>Thu, 01 Jan 2026 09:13:45 UTC</lastBuildDate>
+        <lastBuildDate>Fri, 20 Feb 2026 10:42:52 UTC</lastBuildDate>
         <language>en</language>
         <generator>Discussion Blog Generator</generator>
+        
+        <item>
+            <title>向左，向右？</title>
+            <description>&#10;我们似乎迈入了一个新的拐点，可预见的是， AI 正在重塑一切。在我之前的25年的年终总结里，我已经提到了自己彻底拥抱了 AI。&#10;&#10;我手动写代码的��...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/275</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/275</guid>
+            <pubDate>Fri, 20 Feb 2026 10:42:52 UTC</pubDate>
+        </item>
         
         <item>
             <title>2025 年度总结 (一)</title>
@@ -78,14 +86,6 @@
             <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/261</link>
             <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/261</guid>
             <pubDate>Mon, 07 Apr 2025 10:00:24 UTC</pubDate>
-        </item>
-        
-        <item>
-            <title>NSEvent.addGlobalMonitorForEvents vs CGEventTapCreate</title>
-            <description>&#10;&#10;&#10;最近想做个 Apple Note 的强化工具，市面上虽然有了，但是还是想着自己去实践一下，毕竟有的是软件而不是知识。纸上得来终觉浅。想要实现的功��...</description>
-            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/260</link>
-            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/260</guid>
-            <pubDate>Sun, 06 Apr 2025 12:52:30 UTC</pubDate>
         </item>
         
     </channel>
