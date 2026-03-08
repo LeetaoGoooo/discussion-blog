@@ -4,9 +4,17 @@
         <title>Leetao</title>
         <description>写有趣的代码，做有趣的事</description>
         <link>https://www.leetao.me</link>
-        <lastBuildDate>Fri, 20 Feb 2026 10:42:52 UTC</lastBuildDate>
+        <lastBuildDate>Sun, 08 Mar 2026 13:28:52 UTC</lastBuildDate>
         <language>en</language>
         <generator>Discussion Blog Generator</generator>
+        
+        <item>
+            <title>葫芦娃尾声</title>
+            <description>&#10;多问几个为什么&#10;&#10;&#10;上一篇博客说要把葫芦娃的底座开源出来，拖了一段时间，把代码清理了一下，总算兑现诺言把它开源了 - kuafu，&#10;&#10;框架必然有不�...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/276</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/276</guid>
+            <pubDate>Sun, 08 Mar 2026 13:28:52 UTC</pubDate>
+        </item>
         
         <item>
             <title>向左，向右？</title>
@@ -78,14 +86,6 @@
             <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/262</link>
             <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/262</guid>
             <pubDate>Tue, 15 Apr 2025 03:22:43 UTC</pubDate>
-        </item>
-        
-        <item>
-            <title>Download a Google Drive file using the `drive.file` scope</title>
-            <description>drive.readonly 方便，但是被拒绝了&#10;&#10;&#10; 最近的项目有个需求就是将用户的 Google Drive 的文件导出到我们自己的应用。从 Google Drive 的文档看下载的逻辑并不�...</description>
-            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/261</link>
-            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/261</guid>
-            <pubDate>Mon, 07 Apr 2025 10:00:24 UTC</pubDate>
         </item>
         
     </channel>
