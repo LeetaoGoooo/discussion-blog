@@ -4,9 +4,17 @@
         <title>Leetao</title>
         <description>写有趣的代码，做有趣的事</description>
         <link>https://www.leetao.me</link>
-        <lastBuildDate>Sun, 08 Mar 2026 13:28:52 UTC</lastBuildDate>
+        <lastBuildDate>Sat, 04 Apr 2026 13:32:16 UTC</lastBuildDate>
         <language>en</language>
         <generator>Discussion Blog Generator</generator>
+        
+        <item>
+            <title>Agent 之下，软件真的会是快消品吗？</title>
+            <description>&#10;Agent 会替代现有的软件吗？几周前我的答案应该是毫不犹豫的 Yes，我觉得会是这样子， Agent 开发现在是今年的热门的方向也证明了可能性。 已经忘了...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/277</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/277</guid>
+            <pubDate>Sat, 04 Apr 2026 13:32:16 UTC</pubDate>
+        </item>
         
         <item>
             <title>葫芦娃尾声</title>
@@ -78,14 +86,6 @@
             <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/263</link>
             <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/263</guid>
             <pubDate>Sun, 20 Apr 2025 08:06:01 UTC</pubDate>
-        </item>
-        
-        <item>
-            <title>libreoffice-convert may not work as expected in Docker</title>
-            <description>Recently, we tried converting Office documents to PDF using libreoffice-convert. It worked well on the local machine, but when run inside Docker, everything broke — the PDFs were filled with white b...</description>
-            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/262</link>
-            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/262</guid>
-            <pubDate>Tue, 15 Apr 2025 03:22:43 UTC</pubDate>
         </item>
         
     </channel>
