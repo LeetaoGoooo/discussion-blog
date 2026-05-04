@@ -4,9 +4,17 @@
         <title>Leetao</title>
         <description>写有趣的代码，做有趣的事</description>
         <link>https://www.leetao.me</link>
-        <lastBuildDate>Sat, 04 Apr 2026 13:32:16 UTC</lastBuildDate>
+        <lastBuildDate>Mon, 04 May 2026 13:28:04 UTC</lastBuildDate>
         <language>en</language>
         <generator>Discussion Blog Generator</generator>
+        
+        <item>
+            <title>四月随笔</title>
+            <description>四月小结，但是不仅仅写给四月。本来想着五一第一天就把这篇小结写了的，不过当时有本书正在读，我有点轻微的强迫症，原谅我吧，直到才把这本��...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/278</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/278</guid>
+            <pubDate>Mon, 04 May 2026 13:28:04 UTC</pubDate>
+        </item>
         
         <item>
             <title>Agent 之下，软件真的会是快消品吗？</title>
@@ -78,14 +86,6 @@
             <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/264</link>
             <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/264</guid>
             <pubDate>Wed, 21 May 2025 12:22:58 UTC</pubDate>
-        </item>
-        
-        <item>
-            <title>Full-Screen Issue With .Sheet</title>
-            <description>前言&#10;&#10;&#10;之前的 PromptHub 有个 Setting 页面，用来展示自定义配置的，预期是点击配置按钮，然后希望 Setting 页面可以完整展示&#10;&#10;&#10;&#10;但是实际的展示效果��...</description>
-            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/263</link>
-            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/263</guid>
-            <pubDate>Sun, 20 Apr 2025 08:06:01 UTC</pubDate>
         </item>
         
     </channel>
