@@ -341,49 +341,6 @@ s.Find(".tgme_widget_message_photo_wrap").Each(func(i int, sel *goquery.Selectio
 		}
 	})
 
-	s.Find(".tgme_widget_message_link_preview").Each(func(i int, sel *goquery.Selection) {
-		title := sel.Find(".link_preview_title").Text()
-		description := sel.Find(".link_preview_description").Text()
-
-		linkHref := ""
-		sel.Find(".link_preview_url").Each(func(j int, a *goquery.Selection) {
-			if href, ok := a.Attr("href"); ok && strings.HasPrefix(href, "http") {
-				linkHref = href
-			}
-		})
-		if linkHref == "" {
-			sel.Find("a").Each(func(j int, a *goquery.Selection) {
-				if href, ok := a.Attr("href"); ok && strings.HasPrefix(href, "http") {
-					linkHref = href
-				}
-			})
-		}
-		if linkHref == "" {
-			return
-		}
-
-		image := sel.Find(".link_preview_image")
-		imageStyle, _ := image.Attr("style")
-		imageURL := regexp.MustCompile(`url\(["']?([^"']+)["']?\)`).FindStringSubmatch(imageStyle)
-
-		var imgHTML string
-		if imageURL != nil {
-			imgHTML = fmt.Sprintf(`<img class="link_preview_image" src="/static/%s" alt="%s" />`, imageURL[1], title)
-		}
-
-		linkHTML := fmt.Sprintf(`
-			<a href="%s" class="link-preview" target="_blank" rel="noopener">
-				%s
-				<div class="link-preview-content">
-					<div class="link-preview-title">%s</div>
-					<div class="link-preview-description">%s</div>
-				</div>
-			</a>
-		`, linkHref, imgHTML, title, description)
-
-		sel.ReplaceWithHtml(linkHTML)
-	})
-
 	s.Find(".tgme_widget_message_reply").Each(func(i int, sel *goquery.Selection) {
 		href, _ := sel.Attr("href")
 		if href != "" {
