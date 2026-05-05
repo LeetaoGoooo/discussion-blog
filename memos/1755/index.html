@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PsiACE (@repsiace) on X - Memos</title>
+    <meta name="description" content="
+		
+		
+			PsiACE (@repsiace) on X
+			been playing with a small piece for open traces: tape-dataset-opendal just landed in bub-contrib. it lets bub tape-export turn @bubdotbuild tapes into a tape-nativ...">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+</head>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/memos/">Memos</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="post">
+        <article>
+            <header class="post-header">
+                <div class="meta">
+                    <time datetime="2026-04-23T03:05:33Z">
+                        2026-04-23
+                    </time>
+                </div>
+                
+            </header>
+            
+            <div class="post-content">
+                <a href="#" class="link-preview" target="_blank" rel="noopener">
+		
+		<div class="link-preview-content">
+			<div class="link-preview-title">PsiACE (@repsiace) on X</div>
+			<div class="link-preview-description">been playing with a small piece for open traces: tape-dataset-opendal just landed in bub-contrib. it lets bub tape-export turn @bubdotbuild tapes into a tape-native dataset layout via Apache #OpenDAL, with #CEL (by @GoogleOSS ) filtering.inspired by @C…</div>
+		</div>
+	</a>
+今天添加了一个新的 bub-contrib 包，tape-dataset-opendal ，顾名思义，你可以把 bub 的 tape 中的数据制作成公开的数据集，从 opendal 导出到任何接入的存储服务中。<br></br><br></br>我早早在 <a href="http://tape.systems/" target="_blank" rel="noopener">tape.systems</a> 写了可以用于训练，但是疏于探索，至少希望这个能够成为拼图的一部分：在一个统一的数据底座上，运行 Agent ，提供上下文支持、采集可观测性、制作数据集、服务于模型训练流程。我希望 Bub 能够成为这个答案的一部分。<br></br><br></br>回到数据集制作上，本身目前全是将 tape 作为 trace 进行导出，考虑到广泛的过滤需求，也支持了 cel 做为过滤的选项，引入 trufflehog 并制作了对应的 review skills 来帮忙做一些过滤和发布前审核的一些事情。<br></br><br></br>这个包还谈不上成熟，比如说如果 tapes 很多或者很大该如何处理，但至少作为探索的一部分，可以开始尝试体验一下。或许也可以开发出其它更加规范和标准的形式。<br></br><br></br>补充一些背景：huggingface 的 ceo clem 呼吁 open traces ，并且 ping 了 pi 的作者 badlogic ，后者在早些的时候推出了 pi-share-hf<br></br><br></br><a href="https://x.com/repsiace/status/2047025311590895744" target="_blank" rel="noopener">https://x.com/repsiace/status/2047025311590895744</a><br></br><br></br>欢迎大家来玩 Bub ：<a href="https://github.com/bubbuild/bub" target="_blank" rel="noopener">https://github.com/bubbuild/bub</a>
+            </div>
+            
+            
+        </article>
+        
+        <nav class="post-navigation">
+            
+            <a href="/notes/1756/" class="nav-btn prev-post">
+                &larr; GitHub - refactoringhq/tolaria: Desktop app to man...
+            </a>
+            
+            
+            <a href="/memos/" class="btn btn-ghost">All Memos</a>
+            
+            
+            <a href="/notes/1753/" class="nav-btn next-post">
+                间歇训练 4x4 跑到半路我在祝福发明这... &rarr;
+            </a>
+            
+        </nav>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="/js/theme-toggle.js"></script>
+</body>
+</html>
