@@ -327,6 +327,12 @@ s.Find(".tgme_widget_message_photo_wrap").Each(func(i int, sel *goquery.Selectio
 	s.Find(".tgme_widget_message_link_preview").Each(func(i int, sel *goquery.Selection) {
 		title := sel.Find(".link_preview_title").Text()
 		description := sel.Find(".link_preview_description").Text()
+
+		linkHref, _ := sel.Find(".link_preview_url, a").First().Attr("href")
+		if linkHref == "" || !strings.HasPrefix(linkHref, "http") {
+			return
+		}
+
 		image := sel.Find(".link_preview_image")
 		imageStyle, _ := image.Attr("style")
 		imageURL := regexp.MustCompile(`url\(["']?([^"']+)["']?\)`).FindStringSubmatch(imageStyle)
@@ -344,7 +350,7 @@ s.Find(".tgme_widget_message_photo_wrap").Each(func(i int, sel *goquery.Selectio
 					<div class="link-preview-description">%s</div>
 				</div>
 			</a>
-		`, sel.Find("a").AttrOr("href", "#"), imgHTML, title, description)
+		`, linkHref, imgHTML, title, description)
 
 		sel.ReplaceWithHtml(linkHTML)
 	})
@@ -509,7 +515,19 @@ func (f *TelegramFetcher) extractLinkPreview(s *goquery.Selection) string {
 		title = linkPreview.Find(".link_preview_site_name").Text()
 	}
 	description := linkPreview.Find(".link_preview_description").Text()
-	linkHref := linkPreview.Find("a").AttrOr("href", "#")
+
+	linkHref := ""
+	if linkPreview.Find(".link_preview_url").Length() > 0 {
+		linkHref, _ = linkPreview.Find(".link_preview_url").First().Attr("href")
+	}
+	if linkHref == "" && linkPreview.Find("a").Length() > 0 {
+		linkHref, _ = linkPreview.Find("a").First().Attr("href")
+	}
+
+	// Skip if no valid link
+	if linkHref == "" || !strings.HasPrefix(linkHref, "http") {
+		return ""
+	}
 
 	// Get preview image - direct URL
 	imageStyle, _ := linkPreview.Find(".link_preview_image").Attr("style")
