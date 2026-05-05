@@ -294,7 +294,7 @@ func (f *TelegramFetcher) processContent(html string, s *goquery.Selection) stri
 	re := regexp.MustCompile(`(url\(["']?)((https?:)?\/\/)`)
 	content = re.ReplaceAllString(content, "${1}/static/${2}")
 
-	s.Find("tg-emoji").Each(func(i int, sel *goquery.Selection) {
+s.Find("tg-emoji").Each(func(i int, sel *goquery.Selection) {
 		emojiID, _ := sel.Attr("emoji-id")
 		if emojiID != "" {
 			img := fmt.Sprintf(`<img class="tg-emoji" src="https://t.me/i/emoji/%s.webp" alt="" width="20" height="20" />`, emojiID)
@@ -302,7 +302,16 @@ func (f *TelegramFetcher) processContent(html string, s *goquery.Selection) stri
 		}
 	})
 
-s.Find(".tgme_widget_message_photo_wrap").Each(func(i int, sel *goquery.Selection) {
+	// Fix telegram.org emoji URLs - convert to t.me URLs
+	s.Find(".emoji").Each(func(i int, sel *goquery.Selection) {
+		style, _ := sel.Attr("style")
+		if strings.Contains(style, "telegram.org/img/emoji") {
+			newStyle := strings.ReplaceAll(style, "telegram.org/img/emoji", "t.me/i/emoji")
+			sel.SetAttr("style", newStyle)
+		}
+	})
+
+	s.Find(".tgme_widget_message_photo_wrap").Each(func(i int, sel *goquery.Selection) {
 		style, _ := sel.Attr("style")
 		urlMatch := regexp.MustCompile(`url\(["']?(https?://[^"']+)["']?\)`).FindStringSubmatch(style)
 		if urlMatch != nil {
@@ -423,7 +432,7 @@ func (f *TelegramFetcher) extractVideo(s *goquery.Selection) string {
 
 	s.Find(".tgme_widget_message_video_wrap video").Each(func(i int, sel *goquery.Selection) {
 		src, _ := sel.Attr("src")
-		if src != "" {
+		if src != "" && !strings.HasPrefix(src, "/static/") && !strings.HasPrefix(src, "http") {
 			sel.SetAttr("src", "/static/"+src)
 			sel.SetAttr("controls", "true")
 			sel.SetAttr("preload", "metadata")
@@ -447,7 +456,7 @@ func (f *TelegramFetcher) extractVideo(s *goquery.Selection) string {
 	// Also check for round video
 	s.Find(".tgme_widget_message_roundvideo_wrap video").Each(func(i int, sel *goquery.Selection) {
 		src, _ := sel.Attr("src")
-		if src != "" {
+		if src != "" && !strings.HasPrefix(src, "/static/") && !strings.HasPrefix(src, "http") {
 			sel.SetAttr("src", "/static/"+src)
 			sel.SetAttr("controls", "true")
 
