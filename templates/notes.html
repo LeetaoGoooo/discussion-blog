@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memos - {{.Site.Title}}</title>
+    <meta name="description" content="碎碎念 - 随手记">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+</head>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">{{.Site.Title}}</a>
+            {{if .Site.Description}}
+            <p class="site-description">{{.Site.Description}}</p>
+            {{end}}
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/memos/">Memos</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="page-header">
+            <h1>Memos</h1>
+            <p class="page-description">碎碎念 · 随手记</p>
+        </div>
+        
+        <ul class="post-list">
+            {{range .Notes}}
+            <li class="post-item note-item">
+                <div class="note-header">
+                    <time class="note-time" datetime="{{.CreatedAt.Format "2006-01-02T15:04:05Z07:00"}}">
+                        {{.CreatedAt.Format "2006-01-02"}}
+                    </time>
+                </div>
+                <div class="note-body">
+                    {{.HTML | html}}
+                </div>
+                <div class="note-footer">
+                    {{if .Tags}}
+                    <div class="tag-list">
+                        {{range .Tags}}
+                        <a href="/notes/?tag={{.}}" class="tag">{{.}}</a>
+                        {{end}}
+                    </div>
+                    {{end}}
+                    {{if .Reactions}}
+                    <div class="reactions">
+                        {{range .Reactions}}
+                        <span class="reaction">
+                            {{if .Emoji}}{{.Emoji}}{{else}}<img src="{{.EmojiImage}}" alt="" width="16" height="16">{{end}}
+                            <span class="reaction-count">{{.Count}}</span>
+                        </span>
+                        {{end}}
+                    </div>
+                    {{end}}
+                </div>
+            </li>
+            {{end}}
+        </ul>
+    </main>
+    
+    <footer>
+        <p>&copy; {{.Site.Title}}. All rights reserved.</p>
+    </footer>
+    
+    <script src="/js/theme-toggle.js"></script>
+</body>
+</html>

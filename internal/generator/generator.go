@@ -45,10 +45,17 @@ type Github struct {
 	Repo  string
 }
 
+// Telegram represents the Telegram-specific configuration.
+type Telegram struct {
+	Channel string
+	Host    string
+}
+
 // Config represents the site configuration
 type Config struct {
-	Site   Site
-	Github Github
+	Site      Site
+	Github    Github
+	Telegram  Telegram
 }
 
 // SiteGenerator generates static site files

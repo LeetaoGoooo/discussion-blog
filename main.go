@@ -21,6 +21,14 @@ type Config struct {
 		Repo  string `mapstructure:"repo"`
 		Token string `mapstructure:"token"`
 	} `mapstructure:"github"`
+	Telegram struct {
+		Channel string        `mapstructure:"channel"`
+		Host    string        `mapstructure:"host"`
+		Limit   int           `mapstructure:"limit"`
+		SinceID string        `mapstructure:"since_id"`
+		Since   string        `mapstructure:"since"`
+		Until   string        `mapstructure:"until"`
+	} `mapstructure:"telegram"`
 	Site struct {
 		Title       string `mapstructure:"title"`
 		URL         string `mapstructure:"url"`
@@ -81,23 +89,24 @@ var generateCmd = &cobra.Command{
 			log.Fatalf("Unable to decode into struct: %v", err)
 		}
 
-		// 获取 GitHub token，优先使用环境变量中的 GITHUB_TOKEN，如果不存在则使用配置文件中的 token
+		// 创建输出目录
+		outputPath := "./content"
+		templatePath := "./templates/*.html"
+
+		// 生成博客
+		fmt.Println("Fetching discussions from GitHub...")
 		githubToken := os.Getenv("GITHUB_TOKEN")
 		if githubToken == "" {
 			githubToken = config.Github.Token
 		}
 
-		// 获取数据
-		fmt.Println("Fetching discussions from GitHub...")
 		discussions, err := fetcher.FetchDiscussions(githubToken, config.Github.Owner, config.Github.Repo)
 		if err != nil {
 			fmt.Printf("Warning: Failed to fetch discussions: %v\n", err)
 			fmt.Println("Generating site with sample data...")
-			// 使用示例数据
 			discussions = getSampleDiscussions()
 		}
 
-		// 初始化生成器
 		genConfig := generator.Config{
 			Site: generator.Site{
 				Title:       config.Site.Title,
@@ -124,19 +133,66 @@ var generateCmd = &cobra.Command{
 			},
 		}
 
-		// 创建输出目录
-		outputPath := "./content"
-		templatePath := "./templates/*.html"
-
 		siteGen, err := generator.NewSiteGenerator(genConfig, templatePath, outputPath)
 		if err != nil {
 			log.Fatalf("Failed to create site generator: %v", err)
 		}
 
-		// 生成网站
-		fmt.Println("Generating site files...")
+		fmt.Println("Generating blog pages...")
 		if err := siteGen.Generate(discussions); err != nil {
-			log.Fatalf("Failed to generate site: %v", err)
+			log.Fatalf("Failed to generate blog: %v", err)
+		}
+
+		// 生成碎碎念（如果配置了 Telegram）
+		if config.Telegram.Channel != "" {
+			fmt.Println("Fetching memos from Telegram...")
+
+			var sinceTime, untilTime time.Time
+			var err error
+			if config.Telegram.Since != "" {
+				sinceTime, err = time.Parse(time.RFC3339, config.Telegram.Since)
+				if err != nil {
+					log.Fatalf("Invalid since time format: %v", err)
+				}
+			}
+			if config.Telegram.Until != "" {
+				untilTime, err = time.Parse(time.RFC3339, config.Telegram.Until)
+				if err != nil {
+					log.Fatalf("Invalid until time format: %v", err)
+				}
+			}
+
+			telegramFetcher := fetcher.NewTelegramFetcherWithOptions(
+				config.Telegram.Channel,
+				config.Telegram.Host,
+				config.Telegram.Limit,
+				config.Telegram.SinceID,
+				sinceTime,
+				untilTime,
+			)
+			notes, err := telegramFetcher.FetchNotes()
+			if err != nil {
+				fmt.Printf("Warning: Failed to fetch memos: %v\n", err)
+			} else {
+				fmt.Printf("Found %d memos\n", len(notes))
+
+				notesConfig := generator.NotesConfig{
+					Title:       config.Site.Title,
+					Description: config.Site.Description,
+					URL:         config.Site.URL,
+					Author:      config.Site.Author,
+				}
+
+				notesGen, err := generator.NewNotesGenerator(notesConfig, templatePath, outputPath)
+				if err != nil {
+					log.Fatalf("Failed to create memos generator: %v", err)
+				}
+
+				fmt.Println("Generating memos pages...")
+				if err := notesGen.Generate(notes); err != nil {
+					log.Fatalf("Failed to generate memos: %v", err)
+				}
+			}
 		}
 
 		fmt.Println("Site generated successfully in 'content' directory!")
@@ -148,6 +204,74 @@ var serveCmd = &cobra.Command{
 	Short: "Serve the generated site locally",
 	Run: func(cmd *cobra.Command, args []string) {
 		serveSite()
+	},
+}
+
+var genNotesCmd = &cobra.Command{
+	Use:   "gen-notes",
+	Short: "Generate memos from Telegram only (for frequent updates)",
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("Generating memos from Telegram...")
+
+		var config Config
+		if err := viper.Unmarshal(&config); err != nil {
+			log.Fatalf("Unable to decode into struct: %v", err)
+		}
+
+		if config.Telegram.Channel == "" {
+			log.Fatalf("Telegram channel not configured. Add telegram.channel in config.yaml")
+		}
+
+		outputPath := "./content"
+		templatePath := "./templates/*.html"
+
+		var sinceTime, untilTime time.Time
+		var err error
+		if config.Telegram.Since != "" {
+			sinceTime, err = time.Parse(time.RFC3339, config.Telegram.Since)
+			if err != nil {
+				log.Fatalf("Invalid since time format: %v", err)
+			}
+		}
+		if config.Telegram.Until != "" {
+			untilTime, err = time.Parse(time.RFC3339, config.Telegram.Until)
+			if err != nil {
+				log.Fatalf("Invalid until time format: %v", err)
+			}
+		}
+
+		telegramFetcher := fetcher.NewTelegramFetcherWithOptions(
+			config.Telegram.Channel,
+			config.Telegram.Host,
+			config.Telegram.Limit,
+			config.Telegram.SinceID,
+			sinceTime,
+			untilTime,
+		)
+		notes, err := telegramFetcher.FetchNotes()
+		if err != nil {
+			log.Fatalf("Failed to fetch memos: %v", err)
+		}
+
+		fmt.Printf("Found %d memos\n", len(notes))
+
+		notesConfig := generator.NotesConfig{
+			Title:       config.Site.Title,
+			Description: config.Site.Description,
+			URL:         config.Site.URL,
+			Author:      config.Site.Author,
+		}
+
+		notesGen, err := generator.NewNotesGenerator(notesConfig, templatePath, outputPath)
+		if err != nil {
+			log.Fatalf("Failed to create memos generator: %v", err)
+		}
+
+		if err := notesGen.Generate(notes); err != nil {
+			log.Fatalf("Failed to generate memos: %v", err)
+		}
+
+		fmt.Println("Memos generated successfully in 'content/memos' directory!")
 	},
 }
 
@@ -232,6 +356,7 @@ func init() {
 	rootCmd.AddCommand(generateCmd)
 	rootCmd.AddCommand(serveCmd)
 	rootCmd.AddCommand(previewCmd)
+	rootCmd.AddCommand(genNotesCmd)
 }
 
 func getSampleDiscussions() []fetcher.Discussion {

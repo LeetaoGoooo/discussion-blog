@@ -3,6 +3,14 @@ github:
   repo: "discussion-blog"
   token: ""
 
+telegram:
+  channel: "leetao_space"
+  host: "t.me"
+  limit: 0
+  since_id: ""
+  since: "2026-01-01T00:00:00Z"
+  until: ""
+
 site:
   title: "Leetao"
   description: "写有趣的代码，做有趣的事"

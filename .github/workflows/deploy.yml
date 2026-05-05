@@ -3,26 +3,30 @@ name: Deploy to GitHub Pages
 on:
   discussion:
     types: [created, edited, deleted]
+  schedule:
+    # 每天早上 6 点同步 Memos
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    # 手动触发
 
 jobs:
-  deploy:
+  # 完整构建 (Discussion 变化时)
+  build:
     runs-on: ubuntu-latest
-    if: github.event.discussion.user.login == github.repository_owner
+    if: github.event.discussion.user.login == github.repository_owner || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v3
 
       - name: Setup Go
         uses: actions/setup-go@v3
         with:
-          go-version: 1.21
+          go-version: '1.21'
 
       - name: Install dependencies
-        run: |
-          go mod tidy
+        run: go mod tidy
 
-      - name: Build
-        run: |
-          go run main.go generate
+      - name: Build site
+        run: go run main.go generate
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
