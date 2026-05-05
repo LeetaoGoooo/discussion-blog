@@ -491,7 +491,7 @@ func (f *TelegramFetcher) extractAudio(s *goquery.Selection) string {
 }
 
 func (f *TelegramFetcher) extractForward(s *goquery.Selection) string {
-	forward := s.Find(".tgme_widget_message_forward")
+	forward := s.Find(".tgme_widget_message_forwarded_from")
 	if forward.Length() == 0 {
 		return ""
 	}
