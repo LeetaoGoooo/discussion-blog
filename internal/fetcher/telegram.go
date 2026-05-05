@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
-	"pure/entities"
+"pure/entities"
 
 	gonm "golang.org/x/net/html"
 )
@@ -195,6 +195,12 @@ func (f *TelegramFetcher) parseMessage(s *goquery.Selection) TelegramMessage {
 		contentParts = append(contentParts, imagesHTML)
 	}
 
+	// 2.5 转发消息
+	forwardHTML := f.extractForward(s)
+	if forwardHTML != "" {
+		contentParts = append([]string{forwardHTML}, contentParts...)
+	}
+
 	// 3. 视频
 	videoHTML := f.extractVideo(s)
 	if videoHTML != "" {
@@ -324,12 +330,35 @@ s.Find(".tgme_widget_message_photo_wrap").Each(func(i int, sel *goquery.Selectio
 		sel.SetAttr("controls", "true")
 	})
 
+	s.Find(".tgme_widget_message_forward").Each(func(i int, sel *goquery.Selection) {
+		fromName := sel.Find(".tgme_widget_message_forwarded_from_name").Text()
+		if fromName == "" {
+			fromName = sel.Find(".message_forwarded_from").Text()
+		}
+		if fromName != "" {
+			forwardHTML := fmt.Sprintf(`<div class="forwarded-from">↪ %s</div>`, fromName)
+			sel.ReplaceWithHtml(forwardHTML)
+		}
+	})
+
 	s.Find(".tgme_widget_message_link_preview").Each(func(i int, sel *goquery.Selection) {
 		title := sel.Find(".link_preview_title").Text()
 		description := sel.Find(".link_preview_description").Text()
 
-		linkHref, _ := sel.Find(".link_preview_url, a").First().Attr("href")
-		if linkHref == "" || !strings.HasPrefix(linkHref, "http") {
+		linkHref := ""
+		sel.Find(".link_preview_url").Each(func(j int, a *goquery.Selection) {
+			if href, ok := a.Attr("href"); ok && strings.HasPrefix(href, "http") {
+				linkHref = href
+			}
+		})
+		if linkHref == "" {
+			sel.Find("a").Each(func(j int, a *goquery.Selection) {
+				if href, ok := a.Attr("href"); ok && strings.HasPrefix(href, "http") {
+					linkHref = href
+				}
+			})
+		}
+		if linkHref == "" {
 			return
 		}
 
@@ -502,6 +531,24 @@ func (f *TelegramFetcher) extractAudio(s *goquery.Selection) string {
 	})
 
 	return strings.Join(audios, "")
+}
+
+func (f *TelegramFetcher) extractForward(s *goquery.Selection) string {
+	forward := s.Find(".tgme_widget_message_forward")
+	if forward.Length() == 0 {
+		return ""
+	}
+
+	fromName := forward.Find(".tgme_widget_message_forwarded_from_name").Text()
+	if fromName == "" {
+		fromName = forward.Find(".message_forwarded_from").Text()
+	}
+
+	if fromName == "" {
+		return ""
+	}
+
+	return fmt.Sprintf(`<div class="forwarded-from">↪ %s</div>`, html.EscapeString(fromName))
 }
 
 func (f *TelegramFetcher) extractLinkPreview(s *goquery.Selection) string {
