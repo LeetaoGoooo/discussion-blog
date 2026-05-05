@@ -505,12 +505,18 @@ func (f *TelegramFetcher) extractForward(s *goquery.Selection) string {
 		return ""
 	}
 
-	return fmt.Sprintf(`<div class="forwarded-from">↪ %s</div>`, html.EscapeString(fromName))
+	return fmt.Sprintf(`<div class="forwarded-from">↪ %s</div>`, gonm.EscapeString(fromName))
 }
 
 func (f *TelegramFetcher) extractLinkPreview(s *goquery.Selection) string {
 	linkPreview := s.Find(".tgme_widget_message_link_preview")
 	if linkPreview.Length() == 0 {
+		return ""
+	}
+
+	// 直接使用原始元素的 href
+	linkHref, _ := linkPreview.Attr("href")
+	if linkHref == "" || !strings.HasPrefix(linkHref, "http") {
 		return ""
 	}
 
@@ -520,37 +526,22 @@ func (f *TelegramFetcher) extractLinkPreview(s *goquery.Selection) string {
 	}
 	description := linkPreview.Find(".link_preview_description").Text()
 
-	linkHref := ""
-	if linkPreview.Find(".link_preview_url").Length() > 0 {
-		linkHref, _ = linkPreview.Find(".link_preview_url").First().Attr("href")
-	}
-	if linkHref == "" && linkPreview.Find("a").Length() > 0 {
-		linkHref, _ = linkPreview.Find("a").First().Attr("href")
-	}
-
-	// Skip if no valid link
-	if linkHref == "" || !strings.HasPrefix(linkHref, "http") {
-		return ""
-	}
-
-	// Get preview image - direct URL
+	// Get preview image
 	imageStyle, _ := linkPreview.Find(".link_preview_image").Attr("style")
 	imageURL := regexp.MustCompile(`url\(["']?(https?://[^"']+)["']?\)`).FindStringSubmatch(imageStyle)
 
 	var imgHTML string
 	if imageURL != nil {
-		imgHTML = fmt.Sprintf(`<img class="link-preview-image" src="%s" alt="%s" />`, imageURL[1], html.EscapeString(title))
+		imgHTML = fmt.Sprintf(`<img class="link-preview-image" src="%s" alt="%s" />`, imageURL[1], gonm.EscapeString(title))
 	}
 
-	linkHTML := fmt.Sprintf(`<a href="%s" class="link-preview" target="_blank" rel="noopener">
+	return fmt.Sprintf(`<a href="%s" class="link-preview" target="_blank" rel="noopener">
 		%s
 		<div class="link-preview-content">
 			<div class="link-preview-title">%s</div>
 			<div class="link-preview-description">%s</div>
 		</div>
-	</a>`, linkHref, imgHTML, html.EscapeString(title), html.EscapeString(description))
-
-	return linkHTML
+	</a>`, linkHref, imgHTML, gonm.EscapeString(title), gonm.EscapeString(description))
 }
 
 func (f *TelegramFetcher) extractDocument(s *goquery.Selection) string {
