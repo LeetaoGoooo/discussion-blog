@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>↪ Laisky&amp;#39;s Notes - Memos</title>
+    <meta name="description" content="↪ Laisky&amp;#39;s Notes
+简单分享下我是怎么花最少的钱，但是又非常重度、高频的依赖 AI coding 的。我目前的订阅是，最便宜的 copilot 和 codex。这两个的特点�...">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+</head>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/memos/">Memos</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="post">
+        <article>
+            <header class="post-header">
+                <div class="meta">
+                    <time datetime="2026-03-13T04:24:13Z">
+                        2026-03-13
+                    </time>
+                </div>
+                
+            </header>
+            
+            <div class="post-content">
+                <div class="forwarded-from">↪ Laisky&#39;s Notes</div>
+简单分享下我是怎么花最少的钱，但是又非常重度、高频的依赖 AI coding 的。<br></br><br></br>我目前的订阅是，最便宜的 copilot 和 codex。这两个的特点在于：codex 是按量付费的，而 copilot 是按次付费的。这个区别是最关键的，如果你更喜欢 cc，那么你可以把本文中的 codex 替换为 cc，一样的逻辑。<br></br><br></br>而作为 coding，其实工作可以拆分为两大类型，我相信其他大部分文字工作也可以这么拆分：<br></br><br></br>1. 计划阶段：此时会涉及非常高频交流，但是每次交流的内容都不多，你可以使用 codex 的最高思考模式，写下最核心的关键逻辑<br></br>2. 实施阶段：这是广义的实施，包括收集资料、撰写文档、coding、testing、debug 反复调试 都可以视为实施。<br></br><br></br>copilot 的按次付费，使它成为实施阶段的最佳性价比选择。发送一次 prompt 算一次费用，只要 agent loop 没有结束，期间一切的 tools 调用都不计费。只要通过 prompt 给它输入我们之前和 codex 聊好的 spec，接下来就让 copilot 吭哧吭哧的去把最脏最累但是没有特别高思考难度的活全部干完。<br></br><br></br>具体怎么让 copilot（我最爱用 gpt-5.4） 能够不中断的，一次性干完最多活，这里面需要调试 copilot 的 instructions，具体就不展开了，各有各的方法。但是我这里推荐一下我的 remote MCP server <a href="https://mcp.laisky.com/tools/get_user_requests" target="_blank" rel="noopener">https://mcp.laisky.com/tools/get_user_requests</a><br></br><br></br>其中的这个 get_user_requests tool，相当于是在 MCP 上维护了一个 TODO list，而且是你可以动态编辑的 TODO list。你只需要在 instructions 里要求 copilot 频繁的，在每次子任务结束后，都去调用 get_user_requests，而且必须在连续两次调用 get_user_requests 为空后才能返回。你其实就拥有了在不打断 agent 一次任务的前提下，和 agent 沟通的能力，而利用这个能力，你就可以让 copilot 在一次计费里，干掉尽可能多的活。<br></br><br></br>举个我的例子，极端情况下，我很可能一天只需要跑 3 次 copilot，中间会停两次是因为我要吃午饭和晚饭，没精力去盯着 get_user_requests 的 requests queue 了。我甚至经常跑出 copilot 的 tokens limit，估计很多人可能都不知道 copilot 还有limit 吧<i class="emoji" style="background-image:url('/static///telegram.org/img/emoji/40/F09F9882.png')"><b>😂</b></i><br></br><br></br>Copilot 还有个我非常喜欢的地方是，如果你把配额用超了，它可以自动转为按次计费，每一次请求约为 $0.03 USD，很实惠。<br></br><br></br>如果你非常有钱，或者公司给无限的订阅资金，可以忽略这一条。和穷人们共勉。
+            </div>
+            
+            
+        </article>
+        
+        <nav class="post-navigation">
+            
+            <a href="/notes/1703/" class="nav-btn prev-post">
+                &larr; 电脑硬盘空间又不够用了，想着我要�...
+            </a>
+            
+            
+            <a href="/memos/" class="btn btn-ghost">All Memos</a>
+            
+            
+            <a href="/notes/1701/" class="nav-btn next-post">
+                ↪ yihong0618 和朋友们的频道 &rarr;
+            </a>
+            
+        </nav>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="/js/theme-toggle.js"></script>
+</body>
+</html>
