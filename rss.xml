@@ -4,9 +4,17 @@
         <title>Leetao</title>
         <description>写有趣的代码，做有趣的事</description>
         <link>https://www.leetao.me</link>
-        <lastBuildDate>Mon, 18 May 2026 13:39:13 UTC</lastBuildDate>
+        <lastBuildDate>Mon, 05 Oct 2026 23:17:38 UTC</lastBuildDate>
         <language>en</language>
         <generator>Discussion Blog Generator</generator>
+        
+        <item>
+            <title>国庆随笔</title>
+            <description>昨天收到了一份邮件，大致意思是问我最近咋样，发现我的博客很久没有更新了, 看了一下博客上次更新的时间在 5 月份，已经有 5 个月没有更新了，趁...</description>
+            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/280</link>
+            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/280</guid>
+            <pubDate>Mon, 05 Oct 2026 23:17:38 UTC</pubDate>
+        </item>
         
         <item>
             <title>读书与 AI</title>
@@ -78,14 +86,6 @@
             <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/266</link>
             <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/266</guid>
             <pubDate>Thu, 31 Jul 2025 02:25:45 UTC</pubDate>
-        </item>
-        
-        <item>
-            <title>SwiftUI popver 变成类似 sheet 效果</title>
-            <description>| 修改前效果 | 修改后效果 |&#10;|&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;&amp;ndash;|&#10;|  |  |&#10;&#10;&#10;&#10;&#10;结论&#10;&#10;popover 变成类似 sheet 的效果，是 SwiftUI 的预期行为，不是 Bug。&#10;&#10;&#10;��...</description>
-            <link>https://github.com/LeetaoGoooo/discussion-blog/discussions/265</link>
-            <guid isPermaLink="true">https://github.com/LeetaoGoooo/discussion-blog/discussions/265</guid>
-            <pubDate>Mon, 21 Jul 2025 02:15:22 UTC</pubDate>
         </item>
         
     </channel>
