@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>↪ APPDO的互联网记忆 - Memos</title>
+    <meta name="description" content="↪ APPDO的互联网记忆
+
+🚨OpenSSH 紧急修复严重漏洞：超长密码可绕过认证登录 Alpine 服务器11 月 6 日，据 The Hacker News 报道，OpenSSH 于 11 月 5 日发布 10.6p2 ...">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/chroma.css">
+</head>
+<body class="container">
+    <header class="site-header">
+        <div class="site-header__left">
+            <a href="/" class="site-title">Leetao</a>
+            
+            <p class="site-description">写有趣的代码，做有趣的事</p>
+            
+        </div>
+        <div class="site-header__right">
+            <nav class="site-nav">
+                <a href="/">Home</a>
+                <a href="/memos/">Memos</a>
+                <a href="/tags/">Tags</a>
+                <a href="/about/">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="post">
+        <article>
+            <header class="post-header">
+                <div class="meta">
+                    <time datetime="2026-11-06T02:31:31Z">
+                        2026-11-06
+                    </time>
+                </div>
+                
+            </header>
+            
+            <div class="post-content">
+                <div class="forwarded-from">↪ APPDO的互联网记忆</div>
+<div class="note-image-wrap"><img src="https://cdn5.telesco.pe/file/GcLxlPWnfVgXO7shH_BZVfm7i7veuuq_zYbNzrw-AmUGlWkOFRJ6Gcx8tK7l9Pf4A3eP7nL_ExTh-azGtQdb3suT6yBI7Ov2EHhReV01sToWLmB8ezv0V4u2tDZGNxH1BslMyPxc5moFIWD6C55mL-rqf3744SzlCEmWSjoQGBwBSDVRqduHaNDao5VrCszbVYXKLOzaKOy1l3qBH1xToxE0YeYvqFY24MezlWHDoOnae6X_eHINHB2HT096W0DmsXJhiYj9EAqBwB_w56N5P8rB99xjltMMGXaoGjP5brlmy4S70Turacy6k1aL0aYect_EH7elydO536yC4stLgw.jpg" alt="Image" width="800" height="300" loading="lazy" class="note-image" /></div>
+<b><i class="emoji" style="background-image:url('/static///telegram.org/img/emoji/40/F09F9AA8.png')"><b>🚨</b></i>OpenSSH 紧急修复严重漏洞：超长密码可绕过认证登录 Alpine 服务器</b><br></br><br></br>11 月 6 日，据 The Hacker News 报道，OpenSSH 于 11 月 5 日发布 10.6p2 紧急修复一个被评为严重级别的认证绕过漏洞：攻击者只需知道账号名并提交 257 至 1024 字节的超长密码，即可登录 Alpine Linux 上未设密码的账号，包括仅用密钥登录的账号。<br></br><br></br>漏洞源于 musl 的 crypt() 对超过 256 字节的密码返回错误标记“*”，与未设密码账号存储的“*”恰好一致，sshd 遂放行登录。Alpine 默认的 openssh-server 不带 PAM 且默认开启密码登录，root 自约 3.16 版起即为“*”字段；3.18.11 至 3.24.3 的官方云镜像中 alpine 用户还可免密码 doas 提权至 root。glibc 系统、经 PAM 校验的系统与 Dropbear 不受影响，暂未发现实际利用。<br></br><br></br>修复方法是升级软件包后重启 sshd，或直接关闭密码登录。Alpine 已为 3.16 起的所有版本发布修复包，漏洞编号 CVE-2026-123158，CVSS 8.1 分。<br></br><br></br><b>频道 </b><a href="https://t.me/appdopic" target="_blank"><b>@appdopic</b></a>
+            </div>
+            
+            
+        </article>
+        
+        <nav class="post-navigation">
+            
+            <span></span>
+            
+            
+            <a href="/memos/" class="btn btn-ghost">All Memos</a>
+            
+            
+            <a href="/notes/1963/" class="nav-btn next-post">
+                LongCat 平台邀新活动，我自己没有重度... &rarr;
+            </a>
+            
+        </nav>
+    </main>
+    
+    <footer>
+        <p>&copy; Leetao. All rights reserved.</p>
+    </footer>
+    
+    <script src="/js/theme-toggle.js"></script>
+</body>
+</html>
