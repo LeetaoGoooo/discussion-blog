@@ -46,7 +46,7 @@
             
             <div class="post-content">
                 <div class="forwarded-from">↪ APPDO的互联网记忆</div>
-<div class="note-image-wrap"><img src="https://cdn5.telesco.pe/file/GcLxlPWnfVgXO7shH_BZVfm7i7veuuq_zYbNzrw-AmUGlWkOFRJ6Gcx8tK7l9Pf4A3eP7nL_ExTh-azGtQdb3suT6yBI7Ov2EHhReV01sToWLmB8ezv0V4u2tDZGNxH1BslMyPxc5moFIWD6C55mL-rqf3744SzlCEmWSjoQGBwBSDVRqduHaNDao5VrCszbVYXKLOzaKOy1l3qBH1xToxE0YeYvqFY24MezlWHDoOnae6X_eHINHB2HT096W0DmsXJhiYj9EAqBwB_w56N5P8rB99xjltMMGXaoGjP5brlmy4S70Turacy6k1aL0aYect_EH7elydO536yC4stLgw.jpg" alt="Image" width="800" height="300" loading="lazy" class="note-image" /></div>
+<div class="note-image-wrap"><img src="https://cdn5.telesco.pe/file/PWazOPrr2JcKfvaxgHWr9Q5sBTOqOKqxmTW40vuWae-1ml0hVdR4rywHK2G8d-_U8PnR4rOIXLQiB_Axcatcp26fRkXBw3ucF-DG2T3RaKoUyQsvlllaUuI-ZUmqPlfiRbOmAF_RDOhiBDSdUWpeg53cfWLAfTK9B0JT-EyWAFnw4UKS9AxA8jMvv7OluZPAZ1P0nUrW6fQyeDxdbwETx0t5bSPQKXsHaEUxtKDEFpWAOA6VaFdxcSai8BP7pMRodkuhKGAprGHMHI-Lg_vHvR32WNoENfep1F6GwXaS6L4WflyC_b64PRpoBxe9AveyOs6yhPFxNl9tfP80XcNX3g.jpg" alt="Image" width="800" height="300" loading="lazy" class="note-image" /></div>
 <b><i class="emoji" style="background-image:url('/static///telegram.org/img/emoji/40/F09F9AA8.png')"><b>🚨</b></i>OpenSSH 紧急修复严重漏洞：超长密码可绕过认证登录 Alpine 服务器</b><br></br><br></br>11 月 6 日，据 The Hacker News 报道，OpenSSH 于 11 月 5 日发布 10.6p2 紧急修复一个被评为严重级别的认证绕过漏洞：攻击者只需知道账号名并提交 257 至 1024 字节的超长密码，即可登录 Alpine Linux 上未设密码的账号，包括仅用密钥登录的账号。<br></br><br></br>漏洞源于 musl 的 crypt() 对超过 256 字节的密码返回错误标记“*”，与未设密码账号存储的“*”恰好一致，sshd 遂放行登录。Alpine 默认的 openssh-server 不带 PAM 且默认开启密码登录，root 自约 3.16 版起即为“*”字段；3.18.11 至 3.24.3 的官方云镜像中 alpine 用户还可免密码 doas 提权至 root。glibc 系统、经 PAM 校验的系统与 Dropbear 不受影响，暂未发现实际利用。<br></br><br></br>修复方法是升级软件包后重启 sshd，或直接关闭密码登录。Alpine 已为 3.16 起的所有版本发布修复包，漏洞编号 CVE-2026-123158，CVSS 8.1 分。<br></br><br></br><b>频道 </b><a href="https://t.me/appdopic" target="_blank"><b>@appdopic</b></a>
             </div>
             
@@ -55,7 +55,9 @@
         
         <nav class="post-navigation">
             
-            <span></span>
+            <a href="/notes/1965/" class="nav-btn prev-post">
+                &larr; #随笔凑巧读了老舍的 我的母亲 这本�...
+            </a>
             
             
             <a href="/memos/" class="btn btn-ghost">All Memos</a>
